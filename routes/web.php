@@ -18,3 +18,6 @@ Route::get('dashboard', function () {
 Route::get('client', function () {
     return view('client.layout_client');
 });
+Route::get('trangchu', function () {
+    return view('client.home.trangchu');
+});
