@@ -62,7 +62,13 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
 
+        //MIDDLE WARE ROLE
         'roles' => \App\Http\Middleware\AccessPermission::class,
+        'role_admin' => \App\Http\Middleware\PermissionAdmin::class,
+        'role_admin_manager' => \App\Http\Middleware\PermissionAdmin_Manager::class,
+        'role_manager' => \App\Http\Middleware\PermissionManager::class,
+        'role_manager_user' => \App\Http\Middleware\PermissionManager_User::class,
+        'role_user' => \App\Http\Middleware\PermissionUser::class,
     ];
 
     /**

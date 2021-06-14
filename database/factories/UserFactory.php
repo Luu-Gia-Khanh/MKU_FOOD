@@ -27,6 +27,6 @@ $factory->define(Admin::class, function (Faker $faker) {
     ];
 });
 $factory->afterCreating(Admin::class, function($admin, $faker){
-    $roles = Roles::where('name','manager')->get();
+    $roles = Roles::where('name','user')->get();
     $admin->roles()->sync($roles->pluck('roles_id')->toArray());
 });

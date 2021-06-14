@@ -27,6 +27,7 @@
                                     <tr role="row">
                                         <th>STT</th>
                                         <th>Name</th>
+                                        <th>user</th>
                                         <th>manager</th>
                                         <th>admin</th>
                                         <th></th>
@@ -40,7 +41,7 @@
                                         @php
                                             $stt++;
                                         @endphp
-                                        <form action="{{ URL::to('assign_roles') }}" method="post">
+                                        <form action="{{ URL::to('admin/assign_roles') }}" method="post">
                                             @csrf
                                             <tr>
                                                 <td style="text-align: center">{{ $stt }}</td>
@@ -48,6 +49,11 @@
                                                     {{ $ad->name }}
                                                     <input type="hidden" name="admin_email"
                                                         value="{{ $ad->admin_email }}">
+                                                </td>
+                                                <td style="text-align: center">
+                                                    <input type="checkbox" name="user"
+                                                        {{ $ad->hasRole('user') ? 'checked' : '' }}
+                                                        style="width: 20px; height: 20px;">
                                                 </td>
                                                 <td style="text-align: center">
                                                     <input type="checkbox" name="manager"
@@ -60,10 +66,18 @@
                                                         style="width: 20px; height: 20px;">
                                                 </td>
                                                 <td style="text-align: center">
-                                                    @hasrole('admin')
-                                                    <button type="submit" class="btn" data-bgcolor="#1da1f2"
-                                                        data-color="#ffffff"
-                                                        style="color: rgb(255, 255, 255); background-color: rgb(29, 161, 242);"><i class="fa fa-dropbox"></i> Phân Quyền</button>
+                                                    @hasrole(['admin'])
+                                                    @if(Auth::user()->admin_id == 1)
+                                                        @if(Auth::user()->admin_id == $ad->admin_id)
+                                                            <button type="submit" class="btn disabled" disabled data-bgcolor="#1da1f2"
+                                                            data-color="#ffffff"
+                                                            style="color: rgb(255, 255, 255); background-color: rgb(29, 161, 242);cursor: no-drop;"><i class="fa fa-dropbox"></i> Phân Quyền</button>
+                                                        @else
+                                                            <button type="submit" class="btn" data-bgcolor="#1da1f2"
+                                                            data-color="#ffffff"
+                                                            style="color: rgb(255, 255, 255); background-color: rgb(29, 161, 242);"><i class="fa fa-dropbox"></i> Phân Quyền</button>
+                                                        @endif
+                                                    @endif
                                                     @endhasrole
                                                 </td>
                                             </tr>
@@ -89,5 +103,4 @@
             </div>
         </div>
     </div>
-
 @endsection

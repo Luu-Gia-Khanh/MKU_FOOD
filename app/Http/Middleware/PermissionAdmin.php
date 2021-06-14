@@ -3,10 +3,10 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Support\Facades\Route;
-use Closure;
 use Auth;
+use Closure;
 
-class AccessPermission
+class PermissionAdmin
 {
     /**
      * Handle an incoming request.
@@ -18,13 +18,12 @@ class AccessPermission
     public function handle($request, Closure $next)
     {
         if(Auth::check()){
-            if(Auth::user()->hasAnyRoles(['admin','manager','user'])){
+            if(Auth::user()->hasRole('admin')){
                 return $next($request);
             }
             else{
-                return redirect('login');
+                return redirect('admin/dashboard');
             }
-
         }
         else{
             return redirect('login');
