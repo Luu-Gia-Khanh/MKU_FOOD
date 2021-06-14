@@ -45,7 +45,7 @@
 	<div class="mobile-menu-overlay"></div>
 
 	<div class="main-container">
-		<div class="pd-ltr-20">
+		<div class="pd-ltr-20 xs-pd-20-10">
 			@yield('container')
 			@include('admin.layout.footer')
 		</div>

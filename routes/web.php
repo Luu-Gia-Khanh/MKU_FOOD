@@ -11,13 +11,28 @@
 |
 */
 
-Route::get('dashboard', function () {
-    return view('admin.dashboard.dashbord');
-});
 
 Route::get('client', function () {
     return view('client.layout_client');
 });
-Route::get('trangchu', function () {
-    return view('client.home.trangchu');
+Route::get('dashboard', 'AdminController@index');//->middleware('roles')
+
+//ADMIN
+Route::prefix('admin')->group(function () {
+    Route::get('all_admin', 'AdminController@show_admin');
+});
+
+//PERMISSION<<ADMIN>>
+
+
+
+
+//LOGIN
+Route::get('login', 'AuthController@show_login');
+Route::post('process_login', 'AuthController@process_login');
+Route::get('logout_admin', 'AuthController@logout_admin');
+
+Route::group(['middleware'=>'roles'], function(){
+    Route::get('list_permission', 'AdminController@list_permission');
+    Route::post('assign_roles', 'AdminController@assign_roles');
 });
