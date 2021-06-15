@@ -16,6 +16,11 @@ Route::prefix('admin')->group(function () {
     Route::get('dashboard', 'AdminController@index')->middleware('roles');
     // ADMIN
     Route::get('all_admin', 'AdminController@show_admin')->middleware('role_admin_manager');
+    Route::get('add_admin', 'AdminController@add_admin');
+
+    Route::post('process_add_admin', 'AdminController@process_add_admin');
+
+    //PERMISSION
     Route::get('list_permission', 'AdminController@list_permission')->middleware('role_admin_manager');
     Route::post('assign_roles', 'AdminController@assign_roles')->middleware('role_admin_manager');
 });

@@ -1,0 +1,22 @@
+#content_image_upload{
+    border:1px solid black;
+    width: 100px;
+    height: 100px;
+}
+.center{
+    text-align: center;
+    text-align-last: center;
+}
+.mr-t{
+    margin-top: 20px;
+}
+.color-btn-them{
+    color: rgb(255, 255, 255); background-color: rgb(29, 161, 242);
+    cursor: no-drop;
+}
+.op-0{
+    opacity: 0;
+}
+.op-1{
+    opacity: 1;
+}

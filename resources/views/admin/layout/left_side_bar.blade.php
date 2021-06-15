@@ -18,8 +18,9 @@
                     </a>
                     <ul class="submenu">
                         <li><a href="{{ URL::to('admin/all_admin') }}">Danh Sách Quản Trị</a></li>
-
+                        <li><a href="{{ URL::to('admin/add_admin') }}">Thêm Quản Trị Viên</a></li>
                         <li><a href="{{ URL::to('admin/list_permission') }}">Phân Quyền</a></li>
+
                     </ul>
                 </li>
                 <li>

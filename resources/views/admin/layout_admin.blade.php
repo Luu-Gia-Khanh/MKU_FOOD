@@ -21,7 +21,7 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('public/back_end/src/plugins/datatables/css/dataTables.bootstrap4.min.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('public/back_end/src/plugins/datatables/css/responsive.bootstrap4.min.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('public/back_end/vendors/styles/style.css') }}">
-
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/back_end/src/styles/custom.css') }}">
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
 	<script>
@@ -61,5 +61,10 @@
 	<script src="{{ asset('public/back_end/src/plugins/datatables/js/dataTables.responsive.min.js') }}"></script>
 	<script src="{{ asset('public/back_end/src/plugins/datatables/js/responsive.bootstrap4.min.js') }}"></script>
 	<script src="{{ asset('public/back_end/vendors/scripts/dashboard.js') }}"></script>
+
+    {{-- custom script --}}
+    <script src="{{ asset('public/back_end/src/scripts/upload_image.js') }}"></script>
+    <script src="{{ asset('public/back_end/src/scripts/custom.js') }}"></script>
+    <script src="{{ asset('public/back_end/src/scripts/upperFirstKey.js') }}"></script>
 </body>
 </html>
