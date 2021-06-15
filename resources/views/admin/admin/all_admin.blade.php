@@ -31,25 +31,25 @@
                 <h4 class="text-blue h4">Danh sách quản trị viên</h4>
             </div>
             <div class="pb-20">
-                <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer ">
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-12 table-responsive">
                             <table class="data-table table stripe hover nowrap dataTable no-footer dtr-inline"
                                 id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
                                 <thead>
                                     <tr role="row">
                                         <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                            colspan="1" aria-label="Age: activate to sort column ascending">STT</th>
+                                            colspan="1">STT</th>
                                         <th class="table-plus datatable-nosort sorting_asc" rowspan="1" colspan="1"
                                             aria-label="Name">Hình Ảnh</th>
                                         <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                            colspan="1" aria-label="Age: activate to sort column ascending">Họ Và Tên</th>
+                                            colspan="1" >Họ Và Tên</th>
                                         <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                            colspan="1" aria-label="Office: activate to sort column ascending">Email</th>
+                                            colspan="1">Số Điện Thoại</th>
                                         <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                            colspan="1" aria-label="Address: activate to sort column ascending">Số Điện Thoại</th>
+                                        colspan="1" >Email</th>
                                         <th class="datatable-nosort sorting_disabled" rowspan="1" colspan="1"
-                                            aria-label="Action">Action</th>
+                                            aria-label="Action">Thao Tác</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -62,12 +62,12 @@
                                         @endphp
                                     <tr role="row" class="odd">
                                         <td>{{ $stt }}</td>
-                                        <td>
+                                        <td class="table-plus sorting_1" tabindex="0">
                                             <img src="{{ asset('public/upload/'.$ad->avt) }}" alt="hình ảnh" srcset="">
                                         </td>
-                                        <td>{{ $ad->name }}</td>
+                                        <td>{{ $ad->admin_name }}</td>
+                                        <td>{{ $ad->admin_phone }}</td>
                                         <td>{{ $ad->admin_email }}</td>
-                                        <td>{{ $ad->phone }}</td>
                                         <td>
                                             <div class="dropdown">
                                                 <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"
@@ -75,8 +75,8 @@
                                                     <i class="dw dw-more"></i>
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                                    <a class="dropdown-item" href="#"><i class="dw dw-eye"></i> View</a>
-                                                    <a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
+                                                    <a class="dropdown-item" href="#"><i class="dw dw-eye"></i>View</a>
+                                                    <a class="dropdown-item" href="{{ URL::to('admin/update_admin/'.$ad->admin_id) }}"><i class="dw dw-edit2"></i>Chỉnh Sửa</a>
                                                     <a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i>
                                                         Delete</a>
                                                 </div>

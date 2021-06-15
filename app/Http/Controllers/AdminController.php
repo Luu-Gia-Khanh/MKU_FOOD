@@ -5,6 +5,7 @@ use App\Admin;
 use App\Roles;
 use App\User;
 use Auth;
+use DB;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -18,14 +19,58 @@ class AdminController extends Controller
         return view('admin.admin.all_admin',['all_admin'=>$all_admin]);
     }
     public function add_admin(){
-        return view('admin.admin.add_admin');
+        $citys = DB::table('tinhthanhpho')->get();
+        return view('admin.admin.add_admin',['citys'=>$citys]);
     }
     public function process_add_admin(Request $request){
+        //Validate
         $this->Validation_Admin($request);
+
+        // connect city distrist ward
+        $city = $request->city;
+        $district = $request->district;
+        $ward = $request->ward;
+        $name_city = DB::table('tinhthanhpho')->where('matp', $city)->first();
+        $name_district = DB::table('quanhuyen')->where('maqh', $district)->first();
+        $name_ward = DB::table('xaphuongthitran')->where('xaid', $ward)->first();
+
+        //address
+        $admin_address = $name_city->name_tp.", ".$name_district->name_qh.", ".$name_ward->name_xa;
+
+        //format time
+        $admin_birthday = date("d/m/Y", strtotime($request->admin_birthday));
+
+        //validate day
+        $nowdate = getdate();
+        $nowYear = $nowdate['year'];
+        $yearAdmin = date('Y', strtotime($request->admin_birthday));
+        $age = $nowYear-$yearAdmin;
+        //check age
+        if($age<18){
+            $request->session()->flash('check_age', 'Người quản trị phải trên 18 tuổi');
+            return redirect('admin/add_admin');
+        }
+
+        //check phone
+        $check_phone = DB::table('admin')->where('admin_phone', $request->admin_phone)->first();
+        if($check_phone){
+            $request->session()->flash('check_phone', 'Số điện thoại đã tồn tại');
+            return redirect('admin/add_admin');
+        }
+        //check email
+        $check_email = DB::table('admin')->where('admin_email', $request->admin_email)->first();
+        if($check_email){
+            $request->session()->flash('check_email', 'Email đã tồn tại');
+            return redirect('admin/add_admin');
+        }
+        //
         $admin = new Admin();
-        $admin->name = $request->name;
+        $admin->admin_name = $request->admin_name;
         $admin->admin_email = $request->admin_email;
-        $admin->phone = $request->phone;
+        $admin->admin_phone = $request->admin_phone;
+        $admin->admin_birthday = $admin_birthday;
+        $admin->admin_gender = $request->admin_gender;
+        $admin->admin_address = $admin_address;
         $admin->password = md5('123456');
         $get_image = $request->file('avt');
         if(isset($get_image)){
@@ -40,6 +85,10 @@ class AdminController extends Controller
         }
         $admin->save();
         return redirect('admin/all_admin');
+    }
+    public function update_admin(Request $request, $admin_id){
+        $update_admin = Admin::find($admin_id);
+        return view('admin.admin.update_admin',['update_admin'=>$update_admin]);
     }
 
     // PERMISSION
@@ -65,22 +114,34 @@ class AdminController extends Controller
     // Validate
     public function Validation_Admin(Request $request){
         $request -> validate([
-            'name' =>'required|min:5|alpha|max:100',
+            'admin_name' =>'required|min:5|max:100',
             'admin_email' =>'required|email|min:3|max:100',
-            'phone' => 'required|starts_with:0|digits:10|numeric'
+            'admin_phone' => 'required|starts_with:0|digits:10|numeric',
+            'admin_birthday' =>'required',
+            'city' => 'required',
+            'district' => 'required',
+            'ward' => 'required',
         ],[
-            'name.required'=>'Họ và Tên không được để trống',
-            'name.min'=>'Họ và Tên phải ít nhất 5 ký tự',
-            'name.alpha'=>'Họ và Tên không được chứa chữ số',
-            'name.max'=>'Họ và Tên có độ dài tối đa là 100 ký tự',
+            'admin_name.required'=>'Họ và Tên không được để trống',
+            'admin_name.min'=>'Họ và Tên phải ít nhất 5 ký tự',
+            'admin_name.alpha'=>'Họ và Tên không được chứa chữ số',
+            'admin_name.max'=>'Họ và Tên có độ dài tối đa là 100 ký tự',
+
             'admin_email.required' => 'Email không được để trống',
             'admin_email.email' => 'Không đúng định dạng của một email',
             'admin_email.min' => 'Email phải có độ dài tối thiểu 3 ký tự',
             'admin_email.max' => 'Email phải có độ dài tối đa 100 ký tự',
-            'phone.required' => 'Số điện thoại không được để trống',
-            'phone.digits' => 'Số điện thoại phải đúng 10 số',
-            'phone.numeric' => 'Số điện thoại phải là chữ số',
-            'phone.starts_with' => 'Số điện thoại phải bắt đầu bằng số 0',
+
+            'admin_phone.required' => 'Số điện thoại không được để trống',
+            'admin_phone.digits' => 'Số điện thoại phải đúng 10 số',
+            'admin_phone.numeric' => 'Số điện thoại phải là chữ số',
+            'admin_phone.starts_with' => 'Số điện thoại phải bắt đầu bằng số 0',
+
+            'admin_birthday.required' => 'Ngày sinh không được để trống',
+
+            'city.required' => 'Tỉnh/Thành Phố không được để trống',
+            'district.required' => 'Quận Huyện không được để trống',
+            'ward.required' => 'Xã/Phường/Thị Trấn không được để trống',
         ]);
     }
 }

@@ -27,7 +27,7 @@
                             <div class="form-group">
                                 <label>Họ Và Tên</label>
                                 <input class="form-control upper_val" type="text" name="admin_name"
-                                    value="{{ old('admin_name') }}" onblur="return upberFirstKey()"
+                                    value="{{ $update_admin->admin_name }}" onblur="return upberFirstKey()"
                                     placeholder="Nhập Họ Và Tên">
                                 @if ($errors->has('admin_name'))
                                     <div class="alert alert-danger alert-dismissible mt-1">
@@ -41,7 +41,7 @@
                             <div class="form-group">
                                 <label>Ngày Sinh</label>
                                 <input class="form-control" type="date" name="admin_birthday"
-                                    value="{{ old('admin_birthday') }}" onblur="return upberFirstKey()"
+                                    value="{{ $update_admin->admin_birthday }}" onblur="return upberFirstKey()"
                                     placeholder="Nhập Ngày Sinh">
                                 @if ($errors->has('admin_birthday'))
                                     <div class="alert alert-danger alert-dismissible mt-1">
@@ -71,7 +71,7 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Số Điện Thoại</label>
-                                <input class="form-control" type="number" name="admin_phone" value="{{ old('admin_phone') }}"
+                                <input class="form-control" type="number" name="admin_phone" value="{{ $update_admin->admin_phone }}"
                                     placeholder="Nhập Số Điện Thoại">
                                 @if ($errors->has('admin_phone'))
                                     <div class="alert alert-danger alert-dismissible mt-1">
@@ -91,7 +91,7 @@
                             <div class="form-group">
                                 <label>Thư Điện Tử(Email)</label>
                                 <input class="form-control" type="text" name="admin_email"
-                                    value="{{ old('admin_email') }}" placeholder="Nhập Địa Chỉ Mail(........@.....)">
+                                    value="{{ $update_admin->admin_email }}" placeholder="Nhập Địa Chỉ Mail(........@.....)">
                                 @if ($errors->has('admin_email'))
                                     <div class="alert alert-danger alert-dismissible mt-1">
                                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -114,9 +114,9 @@
                                 <select name="city" id="city" class="custom-select2 form-control select2-hidden-accessible"
                                     style="width: 100%; height: 38px;" data-select2-id="1" tabindex="-1" aria-hidden="true">
                                     <option value="">---Chọn Tỉnh/TP-----</option>
-                                    @foreach ($citys as $city)
+                                    {{-- @foreach ($citys as $city)
                                         <option value="{{ $city->matp }}">{{ $city->name_tp }}</option>
-                                    @endforeach
+                                    @endforeach --}}
                                 </select>
                                 @if ($errors->has('city'))
                                     <div class="alert alert-danger alert-dismissible mt-1">
@@ -146,7 +146,7 @@
                                 <label>Xã/Phường/Thị Trấn</label>
                                 <select name="ward" id="ward" class="custom-select2 form-control select2-hidden-accessible"
                                     style="width: 100%; height: 38px;" data-select2-id="3" tabindex="-1" aria-hidden="true">
-                                    <option value="">---Xã/Phường/Thị Trấn-----</option>
+                                    <option value="">---Chọn Quận/Huyện-----</option>
                                 </select>
                                 @if ($errors->has('ward'))
                                     <div class="alert alert-danger alert-dismissible mt-1">
@@ -165,8 +165,8 @@
                                     onchange="return uploadhinh()" placeholder="">
                             </div>
                         </div>
-                        <div class="" id="content_image_upload op-0">
-                            <img src="" class="op-0" alt="hình ảnh" id="image_upload" height="100px" width="100px">
+                        <div class="" id="content_image_upload">
+                            <img src="{{ asset('public/upload/'.$update_admin->avt) }}" class="" alt="hình ảnh" id="image_upload" height="100px" width="100px">
                         </div>
                     </div>
                     <div class="center mr-t">

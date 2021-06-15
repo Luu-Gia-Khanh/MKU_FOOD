@@ -46,7 +46,7 @@
                                             <tr>
                                                 <td style="text-align: center">{{ $stt }}</td>
                                                 <td>
-                                                    {{ $ad->name }}
+                                                    {{ $ad->admin_name }}
                                                     <input type="hidden" name="admin_email"
                                                         value="{{ $ad->admin_email }}">
                                                 </td>

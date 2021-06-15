@@ -19,18 +19,27 @@ class UserTableSeeder extends Seeder
             'admin_email' => 'khanhadmin@gmail.com',
             'phone' => '0368038738',
             'password' => md5('123456'),
+            'admin_gender' => 'Nam',
+            'admin_address' => 'Sóc Trăng',
+            'admin_birthday' => '07/08/2000'
         ]);
         $manager = Admin::create([
             'name' => 'khanh manager',
             'admin_email' => 'khanhmanager@gmail.com',
             'phone' => '0368038738',
             'password' => md5('123456'),
+            'admin_gender' => 'Nam',
+            'admin_address' => 'Sóc Trăng',
+            'admin_birthday' => '07/08/2000'
         ]);
         $user = Admin::create([
             'name' => 'khanh user',
             'admin_email' => 'khanhuser@gmail.com',
             'phone' => '0368038738',
             'password' => md5('123456'),
+            'admin_gender' => 'Nam',
+            'admin_address' => 'Sóc Trăng',
+            'admin_birthday' => '07/08/2000'
         ]);
 
         $admin->roles()->attach($adminRoles);

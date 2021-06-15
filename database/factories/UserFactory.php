@@ -24,6 +24,9 @@ $factory->define(Admin::class, function (Faker $faker) {
         'phone' => '0123456789',
         'admin_email' => $faker->unique()->safeEmail,
         'password' => 'e10adc3949ba59abbe56e057f20f883e', // password
+        'admin_gender' => 'Nam',
+        'admin_address' => 'Sóc Trăng',
+        'admin_birthday' => '07/08/2000'
     ];
 });
 $factory->afterCreating(Admin::class, function($admin, $faker){
