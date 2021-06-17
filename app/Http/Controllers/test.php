@@ -12,4 +12,8 @@ class test extends Controller
     public function test() {
         //
     }
+
+    public function teset() {
+        //
+    }
 }
