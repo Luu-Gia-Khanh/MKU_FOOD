@@ -20,13 +20,16 @@ Route::prefix('admin')->group(function () {
     Route::get('update_admin/{admin_id}', 'AdminController@update_admin');
 
     Route::post('process_add_admin', 'AdminController@process_add_admin');
+    Route::post('process_update_admin/{admin_id}', 'AdminController@process_update_admin');
 
     //PERMISSION
     Route::get('list_permission', 'AdminController@list_permission')->middleware('role_admin_manager');
     Route::post('assign_roles', 'AdminController@assign_roles')->middleware('role_admin_manager');
 });
 
-// ADDRESS LOAD
+// ADDRESS ADD ADDRESS ADMIN LOAD
 Route::post('admin/load_district', 'AddressController@load_district');
 Route::post('admin/load_ward', 'AddressController@load_ward');
-
+//ADDRESS UPDATE ADDRESS ADDMIN LOAD
+Route::post('admin/load_district_update_address_admin', 'AddressController@load_district');
+Route::post('admin/load_ward_update_address_admin', 'AddressController@load_ward');

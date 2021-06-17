@@ -20,7 +20,7 @@ class UserTableSeeder extends Seeder
             'admin_phone' => '0368038738',
             'password' => md5('123456'),
             'admin_gender' => 'Nam',
-            'admin_address' => 'Sóc Trăng',
+            'admin_address' => 'Thành phố Hà Nội, Quận Ba Đình, Phường Phúc Xá',
             'admin_birthday' => '2000-08-07'
         ]);
         $manager = Admin::create([
@@ -29,7 +29,7 @@ class UserTableSeeder extends Seeder
             'admin_phone' => '0368038738',
             'password' => md5('123456'),
             'admin_gender' => 'Nam',
-            'admin_address' => 'Sóc Trăng',
+            'admin_address' => 'Thành phố Hà Nội, Quận Ba Đình, Phường Phúc Xá',
             'admin_birthday' => '2000-08-07'
         ]);
         $user = Admin::create([
@@ -38,7 +38,7 @@ class UserTableSeeder extends Seeder
             'admin_phone' => '0368038738',
             'password' => md5('123456'),
             'admin_gender' => 'Nam',
-            'admin_address' => 'Sóc Trăng',
+            'admin_address' => 'Thành phố Hà Nội, Quận Ba Đình, Phường Phúc Xá',
             'admin_birthday' => '2000-08-07'
         ]);
 

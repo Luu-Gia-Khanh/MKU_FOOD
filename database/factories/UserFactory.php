@@ -25,7 +25,7 @@ $factory->define(Admin::class, function (Faker $faker) {
         'admin_email' => $faker->unique()->safeEmail,
         'password' => 'e10adc3949ba59abbe56e057f20f883e', // password
         'admin_gender' => 'Nam',
-        'admin_address' => 'Sóc Trăng',
+        'admin_address' => 'Thành phố Hà Nội, Quận Ba Đình, Phường Phúc Xá',
         'admin_birthday' => '2000-08-07'
     ];
 });

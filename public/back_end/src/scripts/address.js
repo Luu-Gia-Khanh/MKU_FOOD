@@ -1,6 +1,7 @@
 $(document).ready(function(){
-    $('#city').change(function(){
-        var city = $('#city').val();
+    //ADD ADRESS ADMIN
+    $('#city_add_admin').change(function(){
+        var city = $('#city_add_admin').val();
         var _token = $('input[name="_token"]').val();
         $.ajax({
             url: 'load_district',
@@ -10,12 +11,12 @@ $(document).ready(function(){
                 _token: _token
             },
             success: function (data) {
-                $('#district').html(data);
+                $('#district_add_admin').html(data);
             }
         });
     });
-    $('#district').change(function(){
-        var district = $('#district').val();
+    $('#district_add_admin').change(function(){
+        var district = $('#district_add_admin').val();
         var _token = $('input[name="_token"]').val();
         $.ajax({
             url: 'load_ward',
@@ -25,8 +26,41 @@ $(document).ready(function(){
                 _token: _token
             },
             success: function (data) {
-                $('#ward').html(data);
+                $('#ward_add_admin').html(data);
             }
         });
     });
+    // UPDATE ADDRESS ADMIN
+    $('#city_update_admin').change(function(){
+        var city = $('#city_update_admin').val();
+        var _token = $('input[name="_token"]').val();
+        $.ajax({
+            url: '../load_district_update_address_admin',
+            method: 'POST',
+            data: {
+                city: city,
+                _token: _token
+            },
+            success: function (data) {
+                $('#district_update_admin').html(data);
+            }
+        });
+    });
+    $('#district_update_admin').change(function(){
+        var district = $('#district_update_admin').val();
+        var _token = $('input[name="_token"]').val();
+        $.ajax({
+            url: '../load_ward_update_address_admin',
+            method: 'POST',
+            data: {
+                district: district,
+                _token: _token
+            },
+            success: function (data) {
+                $('#ward_update_admin').html(data);
+            }
+        });
+    });
+
+
 });

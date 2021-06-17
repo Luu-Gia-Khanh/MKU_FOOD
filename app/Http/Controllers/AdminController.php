@@ -89,7 +89,11 @@ class AdminController extends Controller
     }
     public function update_admin(Request $request, $admin_id){
         $update_admin = Admin::find($admin_id);
-        return view('admin.admin.update_admin',['update_admin'=>$update_admin]);
+        $citys = DB::table('tinhthanhpho')->get();
+        return view('admin.admin.update_admin',['update_admin'=>$update_admin,'citys'=>$citys]);
+    }
+    public function process_update_admin(Request $request, $admin_id){
+        $this->Validation_Admin($request);
     }
 
     // PERMISSION
@@ -143,6 +147,35 @@ class AdminController extends Controller
             'city.required' => 'Tỉnh/Thành Phố không được để trống',
             'district.required' => 'Quận Huyện không được để trống',
             'ward.required' => 'Xã/Phường/Thị Trấn không được để trống',
+        ]);
+    }
+    public function Validation_Update_Admin(Request $request){
+        $request -> validate([
+            'admin_name' =>'required|min:5|max:100',
+            'admin_email' =>'required|email|min:3|max:100',
+            'admin_phone' => 'required|starts_with:0|digits:10|numeric',
+            'admin_birthday' =>'required',
+            'city' => 'required',
+
+        ],[
+            'admin_name.required'=>'Họ và Tên không được để trống',
+            'admin_name.min'=>'Họ và Tên phải ít nhất 5 ký tự',
+            'admin_name.alpha'=>'Họ và Tên không được chứa chữ số',
+            'admin_name.max'=>'Họ và Tên có độ dài tối đa là 100 ký tự',
+
+            'admin_email.required' => 'Email không được để trống',
+            'admin_email.email' => 'Không đúng định dạng của một email',
+            'admin_email.min' => 'Email phải có độ dài tối thiểu 3 ký tự',
+            'admin_email.max' => 'Email phải có độ dài tối đa 100 ký tự',
+
+            'admin_phone.required' => 'Số điện thoại không được để trống',
+            'admin_phone.digits' => 'Số điện thoại phải đúng 10 số',
+            'admin_phone.numeric' => 'Số điện thoại phải là chữ số',
+            'admin_phone.starts_with' => 'Số điện thoại phải bắt đầu bằng số 0',
+
+            'admin_birthday.required' => 'Ngày sinh không được để trống',
+
+            'city.required' => 'Tỉnh/Thành Phố không được để trống',
         ]);
     }
 }
