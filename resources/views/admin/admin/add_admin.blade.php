@@ -111,7 +111,7 @@
                         <div class="col-3">
                             <div class="form-group" data-select2-id="7">
                                 <label>Tỉnh/Thành Phố</label>
-                                <select name="city" id="city_add_admin" class="custom-select2 form-control select2-hidden-accessible"
+                                <select name="city" id="city_add_admin" value="{{ old('city') }}" class="custom-select2 form-control select2-hidden-accessible"
                                     style="width: 100%; height: 38px;" data-select2-id="1" tabindex="-1" aria-hidden="true">
                                     <option value="">---Chọn Tỉnh/TP-----</option>
                                     @foreach ($citys as $city)
@@ -129,7 +129,7 @@
                         <div class="col-3">
                             <div class="form-group">
                                 <label>Quận/Huyện</label>
-                                <select name="district" id="district_add_admin" class="custom-select2 form-control select2-hidden-accessible"
+                                <select name="district" id="district_add_admin" value="{{ old('district') }}" class="custom-select2 form-control select2-hidden-accessible"
                                     style="width: 100%; height: 38px;" data-select2-id="2" tabindex="-1" aria-hidden="true">
                                     <option value="">---Quận/Huyện-----</option>
                                 </select>
@@ -144,7 +144,7 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label>Xã/Phường/Thị Trấn</label>
-                                <select name="ward" id="ward_add_admin" class="custom-select2 form-control select2-hidden-accessible"
+                                <select name="ward" id="ward_add_admin" value="{{ old('ward') }}" class="custom-select2 form-control select2-hidden-accessible"
                                     style="width: 100%; height: 38px;" data-select2-id="3" tabindex="-1" aria-hidden="true">
                                     <option value="">---Xã/Phường/Thị Trấn-----</option>
                                 </select>

@@ -17,7 +17,7 @@ class AuthController extends Controller
     public function process_login(Request $request){
         if(Auth::attempt(['admin_email' => $request->email, 'password' => $request->password])){
             Session::put('admin_id', Auth::user()->admin_id);
-            Session::put('admin_name', Auth::user()->name);
+            Session::put('admin_name', Auth::user()->admin_name);
             Session::put('admin_image', Auth::user()->avt);
             return redirect('admin/dashboard');
         }

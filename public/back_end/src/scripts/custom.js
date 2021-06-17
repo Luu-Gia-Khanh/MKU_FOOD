@@ -3,4 +3,7 @@ $(document).ready(function(){
         $('#image_upload').addClass('op-1');
         $('#content_image_upload').addClass('op-1');
     });
+    $('.confirm').click(function(){
+        location.reload();
+    });
 });

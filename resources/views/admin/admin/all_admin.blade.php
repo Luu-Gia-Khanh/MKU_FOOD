@@ -63,7 +63,7 @@
                                     <tr role="row" class="odd">
                                         <td>{{ $stt }}</td>
                                         <td class="table-plus sorting_1" tabindex="0">
-                                            <img src="{{ asset('public/upload/'.$ad->avt) }}" alt="hình ảnh" srcset="">
+                                            <img src="{{ asset('public/upload/'.$ad->avt) }}" alt="hình ảnh" srcset="" height="100px" width="100px">
                                         </td>
                                         <td>{{ $ad->admin_name }}</td>
                                         <td>{{ $ad->admin_phone }}</td>

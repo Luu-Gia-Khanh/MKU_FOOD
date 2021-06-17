@@ -11,8 +11,12 @@
     margin-top: 20px;
 }
 .color-btn-them{
-    color: rgb(255, 255, 255); background-color: rgb(29, 161, 242);
-    cursor: no-drop;
+    color: rgb(255, 255, 255);
+    background-color: rgb(29, 161, 242);
+}
+.color-btn-them:hover{
+    color: rgb(255, 255, 255);
+    background-color: rgb(17, 141, 218);
 }
 .op-0{
     opacity: 0;

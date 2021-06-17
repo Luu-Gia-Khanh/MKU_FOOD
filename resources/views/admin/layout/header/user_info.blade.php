@@ -2,7 +2,12 @@
     <div class="dropdown">
         <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
             <span class="user-icon">
-                <img src="vendors/images/photo1.jpg" alt="">
+
+                @if(Session::get('admin_image'))
+
+                    <img src="{{ asset('public/upload/'.Session::get('admin_image')) }}" alt="">
+
+                @endif
             </span>
             <span class="user-name">
                 @if (Session::get('admin_name'))

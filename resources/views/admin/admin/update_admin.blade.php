@@ -20,7 +20,8 @@
                 <h4 class="text-blue h4">Chỉnh Sửa Thông Tin Quản Trị Viên</h4>
             </div>
             <div class="pd-20">
-                <form action="{{ URL::to('admin/process_update_admin/'.$update_admin->admin_id) }}" method="post" enctype="multipart/form-data">
+                <form action="{{ URL::to('admin/process_update_admin/' . $update_admin->admin_id) }}" method="post"
+                    enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="col-sm-6">
@@ -41,8 +42,7 @@
                             <div class="form-group">
                                 <label>Ngày Sinh</label>
                                 <input class="form-control" type="date" name="admin_birthday"
-                                    value="{{ $update_admin->admin_birthday }}"
-                                    placeholder="Nhập Ngày Sinh">
+                                    value="{{ $update_admin->admin_birthday }}" placeholder="Nhập Ngày Sinh">
                                 @if ($errors->has('admin_birthday'))
                                     <div class="alert alert-danger alert-dismissible mt-1">
                                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -77,8 +77,8 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Số Điện Thoại</label>
-                                <input class="form-control" type="number" name="admin_phone" value="{{ $update_admin->admin_phone }}"
-                                    placeholder="Nhập Số Điện Thoại">
+                                <input class="form-control" type="number" name="admin_phone"
+                                    value="{{ $update_admin->admin_phone }}" placeholder="Nhập Số Điện Thoại">
                                 @if ($errors->has('admin_phone'))
                                     <div class="alert alert-danger alert-dismissible mt-1">
                                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -97,7 +97,8 @@
                             <div class="form-group">
                                 <label>Thư Điện Tử(Email)</label>
                                 <input class="form-control" type="text" name="admin_email"
-                                    value="{{ $update_admin->admin_email }}" placeholder="Nhập Địa Chỉ Mail(........@.....)">
+                                    value="{{ $update_admin->admin_email }}"
+                                    placeholder="Nhập Địa Chỉ Mail(........@.....)">
                                 @if ($errors->has('admin_email'))
                                     <div class="alert alert-danger alert-dismissible mt-1">
                                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -115,16 +116,17 @@
                     </div>
                     <div class="row">
                         @php
-                            $address = explode(",", $update_admin->admin_address);
+                            $address = explode(', ', $update_admin->admin_address);
                         @endphp
                         <div class="col-3">
                             <div class="form-group" data-select2-id="7">
                                 <label>Tỉnh/Thành Phố</label>
-                                <select name="city" id="city_update_admin" class="custom-select2 form-control select2-hidden-accessible"
+                                <select name="city" id="city_update_admin"
+                                    class="custom-select2 form-control select2-hidden-accessible"
                                     style="width: 100%; height: 38px;" data-select2-id="4" tabindex="-1" aria-hidden="true">
                                     @foreach ($citys as $city)
                                         @if ($address[0] == $city->name_tp)
-                                            <option value="" selected>{{ $city->name_tp }}</option>
+                                            <option value="{{ $city->matp }}" selected>{{ $city->name_tp }}</option>
                                         @else
                                             <option value="{{ $city->matp }}">{{ $city->name_tp }}</option>
                                         @endif
@@ -141,9 +143,14 @@
                         <div class="col-3">
                             <div class="form-group">
                                 <label>Quận/Huyện</label>
-                                <select name="district" id="district_update_admin" class="custom-select2 form-control select2-hidden-accessible"
+                                <select name="district" id="district_update_admin"
+                                    class="custom-select2 form-control select2-hidden-accessible"
                                     style="width: 100%; height: 38px;" data-select2-id="5" tabindex="-1" aria-hidden="true">
-                                    <option value="">{{ $address[1] }}</option>
+                                    @foreach ($districts as $dis)
+                                        @if ($dis->name_qh == $address[1])
+                                            <option value="{{ $dis->maqh }}">{{ $address[1] }}</option>
+                                        @endif
+                                    @endforeach
                                 </select>
                                 @if ($errors->has('district'))
                                     <div class="alert alert-danger alert-dismissible mt-1">
@@ -156,9 +163,14 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label>Xã/Phường/Thị Trấn</label>
-                                <select name="ward" id="ward_update_admin" class="custom-select2 form-control select2-hidden-accessible"
+                                <select name="ward" id="ward_update_admin"
+                                    class="custom-select2 form-control select2-hidden-accessible"
                                     style="width: 100%; height: 38px;" data-select2-id="6" tabindex="-1" aria-hidden="true">
-                                    <option value="">{{ $address[2] }}</option>
+                                    @foreach ($wards as $ward)
+                                        @if ($ward->name_xa == $address[2])
+                                            <option value="{{ $ward->xaid }}">{{ $address[2] }}</option>
+                                        @endif
+                                    @endforeach
                                 </select>
                                 @if ($errors->has('ward'))
                                     <div class="alert alert-danger alert-dismissible mt-1">
@@ -178,13 +190,40 @@
                             </div>
                         </div>
                         <div class="" id="content_image_upload">
-                            <img src="{{ asset('public/upload/'.$update_admin->avt) }}" class="" alt="hình ảnh" id="image_upload" height="100px" width="100px">
+                            <img src="{{ asset('public/upload/' . $update_admin->avt) }}" class="" alt="hình ảnh"
+                                id="image_upload" height="100px" width="100px">
                         </div>
                     </div>
-                    <div class="center mr-t">
-                        <input type="submit" class="btn color-btn-them" value="Thêm Quản Trị Viên">
+                    <div class="center mr-t mt-5">
+                        <button type="submit" class="btn color-btn-them" value="Chỉnh Sửa Quản Trị Viên"><i class="icon-copy fi-page-edit"></i> Chỉnh Sửa Quản Trị Viên</button>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">
+                            <i class="icon-copy fi-x"></i> Hủy Thay Đổi
+                        </button>
                     </div>
                 </form>
+            </div>
+        </div>
+        <!-- The Modal -->
+        <div class="modal fade" id="myModal">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title center">Thông Báo</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        Bạn Muốn Hủy Thay Đổi
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger confirm" data-dismiss="modal">Hủy</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
+                    </div>
+                </div>
             </div>
         </div>
     @endsection
