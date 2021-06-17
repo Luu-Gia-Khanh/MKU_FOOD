@@ -138,5 +138,4 @@
                 </form>
             </div>
         </div>
-        <div>Test</div>
     @endsection
