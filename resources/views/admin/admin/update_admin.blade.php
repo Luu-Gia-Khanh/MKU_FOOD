@@ -17,7 +17,7 @@
         </div>
         <div class="pd-20 card-box mb-30">
             <div class="pd-20">
-                <h4 class="text-blue h4">Thêm Quản Trị Viên</h4>
+                <h4 class="text-blue h4">Chỉnh Sửa Thông Tin Quản Trị Viên</h4>
             </div>
             <div class="pd-20">
                 <form action="{{ URL::to('admin/process_add_admin') }}" method="post" enctype="multipart/form-data">
@@ -41,7 +41,7 @@
                             <div class="form-group">
                                 <label>Ngày Sinh</label>
                                 <input class="form-control" type="date" name="admin_birthday"
-                                    value="{{ $update_admin->admin_birthday }}" onblur="return upberFirstKey()"
+                                    value="{{ $update_admin->admin_birthday }}"
                                     placeholder="Nhập Ngày Sinh">
                                 @if ($errors->has('admin_birthday'))
                                     <div class="alert alert-danger alert-dismissible mt-1">
@@ -62,8 +62,14 @@
                                 <label>Giới Tính</label>
                                 <div class="dropdown bootstrap-select form-control dropup">
                                     <select name="admin_gender" class="selectpicker form-control" data-size="5">
-                                        <option value="Nam">Nam</option>
-                                        <option value="Nu">Nữ</option>
+                                        @if ($update_admin->admin_gender == 'Nam')
+                                            <option value="Nam" selected>Nam</option>
+                                            <option value="Nu">Nữ</option>
+                                        @else
+                                            <option value="Nam">Nam</option>
+                                            <option value="Nu" selected>Nữ</option>
+                                        @endif
+
                                     </select>
                                 </div>
                             </div>
@@ -108,53 +114,10 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-3">
-                            <div class="form-group" data-select2-id="7">
-                                <label>Tỉnh/Thành Phố</label>
-                                <select name="city" id="city" class="custom-select2 form-control select2-hidden-accessible"
-                                    style="width: 100%; height: 38px;" data-select2-id="1" tabindex="-1" aria-hidden="true">
-                                    <option value="">---Chọn Tỉnh/TP-----</option>
-                                    {{-- @foreach ($citys as $city)
-                                        <option value="{{ $city->matp }}">{{ $city->name_tp }}</option>
-                                    @endforeach --}}
-                                </select>
-                                @if ($errors->has('city'))
-                                    <div class="alert alert-danger alert-dismissible mt-1">
-                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                        {{ $errors->first('city') }}
-                                    </div>
-                                @endif
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="form-group">
-                                <label>Quận/Huyện</label>
-                                <select name="district" id="district" class="custom-select2 form-control select2-hidden-accessible"
-                                    style="width: 100%; height: 38px;" data-select2-id="2" tabindex="-1" aria-hidden="true">
-                                    <option value="">---Quận/Huyện-----</option>
-                                </select>
-                                @if ($errors->has('district'))
-                                    <div class="alert alert-danger alert-dismissible mt-1">
-                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                        {{ $errors->first('district') }}
-                                    </div>
-                                @endif
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label>Xã/Phường/Thị Trấn</label>
-                                <select name="ward" id="ward" class="custom-select2 form-control select2-hidden-accessible"
-                                    style="width: 100%; height: 38px;" data-select2-id="3" tabindex="-1" aria-hidden="true">
-                                    <option value="">---Chọn Quận/Huyện-----</option>
-                                </select>
-                                @if ($errors->has('ward'))
-                                    <div class="alert alert-danger alert-dismissible mt-1">
-                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                        {{ $errors->first('ward') }}
-                                    </div>
-                                @endif
-                            </div>
+                        <div class="form-group">
+                            <label>Số Điện Thoại</label>
+                            <input class="form-control" type="text" name="addresss" value="{{ $update_admin->admin_phone }}"
+                                placeholder="Nhập Số Điện Thoại">
                         </div>
                     </div>
                     <div class="row">

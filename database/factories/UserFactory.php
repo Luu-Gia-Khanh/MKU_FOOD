@@ -20,13 +20,13 @@ use Illuminate\Support\Str;
 
 $factory->define(Admin::class, function (Faker $faker) {
     return [
-        'name' => $faker->name,
-        'phone' => '0123456789',
+        'admin_name' => $faker->name,
+        'admin_phone' => '0123456789',
         'admin_email' => $faker->unique()->safeEmail,
         'password' => 'e10adc3949ba59abbe56e057f20f883e', // password
         'admin_gender' => 'Nam',
         'admin_address' => 'Sóc Trăng',
-        'admin_birthday' => '07/08/2000'
+        'admin_birthday' => '2000-08-07'
     ];
 });
 $factory->afterCreating(Admin::class, function($admin, $faker){

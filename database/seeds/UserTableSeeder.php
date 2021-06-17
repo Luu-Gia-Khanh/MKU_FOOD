@@ -15,31 +15,31 @@ class UserTableSeeder extends Seeder
         $userRoles = Roles::where('name','user')->first();
 
         $admin = Admin::create([
-            'name' => 'khanh admin',
+            'admin_name' => 'khanh admin',
             'admin_email' => 'khanhadmin@gmail.com',
-            'phone' => '0368038738',
+            'admin_phone' => '0368038738',
             'password' => md5('123456'),
             'admin_gender' => 'Nam',
             'admin_address' => 'Sóc Trăng',
-            'admin_birthday' => '07/08/2000'
+            'admin_birthday' => '2000-08-07'
         ]);
         $manager = Admin::create([
-            'name' => 'khanh manager',
+            'admin_name' => 'khanh manager',
             'admin_email' => 'khanhmanager@gmail.com',
-            'phone' => '0368038738',
+            'admin_phone' => '0368038738',
             'password' => md5('123456'),
             'admin_gender' => 'Nam',
             'admin_address' => 'Sóc Trăng',
-            'admin_birthday' => '07/08/2000'
+            'admin_birthday' => '2000-08-07'
         ]);
         $user = Admin::create([
-            'name' => 'khanh user',
+            'admin_name' => 'khanh user',
             'admin_email' => 'khanhuser@gmail.com',
-            'phone' => '0368038738',
+            'admin_phone' => '0368038738',
             'password' => md5('123456'),
             'admin_gender' => 'Nam',
             'admin_address' => 'Sóc Trăng',
-            'admin_birthday' => '07/08/2000'
+            'admin_birthday' => '2000-08-07'
         ]);
 
         $admin->roles()->attach($adminRoles);

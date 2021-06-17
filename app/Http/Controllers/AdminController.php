@@ -38,7 +38,7 @@ class AdminController extends Controller
         $admin_address = $name_city->name_tp.", ".$name_district->name_qh.", ".$name_ward->name_xa;
 
         //format time
-        $admin_birthday = date("d/m/Y", strtotime($request->admin_birthday));
+        //$admin_birthday = date("d/m/Y", strtotime($request->admin_birthday));
 
         //validate day
         $nowdate = getdate();
@@ -57,6 +57,7 @@ class AdminController extends Controller
             $request->session()->flash('check_phone', 'Số điện thoại đã tồn tại');
             return redirect('admin/add_admin');
         }
+
         //check email
         $check_email = DB::table('admin')->where('admin_email', $request->admin_email)->first();
         if($check_email){
@@ -68,7 +69,7 @@ class AdminController extends Controller
         $admin->admin_name = $request->admin_name;
         $admin->admin_email = $request->admin_email;
         $admin->admin_phone = $request->admin_phone;
-        $admin->admin_birthday = $admin_birthday;
+        $admin->admin_birthday = $request-> admin_birthday;
         $admin->admin_gender = $request->admin_gender;
         $admin->admin_address = $admin_address;
         $admin->password = md5('123456');

@@ -41,7 +41,7 @@
                             <div class="form-group">
                                 <label>Ngày Sinh</label>
                                 <input class="form-control" type="date" name="admin_birthday"
-                                    value="{{ old('admin_birthday') }}" onblur="return upberFirstKey()"
+                                    value="{{ old('admin_birthday') }}"
                                     placeholder="Nhập Ngày Sinh">
                                 @if ($errors->has('admin_birthday'))
                                     <div class="alert alert-danger alert-dismissible mt-1">
