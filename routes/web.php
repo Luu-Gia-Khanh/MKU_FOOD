@@ -30,6 +30,15 @@ Route::prefix('admin')->group(function () {
     //PERMISSION
     Route::get('list_permission', 'AdminController@list_permission')->middleware('role_admin_manager');
     Route::post('assign_roles', 'AdminController@assign_roles')->middleware('role_admin_manager');
+
+    //CATEGORY
+    Route::get('all_category', 'CategoryController@show_category');
+    Route::get('add_category', 'CategoryController@add_category');
+    Route::get('update_category/{cate_id}', 'CategoryController@update_category');
+
+    Route::post('process_add_category', 'CategoryController@process_add_category');
+    Route::post('process_update_category/{cate_id}', 'CategoryController@process_update_category');
+    Route::get('process_delete_category/{cate_id}', 'CategoryController@process_delete_category');
 });
 
 // ADDRESS ADD ADDRESS ADMIN LOAD

@@ -26,6 +26,19 @@
                 <li>
                     <div class="dropdown-divider"></div>
                 </li>
+
+                <li class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <span class="micon icon-copy ti-harddrives"></span><span class="mtext">Loại sản phẩm</span>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="{{ URL::to('admin/all_category') }}">Danh Sách loại sản phẩm</a></li>
+                        <li><a href="{{ URL::to('admin/add_category') }}">Thêm loại sản phẩm</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <div class="dropdown-divider"></div>
+                </li>
             </ul>
 
         </div>
