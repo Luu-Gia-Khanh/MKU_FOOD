@@ -149,10 +149,29 @@ class AdminController extends Controller
             $admin->save();
             return redirect('admin/all_admin');
         }
-
-
     }
-
+    public function delete_admin($admin_id){
+        $delete_item = Admin::where('admin_id', $admin_id)->delete();
+    }
+    public function view_recycle(){
+        $recycle_item = Admin::onlyTrashed()->get();
+        return view('admin.admin.all_recycle_item',['recycle_item'=>$recycle_item]);
+    }
+    public function re_delete($admin_id){
+        $restore = Admin::withTrashed()->where('admin_id', $admin_id)->restore();
+        return redirect()->back();
+    }
+    public function delete_forever(Request $request){
+        $admin_id = $request->admin_id_delete_forever;
+        $delete_forever = Admin::withTrashed()->where('admin_id', $admin_id)->forceDelete();
+        return redirect()->back();
+    }
+    public function soft_delete(Request $request){
+        $admin_id = $request->admin_id;
+        $soft_delete = Admin::where('admin_id', $admin_id)->delete();
+        $request->session()->flash('delete_success', 'Xóa thành công');
+        return redirect()->back();
+    }
     // PERMISSION
     public function list_permission(){
         $admin = Admin::with('roles')->orderBy('admin_id','asc')->paginate(5);

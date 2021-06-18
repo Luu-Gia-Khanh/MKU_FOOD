@@ -4,9 +4,7 @@
             <span class="user-icon">
 
                 @if(Session::get('admin_image'))
-
                     <img src="{{ asset('public/upload/'.Session::get('admin_image')) }}" alt="">
-
                 @endif
             </span>
             <span class="user-name">

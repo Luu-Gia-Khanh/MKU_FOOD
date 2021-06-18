@@ -18,7 +18,7 @@ class Admin extends Authenticatable
     ];
     use Notifiable,
         SoftDeletes;
-
+    protected $dates = ['deleted_at'];
     public function roles(){
         return $this->belongsToMany('App\Roles', 'admin_roles');
     }

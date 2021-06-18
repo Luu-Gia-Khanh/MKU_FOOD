@@ -18,7 +18,12 @@ Route::prefix('admin')->group(function () {
     Route::get('all_admin', 'AdminController@show_admin')->middleware('role_admin_manager');
     Route::get('add_admin', 'AdminController@add_admin');
     Route::get('update_admin/{admin_id}', 'AdminController@update_admin');
+    Route::get('delete_admin/{admin_id}', 'AdminController@delete_admin');
+    Route::get('view_recycle', 'AdminController@view_recycle');
+    Route::get('re_delete/{admin_id}', 'AdminController@re_delete');
 
+    Route::post('delete_forever', 'AdminController@delete_forever');
+    Route::post('soft_delete', 'AdminController@soft_delete');
     Route::post('process_add_admin', 'AdminController@process_add_admin');
     Route::post('process_update_admin/{admin_id}', 'AdminController@process_update_admin');
 
