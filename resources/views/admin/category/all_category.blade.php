@@ -7,11 +7,12 @@
                     <nav aria-label="breadcrumb" role="navigation">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Loại sản phẩm</li>
+                            <li class="breadcrumb-item active" aria-current="page">Loại Sản Phẩm</li>
                         </ol>
                     </nav>
                 </div>
-                <div class="col-md-6 col-sm-12 text-right">
+
+                <div class="col-md-6 col-sm-12">
                     {{-- <div class="dropdown">
                     <a class="btn btn-primary dropdown-toggle" href="#" role="button" data-toggle="dropdown">
                         January 2018
@@ -26,10 +27,58 @@
             </div>
         </div>
 
+        <div class="card-box mb-30">
+            @if (session('success_add_category'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('success_add_category') }}
+                    </div>
+                @endif
+        </div>
+
+        <div class="card-box mb-30">
+            @if (session('success_update_category'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('success_update_category') }}
+                    </div>
+                @endif
+        </div>
+
+        <div class="card-box mb-30">
+            @if (session('success_delete_soft_category'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('success_delete_soft_category') }}
+                    </div>
+                @endif
+        </div>
+
+        <div class="card-box mb-30">
+            @if (session('success_delete_category'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('success_delete_category') }}
+                    </div>
+                @endif
+        </div>
+
         <!-- Simple Datatable start -->
         <div class="card-box mb-30">
-            <div class="pd-20">
+            {{-- <div class="pd-20">
                 <h4 class="text-blue h4">Danh sách loại sản phẩm</h4>
+                <form class="form-inline">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div> --}}
+            <div class="row pd-20">
+                <div class="col-md-8 col-sm-12">
+                    <h4 class="text-blue h4">Danh sách loại sản phẩm</h4>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    {{-- <input type="text" class="text-input form-control" id="search_category" value="" placeholder="Tìm kiếm..."/> --}}
+                    <form action="">
+                        @csrf
+                        <label for="">Tìm kiếm: <input type="search" class="form-control" id="find_category" name="value_find"></label>
+                    </form>
+                </div>
             </div>
             <div class="pb-20">
                 <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer ">
@@ -51,7 +100,7 @@
                                             aria-label="Action">Thao Tác</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="content_find_category">
                                     @php
                                         $stt = 0;
                                     @endphp
@@ -60,7 +109,7 @@
                                             $stt++;
                                         @endphp
                                     <tr role="row" class="odd">
-                                        <td>1</td>
+                                        <td>{{ $stt }}</td>
                                         <td class="table-plus sorting_1" tabindex="0">
                                             <img src="{{ asset('public/upload/'.$cate->cate_image) }}" alt="hình ảnh" srcset="" width="200" height="200">
                                         </td>
@@ -73,10 +122,8 @@
                                                     <i class="dw dw-more"></i>
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                                    <a class="dropdown-item" href="#"><i class="dw dw-eye"></i>View</a>
                                                     <a class="dropdown-item" href="{{ URL::to('admin/update_category/'.$cate->cate_id) }}"><i class="dw dw-edit2"></i>Chỉnh Sửa</a>
-                                                    <a class="dropdown-item" href="{{ URL::to('admin/process_delete_category/'.$cate->cate_id) }}" data-toggle="modal" data-target="#myModal"><i class="dw dw-delete-3"></i>
-                                                        Delete</a>
+                                                    <button class="dropdown-item soft_delete_category_class" data-id="{{ $cate->cate_id }}" data-toggle="modal" data-target="#Modal_delete"><i class="dw dw-delete-3"></i>Xóa</button>
                                                 </div>
                                             </div>
                                         </td>
@@ -88,6 +135,8 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-12 col-md-5">
+                            <a href="{{ URL::to('admin/view_recycle') }}" class="btn color-btn-them ml-10"
+                                style="color: white"><i class="dw dw-delete-3"></i> Thùng Rác</a>
                         </div>
                         <div class="col-sm-12 col-md-7">
                             <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
@@ -101,24 +150,29 @@
             </div>
         </div>
         <!-- The Modal -->
-        <div class="modal fade" id="myModal">
+        <div class="modal fade" id="Modal_delete">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
 
                     <!-- Modal Header -->
                     <div class="modal-header">
-                        <h4 class="modal-title center">Thông Báo</h4>
+                        <h4 class="modal-title">Thông Báo</h4>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
+
                     <!-- Modal body -->
                     <div class="modal-body">
-                        Bạn Muốn Xóa Sản Phẩm
+                        Bạn có muốn xóa dữ liệu này ?
+                        <form action="{{ URL::to('admin/soft_delete_cate') }}" method="post" name="form_soft_delete">
+                            @csrf
+                            <input type="hidden" class="id_delete_category" name="cate_id" value="">
+                        </form>
                     </div>
 
                     <!-- Modal footer -->
                     <div class="modal-footer">
-                        <a href="#" class="btn btn-danger confirm" data-dismiss="modal">Xóa</a>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
+                        <button class="btn btn-danger btn_delete_soft">Xóa</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>

@@ -12,7 +12,11 @@
 // 		height: 100,
 // 		width: 70,
 // 		type: 'radialBar',
+<<<<<<< HEAD
 // 	},
+=======
+// 	},	
+>>>>>>> fffe91bb9b5f06eea7fef7af0985d6ecc44f123e
 // 	plotOptions: {
 // 		radialBar: {
 // 			hollow: {
@@ -82,7 +86,11 @@
 // 		height: 100,
 // 		width: 70,
 // 		type: 'radialBar',
+<<<<<<< HEAD
 // 	},
+=======
+// 	},	
+>>>>>>> fffe91bb9b5f06eea7fef7af0985d6ecc44f123e
 // 	plotOptions: {
 // 		radialBar: {
 // 			hollow: {
@@ -152,7 +160,11 @@
 // 		height: 100,
 // 		width: 70,
 // 		type: 'radialBar',
+<<<<<<< HEAD
 // 	},
+=======
+// 	},	
+>>>>>>> fffe91bb9b5f06eea7fef7af0985d6ecc44f123e
 // 	plotOptions: {
 // 		radialBar: {
 // 			hollow: {
@@ -222,7 +234,11 @@
 // 		height: 100,
 // 		width: 70,
 // 		type: 'radialBar',
+<<<<<<< HEAD
 // 	},
+=======
+// 	},	
+>>>>>>> fffe91bb9b5f06eea7fef7af0985d6ecc44f123e
 // 	plotOptions: {
 // 		radialBar: {
 // 			hollow: {
@@ -460,8 +476,16 @@
 // 			searchPlaceholder: "Search",
 // 			paginate: {
 // 				next: '<i class="ion-chevron-right"></i>',
+<<<<<<< HEAD
 // 				previous: '<i class="ion-chevron-left"></i>'
 // 			}
 // 		},
 // 	});
 // });
+=======
+// 				previous: '<i class="ion-chevron-left"></i>'  
+// 			}
+// 		},
+// 	});
+// });
+>>>>>>> fffe91bb9b5f06eea7fef7af0985d6ecc44f123e

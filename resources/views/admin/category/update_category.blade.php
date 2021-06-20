@@ -7,7 +7,7 @@
                     <nav aria-label="breadcrumb" role="navigation">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Sửa loại sản phẩm</li>
+                            <li class="breadcrumb-item active" aria-current="page">Sửa Loại Sản Phẩm</li>
                         </ol>
                     </nav>
                 </div>
@@ -15,6 +15,7 @@
                 </div>
             </div>
         </div>
+
         <div class="pd-20 card-box mb-30">
             <div class="pd-20">
                 <h4 class="text-blue h4">Sửa loại sản phẩm</h4>
@@ -29,12 +30,18 @@
                                 <input class="form-control upper_val" type="text" name="cate_name"
                                     value="{{ $update_category->cate_name }}" onblur="return upberFirstKey()"
                                     placeholder="Nhập loại sản phẩm">
-                                @if ($errors->has('cate_name'))
+                                {{-- @if ($errors->has('check_cate_name'))
                                     <div class="alert alert-danger alert-dismissible mt-1">
                                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                        {{ $errors->first('cate_name') }}
+                                        {{ $errors->first('check_cate_name') }}
                                     </div>
-                                @endif
+                                @endif --}}
+                                    @if (session('check_cate_name'))
+                                        <div class="alert alert-danger alert-dismissible mt-1" role="alert">
+                                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                            {{ session('check_cate_name') }}
+                                        </div>
+                                    @endif
                             </div>
                         </div>
                         <div class="col-sm-6">
