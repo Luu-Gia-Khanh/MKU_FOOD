@@ -1,6 +1,12 @@
 <?php
 
 //LOGIN
+
+use App\Action;
+use App\Admin_Action_Category;
+use Illuminate\Contracts\Session\Session;
+use Illuminate\Http\Request;
+
 Route::get('login', 'AuthController@show_login');
 Route::post('process_login', 'AuthController@process_login');
 Route::get('logout_admin', 'AuthController@logout_admin');
@@ -39,6 +45,19 @@ Route::prefix('admin')->group(function () {
     Route::post('process_add_category', 'CategoryController@process_add_category');
     Route::post('process_update_category/{cate_id}', 'CategoryController@process_update_category');
     Route::get('process_delete_category/{cate_id}', 'CategoryController@process_delete_category');
+
+    Route::get('view_recycle', 'CategoryController@view_recycle');
+    Route::get('re_delete_cate/{cate_id}', 'CategoryController@re_delete');
+    Route::post('delete_forever_cate', 'CategoryController@delete_forever');
+    Route::get('delete_recovery_forever/{cate_id}', 'CategoryController@delete_recovery_forever');
+    Route::post('soft_delete_cate', 'CategoryController@soft_delete');
+
+    Route::post('find_category', 'CategoryController@find_category');
+
+    Route::get('test', function(Request $request) {
+        $admin = $request->session()->get('admin_id');
+        echo $admin;
+    });
 });
 
 // ADDRESS ADD ADDRESS ADMIN LOAD
