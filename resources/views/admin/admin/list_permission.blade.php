@@ -6,8 +6,8 @@
                 <div class="col-md-6 col-sm-12">
                     <nav aria-label="breadcrumb" role="navigation">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">DataTable</li>
+                            <li class="breadcrumb-item"><a href="{{ URL::to('admin/dashboard') }}">Trang chủ</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Phân quyền</li>
                         </ol>
                     </nav>
                 </div>
@@ -16,7 +16,7 @@
         {{--  --}}
         <div class="pd-20 card-box mb-30">
             <div class="pd-20">
-                <h4 class="text-blue h4">Data Table with Checckbox select</h4>
+                <h4 class="text-blue h4">Phân Quyền</h4>
             </div>
             <div class="pb-20">
                 <div id="DataTables_Table_3_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
@@ -25,11 +25,14 @@
                             <table class="dtr-inline table table-bordered" style="margin-right: 10px">
                                 <thead style="text-align: center">
                                     <tr role="row">
-                                        <th>STT</th>
-                                        <th>Name</th>
-                                        <th>user</th>
-                                        <th>manager</th>
-                                        <th>admin</th>
+                                        <th rowspan="2" valign="middle">STT</th>
+                                        <th rowspan="2">Họ Và Tên</th>
+                                        <th colspan="4">Quyền</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Người Dùng</th>
+                                        <th>Quản Lý</th>
+                                        <th>Quản Trị Hệ Thống</th>
                                         <th></th>
                                     </tr>
                                 </thead>

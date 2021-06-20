@@ -67,5 +67,6 @@
     <script src="{{ asset('public/back_end/src/scripts/custom.js') }}"></script>
     <script src="{{ asset('public/back_end/src/scripts/upperFirstKey.js') }}"></script>
     <script src="{{ asset('public/back_end/src/scripts/address.js') }}"></script>
+    <script src="{{ asset('public/back_end/src/scripts/find_ajax_admin.js') }}"></script>
 </body>
 </html>

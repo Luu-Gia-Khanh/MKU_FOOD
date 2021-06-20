@@ -26,7 +26,7 @@ class UserTableSeeder extends Seeder
         $manager = Admin::create([
             'admin_name' => 'khanh manager',
             'admin_email' => 'khanhmanager@gmail.com',
-            'admin_phone' => '0368038738',
+            'admin_phone' => '0368038730',
             'password' => md5('123456'),
             'admin_gender' => 'Nam',
             'admin_address' => 'Thành phố Hà Nội, Quận Ba Đình, Phường Phúc Xá',
@@ -35,7 +35,7 @@ class UserTableSeeder extends Seeder
         $user = Admin::create([
             'admin_name' => 'khanh user',
             'admin_email' => 'khanhuser@gmail.com',
-            'admin_phone' => '0368038738',
+            'admin_phone' => '0368038731',
             'password' => md5('123456'),
             'admin_gender' => 'Nam',
             'admin_address' => 'Thành phố Hà Nội, Quận Ba Đình, Phường Phúc Xá',

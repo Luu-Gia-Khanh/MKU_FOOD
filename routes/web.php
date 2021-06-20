@@ -21,11 +21,16 @@ Route::prefix('admin')->group(function () {
     Route::get('delete_admin/{admin_id}', 'AdminController@delete_admin');
     Route::get('view_recycle', 'AdminController@view_recycle');
     Route::get('re_delete/{admin_id}', 'AdminController@re_delete');
+    Route::get('delete_when_find/{admin_id}', 'AdminController@delete_when_find');
+    Route::get('view_profile/{admin_id}', 'AdminController@view_profile');
 
+    Route::post('find_admin', 'AdminController@find_admin');
     Route::post('delete_forever', 'AdminController@delete_forever');
     Route::post('soft_delete', 'AdminController@soft_delete');
     Route::post('process_add_admin', 'AdminController@process_add_admin');
     Route::post('process_update_admin/{admin_id}', 'AdminController@process_update_admin');
+    Route::post('process_update_profile_admin/{admin_id}', 'AdminController@process_update_profile_admin');
+    Route::post('update_password_admin/{admin_id}', 'AdminController@update_password_admin');
 
     //PERMISSION
     Route::get('list_permission', 'AdminController@list_permission')->middleware('role_admin_manager');
@@ -47,3 +52,6 @@ Route::post('admin/load_ward', 'AddressController@load_ward');
 //ADDRESS UPDATE ADDRESS ADDMIN LOAD
 Route::post('admin/load_district_update_address_admin', 'AddressController@load_district');
 Route::post('admin/load_ward_update_address_admin', 'AddressController@load_ward');
+//ADDRESS UPDATE ADDRESS PROFILE ADDMIN LOAD
+Route::post('admin/load_district_update_profile_admin', 'AddressController@load_district');
+Route::post('admin/load_ward_update_address_profile_admin', 'AddressController@load_ward');

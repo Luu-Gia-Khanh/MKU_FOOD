@@ -6,8 +6,9 @@
                 <div class="col-md-6 col-sm-12">
                     <nav aria-label="breadcrumb" role="navigation">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">DataTable</li>
+                            <li class="breadcrumb-item"><a href="{{ URL::to('admin/dashboard') }}">Trang chủ</a></li>
+                            <li class="breadcrumb-item active" aria-current="page"><a href="{{ URL::to('admin/all_admin') }}">Danh sách quản trị viên</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Thùng rác</li>
                         </ol>
                     </nav>
                 </div>
@@ -15,6 +16,20 @@
                 </div>
             </div>
         </div>
+        {{-- Message --}}
+        @if (session('delete_forever_success'))
+            <div class="alert alert-success alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                {{ session('delete_forever_success') }}
+            </div>
+        @endif
+        @if (session('restore_success'))
+            <div class="alert alert-success alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                {{ session('restore_success') }}
+            </div>
+        @endif
+
         <!-- Simple Datatable start -->
         <div class="pd-20 card-box mb-30">
             <div class="pd-20">
