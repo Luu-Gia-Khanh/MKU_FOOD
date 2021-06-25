@@ -6,8 +6,8 @@
                 <div class="col-md-6 col-sm-12">
                     <nav aria-label="breadcrumb" role="navigation">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Loại Sản Phẩm</li>
+                            <li class="breadcrumb-item"><a href="{{ URL::to('admin/dashboard') }}">Trang chủ</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Danh sách loại sản phẩm</li>
                         </ol>
                     </nav>
                 </div>
@@ -29,7 +29,8 @@
 
         <div class="card-box mb-30">
             @if (session('success_add_category'))
-                    <div class="alert alert-success" role="alert">
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                         {{ session('success_add_category') }}
                     </div>
                 @endif
@@ -37,7 +38,8 @@
 
         <div class="card-box mb-30">
             @if (session('success_update_category'))
-                    <div class="alert alert-success" role="alert">
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                         {{ session('success_update_category') }}
                     </div>
                 @endif
@@ -45,7 +47,8 @@
 
         <div class="card-box mb-30">
             @if (session('success_delete_soft_category'))
-                    <div class="alert alert-success" role="alert">
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                         {{ session('success_delete_soft_category') }}
                     </div>
                 @endif
@@ -53,7 +56,8 @@
 
         <div class="card-box mb-30">
             @if (session('success_delete_category'))
-                    <div class="alert alert-success" role="alert">
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                         {{ session('success_delete_category') }}
                     </div>
                 @endif
@@ -61,30 +65,29 @@
 
         <!-- Simple Datatable start -->
         <div class="card-box mb-30">
-            {{-- <div class="pd-20">
-                <h4 class="text-blue h4">Danh sách loại sản phẩm</h4>
-                <form class="form-inline">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
-            </div> --}}
             <div class="row pd-20">
-                <div class="col-md-8 col-sm-12">
-                    <h4 class="text-blue h4">Danh sách loại sản phẩm</h4>
-                </div>
-                <div class="col-md-4 col-sm-12">
-                    {{-- <input type="text" class="text-input form-control" id="search_category" value="" placeholder="Tìm kiếm..."/> --}}
-                    <form action="">
-                        @csrf
-                        <label for="">Tìm kiếm: <input type="search" class="form-control" id="find_category" name="value_find"></label>
-                    </form>
+                <div class="pd-20">
+                    <h4 class="text-blue h4">Danh Sách Loại Sản Phẩm</h4>
                 </div>
             </div>
             <div class="pb-20">
                 <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer ">
                     <div class="row">
+                        <div class="col-sm-12 col-md-6">
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <div id="DataTables_Table_0_filter" class="dataTables_filter">
+                                <form action="">
+                                    @csrf
+                                    <label>Tìm Kiếm:<input type="search" class="form-control form-control-sm" id="find_category" placeholder="Tìm Kiếm"
+                                        aria-controls="DataTables_Table_0"></label>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-12 table-responsive">
-                            <table class="data-table table stripe hover nowrap dataTable no-footer dtr-inline"
+                            <table class="data-table table table-striped nowrap no-footer table-hover"
                                 id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
                                 <thead>
                                     <tr role="row">
@@ -93,9 +96,9 @@
                                         <th class="table-plus datatable-nosort sorting_asc" rowspan="1" colspan="1"
                                             aria-label="Name">Hình Ảnh</th>
                                         <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                            colspan="1" >Tên loại</th>
+                                            colspan="1" >Tên Loại</th>
                                         <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                            colspan="1">Ngày</th>
+                                            colspan="1">Ngày Thêm</th>
                                         <th class="datatable-nosort sorting_disabled" rowspan="1" colspan="1"
                                             aria-label="Action">Thao Tác</th>
                                     </tr>
@@ -114,7 +117,7 @@
                                             <img src="{{ asset('public/upload/'.$cate->cate_image) }}" alt="hình ảnh" srcset="" width="200" height="200">
                                         </td>
                                         <td>{{ $cate->cate_name }}</td>
-                                        <td>{{ $cate->created_at }}</td>
+                                        <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $cate->created_at)->format('d-m-Y') }}</td>
                                         <td>
                                             <div class="dropdown">
                                                 <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"

@@ -31,13 +31,31 @@
                         <li><a href="{{ URL::to('admin/all_product') }}">Danh Sách Sản Phẩm</a></li>
                     </ul>
                 </li>
+
+                {{-- CATEGORY --}}
+
                 <li class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle">
-                        <span class="micon icon-copy ti-harddrives"></span><span class="mtext">Loại sản phẩm</span>
+                        <span class="micon icon-copy ti-harddrive"></span><span class="mtext">Loại Sản Phẩm</span>
                     </a>
                     <ul class="submenu">
-                        <li><a href="{{ URL::to('admin/all_category') }}">Danh Sách loại sản phẩm</a></li>
-                        <li><a href="{{ URL::to('admin/add_category') }}">Thêm loại sản phẩm</a></li>
+                        <li><a href="{{ URL::to('admin/all_category') }}">Danh Sách Loại Sản Phẩm</a></li>
+                        <li><a href="{{ URL::to('admin/add_category') }}">Thêm Loại Sản Phẩm</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <div class="dropdown-divider"></div>
+                </li>
+
+                {{-- STORAGE --}}
+
+                <li class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <span class="micon icon-copy ti-harddrives"></span><span class="mtext">Kho Hàng</span>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="{{ URL::to('admin/all_storage') }}">Danh Sách Kho Hàng</a></li>
+                        <li><a href="{{ URL::to('admin/add_storage') }}">Thêm Kho Hàng</a></li>
                     </ul>
                 </li>
                 <li>
