@@ -36,6 +36,26 @@ $(document).ready(function(){
         $('.category_id_delete_forever').val(cate_id);
     });
 
+    // soft delete storage
+    $('.soft_delete_storage_class').click(function(){
+        var storage_id = $(this).attr('data-id');
+        $('.id_delete_storage').val(storage_id);
+    });
+    $('.btn_delete_forever').click(function(){
+        var storage_id = $(this).attr('data-id');
+        $('.storage_id_delete_forever').val(storage_id);
+    });
+
+    // soft delete storage product
+    $('.soft_delete_storage_product_class').click(function(){
+        var storage_product_id = $(this).attr('data-id');
+        $('.id_delete_storage_product').val(storage_product_id);
+    });
+    $('.btn_delete_forever').click(function(){
+        var storage_product_id = $(this).attr('data-id');
+        $('.storage_product_id_delete_forever').val(storage_product_id);
+    });
+
     // time out alert
     $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
         $("#success-alert").slideUp(500);
@@ -47,7 +67,7 @@ $(document).ready(function(){
         var _token = $('input[name="_token"]').val();
         $.ajax({
             url: 'find_category',
-            method: 'POST',
+            method: 'get',
             data: {
                 value_find: value_find,
                 _token: _token
@@ -57,6 +77,60 @@ $(document).ready(function(){
             }
         });
     });
+
+    //search storage
+    $('#find_storage').keyup(function(){
+        var value_find = $('#find_storage').val();
+        var _token = $('input[name="_token"]').val();
+        $.ajax({
+            url: 'find_storage',
+            method: 'get',
+            data: {
+                value_find: value_find,
+                _token: _token
+            },
+            success: function (data) {
+                $('.content_find_storage').html(data);
+            }
+        });
+    });
+
+    $('#find_storage').keydown(function(){
+        var value_find = $('#find_storage').val();
+        var _token = $('input[name="_token"]').val();
+        $.ajax({
+            url: 'find_storage',
+            method: 'get',
+            data: {
+                value_find: value_find,
+                _token: _token
+            },
+            success: function (data) {
+                $('.content_find_storage').html(data);
+            }
+        });
+    });
+
+    //search storage product
+    $('#find_storage_product').keyup(function(){
+        var value_find = $('#find_storage_product').val();
+        var _token = $('input[name="_token"]').val();
+        var value_storage_id = $('#storage_id').val();
+        $.ajax({
+            url: '../find_storage_product',
+            method: 'post',
+            data: {
+                value_find: value_find,
+                _token: _token,
+                value_storage_id: value_storage_id
+            },
+            success: function (data) {
+                $('.content_find_storage_product').html(data);
+            }
+        });
+    });
+
+
     // change live profile
     $('.change_name').keyup(function(){
         $('.following_name').text($('.change_name').val());

@@ -6,8 +6,8 @@
                 <div class="col-md-6 col-sm-12">
                     <nav aria-label="breadcrumb" role="navigation">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Thêm Loại Sản Phẩm</li>
+                            <li class="breadcrumb-item"><a href="{{ URL::to('admin/dashboard') }}">Trang chủ</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Thêm loại sản phẩm</li>
                         </ol>
                     </nav>
                 </div>
@@ -17,7 +17,7 @@
         </div>
         <div class="pd-20 card-box mb-30">
             <div class="pd-20">
-                <h4 class="text-blue h4">Thêm loại sản phẩm</h4>
+                <h4 class="text-blue h4">Thêm Loại Sản Phẩm</h4>
             </div>
             <div class="pd-20">
                 <form action="{{ URL::to('admin/process_add_category') }}" method="post" enctype="multipart/form-data">
@@ -25,10 +25,10 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label>Tên loại sản phẩm</label>
+                                <label>Tên Loại Sản Phẩm</label>
                                 <input class="form-control upper_val" type="text" name="cate_name"
                                     value="{{ old('cate_name') }}" onblur="return upberFirstKey()"
-                                    placeholder="Nhập loại sản phẩm">
+                                    placeholder="Nhập Loại Sản Phẩm">
                                 @if ($errors->has('cate_name'))
                                     <div class="alert alert-danger alert-dismissible mt-1">
                                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -57,7 +57,7 @@
                         </div>
                     </div>
                     <div class="center mr-t">
-                        <input type="submit" class="btn color-btn-them" value="Thêm loại sản phẩm">
+                        <input type="submit" class="btn color-btn-them" value="Thêm Loại Sản Phẩm">
                     </div>
                 </form>
             </div>

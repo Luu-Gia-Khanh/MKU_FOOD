@@ -7,7 +7,7 @@
                     <nav aria-label="breadcrumb" role="navigation">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ URL::to('admin/dashboard') }}">Trang chủ</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Sửa loại sản phẩm</li>
+                            <li class="breadcrumb-item active" aria-current="page">Nhập kho sản phẩm</li>
                         </ol>
                     </nav>
                 </div>
@@ -18,48 +18,40 @@
 
         <div class="pd-20 card-box mb-30">
             <div class="pd-20">
-                <h4 class="text-blue h4">Sửa Loại Sản Phẩm</h4>
+                <h4 class="text-blue h4">Nhập Kho Sản Phẩm</h4>
             </div>
             <div class="pd-20">
-                <form action="{{ URL::to('admin/process_update_category/' . $update_category->cate_id) }}" method="post" enctype="multipart/form-data">
+                <form action="{{ URL::to('admin/process_import_storage_product/'.$storage_product->storage_product_id) }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label>Tên Loại Sản Phẩm</label>
-                                <input class="form-control upper_val" type="text" name="cate_name"
-                                    value="{{ $update_category->cate_name }}" onblur="return upberFirstKey()"
-                                    placeholder="Nhập Loại Sản Phẩm">
-                                    @if ($errors->has('cate_name'))
-                                    <div class="alert alert-danger alert-dismissible mt-1">
-                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                        {{ $errors->first('cate_name') }}
-                                    </div>
-                                @endif
-                                @if (session('check_cate_name'))
-                                    <div class="alert alert-danger alert-dismissible mt-1" role="alert">
-                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                        {{ session('check_cate_name') }}
-                                    </div>
-                                @endif
+                                <label>Tên Sản Phẩm</label>
+                                <input class="form-control upper_val" type="text" value="{{ $product->product_name }}" readonly>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label>Hình Ảnh</label>
-                                <input class="form-control" type="file" name="cate_image" id="file_upload"
-                                    onchange="return uploadhinh()" placeholder="">
+                                <label>Số Lượng Nhập Kho</label>
+                                <input class="form-control" type="number" name="total_quantity_product"
+                                value="" autofocus="focus">
                             </div>
+                            @if (session('error_check_storage_product_quantity'))
+                                <div class="alert alert-danger alert-dismissible mt-1" role="alert">
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                    {{ session('error_check_storage_product_quantity') }}
+                                </div>
+                            @endif
                         </div>
                     </div>
                     <div class="row">
                         <div class="ml-3" id="">
-                            <img src="{{ asset('public/upload/' . $update_category->cate_image) }}" class="" alt="hình ảnh"
-                                id="image_upload" height="500" width="500">
+                            <img src="{{ asset('public/upload/' . $product->product_image) }}" class="" alt="hình ảnh"
+                            id="image_upload" height="500" width="500">
                         </div>
                     </div>
                     <div class="center mr-t mt-5">
-                        <button type="submit" class="btn color-btn-them" value="Chỉnh Sửa Quản Trị Viên"><i class="icon-copy fi-page-edit"></i> Chỉnh Sửa Loại Sản Phẩm</button>
+                        <button type="submit" class="btn color-btn-them" value="Nhập Sản Phẩm"><i class="icon-copy fi-page-edit"></i>Nhập Hàng Vào Kho</button>
                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">
                             <i class="icon-copy fi-x"></i> Hủy Thay Đổi
                         </button>
@@ -90,4 +82,5 @@
                 </div>
             </div>
         </div>
-    @endsection
+    </div>
+@endsection

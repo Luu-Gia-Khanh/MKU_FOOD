@@ -133,7 +133,7 @@ class AdminController extends Controller
         //check age
         if($age<18){
             $request->session()->flash('check_age', 'Người quản trị phải trên 18 tuổi');
-            return redirect('admin/add_admin');
+            return redirect()->back();
         }
 
         //check phone
@@ -221,7 +221,7 @@ class AdminController extends Controller
         //check age
         if($age<18){
             $request->session()->flash('check_age', 'Người quản trị phải trên 18 tuổi');
-            return redirect('admin/add_admin');
+            return redirect()->back();
         }
 
         //check phone

@@ -26,7 +26,7 @@ class CategoryController extends Controller
 
     public function process_add_category(Request $request) {
         //check all
-        $this->Validation_Category($request);
+        $this->validation_category($request);
 
         //check name category
         $check_cate_name = Category::where('cate_name', $request->cate_name)->first();
@@ -52,13 +52,13 @@ class CategoryController extends Controller
         $category->save();
 
         // Action add category
-        $Action_Category = new Admin_Action_Category();
-        $Action_Category->admin_id = Session::get('admin_id');
-        $Action_Category->cate_id = $category->cate_id;
-        $Action_Category->action_id = 1;
-        $Action_Category->action_message = "Thêm loại sản phẩm";
-        $Action_Category->action_time = Carbon::now('Asia/Ho_Chi_Minh');
-        $Action_Category->save();
+        $action_category = new Admin_Action_Category();
+        $action_category->admin_id = Session::get('admin_id');
+        $action_category->cate_id = $category->cate_id;
+        $action_category->action_id = 1;
+        $action_category->action_message = "Thêm loại sản phẩm";
+        $action_category->action_time = Carbon::now('Asia/Ho_Chi_Minh');
+        $action_category->save();
 
         $request->session()->flash('success_add_category', 'Thêm loại sản phẩm thành công');
         return redirect('admin/all_category');
@@ -70,7 +70,7 @@ class CategoryController extends Controller
     }
 
     public function process_update_category(Request $request, $cate_id) {
-        $this->Validation_Category($request);
+        $this->validation_category($request);
 
         $category = Category::find($cate_id);
         
@@ -144,18 +144,18 @@ class CategoryController extends Controller
     }
 
     public function action_update_cate($cate_id){
-        $Action_Category = new Admin_Action_Category();
-        $Action_Category->admin_id = Session::get('admin_id');
-        $Action_Category->cate_id = $cate_id;
-        $Action_Category->action_id = 3;
-        $Action_Category->action_message = "Sửa loại sản phẩm";
-        $Action_Category->action_time = Carbon::now('Asia/Ho_Chi_Minh');
-        $Action_Category->save();
+        $action_category = new Admin_Action_Category();
+        $action_category->admin_id = Session::get('admin_id');
+        $action_category->cate_id = $cate_id;
+        $action_category->action_id = 3;
+        $action_category->action_message = "Sửa loại sản phẩm";
+        $action_category->action_time = Carbon::now('Asia/Ho_Chi_Minh');
+        $action_category->save();
     }
 
     public function find_category(Request $request) {
         $val_find_cate = $request->value_find;
-        $result_find = DB::table('Category')->where('cate_name', 'LIKE','%'.$val_find_cate.'%')->get();
+        $result_find = DB::table('Category')->where('deleted_at', null)->where('cate_name', 'LIKE','%'.$val_find_cate.'%')->get();
         $stt = 0;
         foreach($result_find as $result_item){
             $stt++;
@@ -169,7 +169,7 @@ class CategoryController extends Controller
                             <img src="'.'http://localhost/MKU_FOOD/public/upload/'.$result_item->cate_image.'" alt="hình ảnh" srcset="" width="200" height="200">
                         </td>
                         <td>'.$result_item->cate_name.'</td>
-                        <td>'.$result_item->created_at.'</td>
+                        <td>'.Carbon::createFromFormat('Y-m-d H:i:s', $result_item->created_at)->format('d-m-Y').'</td>
                         <td>
                             <div class="dropdown">
                                 <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"
@@ -216,7 +216,7 @@ class CategoryController extends Controller
         if(count($cate_name_db) > 0){
             $request->session()->flash('error_check_cate_name', 'Loại sản phẩm đã tồn tại trong danh sách');
             $request->session()->flash('cate_id', $cate_name_recycle->cate_id);
-            return redirect('admin/view_recycle');
+            return redirect()->back();
         }else {
             Category::withTrashed()->where('cate_id', $cate_id)->restore();
 
@@ -246,7 +246,7 @@ class CategoryController extends Controller
         $Action_Category->action_time = Carbon::now('Asia/Ho_Chi_Minh');
         $Action_Category->save();
 
-        
+        $request->session()->flash('success_delete_forever_category', 'Xóa vĩnh viễn thành công');
         return redirect()->back();
     }
 
@@ -273,7 +273,7 @@ class CategoryController extends Controller
         return redirect()->back();
     }
 
-    public function Validation_Category(Request $request){
+    public function validation_category(Request $request){
         $request -> validate([
             'cate_name' =>'required|max:100',
         ],[
