@@ -6,6 +6,8 @@ $(document).ready(function(){
     $('.confirm').click(function(){
         location.reload();
     });
+
+    ////////////////// DELETE ////////////////////
     // Modal delete forever
     $('.btn_delete_forever').click(function(){
         var admin_id = $(this).attr('data-id');
@@ -26,6 +28,43 @@ $(document).ready(function(){
         form_delete.submit();
     });
 
+    //soft delete product
+    $('.soft_delete_product_class').click(function(){
+            var product_id = $(this).attr('data-id');
+            $('.id_delete_product').val(product_id);
+    });
+    $('.btn_delete_soft_product').click(function(){
+        var form_delete = document.forms['form_soft_delete_product'];
+        form_delete.submit();
+    });
+    //delete forever product
+    $('.btn_delete_forever_product').click(function(){
+        var product_id = $(this).attr('data-id');
+        $('.product_id_delete_forever').val(product_id);
+    });
+    $('.btn_confirm_delete_forever_product').click(function(){
+        var form_delete = document.forms['form_delete_forever_product'];
+        form_delete.submit();
+    });
+    //soft delete image product
+    $('.soft_delete_image_product_class').click(function(){
+        var image_id = $(this).attr('data-id');
+        $('.id_delete_image_product').val(image_id);
+    });
+    $('.btn_delete_soft_image_product').click(function(){
+        var form_delete = document.forms['form_soft_delete_image_product'];
+        form_delete.submit();
+    });
+    //delete forever product image
+    $('.forever_delete_image_product_class').click(function(){
+        var image_id = $(this).attr('data-id');
+        $('.id_delete_forever_image_product').val(image_id);
+    });
+    $('.btn_confirm_delete_forever_product').click(function(){
+        var form_delete = document.forms['form_delete_forever_product'];
+        form_delete.submit();
+    });
+
     // soft delete category
     $('.soft_delete_category_class').click(function(){
             var cate_id = $(this).attr('data-id');
@@ -36,6 +75,7 @@ $(document).ready(function(){
         $('.category_id_delete_forever').val(cate_id);
     });
 
+    /////////////////
     // time out alert
     $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
         $("#success-alert").slideUp(500);
@@ -64,14 +104,42 @@ $(document).ready(function(){
     $('.change_birthday').keyup(function(){
         $('.following_birthday').text($('.change_birthday').val());
     });
-    $('.change_gender').keyup(function(){
-        $('.following_gender').text($('.change_gender').val());
+    $('.change_gender').change(function(){
+        var val_gender = $('#change_gender :selected').text();
+        $('.following_gender').text(val_gender);
     });
     $('.change_email').keyup(function(){
         $('.following_email').text($('.change_email').val());
     });
     $('.change_phone').keyup(function(){
         $('.following_phone').text($('.change_phone').val());
+    });
+    $('#city_update_profile').change(function(){
+        var city = $('#city_update_profile :selected').text();
+        $('.following_city').text(city+", ");
+    });
+    $('#ward_update_profile_admin').change(function(){
+        var ward = $('#ward_update_profile_admin :selected').text();
+        $('.following_ward').text(ward);
+    });
+    $('#district_update_profile_admin').change(function(){
+        var district = $('#district_update_profile_admin :selected').text();
+        $('.following_district').text(district);
+    });
+
+    //custom file input add image gallery product
+    $(".custom-file-input").on("change", function() {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+    //update price product
+    $('.update_price_product').click(function(){
+        var price = $(this).attr('data-id');
+        $('.val_price_product').val(price);
+    });
+    $('.btn_update_price_product').click(function(){
+        var form_delete = document.forms['update_price_product'];
+        form_delete.submit();
     });
 });
 

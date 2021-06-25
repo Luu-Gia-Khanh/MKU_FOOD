@@ -133,7 +133,7 @@ class AdminController extends Controller
         //check age
         if($age<18){
             $request->session()->flash('check_age', 'Người quản trị phải trên 18 tuổi');
-            return redirect('admin/add_admin');
+            return redirect()->back();
         }
 
         //check phone
@@ -223,7 +223,6 @@ class AdminController extends Controller
             $request->session()->flash('check_age', 'Người quản trị phải trên 18 tuổi');
             return redirect('admin/add_admin');
         }
-
         //check phone
         $check_phone = DB::table('admin')->where('admin_phone', $request->admin_phone)->get();
         if (count($check_phone)>1){
@@ -290,7 +289,6 @@ class AdminController extends Controller
     }
     public function update_password_admin(Request $request, $admin_id){
         $this->Validation_Update_Password($request);
-
         $old_password = md5($request->old_password);
         $new_password = md5($request->new_password);
         $confirm_password = md5($request->confirm_password);
@@ -333,6 +331,7 @@ class AdminController extends Controller
         return redirect()->back();
     }
     public function delete_forever(Request $request){
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         $admin_id = $request->admin_id_delete_forever;
         $delete_forever = Admin::withTrashed()->where('admin_id', $admin_id)->forceDelete();
         if($delete_forever){
@@ -375,39 +374,17 @@ class AdminController extends Controller
     }
     public function find_admin(Request $request){
         $val_find = $request->value_find;
-        $result_find = DB::table('admin')->where('deleted_at', null)->where('admin_name','LIKE','%'.$val_find.'%')->orwhere('admin_phone','LIKE','%'.$val_find.'%')->get();
-        $stt = 1;
-        foreach ($result_find as $result){
-            $show = '
-            <tr role="row" class="odd">
-                <td>'.$stt++.'</td>
-                <td class="table-plus sorting_1" tabindex="0">
-                    <img src="http://localhost/MKU_FOOD/public/upload/'.$result->avt.'" alt="hình ảnh" height="70px" width="70px">
-                </td>
-                <td>'.$result->admin_name.'</td>
-                <td>'.$result->admin_phone.'</td>
-                <td>'.$result->admin_email.'</td>
-                <td>
-                    <div class="dropdown">
-                        <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"
-                            href="#" role="button" data-toggle="dropdown">
-                            <i class="dw dw-more"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                            <a class="dropdown-item" href="http://localhost/MKU_FOOD/admin/view_profile/'.$result->admin_id.'"><i class="dw dw-eye"></i>Thông tin cá nhân</a>
-                            <a class="dropdown-item" href="http://localhost/MKU_FOOD/admin/update_admin/'.$result->admin_id.'"><i class="dw dw-edit2"></i>Chỉnh Sửa</a>
-                            <form action = "http://localhost/MKU_FOOD/admin/delete_when_find/'.$result->admin_id.'" method="get">
-
-                                <button type="submit" class="dropdown-item"><i class="dw dw-delete-3"></i>Xóa</button>
-                            </form>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-                    ';
-            echo $show;
-        }
+        $result_find = Admin::where('deleted_at', null)
+            ->where('admin_name','LIKE','%'.$val_find.'%')
+            ->orwhere('admin_phone','LIKE','%'.$val_find.'%')
+            ->where('deleted_at', null)
+            ->orwhere('admin_email','LIKE','%'.$val_find.'%')
+            ->where('deleted_at', null)
+            ->orwhere('admin_id','LIKE','%'.$val_find.'%')
+            ->get();
+        echo view('admin.admin.view_find_admin',['all_admin'=>$result_find]);
     }
+
     public function delete_when_find(Request $request,$admin_id){
         $soft_delete = Admin::where('admin_id', $admin_id)->delete();
         if($soft_delete){
@@ -446,7 +423,7 @@ class AdminController extends Controller
     public function Validation_Admin(Request $request){
         $request -> validate([
             'admin_name' =>'required|min:5|max:100',
-            'admin_email' =>'required|email|min:3|max:100',
+            'admin_email' =>'required|email|min:3|max:100|regex:/(.+)@(.+)\.(.+)/i',
             'admin_phone' => 'required|starts_with:0|digits:10|numeric',
             'admin_birthday' =>'required',
             'city' => 'required',
@@ -462,6 +439,7 @@ class AdminController extends Controller
             'admin_email.email' => 'Không đúng định dạng của một email',
             'admin_email.min' => 'Email phải có độ dài tối thiểu 3 ký tự',
             'admin_email.max' => 'Email phải có độ dài tối đa 100 ký tự',
+            'admin_email.max' => 'Email không đúng định dạng',
 
             'admin_phone.required' => 'Số điện thoại không được để trống',
             'admin_phone.digits' => 'Số điện thoại phải đúng 10 số',

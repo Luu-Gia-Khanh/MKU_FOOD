@@ -20,13 +20,17 @@
                         <li><a href="{{ URL::to('admin/all_admin') }}">Danh Sách Quản Trị</a></li>
                         <li><a href="{{ URL::to('admin/add_admin') }}">Thêm Quản Trị Viên</a></li>
                         <li><a href="{{ URL::to('admin/list_permission') }}">Phân Quyền</a></li>
-
                     </ul>
                 </li>
-                <li>
-                    <div class="dropdown-divider"></div>
+                <li class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <span class="micon dw dw-house-1"></span><span class="mtext">Sản Phẩm</span>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="{{ URL::to('admin/add_product') }}">Thêm Sản Phẩm</a></li>
+                        <li><a href="{{ URL::to('admin/all_product') }}">Danh Sách Sản Phẩm</a></li>
+                    </ul>
                 </li>
-
                 <li class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle">
                         <span class="micon icon-copy ti-harddrives"></span><span class="mtext">Loại sản phẩm</span>

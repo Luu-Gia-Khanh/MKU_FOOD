@@ -135,7 +135,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-12 col-md-5">
-                            <a href="{{ URL::to('admin/view_recycle') }}" class="btn color-btn-them ml-10"
+                            <a href="{{ URL::to('admin/view_recycle_cate') }}" class="btn color-btn-them ml-10"
                                 style="color: white"><i class="dw dw-delete-3"></i> Thùng Rác</a>
                         </div>
                         <div class="col-sm-12 col-md-7">

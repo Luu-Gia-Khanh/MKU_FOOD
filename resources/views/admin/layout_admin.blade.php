@@ -22,15 +22,6 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('public/back_end/src/plugins/datatables/css/responsive.bootstrap4.min.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('public/back_end/vendors/styles/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('public/back_end/src/styles/custom.css') }}">
-	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
-	<script>
-		window.dataLayer = window.dataLayer || [];
-		function gtag(){dataLayer.push(arguments);}
-		gtag('js', new Date());
-
-		gtag('config', 'UA-119386393-1');
-	</script>
 </head>
 <body>
     {{-- HEADER --}}
@@ -61,6 +52,17 @@
 	<script src="{{ asset('public/back_end/src/plugins/datatables/js/dataTables.responsive.min.js') }}"></script>
 	<script src="{{ asset('public/back_end/src/plugins/datatables/js/responsive.bootstrap4.min.js') }}"></script>
 	<script src="{{ asset('public/back_end/vendors/scripts/dashboard.js') }}"></script>
+        <!-- fancybox -->
+    {{-- <script src="{{ asset('public/back_end/src/plugins/fancybox/dist/jquery.fancybox.js') }}"></script> --}}
+    	<!-- buttons for Export datatable -->
+	{{-- <script src="{{ asset('public/back_end/src/plugins/datatables/js/dataTables.buttons.min.js') }}"></script> --}}
+	{{-- <script src="{{ asset('public/back_end/src/plugins/datatables/js/buttons.bootstrap4.min.js') }}"></script>
+	<script src="{{ asset('public/back_end/src/plugins/datatables/js/buttons.print.min.js') }}"></script>
+	<script src="{{ asset('public/back_end/src/plugins/datatables/js/buttons.html5.min.js') }}"></script>
+	<script src="{{ asset('public/back_end/src/plugins/datatables/js/buttons.flash.min.js') }}"></script>
+	<script src="{{ asset('public/back_end/src/plugins/datatables/js/vfs_fonts.js') }}"></script> --}}
+	<!-- Datatable Setting js -->
+	{{-- <script src="{{ asset('public/back_end/vendors/scripts/datatable-setting.js') }}"></script> --}}
 
     {{-- custom script --}}
     <script src="{{ asset('public/back_end/src/scripts/upload_image.js') }}"></script>
@@ -68,5 +70,8 @@
     <script src="{{ asset('public/back_end/src/scripts/upperFirstKey.js') }}"></script>
     <script src="{{ asset('public/back_end/src/scripts/address.js') }}"></script>
     <script src="{{ asset('public/back_end/src/scripts/find_ajax_admin.js') }}"></script>
+    <script src="{{ asset('public/back_end/src/scripts/find_ajax_product.js') }}"></script>
+    <script src="{{ asset('public/back_end/ckeditor/ckeditor.js') }}"></script>
+    <script src="{{ asset('public/back_end/src/scripts/ckeditor_custom.js') }}"></script>
 </body>
 </html>

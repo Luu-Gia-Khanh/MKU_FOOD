@@ -90,7 +90,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Thư Điện Tử(Email)</label>
-                                <input class="form-control" type="text" name="admin_email"
+                                <input class="form-control" type="email" name="admin_email"
                                     value="{{ old('admin_email') }}" placeholder="Nhập Địa Chỉ Mail(........@.....)">
                                 @if ($errors->has('admin_email'))
                                     <div class="alert alert-danger alert-dismissible mt-1">

@@ -3,16 +3,16 @@
     <div class="min-height-200px">
         <div class="page-header">
             <div class="row">
-                <div class="col-md-6 col-sm-12">
+                <div class="col-md-12 col-sm-12">
                     <nav aria-label="breadcrumb" role="navigation">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ URL::to('admin/dashboard') }}">Trang chủ</a></li>
+                            <li class="breadcrumb-item"><a href="{{ URL::to('admin/all_admin') }}">Danh sách quản trị viên</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Chỉnh sửa thông tin quản trị viên</li>
                         </ol>
                     </nav>
                 </div>
-                <div class="col-md-6 col-sm-12 text-right">
-                </div>
+
             </div>
         </div>
         <div class="pd-20 card-box mb-30">

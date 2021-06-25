@@ -56,11 +56,15 @@
                         <ul>
                             <li>
                                 <span>Ngày Sinh:</span>
-                                <div class="following_birthday">{{ $view_profile->admin_birthday }}</div>
+                                <div class="following_birthday">{{ date("d-m-Y", strtotime($view_profile->admin_birthday)) }}</div>
                             </li>
                             <li>
                                 <span>Giới Tính:</span>
-                                <div class="following_birthday">{{ $view_profile->admin_gender }}</div>
+                                <div class="following_gender">
+                                    @if($view_profile->admin_gender == 'Nu')
+                                        Nữ
+                                    @endif
+                                </div>
                             </li>
                         </ul>
                     </div>
@@ -219,7 +223,7 @@
                                                                 <div class="form-group">
                                                                     <label>Giới Tính</label>
                                                                     <div class="dropdown bootstrap-select form-control dropup">
-                                                                        <select name="admin_gender" class="selectpicker form-control form-control-lg change_gender" data-size="5">
+                                                                        <select name="admin_gender" class="selectpicker form-control form-control-lg change_gender" id="change_gender" data-size="5">
                                                                             @if ($view_profile->admin_gender == 'Nam')
                                                                                 <option value="Nam" selected>Nam</option>
                                                                                 <option value="Nu">Nữ</option>
@@ -227,7 +231,6 @@
                                                                                 <option value="Nam">Nam</option>
                                                                                 <option value="Nu" selected>Nữ</option>
                                                                             @endif
-
                                                                         </select>
                                                                     </div>
                                                                 </div>
