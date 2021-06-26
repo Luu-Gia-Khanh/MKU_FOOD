@@ -3,16 +3,18 @@
     <div class="min-height-200px">
         <div class="page-header">
             <div class="row">
-                <div class="col-md-6 col-sm-12">
+                <div class="col-md-8 col-sm-12">
                     <nav aria-label="breadcrumb" role="navigation">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ URL::to('admin/dashboard') }}">Trang chủ</a></li>
+                            <li class="breadcrumb-item"><a href="{{ URL::to('admin/all_storage') }}">Danh sách kho hàng</a></li>
+                            <li class="breadcrumb-item"><a href="{{ URL::to('admin/all_storage_product/'.$storage_id) }}">Danh sách kho sản phẩm</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Lịch sử nhập hàng</li>
                         </ol>
                     </nav>
                 </div>
 
-                <div class="col-md-6 col-sm-12">
+                <div class="col-md-4 col-sm-12">
                     {{-- <div class="dropdown">
                     <a class="btn btn-primary dropdown-toggle" href="#" role="button" data-toggle="dropdown">
                         January 2018
@@ -45,8 +47,8 @@
                     @if (count($history_storage_product) > 0)
                     <div class="row">
                         <div class="col-12 table-responsive">
-                            <table class="data-table table table-striped nowrap no-footer table-hover"
-                                id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                            <table class="data-table table table-hover multiple-select-row nowrap no-footer dtr-inline"
+                            id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
                                 <thead>
                                     <tr role="row">
                                         <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
@@ -54,16 +56,14 @@
                                         <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                                             colspan="1" >Nhân Viên Nhập</th>
                                         <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                            colspan="1">Số Lượng Đang Có</th>
+                                            colspan="1">Số Lượng Tồn Kho</th>
                                         <th class="datatable-nosort sorting_disabled" rowspan="1" colspan="1"
                                             aria-label="Action">Số Lượng Nhập Mới</th>
-                                        <th class="datatable-nosort sorting_disabled" rowspan="1" colspan="1"
-                                            aria-label="Action">Tổng Số Lượng</th>
                                         <th class="datatable-nosort sorting_disabled" rowspan="1" colspan="1"
                                             aria-label="Action">Ngày Nhập Hàng</th>
                                     </tr>
                                 </thead>
-                                <tbody class="content_find_storage_product">
+                                <tbody>
                                     @php
                                         $stt = 0;
                                     @endphp
@@ -82,10 +82,14 @@
                                         </td>
                                         <td>{{ $history_item->quantity_current }}</td>
                                         <td>{{ $history_item->quantity_import }}</td>
-                                        <td>{{ $history_item->quantity_total }}</td>
                                         <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $history_item->created_at)->format('d-m-Y') }}</td>
                                     </tr>
                                     @endforeach
+                                    <tr>
+                                        <td colspan="3"></td>
+                                        <td colspan="1" style="font-size: 18px">Số lượng hiện tại:</td>
+                                        <td colspan="1" style="font-size: 18px">{{ $quantity_total }}</td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>

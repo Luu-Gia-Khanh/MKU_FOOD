@@ -3,15 +3,17 @@
     <div class="min-height-200px">
         <div class="page-header">
             <div class="row">
-                <div class="col-md-6 col-sm-12">
+                <div class="col-md-8 col-sm-12">
                     <nav aria-label="breadcrumb" role="navigation">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ URL::to('admin/dashboard') }}">Trang chủ</a></li>
+                            <li class="breadcrumb-item"><a href="{{ URL::to('admin/all_storage') }}">Danh sách kho hàng</a></li>
+                            <li class="breadcrumb-item"><a href="{{ URL::to('admin/all_storage_product/'.$storage_id) }}">Danh sách kho sản phẩm</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Sửa kho sản phẩm</li>
                         </ol>
                     </nav>
                 </div>
-                <div class="col-md-6 col-sm-12 text-right">
+                <div class="col-md-4 col-sm-12 text-right">
                 </div>
             </div>
         </div>
@@ -48,14 +50,23 @@
                                     {{ session('error_check_storage_product_quantity') }}
                                 </div>
                             @endif
+                            @if (session('error_check_storage_product_null'))
+                                <div class="alert alert-danger alert-dismissible mt-1" role="alert">
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                    {{ session('error_check_storage_product_null') }}
+                                </div>
+                            @endif
                         </div>
                     </div>
                     <div class="row">
                         <div class="ml-3" id="">
                             @foreach ($all_product as $product)
                                 @if ($storage_product->product_id == $product->product_id)
-                                    <img src="{{ asset('public/upload/' . $product->product_image) }}" class="" alt="hình ảnh"
-                                    id="image_upload" height="500" width="500">
+                                    <div class="da-card box-shadow" style="height: 350x; width: 475px">
+                                        <div class="da-card-photo">
+                                            <img src="{{ asset('public/upload/' . $product->product_image) }}" class="" alt="hình ảnh" id="image_upload">
+                                        </div>
+                                    </div>
                                 @endif
                             @endforeach
                         </div>

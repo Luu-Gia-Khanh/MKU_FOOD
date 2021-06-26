@@ -43,9 +43,6 @@
                         <li><a href="{{ URL::to('admin/add_category') }}">Thêm Loại Sản Phẩm</a></li>
                     </ul>
                 </li>
-                <li>
-                    <div class="dropdown-divider"></div>
-                </li>
 
                 {{-- STORAGE --}}
 
@@ -57,9 +54,6 @@
                         <li><a href="{{ URL::to('admin/all_storage') }}">Danh Sách Kho Hàng</a></li>
                         <li><a href="{{ URL::to('admin/add_storage') }}">Thêm Kho Hàng</a></li>
                     </ul>
-                </li>
-                <li>
-                    <div class="dropdown-divider"></div>
                 </li>
             </ul>
 

@@ -3,15 +3,17 @@
     <div class="min-height-200px">
         <div class="page-header">
             <div class="row">
-                <div class="col-md-6 col-sm-12">
+                <div class="col-md-8 col-sm-12">
                     <nav aria-label="breadcrumb" role="navigation">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ URL::to('admin/dashboard') }}">Trang chủ</a></li>
+                            <li class="breadcrumb-item"><a href="{{ URL::to('admin/all_storage') }}">Danh sách kho hàng</a></li>
+                            <li class="breadcrumb-item"><a href="{{ URL::to('admin/all_storage_product/'.$storage_id) }}">Danh sách kho sản phẩm</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Nhập kho sản phẩm</li>
                         </ol>
                     </nav>
                 </div>
-                <div class="col-md-6 col-sm-12 text-right">
+                <div class="col-md-4 col-sm-12 text-right">
                 </div>
             </div>
         </div>

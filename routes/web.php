@@ -123,7 +123,7 @@ Route::prefix('admin')->group(function () {
     Route::get('process_delete_storage_product/{storage_product_id}', 'StorageProductController@process_delete_storage_product');
 
     Route::get('view_recycle_storage_product', 'StorageProductController@view_recycle');
-    Route::get('re_delete_storage_product/{StorageProduct_id}', 'StorageProductController@re_delete');
+    Route::get('re_delete_storage_product/{storage_product_id}', 'StorageProductController@re_delete');
     Route::post('delete_forever_storage_product', 'StorageProductController@delete_forever');
     Route::get('delete_recovery_forever_storage_product/{storage_product_id}', 'StorageProductController@delete_recovery_forever_storage_product');
     Route::post('soft_delete_storage_product', 'StorageProductController@soft_delete');

@@ -27,6 +27,15 @@
         </div>
 
         <div class="card-box mb-30">
+            @if (session('success_recovery_category'))
+                <div class="alert alert-success alert-dismissible" role="alert">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    {{ session('success_recovery_category') }}
+                </div>
+            @endif
+        </div>
+
+        <div class="card-box mb-30">
             @if (session('error_check_cate_name'))
                 <div class="alert alert-danger alert-dismissible" role="alert">
                     @php
@@ -69,7 +78,11 @@
                                         <tr>
                                             <td>{{ $stt++ }}</td>
                                             <td>
-                                                <img src="{{ asset('public/upload/'.$recy->cate_image) }}" alt="" srcset="" height="70px" width="70px">
+                                                <div class="da-card box-shadow" style="height: 80px; width: 80px">
+                                                    <div class="da-card-photo">
+                                                        <img src="{{ asset('public/upload/'.$recy->cate_image) }}" alt="" srcset="" height="70px" width="70px">
+                                                    </div>
+                                                </div>
                                             </td>
                                             <td>{{ $recy->cate_name }}</td>
                                             <td class="col-4">

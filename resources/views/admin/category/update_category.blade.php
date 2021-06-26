@@ -7,6 +7,7 @@
                     <nav aria-label="breadcrumb" role="navigation">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ URL::to('admin/dashboard') }}">Trang chủ</a></li>
+                            <li class="breadcrumb-item"><a href="{{ URL::to('admin/all_category') }}">Danh sách loại sản phẩm</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Sửa loại sản phẩm</li>
                         </ol>
                     </nav>
@@ -54,8 +55,12 @@
                     </div>
                     <div class="row">
                         <div class="ml-3" id="">
-                            <img src="{{ asset('public/upload/' . $update_category->cate_image) }}" class="" alt="hình ảnh"
-                                id="image_upload" height="500" width="500">
+                            <div class="da-card box-shadow" style="height: 350x; width: 475px">
+                                <div class="da-card-photo">
+                                    <img src="{{ asset('public/upload/' . $update_category->cate_image) }}" class="" alt="hình ảnh"
+                                id="image_upload">
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="center mr-t mt-5">

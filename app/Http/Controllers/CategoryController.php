@@ -156,36 +156,40 @@ class CategoryController extends Controller
     public function find_category(Request $request) {
         $val_find_cate = $request->value_find;
         $result_find = DB::table('Category')->where('deleted_at', null)->where('cate_name', 'LIKE','%'.$val_find_cate.'%')->get();
-        $stt = 0;
-        foreach($result_find as $result_item){
-            $stt++;
-            echo '<table class="data-table table stripe hover nowrap dataTable no-footer dtr-inline"
-                    id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
-                    <tbody class="content_find_category">
-
-                    <tr role="row" class="odd">
-                        <td>'.$stt.'</td>
-                        <td class="table-plus sorting_1" tabindex="0">
-                            <img src="'.'http://localhost/MKU_FOOD/public/upload/'.$result_item->cate_image.'" alt="hình ảnh" srcset="" width="200" height="200">
-                        </td>
-                        <td>'.$result_item->cate_name.'</td>
-                        <td>'.Carbon::createFromFormat('Y-m-d H:i:s', $result_item->created_at)->format('d-m-Y').'</td>
-                        <td>
-                            <div class="dropdown">
-                                <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"
-                                    href="#" role="button" data-toggle="dropdown">
-                                    <i class="dw dw-more"></i>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                    <a class="dropdown-item" href="http://localhost/MKU_FOOD/admin/update_category/'.$result_item->cate_id.'"><i class="dw dw-edit2"></i>Chỉnh Sửa</a>
-                                    <a class="dropdown-item" href="http://localhost/MKU_FOOD/admin/process_delete_category/'.$result_item->cate_id.'"><i class="dw dw-delete-3"></i>Xóa</a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-                </table>';
-        }
+        // $stt = 0;
+        // foreach($result_find as $result_item){
+        //     $stt++;
+        //     echo '<table class="data-table table table-hover multiple-select-row nowrap no-footer dtr-inline"
+        //     id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+        //             <tbody class="content_find_category">
+        //             <tr role="row" class="odd">
+        //                 <td>'.$stt.'</td>
+        //                 <td class="table-plus sorting_1" tabindex="0">
+        //                     <div class="da-card box-shadow" style="height: 80px; width: 80px">
+        //                         <div class="da-card-photo">
+        //                             <img src="'.'http://localhost/MKU_FOOD/public/upload/'.$result_item->cate_image.'" alt="hình ảnh" srcset="" width="200" height="200">
+        //                         </div>
+        //                     </div>
+        //                 </td>
+        //                 <td>'.$result_item->cate_name.'</td>
+        //                 <td>'.Carbon::createFromFormat('Y-m-d H:i:s', $result_item->created_at)->format('d-m-Y').'</td>
+        //                 <td>
+        //                     <div class="dropdown">
+        //                         <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"
+        //                             href="#" role="button" data-toggle="dropdown">
+        //                             <i class="dw dw-more"></i>
+        //                         </a>
+        //                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+        //                             <a class="dropdown-item" href="http://localhost/MKU_FOOD/admin/update_category/'.$result_item->cate_id.'"><i class="dw dw-edit2"></i>Chỉnh Sửa</a>
+        //                             <a class="dropdown-item" href="http://localhost/MKU_FOOD/admin/process_delete_category/'.$result_item->cate_id.'"><i class="dw dw-delete-3"></i>Xóa</a>
+        //                         </div>
+        //                     </div>
+        //                 </td>
+        //             </tr>
+        //         </tbody>
+        //         </table>';
+        // }
+        echo view('admin.category.result_find_category', compact('result_find'));
     }
 
     public function process_delete_category(Request $request, $cate_id) {
@@ -200,7 +204,7 @@ class CategoryController extends Controller
         $Action_Category->action_time = Carbon::now('Asia/Ho_Chi_Minh');
         $Action_Category->save();
 
-        $request->session()->flash('success_delete_category', 'Loại sản phẩm đã được chuyển vào thùng rác');
+        $request->session()->flash('success_delete_category', 'Xóa thành công');
         return redirect()->back();
     }
 
@@ -229,6 +233,7 @@ class CategoryController extends Controller
             $Action_Category->action_time = Carbon::now('Asia/Ho_Chi_Minh');
             $Action_Category->save();
 
+            $request->session()->flash('success_recovery_category', 'Khôi phục thành công');
             return redirect()->back();
         }
     }
@@ -269,7 +274,7 @@ class CategoryController extends Controller
         $Action_Category->action_time = Carbon::now('Asia/Ho_Chi_Minh');
         $Action_Category->save();
 
-        $request->session()->flash('success_delete_soft_category', 'Loại sản phẩm đã được chuyển vào thùng rác');
+        $request->session()->flash('success_delete_soft_category', 'Xóa thành công');
         return redirect()->back();
     }
 

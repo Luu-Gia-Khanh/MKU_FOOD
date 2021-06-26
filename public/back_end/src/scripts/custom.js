@@ -214,6 +214,12 @@ $(document).ready(function(){
         var form_delete = document.forms['update_price_product'];
         form_delete.submit();
     });
+
+    //add storage
+    $('.btn_add_storage').click(function(){
+        var form_delete = document.forms['add_storage'];
+        form_delete.submit();
+    });
 });
 
     //keep active when load page tab
