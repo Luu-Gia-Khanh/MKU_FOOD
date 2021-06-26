@@ -27,9 +27,9 @@
                         </div>
                         <div class="blog-caption">
                             <h4 class="mb-10">Mô tả ngắn sản phẩm</h4>
-                            <p>{!! $product->product_sort_desc !!}</p>
+                           {!! $product->product_sort_desc !!}
                             <h5 class="mb-10">Mô tả sản phẩm</h5>
-                            <p>{!! $product->product_desc !!}</p>
+                            {!! $product->product_desc !!}
                         </div>
                     </div>
                 </div>

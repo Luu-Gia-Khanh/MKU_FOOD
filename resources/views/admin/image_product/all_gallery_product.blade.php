@@ -46,26 +46,31 @@
             </div>
         @endif
     <div class="gallery-wrap">
-        <ul class="row">
-            @foreach ($all_image as $image)
-                <li class="col-lg-4 col-md-6 col-sm-12">
-                    <div class="da-card box-shadow" >
-                        <div class="da-card-photo">
-                            <img src="{{ asset('public/upload/'.$image->image) }}" alt="" style="width: 320px; height: 269px">
-                            <div class="da-overlay">
-                                <div class="da-social">
-                                <h5 class="mb-10 color-white pd-20">{{ date("d-m-Y H:i", strtotime($image->create_at))   }}</h5>
-                                    <ul class="clearfix">
-                                        <li><a href="{{ asset('public/upload/'.$image->image) }}" data-fancybox="images"><i class="fa fa-picture-o"></i></a></li>
-                                        <li><a class="soft_delete_image_product_class" data-id = "{{ $image->image_id }}" data-toggle="modal" data-target="#modal_delete_image" ><i class="dw dw-delete-3"></i></a></li>
-                                    </ul>
+        @if (count($all_image) > 0)
+            <ul class="row">
+                @foreach ($all_image as $image)
+                    <li class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="da-card box-shadow" >
+                            <div class="da-card-photo">
+                                <img src="{{ asset('public/upload/'.$image->image) }}" alt="" style="width: 320px; height: 269px">
+                                <div class="da-overlay">
+                                    <div class="da-social">
+                                    <h5 class="mb-10 color-white pd-20">{{ date("d-m-Y H:i", strtotime($image->create_at))   }}</h5>
+                                        <ul class="clearfix">
+                                            <li><a href="{{ asset('public/upload/'.$image->image) }}" data-fancybox="images"><i class="fa fa-picture-o"></i></a></li>
+                                            <li><a class="soft_delete_image_product_class" data-id = "{{ $image->image_id }}" data-toggle="modal" data-target="#modal_delete_image" ><i class="dw dw-delete-3"></i></a></li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </li>
-            @endforeach
-        </ul>
+                    </li>
+                @endforeach
+            </ul>
+        @else
+            <div class="center">Chưa có hình ảnh nào</div>
+        @endif
+
     </div>
     <div class="row mr-bt">
         <div class="col-sm-12 col-md-5">
@@ -103,7 +108,7 @@
             </div>
             <!-- Modal footer -->
             <div class="modal-footer">
-                <input type="submit" class="btn btn-primary" value="Thêm">
+                <input type="submit" class="btn color-btn-them" value="Thêm">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
             </div>
         </form>

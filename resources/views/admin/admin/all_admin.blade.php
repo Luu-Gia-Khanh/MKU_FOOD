@@ -68,20 +68,20 @@
                     <div class="content_find_admin">
                         <div class="row">
                             <div class="col-12 table-responsive">
-                                <table class="data-table table table-hover multiple-select-row nowrap no-footer dtr-inline"
+                                <table class="data-table table table-hover multiple-select-row nowrap no-footer dtr-inline sortable"
                                     id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
                                     <thead>
                                         <tr role="row">
                                             <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                                                 colspan="1">STT</th>
                                             <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                                colspan="1">Họ Và Tên</th>
+                                                colspan="1" data-defaultsign="AZ">Họ Và Tên</th>
                                             <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                                                 colspan="1">Số Điện Thoại</th>
                                             <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                                                 colspan="1">Email</th>
                                             <th class="datatable-nosort sorting_disabled" rowspan="1" colspan="1"
-                                                aria-label="Action">Thao Tác</th>
+                                                aria-label="Action" data-defaultsort="disabled">Thao Tác</th>
                                         </tr>
                                     </thead>
                                     <tbody class="content_find_admin">

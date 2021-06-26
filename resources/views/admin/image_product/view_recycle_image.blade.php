@@ -35,7 +35,7 @@
             <ul class="row">
                 @foreach ($recycle_image as $image)
                     <li class="col-lg-4 col-md-6 col-sm-12">
-                        <div class="da-card box-shadow" >
+                        <div class="da-card box-shadow" style="width: 320px; height: 269px">
                             <div class="da-card-photo">
                                 <img src="{{ asset('public/upload/'.$image->image) }}" alt="" style="width: 320px; height: 269px">
                                 <div class="da-overlay">

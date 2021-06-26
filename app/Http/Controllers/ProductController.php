@@ -8,7 +8,8 @@ use App\Unit;
 use App\Storage;
 use App\Product;
 use App\ProductPrice;
-use App\StorageProduct;
+use App\Storage_Product;
+use App\ImageProduct;
 use App\Admin_Action_Storage_Product;
 use App\Admin_Action_Product;
 use App\Admin_Action_Product_Price;
@@ -85,7 +86,7 @@ class ProductController extends Controller
             return redirect()->back();
         }
 
-        $storage_product = new StorageProduct();
+        $storage_product = new Storage_Product();
         $storage_product->storage_id = $request->storage_id;
         $storage_product->product_id = $product->product_id;
         $total_quantity_product = $request->product_quantity;
@@ -121,7 +122,7 @@ class ProductController extends Controller
         $all_unit = Unit::all();
         $all_cate = Category::all();
         $all_storage = Storage::all();
-        $storage_product = StorageProduct::all();
+        $storage_product = Storage_Product::all();
         $product_price = DB::table('product_price')->where('status', 1)->get();
         //
         $now = Carbon::now('Asia/Ho_Chi_Minh');
@@ -166,7 +167,7 @@ class ProductController extends Controller
         $category = Category::all();
         $unit_product = Unit::all();
         $storage = Storage::all();
-        $storage_product = StorageProduct::where('product_id', $prod_id)->first();
+        $storage_product = Storage_Product::where('product_id', $prod_id)->first();
         return view('admin.product.update_product',
         [
             'update_product'=>$update_product,
@@ -217,7 +218,7 @@ class ProductController extends Controller
                 $request->session()->flash('update_product_success', 'Chỉnh sửa sản phẩm thành công');
             }
         }
-        $storage_product = StorageProduct::where('product_id', $prod_id)->first();
+        $storage_product = Storage_Product::where('product_id', $prod_id)->first();
         $storage_product->storage_id = $request->storage_id;
         $result_update_storage_product = $storage_product->save();
         if($result_update_storage_product){
@@ -235,12 +236,12 @@ class ProductController extends Controller
     }
     public function soft_delete_product(Request $request){
         $product_id = $request->product_id;
-        $quantity_product = StorageProduct::where('product_id', $product_id)->first();
+        $quantity_product = Storage_Product::where('product_id', $product_id)->first();
         if($quantity_product->total_quantity_product != 0){
             $request->session()->flash('delete_error', 'Sản phẩm chưa hết hàng, không thể xóa');
             return redirect()->back();
         }else{
-            $soft_delete_storage_product = StorageProduct::where('product_id', $product_id)->delete();
+            $soft_delete_storage_product = Storage_Product::where('product_id', $product_id)->delete();
             $soft_delete_product = Product::where('product_id', $product_id)->delete();
             if($soft_delete_product){
                 $admin_action_product = new Admin_Action_Product();
@@ -261,8 +262,8 @@ class ProductController extends Controller
     }
     public function re_delete_product($prod_id, Request $request){
         $restore_product = Product::withTrashed()->where('product_id', $prod_id)->restore();
-        $restore_storage_product = StorageProduct::withTrashed()->where('product_id', $prod_id)->restore();
-        if($restore_product){
+        $restore_storage_product = Storage_Product::withTrashed()->where('product_id', $prod_id)->restore();
+        if($restore_product && $restore_storage_product){
             $admin_action_product = new Admin_Action_Product();
             $admin_action_product->admin_id = Session::get('admin_id');
             $admin_action_product->product_id = $prod_id;
@@ -278,7 +279,9 @@ class ProductController extends Controller
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         $product_id = $request->product_id_delete_forever;
         $delete_forever_product = Product::withTrashed()->where('product_id', $product_id)->forceDelete();
-        $delete_forever_storage_product = StorageProduct::withTrashed()->where('product_id', $product_id)->forceDelete();
+        $delete_forever_storage_product = Storage_Product::withTrashed()->where('product_id', $product_id)->forceDelete();
+        $delete_forever_image_product = ImageProduct::withTrashed()->where('product_id', $product_id)->forceDelete();
+        $delete_forever_product_price = ProductPrice::withTrashed()->where('product_id', $product_id)->forceDelete();
         if($delete_forever_product){
             $admin_action_product = new Admin_Action_Product();
             $admin_action_product->admin_id = Session::get('admin_id');
@@ -299,7 +302,7 @@ class ProductController extends Controller
         $all_unit = Unit::all();
         $all_cate = Category::all();
         $all_storage = Storage::all();
-        $storage_product = StorageProduct::all();
+        $storage_product = Storage_Product::all();
         $product_price = DB::table('product_price')->where('status', 1)->get();
         //
         $now = Carbon::now('Asia/Ho_Chi_Minh');
@@ -333,7 +336,7 @@ class ProductController extends Controller
         $all_cate = Category::all();
         $all_unit = Unit::all();
         $product_price = ProductPrice::where('product_id', $prod_id)->where('status',1)->first();
-        $storage_product = StorageProduct::where('product_id', $prod_id)->first();
+        $storage_product = Storage_Product::where('product_id', $prod_id)->first();
         $all_storage = Storage::all();
         return view('admin.product.view_detail_product',
             [
@@ -354,7 +357,7 @@ class ProductController extends Controller
             'unit_id' => 'required',
             'storage_id' => 'required',
             'product_quantity' => 'nullable|alpha_num|min:0|max:10000',
-            'product_sort_desc' => 'max:255',
+            'product_sort_desc' => 'required|max:255',
             'product_desc' => 'required',
         ],[
             'product_name.required' => 'Tên sản phẩm không được để trống',
@@ -370,6 +373,7 @@ class ProductController extends Controller
             'product_quantity.max' => 'Số lượng không thể quá lớn',
             'product_quantity.alpha_num' => 'Số lượng phải lớn hơn hoặc bằng 0',
             'product_sort_desc.max' => 'Không vượt quá 255 ký tự',
+            'product_sort_desc.required' => 'Bạn không được để trống',
             'product_desc.required' => 'Mô tả sản phẩm không được để trống',
         ]);
     }
@@ -379,7 +383,7 @@ class ProductController extends Controller
             'cate_id' => 'required',
             'unit_id' => 'required',
             'storage_id' => 'required',
-            'product_sort_desc' => 'max:255',
+            'product_sort_desc' => 'required|max:255',
             'product_desc' => 'required',
         ],[
             'product_name.required' => 'Tên sản phẩm không được để trống',
@@ -389,6 +393,7 @@ class ProductController extends Controller
             'unit_id.required' => 'Ban chưa chọn đơn vị tính',
             'storage_id.required' => 'Bạn chưa chọn kho hàng',
             'product_sort_desc.max' => 'Không vượt quá 255 ký tự',
+            'product_sort_desc.required' => 'Bạn không được để trống',
             'product_desc.required' => 'Mô tả sản phẩm không được để trống',
         ]);
     }

@@ -144,10 +144,31 @@
                         </div>
                     </div>
                     <div class="center mr-t">
-                        <input type="submit" class="btn color-btn-them" value="Chỉnh Sửa Thông Tin Sản Phẩm">
-                        <button type="button" class="btn btn-danger confirm">Hủy Thay Đổi</button>
+                        <button type="submit" class="btn color-btn-them" value="Chỉnh Sửa Thông Tin Sản Phẩm"><i class="icon-copy fi-page-edit"></i> Chỉnh Sửa Thông Tin Sản Phẩm</button>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal_close_change"><i class="icon-copy fi-x"></i> Hủy Thay Đổi</button>
                     </div>
                 </form>
+            </div>
+        </div>
+        <div class="modal fade" id="modal_close_change">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title center">Thông Báo</h4>
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        Bạn Muốn Hủy Thay Đổi
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger confirm" data-dismiss="modal">Hủy</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
+                    </div>
+                </div>
             </div>
         </div>
     @endsection

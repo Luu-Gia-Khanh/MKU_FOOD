@@ -21,6 +21,9 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('public/back_end/src/plugins/datatables/css/dataTables.bootstrap4.min.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('public/back_end/src/plugins/datatables/css/responsive.bootstrap4.min.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('public/back_end/vendors/styles/style.css') }}">
+    {{-- sort table --}}
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/back_end/sort_table/Contents/bootstrap-sortable.css') }}">
+
     <link rel="stylesheet" type="text/css" href="{{ asset('public/back_end/src/styles/custom.css') }}">
 </head>
 <body>
@@ -52,6 +55,9 @@
 	<script src="{{ asset('public/back_end/src/plugins/datatables/js/dataTables.responsive.min.js') }}"></script>
 	<script src="{{ asset('public/back_end/src/plugins/datatables/js/responsive.bootstrap4.min.js') }}"></script>
 	<script src="{{ asset('public/back_end/vendors/scripts/dashboard.js') }}"></script>
+	{{-- sort table --}}
+    <script src="{{ asset('public/back_end/sort_table/Scripts/bootstrap-sortable.js') }}"></script>
+
         <!-- fancybox -->
     {{-- <script src="{{ asset('public/back_end/src/plugins/fancybox/dist/jquery.fancybox.js') }}"></script> --}}
     	<!-- buttons for Export datatable -->

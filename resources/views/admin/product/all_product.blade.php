@@ -77,16 +77,17 @@
                         </div>
                     </div>
                     <div class="content_find_product">
+                    @if (count($all_product) > 0)
                         <div class="row">
                             <div class="col-12 table-responsive">
-                                <table class="data-table table table-hover multiple-select-row nowrap no-footer dtr-inline"
+                                <table class="data-table table table-hover multiple-select-row nowrap no-footer dtr-inline sortable"
                                     id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
                                     <thead>
                                         <tr role="row">
                                             <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                                                 colspan="1">STT</th>
                                             <th class="table-plus datatable-nosort sorting_asc" rowspan="1" colspan="1"
-                                                aria-label="Name">Hình Ảnh</th>
+                                                aria-label="Name" data-defaultsort="disabled">Hình Ảnh</th>
                                             <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                                                 colspan="1">Tên Sản Phẩm</th>
                                             {{-- <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
@@ -98,11 +99,11 @@
                                             <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                                             colspan="1">Kho</th>
                                             <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                            colspan="1">Mới</th>
+                                            colspan="1" data-defaultsort="disabled">Mới</th>
                                             <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                            colspan="1">Đặc Trưng</th>
+                                            colspan="1" data-defaultsort="disabled">Đặc Trưng</th>
                                             <th class="datatable-nosort sorting_disabled" rowspan="1" colspan="1"
-                                                aria-label="Action">Thao Tác</th>
+                                                aria-label="Action" data-defaultsort="disabled">Thao Tác</th>
                                         </tr>
                                     </thead>
                                     <tbody class="">
@@ -163,7 +164,7 @@
                                                         @endphp
                                                         @foreach ($all_storage as $storage)
                                                             @if ($storage->storage_id == $val_id_storage)
-                                                                {{ $storage->storage_name }}
+                                                                <a href="{{ URL::to('admin/all_storage_product/'.$storage->storage_id) }}">{{ $storage->storage_name }}</a>
                                                             @endif
                                                         @endforeach
                                                     @endif
@@ -171,7 +172,7 @@
                                             </td>
                                             <td class="center">
                                                 @if ($prod->is_new == 1)
-                                                   <i class="icon-copy fa fa-check" aria-hidden="true" style="font-size: 25px; color: rgb(5, 199, 30)"></i>
+                                                <i class="icon-copy fa fa-check" aria-hidden="true" style="font-size: 25px; color: rgb(5, 199, 30)"></i>
                                                 @else
                                                     <i class="icon-copy fa fa-close" aria-hidden="true" style="font-size: 25px; color: rgb(207, 51, 11)"></i>
                                                 @endif
@@ -192,7 +193,7 @@
                                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
                                                         <a class="dropdown-item" href="{{ URL::to('admin/view_detail_product/'.$prod->product_id) }}"><i class="dw dw-eye"></i>Thông tin sản phẩm</a>
                                                         <a class="dropdown-item" href="{{ URL::to('admin/update_product/'.$prod->product_id) }}"><i class="dw dw-edit2"></i>Chỉnh Sửa</a>
-                                                           <button class="dropdown-item soft_delete_product_class"
+                                                        <button class="dropdown-item soft_delete_product_class"
                                                                 data-id="{{ $prod->product_id }}" data-toggle="modal"
                                                                 data-target="#Modal_delete_product"><i class="dw dw-delete-3"
                                                                     ></i>Xóa</button>
@@ -204,6 +205,10 @@
                                 </table>
                             </div>
                         </div>
+                    @else
+                        <div class="center">Chưa có sản phẩm nào</div>
+                    @endif
+
                         <div class="row">
                             <div class="col-sm-12 col-md-5">
                                 <a href="{{ URL::to('admin/view_recycle_product') }}" class="btn color-btn-them ml-10"
