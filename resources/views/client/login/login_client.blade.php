@@ -19,6 +19,7 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('public/back_end/vendors/styles/core.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('public/back_end/vendors/styles/icon-font.min.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('public/back_end/vendors/styles/style.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('public/back_end/src/styles/customer.css') }}">
 
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
@@ -40,46 +41,36 @@
 			</div>
 			<div class="login-menu">
 				<ul>
-					<li><a href="register.html">Register</a></li>
+					<li><a href="register_client" style="color: #7faf51">Đăng ký</a></li>
 				</ul>
 			</div>
 		</div>
 	</div>
-	<div class="login-wrap d-flex align-items-center flex-wrap justify-content-center">
+	<div class="login-wrap d-flex align-items-center flex-wrap justify-content-center" style="
+	background-color: #7faf51;">
 		<div class="container">
 			<div class="row align-items-center">
 				<div class="col-md-6 col-lg-7">
-					<img src="{{ asset('public/back_end/vendors/images/login-page-img.png') }}" alt="">
 				</div>
 				<div class="col-md-6 col-lg-5">
 					<div class="login-box bg-white box-shadow border-radius-10">
-                        @if($errors->any())
+						<div class="login-title">
+							<h2 class="text-center" style="color: #7faf51">Đăng nhập</h2>
+						</div>
+						@if($errors->any())
                             <div class="alert alert-danger alert-blog">{{ $errors->first() }}</div>
                         @endif
-						<div class="login-title">
-							<h2 class="text-center text-primary">Login</h2>
-						</div>
                         {{-- FORM --}}
 						<form action="{{ URL::to('process_login_client') }}" method="post" style="text-align: center" >
 							@csrf
-                            <div class="select-role">
-								<div class="btn-group-toggle btn-group d-inline-flex justify-content-center" data-toggle="buttons">
-									<label class="btn active">
-										<input type="radio" name="options" id="admin">
-										<div class="icon"><img src="{{ asset('public/back_end/vendors/images/briefcase.svg') }}" class="svg" alt=""></div>
-										<span>I'm</span>
-										User
-									</label>
-								</div>
-							</div>
 							<div class="input-group custom">
-								<input type="email" name="email" class="form-control form-control-lg" placeholder="Email">
+								<input type="email" name="email" value="{{ old('email') }}" class="form-control form-control-lg" placeholder="Email">
 								<div class="input-group-append custom">
 									<span class="input-group-text"><i class="icon-copy dw dw-email-1"></i></span>
 								</div>
 							</div>
 							<div class="input-group custom">
-								<input type="password" name="password" class="form-control form-control-lg" placeholder="Password">
+								<input type="password" name="password" value="{{ old('password') }}" class="form-control form-control-lg" placeholder="Mật khẩu">
 								<div class="input-group-append custom">
 									<span class="input-group-text"><i class="icon-copy dw dw-padlock"></i></i></span>
 								</div>
@@ -95,6 +86,10 @@
 									<div class="forgot-password"><a href="forgot-password.html">Forgot Password</a></div>
 								</div>
 							</div> --}}
+							<div class="d-flex justify-content-between d-flex align-items-center mb-2" style="font-size: 14px">
+								<div class="justify-content-start"><a href="#">Quên mật khẩu?</a></div>
+								<div class="justify-content-end"><a href="register_client">Đăng ký tài khoản mới?</a></div>
+							</div>
 							<div class="row">
 								<div class="col-sm-12">
 									<div class="input-group mb-0">
@@ -102,11 +97,16 @@
 											use code for form submit
 											<input class="btn btn-primary btn-lg btn-block" type="submit" value="Sign In">
 										-->
-										<input type="submit" class="btn btn-primary btn-lg btn-block" value="Sign In" />
+										<input type="submit" class="btn btn-lg btn-block" style="background-color: #7faf51" value="Đăng Nhập" />
 									</div>
-									<div class="font-16 weight-600 pt-10 pb-10 text-center" data-color="#707373">OR</div>
-									<div class="input-group mb-0">
-										<a class="btn btn-outline-primary btn-lg btn-block" href="register.html">Register To Create Account</a>
+									<div class="font-16 weight-600 pt-10 pb-10 text-center" data-color="#707373">Hoặc</div>
+									<div class="d-flex justify-content-between d-flex align-items-center" style="font-size: 22px">
+										<div class="justify-content-start" style="background-color: rgb(214 214 214); width:45%; border-radius: 4px;">
+											<a href="#"><span><i class="icon-copy fa fa-facebook-official" aria-hidden="true" style="color: #166fe5"></i> Facebook</span></a>
+										</div>
+										<div class="justify-content-end" style="background-color: rgb(214 214 214); width:45%; border-radius: 4px;">
+											<a href="#"><span><i class="icon-copy fa fa-google" aria-hidden="true"></i> Google</span></a>
+										</div>
 									</div>
 								</div>
 							</div>

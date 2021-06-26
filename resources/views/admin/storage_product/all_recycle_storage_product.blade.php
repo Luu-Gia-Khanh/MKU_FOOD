@@ -3,16 +3,17 @@
     <div class="min-height-200px">
         <div class="page-header">
             <div class="row">
-                <div class="col-md-6 col-sm-12">
+                <div class="col-md-8 col-sm-12">
                     <nav aria-label="breadcrumb" role="navigation">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ URL::to('admin/dashboard') }}">Trang chủ</a></li>
-                            <li class="breadcrumb-item"><a href="{{ URL::to('admin/all_storage_product') }}">Danh sách kho sản phẩm</a></li>
+                            <li class="breadcrumb-item"><a href="{{ URL::to('admin/all_storage') }}">Danh sách kho hàng</a></li>
+                            <li class="breadcrumb-item"><a href="{{ URL()->previous() }}">Danh sách kho sản phẩm</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Thùng rác</li>
                         </ol>
                     </nav>
                 </div>
-                <div class="col-md-6 col-sm-12 text-right">
+                <div class="col-md-4 col-sm-12 text-right">
                 </div>
             </div>
         </div>
@@ -22,6 +23,15 @@
                 <div class="alert alert-success alert-dismissible" role="alert">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                     {{ session('success_delete_forever_storage_product') }}
+                </div>
+            @endif
+        </div>
+
+        <div class="card-box mb-30">
+            @if (session('success_recovery_storage_product'))
+                <div class="alert alert-success alert-dismissible" role="alert">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    {{ session('success_recovery_storage_product') }}
                 </div>
             @endif
         </div>
@@ -59,7 +69,11 @@
                                             @foreach($all_product as $product)
                                                 @if($recy->product_id == $product->product_id)
                                                     <td class="table-plus sorting_1" tabindex="0">
-                                                        <img src="{{ asset('public/upload/'.$product->product_image) }}" alt="hình ảnh" srcset="" width="200" height="200">
+                                                        <div class="da-card box-shadow" style="height: 80px; width: 80px">
+                                                            <div class="da-card-photo">
+                                                                <img src="{{ asset('public/upload/'.$product->product_image) }}" alt="hình ảnh" srcset="">
+                                                            </div>
+                                                        </div>
                                                     </td>
                                                     <td>{{ $product->product_name }}</td>
                                                 @endif

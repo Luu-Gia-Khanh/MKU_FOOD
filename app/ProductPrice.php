@@ -12,6 +12,6 @@ class ProductPrice extends Model
     public $timestamps = false;
     protected $primaryKey = 'price_id';
     protected $fillable = [
-    	'product_id', 'price', 'status', 'updated_at'
+    	'product_id', 'price', 'status', 'updated_at',
     ];
 }

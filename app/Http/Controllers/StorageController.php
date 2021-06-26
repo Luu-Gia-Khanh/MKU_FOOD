@@ -30,7 +30,7 @@ class StorageController extends Controller
         $check_storage_name = Storage::where('storage_name', $request->storage_name)->first();
         if($check_storage_name){
             $request->session()->flash('check_storage_name', 'Tên kho hàng đã tồn tại');
-            return redirect('admin/add_storage');
+            return redirect()->back();
         }
 
         $storage = new Storage();
@@ -155,7 +155,7 @@ class StorageController extends Controller
             $action_storage->action_time = Carbon::now('Asia/Ho_Chi_Minh');
             $action_storage->save();
             
-            $request->session()->flash('success_delete_storage', 'Kho hàng đã được chuyển vào thùng rác');
+            $request->session()->flash('success_delete_storage', 'Xóa thành công');
             return redirect()->back();
         }
     }
@@ -185,7 +185,7 @@ class StorageController extends Controller
             $action_storage->action_time = Carbon::now('Asia/Ho_Chi_Minh');
             $action_storage->save();
 
-            $request->session()->flash('success_delete_soft_storage', 'Kho hàng đã được chuyển vào thùng rác');
+            $request->session()->flash('success_delete_soft_storage', 'Xóa thành công');
             return redirect()->back();
         }
     }

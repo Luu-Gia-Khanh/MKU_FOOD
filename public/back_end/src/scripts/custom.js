@@ -214,6 +214,12 @@ $(document).ready(function(){
         var form_delete = document.forms['update_price_product'];
         form_delete.submit();
     });
+
+    //add storage
+    $('.btn_add_storage').click(function(){
+        var form_delete = document.forms['add_storage'];
+        form_delete.submit();
+    });
 });
 
     //keep active when load page tab
@@ -226,6 +232,15 @@ $(document).ready(function(){
         if (lastTab) {
         $('[href="' + lastTab + '"]').tab('show');
         }
+    });
+    //find table fiter boostrap
+    $(document).ready(function(){
+        $("#val_find_recycle").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#table_find_recycle tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
     });
 
 

@@ -24,7 +24,7 @@ class CustomerController extends Controller
             echo 'dang nhap thanh cong';
         }
         else {
-            return redirect('login_client')->withErrors('Email hoặc Password không đúng');
+            return redirect('login_client')->withErrors('Email hoặc mật khẩu không đúng');
         }
     }
 
