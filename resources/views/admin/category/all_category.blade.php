@@ -88,20 +88,20 @@
                     <div class="content_find_category">
                         <div class="row">
                             <div class="col-12 table-responsive">
-                                <table class="data-table table table-hover multiple-select-row nowrap no-footer dtr-inline"
+                                <table class="data-table table table-hover multiple-select-row nowrap no-footer dtr-inline sortable"
                                 id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
                                     <thead>
                                         <tr role="row">
                                             <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                                                 colspan="1">STT</th>
                                             <th class="table-plus datatable-nosort sorting_asc" rowspan="1" colspan="1"
-                                                aria-label="Name">Hình Ảnh</th>
+                                                aria-label="Name" data-defaultsort="disabled">Hình Ảnh</th>
                                             <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                                colspan="1" >Tên Loại</th>
+                                                colspan="1" data-defaultsign="AZ">Tên Loại</th>
                                             <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                                                 colspan="1">Ngày Thêm</th>
                                             <th class="datatable-nosort sorting_disabled" rowspan="1" colspan="1"
-                                                aria-label="Action">Thao Tác</th>
+                                                aria-label="Action" data-defaultsort="disabled">Thao Tác</th>
                                         </tr>
                                     </thead>
                                     <tbody>

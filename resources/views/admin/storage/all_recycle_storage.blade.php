@@ -56,7 +56,16 @@
                 <div class="pb-20">
                     <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                         <div class="row">
-                            <div class="col-12 table-responsive">
+                            <div class="col-12 col-md-6 table-responsive">
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div id="DataTables_Table_0_filter" class="dataTables_filter">
+                                    <form action="">
+                                        @csrf
+                                        <label>Tìm Kiếm:<input type="search" class="form-control form-control-sm" id="val_find_recycle" placeholder="Tìm Kiếm"
+                                            aria-controls="DataTables_Table_0"></label>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                         <div class="row">
@@ -69,7 +78,7 @@
                                         <th scope="col">Thao Tác</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="table_find_recycle">
                                         @php
                                             $stt = 1;
                                         @endphp

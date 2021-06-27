@@ -33,3 +33,6 @@
 .font-size-text{
     font-size: 14px;
 }
+.btn .btn-facebook:hover{
+    background-color: red;
+}

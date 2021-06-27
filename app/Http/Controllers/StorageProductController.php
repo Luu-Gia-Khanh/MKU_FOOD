@@ -23,7 +23,6 @@ class StorageProductController extends Controller
         $all_storage_product = Storage_Product::where('storage_id', $storage_id)->paginate(5);
         $all_product = DB::table('product')->get();
 
-
         return view('admin.storage_product.all_storage_product', compact('all_storage_product', 'all_product', 'storage_id'));
     }
 
@@ -162,11 +161,11 @@ class StorageProductController extends Controller
         }
     }
 
-    public function view_recycle(){
+    public function view_recycle($storage_id){
         $recycle_item = Storage_Product::onlyTrashed()->get();
         $all_product = DB::table('product')->get();
 
-        return view('admin.storage_product.all_recycle_storage_product', compact('recycle_item', 'all_product'));
+        return view('admin.storage_product.all_recycle_storage_product', compact('recycle_item', 'all_product', 'storage_id'));
     }
 
     public function soft_delete(Request $request){

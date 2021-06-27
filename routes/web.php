@@ -4,9 +4,11 @@
 
 use App\Action;
 use App\Admin_Action_Category;
+use App\Http\Controllers\StorageController;
 use App\Http\Controllers\StorageProductController;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
+
 
 Route::get('login', 'AuthController@show_login');
 Route::post('process_login', 'AuthController@process_login');
@@ -101,7 +103,7 @@ Route::prefix('admin')->group(function () {
     Route::get('update_storage/{storage_id}', 'StorageController@update_storage');
 
     Route::post('process_add_storage', 'StorageController@process_add_storage');
-    Route::post('process_update_storage/{storage}', 'StorageController@process_update_storage');
+    Route::post('process_update_storage', 'StorageController@process_update_storage');
     Route::get('process_delete_storage/{storage}', 'StorageController@process_delete_storage');
 
     Route::get('view_recycle_storage', 'StorageController@view_recycle');
@@ -111,6 +113,7 @@ Route::prefix('admin')->group(function () {
     Route::post('soft_delete_storage', 'StorageController@soft_delete');
 
     Route::get('find_storage', 'StorageController@find_storage');
+    Route::post('storage_id_update', 'StorageController@get_id_storage');
 
     //STORAGE_PRODUCT
     Route::get('all_storage_product/{storage_id}', 'StorageProductController@all_storage_product');
@@ -122,7 +125,7 @@ Route::prefix('admin')->group(function () {
     Route::post('process_import_storage_product/{storage_product_id}', 'StorageProductController@process_import_storage_product');
     Route::get('process_delete_storage_product/{storage_product_id}', 'StorageProductController@process_delete_storage_product');
 
-    Route::get('view_recycle_storage_product', 'StorageProductController@view_recycle');
+    Route::get('view_recycle_storage_product/{storage_id}', 'StorageProductController@view_recycle');
     Route::get('re_delete_storage_product/{storage_product_id}', 'StorageProductController@re_delete');
     Route::post('delete_forever_storage_product', 'StorageProductController@delete_forever');
     Route::get('delete_recovery_forever_storage_product/{storage_product_id}', 'StorageProductController@delete_recovery_forever_storage_product');

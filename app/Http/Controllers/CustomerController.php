@@ -15,6 +15,13 @@ class CustomerController extends Controller
     }
 
     public function process_login(Request $request){
+        $this->validate($request, [
+            'email' => 'required',
+            'password' => 'required',
+        ],[
+            'email.required' => 'Bạn chưa nhập Email',
+            'password.required' => 'Bạn chưa nhập Mật khẩu',
+        ]);
         $check_customer_login = Customer::where('email', $request->email)->where('password', md5($request->password))->first();
 
         if(!empty($check_customer_login)){
