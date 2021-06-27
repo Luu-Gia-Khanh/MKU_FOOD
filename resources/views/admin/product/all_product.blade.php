@@ -89,15 +89,15 @@
                                             <th class="table-plus datatable-nosort sorting_asc" rowspan="1" colspan="1"
                                                 aria-label="Name" data-defaultsort="disabled">Hình Ảnh</th>
                                             <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                                colspan="1">Tên Sản Phẩm</th>
+                                                colspan="1" data-defaultsign="AZ">Tên Sản Phẩm</th>
                                             {{-- <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                                                 colspan="1">Đơn vị tính</th> --}}
                                             <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                                colspan="1">Loại Sản Phẩm</th>
+                                                colspan="1" data-defaultsign="AZ">Loại Sản Phẩm</th>
                                             <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                                             colspan="1">Giá</th>
                                             <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                            colspan="1">Kho</th>
+                                            colspan="1" data-defaultsign="AZ">Kho</th>
                                             <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                                             colspan="1" data-defaultsort="disabled">Mới</th>
                                             <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"

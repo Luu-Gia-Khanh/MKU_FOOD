@@ -79,7 +79,7 @@
                                             <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                                                 colspan="1">Số Điện Thoại</th>
                                             <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                                colspan="1">Email</th>
+                                                colspan="1" data-defaultsign="AZ">Email</th>
                                             <th class="datatable-nosort sorting_disabled" rowspan="1" colspan="1"
                                                 aria-label="Action" data-defaultsort="disabled">Thao Tác</th>
                                         </tr>

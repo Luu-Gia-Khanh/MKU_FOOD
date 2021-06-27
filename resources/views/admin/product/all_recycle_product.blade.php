@@ -40,6 +40,19 @@
                 <div class="pb-20">
                     <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer ">
                         <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div id="DataTables_Table_0_filter" class="dataTables_filter">
+                                    <form action="">
+                                        @csrf
+                                        <label>Tìm Kiếm:<input type="search" class="form-control form-control-sm" id="val_find_recycle" placeholder="Tìm Kiếm"
+                                            aria-controls="DataTables_Table_0"></label>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-12 table-responsive">
                             </div>
                         </div>
@@ -55,15 +68,23 @@
                                         <th scope="col">Thao Tác</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="table_find_recycle">
                                         @php
                                             $stt = 1;
                                         @endphp
                                     @foreach ($recycle_item as $recy)
                                         <tr>
                                             <td>{{ $stt++ }}</td>
-                                            <td>
-                                                <img src="{{ asset('public/upload/'.$recy->product_image) }}" alt="" srcset="" height="70px" width="70px">
+                                            <td class="table-plus" tabindex="0">
+                                                <div class="da-card box-shadow" style="height: 80px; width: 80px">
+                                                    <div class="da-card-photo">
+                                                        <img src="{{ asset('public/upload/' . $recy->product_image) }}" alt="hình ảnh"
+                                                            srcset="" style="height: 80px; width: 80px">
+                                                        <div class="da-overlay">
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </td>
                                             <td>{{ $recy->product_name }}</td>
                                             <td>

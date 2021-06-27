@@ -130,12 +130,6 @@
                                     <input type="number" class="form-control" name="price" value="{{ $price->price }}">
                                 @endif
                             @endforeach
-                            @if ($errors->has('price'))
-                                <div class="alert alert-danger alert-dismissible mt-1">
-                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                    {{ $errors->first('price') }}
-                                </div>
-                            @endif
                         </form>
                     </div>
 
