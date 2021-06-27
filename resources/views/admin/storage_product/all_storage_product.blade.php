@@ -100,20 +100,20 @@
                         <div class="content_find_storage_product">
                             <div class="row">
                                 <div class="col-12">
-                                    <table class="data-table table table-hover multiple-select-row nowrap no-footer dtr-inline"
+                                    <table class="data-table table table-hover multiple-select-row nowrap no-footer dtr-inline sortable"
                                     id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
                                         <thead>
                                             <tr role="row">
                                                 <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                                                     colspan="1">STT</th>
                                                 <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                                    colspan="1" >Hình Ảnh</th>
+                                                    colspan="1" data-defaultsort="disabled">Hình Ảnh</th>
                                                 <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                                    colspan="1" >Tên Sản Phẩm</th>
+                                                    colspan="1" data-defaultsign="AZ">Tên Sản Phẩm</th>
                                                 <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                                                     colspan="1">Số lượng</th>
                                                 <th class="datatable-nosort sorting_disabled" rowspan="1" colspan="1"
-                                                    aria-label="Action">Thao Tác</th>
+                                                    aria-label="Action" data-defaultsort="disabled">Thao Tác</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -167,7 +167,7 @@
                     @endif
                     <div class="row">
                         <div class="col-sm-12 col-md-5">
-                            <a href="{{ URL::to('admin/view_recycle_storage_product') }}" class="btn color-btn-them ml-10"
+                            <a href="{{ URL::to('admin/view_recycle_storage_product/'.$storage_id) }}" class="btn color-btn-them ml-10"
                                 style="color: white"><i class="dw dw-delete-3"></i> Thùng Rác</a>
                         </div>
                         <div class="col-sm-12 col-md-7">

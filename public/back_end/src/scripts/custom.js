@@ -215,6 +215,30 @@ $(document).ready(function(){
         form_delete.submit();
     });
 
+      //update storage
+      $('.update_storage').click(function(){
+        var storage_id = $(this).attr('data-id');
+        var _token = $('input[name="_token"]').val();
+         $('.val_storage').val(storage_id);
+        $.ajax({
+            url: 'storage_id_update',
+            method: 'post',
+            data: {
+                _token: _token,
+                storage_id: storage_id
+            },
+            success: function (data) {
+                $('.name_storage_update').val(data);
+              
+            }
+        });
+       
+    });
+    $('.btn_update_storage').click(function(){
+        var form_delete = document.forms['update_storage'];
+        form_delete.submit();
+    });
+
     //add storage
     $('.btn_add_storage').click(function(){
         var form_delete = document.forms['add_storage'];

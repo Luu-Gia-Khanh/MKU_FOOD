@@ -72,6 +72,24 @@
                 @endif
         </div>
 
+        <div class="card-box mb-30">
+            @if (session('check_storage_name'))
+                <div class="alert alert-danger alert-dismissible mt-1">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    {{ session('check_storage_name') }}
+                </div>
+            @endif
+        </div>
+
+        <div class="card-box-mb-30">
+            @if ($errors->has('storage_name'))
+                <div class="alert alert-danger alert-dismissible mt-1">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    {{ $errors->first('storage_name') }}
+                </div>
+            @endif
+        </div>
+
         <!-- Simple Datatable start -->
         <div class="card-box mb-30">
             <div class="row pd-20">
@@ -79,7 +97,7 @@
                     <h4 class="text-blue h4">Danh Sách Kho Hàng</h4>
                 </div>
                 <div class="col-2 mt-4">
-                    <button class="btn btn-primary add_storage float-right" data-id data-toggle="modal"
+                    <button class="btn color-btn-them add_storage float-right" data-id data-toggle="modal"
                 data-target="#Modal_add_storage">Thêm kho</button>
                 </div>
             </div>
@@ -100,18 +118,18 @@
                     </div>
                     <div class="content_find_storage">
                             <div class="col-12 table-responsive">
-                                <table class="data-table table table-hover multiple-select-row nowrap no-footer dtr-inline"
+                                <table class="data-table table table-hover multiple-select-row nowrap no-footer dtr-inline sortable"
                                 id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
                                     <thead>
                                         <tr role="row">
                                             <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                                                 colspan="1">STT</th>
                                             <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                                colspan="1" >Tên Loại</th>
+                                                colspan="1" data-defaultsign="AZ">Tên Loại</th>
                                             <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                                                 colspan="1">Ngày Thêm</th>
                                             <th class="datatable-nosort sorting_disabled" rowspan="1" colspan="1"
-                                                aria-label="Action">Thao Tác</th>
+                                                aria-label="Action" data-defaultsort="disabled">Thao Tác</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -135,7 +153,10 @@
                                                         </a>
                                                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
                                                             <a class="dropdown-item" href="{{ URL::to('admin/all_storage_product/'.$storage->storage_id) }}"><i class="dw dw-eye"></i>Xem kho hàng</a>
-                                                            <a class="dropdown-item" href="{{ URL::to('admin/update_storage/'.$storage->storage_id) }}"><i class="dw dw-edit2"></i>Chỉnh Sửa</a>
+                                                           
+                                                                <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                                                                <button class="dropdown-item update_storage" data-id = {{ $storage->storage_id }} data-toggle="modal" data-target="#Modal_update_storage"><i class="dw dw-edit2"></i>Chỉnh Sửa</button>
+                                                           
                                                             <button class="dropdown-item soft_delete_storage_class" data-id="{{ $storage->storage_id }}" data-toggle="modal" data-target="#Modal_delete"><i class="dw dw-delete-3"></i>Xóa</button>
                                                         </div>
                                                     </div>
@@ -190,45 +211,64 @@
                 </div>
             </div>
         </div>
-               <!-- The Modal -->
-               <div class="modal fade" id="Modal_add_storage">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <!-- Modal Header -->
-                        <div class="modal-header">
-                            <h4 class="modal-title">Thêm Kho Hàng</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        </div>
-    
-                        <!-- Modal body -->
-                        <div class="modal-body">
-                            <form action="{{ URL::to('admin/process_add_storage') }}" method="post" name="add_storage">
-                                @csrf
-                                <label>Tên Kho Hàng</label>
-                                <input class="form-control upper_val" type="text" name="storage_name"
-                                    value="{{ old('storage_name') }}" onblur="return upberFirstKey()"
-                                    placeholder="Nhập Tên Kho Hàng">
-                                @if ($errors->has('storage_name'))
-                                    <div class="alert alert-danger alert-dismissible mt-1">
-                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                        {{ $errors->first('storage_name') }}
-                                    </div>
-                                @endif
-                                @if (session('check_storage_name'))
-                                    <div class="alert alert-danger alert-dismissible mt-1">
-                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                        {{ session('check_storage_name') }}
-                                    </div>
-                                @endif
-                            </form>
-                        </div>
-    
-                        <!-- Modal footer -->
-                        <div class="modal-footer">
-                            <button class="btn btn-primary btn_add_storage">Thêm</button>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
-                        </div>
+        <!-- The Modal -->
+        <div class="modal fade" id="Modal_add_storage">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Thêm Kho Hàng</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <form action="{{ URL::to('admin/process_add_storage') }}" method="post" name="add_storage">
+                            @csrf
+                            <label>Tên Kho Hàng</label>
+                            <input class="form-control upper_val" type="text" name="storage_name"
+                                value="{{ old('storage_name') }}" onblur="return upberFirstKey()"
+                                placeholder="Nhập Tên Kho Hàng">
+                        </form>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button class="btn color-btn-them btn_add_storage">Thêm</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
                     </div>
                 </div>
             </div>
+        </div>
+
+        <!-- The Modal -->
+        <div class="modal fade" id="Modal_update_storage">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Sửa Kho Hàng</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <form action="{{ URL::to('admin/process_update_storage') }}" method="post" name="update_storage">
+                            @csrf
+                            <label>Tên Kho hàng</label>
+                            <input type="hidden" class="form-control val_storage" name="storage_id" value="">
+                            <input class="form-control upper_val name_storage_update" type="text" name="storage_name"
+                             onblur="return upberFirstKey()" 
+                           >
+                        </form>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button class="btn color-btn-them btn_update_storage">Sửa</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     @endsection

@@ -19,8 +19,10 @@ class StorageController extends Controller
         return view('admin.storage.all_storage', compact('all_storage'));
     }
 
-    public function add_storage(){
-        return view('admin.storage.add_storage');
+    public function get_id_storage(Request $request){
+        $storage_id = $request->storage_id;
+        $storage_name = Storage::find($storage_id);
+        echo $storage_name->storage_name;
     }
 
     public function process_add_storage(Request $request){
@@ -51,13 +53,9 @@ class StorageController extends Controller
         return redirect('admin/all_storage');
     }
 
-    public function update_storage(Request $request, $storage_id){
-        $update_storage = Storage::find($storage_id);
-        return view('admin.storage.update', compact('update_storage')); 
-    }
-
-    public function process_update_storage(Request $request, $storage_id){
+    public function process_update_storage(Request $request){
         $this->validation_storage($request);
+        $storage_id = $request->storage_id;
         $storage = Storage::find($storage_id);
 
         //CHECK NAME OF STORAGE
@@ -77,7 +75,8 @@ class StorageController extends Controller
         else{
             if($check_storage_name){
                 $request->session()->flash('check_storage_name', 'Tên kho hàng đã tồn tại');
-                return redirect('admin/update_storage/'.$storage_id);
+                // return redirect('admin/update_storage/'.$storage_id);
+                return redirect('admin/all_storage');
             }
             else{
                 $storage->storage_name = $request->storage_name;
@@ -244,8 +243,8 @@ class StorageController extends Controller
         $request->validate([
             'storage_name' => 'required|max:100',
         ],[
-            'storage_name.required' => 'Tên không được để trống',
-            'storage_name.max' => 'Tên phải có độ dài tối đa là 100 ký tự'
+            'storage_name.required' => 'Tên kho không được để trống',
+            'storage_name.max' => 'Tên kho phải có độ dài tối đa là 100 ký tự'
         ]);
     }
 }

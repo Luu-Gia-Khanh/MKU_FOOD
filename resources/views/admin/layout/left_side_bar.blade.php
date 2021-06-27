@@ -51,7 +51,6 @@
                     </a>
                     <ul class="submenu">
                         <li><a href="{{ URL::to('admin/all_storage') }}">Danh Sách Kho Hàng</a></li>
-                        <li><a href="{{ URL::to('admin/add_storage') }}">Thêm Kho Hàng</a></li>
                     </ul>
                 </li>
             </ul>

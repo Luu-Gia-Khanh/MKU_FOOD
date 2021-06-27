@@ -97,17 +97,23 @@
 											use code for form submit
 											<input class="btn btn-primary btn-lg btn-block" type="submit" value="Sign In">
 										-->
-										<input type="submit" class="btn btn-lg btn-block" style="background-color: #7faf51" value="Đăng Nhập" />
+										<input type="submit" class="btn btn-lg btn-block" style="background-color: #7faf51; color:white;" value="Đăng Nhập" />
 									</div>
 									<div class="font-16 weight-600 pt-10 pb-10 text-center" data-color="#707373">Hoặc</div>
-									<div class="d-flex justify-content-between d-flex align-items-center" style="font-size: 22px">
-										<div class="justify-content-start" style="background-color: rgb(214 214 214); width:45%; border-radius: 4px;">
+									{{-- <div class="d-flex justify-content-between d-flex align-items-center" style="font-size: 22px">
+										<div class="justify-content-start btn btn-primary" style="width: 45%">
 											<a href="#"><span><i class="icon-copy fa fa-facebook-official" aria-hidden="true" style="color: #166fe5"></i> Facebook</span></a>
 										</div>
 										<div class="justify-content-end" style="background-color: rgb(214 214 214); width:45%; border-radius: 4px;">
 											<a href="#"><span><i class="icon-copy fa fa-google" aria-hidden="true"></i> Google</span></a>
 										</div>
+									</div> --}}
+									<div class="row">
+										<div class="col-6"><a style=" border: none;" class="btn-facebook" href="#"><span><i class="icon-copy fa fa-facebook-official" aria-hidden="true"></i> Facebook</span></a></div>
+										<div class="col-6"><a class=" btn btn-primary btn-lg btn-block" href="#"><span><i class="icon-copy fa fa-google" aria-hidden="true"></i> Google</span></a></div>
 									</div>
+									
+									
 								</div>
 							</div>
 						</form>
