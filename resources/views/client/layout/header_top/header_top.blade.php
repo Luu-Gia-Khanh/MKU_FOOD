@@ -13,14 +13,6 @@
                 <li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
             </ul>
             <ul class="horizontal-menu">
-                <li class="horz-menu-item currency">
-                    <select name="currency">
-                        <option value="eur">€ EUR (Euro)</option>
-                        <option value="usd" selected>$ USD (Dollar)</option>
-                        <option value="usd">£ GBP (Pound)</option>
-                        <option value="usd">¥ JPY (Yen)</option>
-                    </select>
-                </li>
                 <li class="horz-menu-item lang">
                     <select name="language">
                         <option value="fr">French (EUR)</option>
@@ -29,7 +21,14 @@
                         <option value="jp">Japan (JPY)</option>
                     </select>
                 </li>
-                <li><a href="login.html" class="login-link"><i class="biolife-icon icon-login"></i>Login/Register</a></li>
+                <li>
+                    @if(Session::get('customer_id'))
+                        <a href="#"><i class="biolife-icon icon-login"></i> {{ Session::get('username') }}</a>
+                    @else
+                        <a href="{{ URL::to('login_client') }}" class="login-link"><i class="biolife-icon icon-login"></i>Đăng nhập/</a>
+                        <a href="{{ URL::to('register_client') }}" class="login-link">Đăng ký</a>
+                    @endif
+                </li>
             </ul>
         </div>
     </div>

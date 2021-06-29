@@ -33,6 +33,34 @@
 .font-size-text{
     font-size: 14px;
 }
-.btn .btn-facebook:hover{
-    background-color: red;
+
+.icon-social{
+    width: 25px;
+}
+.btn-social-bg{
+    display: block;
+    background-color: #e2e1e1a8;
+    border-radius: 4px;
+    padding: 10px
+}
+.btn-social-bg:hover {
+    background-color: #c7c4c4a8;
+}
+.horizontal-line{
+    height: 1px;
+    width: 100%;
+    background-color: #dbdbdb;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -moz-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    align-self: center;
+}
+.forget-pass:hover,
+.register:hover{
+    color: #7faf51;
+}
+.btn.btn-lg.btn-block .btn-login:hover{
+    background-color: #69a82f;
 }

@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="{{ asset('public/font_end/assets/css/slick.min.css') }}">
     <link rel="stylesheet" href="{{ asset('public/font_end/assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('public/font_end/assets/css/main-color03-green.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/font_end/custom_account/event_hover_account.css') }}">
 </head>
 <body class="biolife-body">
     <!-- Preloader -->
