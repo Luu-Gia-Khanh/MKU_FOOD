@@ -9,13 +9,17 @@ use App\ProductPrice;
 use App\ImageProduct;
 use App\Cart;
 use App\Storage_Product;
+use Session;
+
+Session::start();
 class HomeClientController extends Controller
 {
     public function index(){
+        $customer_id = Session::get('customer_id');
         $all_category = Category::all();
         $all_product = Product::all();
         $all_price = ProductPrice::where('status',1)->get();
-        $all_cart = Cart::all();
+        $all_cart = Cart::where('customer_id', $customer_id)->get();
         $product_storage = Storage_Product::all();
         return view('client.home.trangchu',[
             'all_category'=>$all_category,
@@ -26,11 +30,12 @@ class HomeClientController extends Controller
         ]);
     }
     public function product_detail($product_id){
+        $customer_id = Session::get('customer_id');
         $product = Product::find($product_id);
         $cate = Category::where('cate_id',$product->category_id)->first();
         $price = ProductPrice::where('product_id',$product_id)->where('status', 1)->first();
         $all_image = ImageProduct::where('product_id',$product_id)->get();
-        $all_cart = Cart::all();
+        $all_cart = Cart::where('customer_id', $customer_id)->get();
         $product_storage = Storage_Product::all();
         return view('client.home.product_detail',[
             'product'=>$product,

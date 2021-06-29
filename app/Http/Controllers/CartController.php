@@ -52,7 +52,8 @@ class CartController extends Controller
 
     }
     public function load_quantity_cart(){
-        $all_cart = Cart::all();
+        $customer_id = Session::get('customer_id');
+        $all_cart = Cart::where('customer_id', $customer_id)->get();
         echo count($all_cart);
     }
     public function show_cart(){

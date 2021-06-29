@@ -6,8 +6,10 @@ use App\Action;
 use App\Admin_Action_Category;
 use App\Http\Controllers\StorageController;
 use App\Http\Controllers\StorageProductController;
+use App\Mail\verify;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
+
 
 Route::get('login', 'AuthController@show_login');
 Route::post('process_login', 'AuthController@process_login');
@@ -16,8 +18,19 @@ Route::get('logout_admin', 'AuthController@logout_admin');
 Route::get('login_client', 'CustomerController@show_login');
 Route::post('process_login_client', 'CustomerController@process_login');
 Route::get('register_client', 'CustomerController@show_register');
-Route::post('process_register_client', 'CustomerController@process_register');
+Route::get('process_register_client/{username}/{email}/{password}', 'CustomerController@process_register');
 Route::get('logout_client', 'CustomerController@logout_client');
+
+Route::get('mail_reset_password', 'CustomerController@mail_reset_password');
+Route::post('process_mail_reset_password', 'CustomerController@process_mail_reset_password');
+Route::get('reset_password/{customer_id}', 'CustomerController@reset_password');
+Route::post('process_reset_password/{customer_id}', 'CustomerController@process_reset_password');
+Route::post('mail_register_client', 'CustomerController@mail_register_client');
+
+Route::get('verify_account', 'CustomerController@verify_account');
+Route::get('error_process_register', 'CustomerController@error_process_register');
+Route::get('success_process_register', 'CustomerController@success_process_register');
+
 
 // MIDDLEWARE PAGE ADMIN
 // Route::group(['middleware'=>'roles'], function(){
@@ -135,7 +148,7 @@ Route::prefix('admin')->group(function () {
 });
 
 // FONT END
-Route::get('trangchu', 'HomeClientController@index');
+Route::get('/', 'HomeClientController@index');
 Route::get('product_detail/{product_id}', 'HomeClientController@product_detail');
 
 // CART
@@ -144,11 +157,6 @@ Route::post('load_quantity_cart', 'CartController@load_quantity_cart');
 Route::get('show_cart', 'CartController@show_cart');
 Route::post('update_cart', 'CartController@update_cart');
 Route::post('check_quatity_blur', 'CartController@check_quatity_blur');
-
-
-
-
-
 
 
 

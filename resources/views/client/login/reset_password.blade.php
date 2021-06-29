@@ -3,7 +3,7 @@
 <head>
 	<!-- Basic Page Info -->
 	<meta charset="utf-8">
-	<title>Register</title>
+	<title>Login</title>
 
 	<!-- Site favicon -->
 	<link rel="apple-touch-icon" sizes="180x180" href="{{ asset('public/back_end/vendors/images/apple-touch-icon.png') }}">
@@ -41,7 +41,7 @@
 			</div>
 			<div class="login-menu">
 				<ul>
-					<li><a href="login_client" style="color: #7faf51">Đăng Nhập</a></li>
+					<li><a href="register_client" style="color: #7faf51">Đăng ký</a></li>
 				</ul>
 			</div>
 		</div>
@@ -55,27 +55,15 @@
 				<div class="col-md-6 col-lg-5">
 					<div class="login-box bg-white box-shadow border-radius-10">
 						<div class="login-title">
-							<h2 class="text-center" style="color: #7faf51">Đăng Ký</h2>
+							<h2 class="text-center" style="color: #7faf51">Nhập mật khẩu mới</h2>
 						</div>
 						@if($errors->any())
                             <div class="alert alert-danger alert-blog">{{ $errors->first() }}</div>
                         @endif
                         {{-- FORM --}}
-						<form action="{{ URL::to('mail_register_client') }}" method="post" style="text-align: center" >
+						<form action="{{ URL::to('process_reset_password/'.$customer_id) }}" method="post" style="text-align: center" >
 							@csrf
-							<div class="input-group custom">
-								<input type="text" name="username" class="form-control form-control-lg" placeholder="Tên người dùng">
-								<div class="input-group-append custom">
-									<span class="input-group-text"><i class="icon-copy dw dw-user"></i></span>
-								</div>
-							</div>
-							<div class="input-group custom">
-								<input type="text" name="email" class="form-control form-control-lg" placeholder="Email">
-								<div class="input-group-append custom">
-									<span class="input-group-text"><i class="icon-copy dw dw-email-1"></i></span>
-								</div>
-							</div>
-							<div class="input-group custom">
+                            <div class="input-group custom">
 								<input type="password" name="password" class="form-control form-control-lg" placeholder="Mật khẩu">
 								<div class="input-group-append custom">
 									<span class="input-group-text"><i class="icon-copy dw dw-padlock"></i></span>
@@ -87,53 +75,10 @@
 									<span class="input-group-text"><i class="icon-copy dw dw-padlock"></i></span>
 								</div>
 							</div>
-							{{-- <div class="row pb-30">
-								<div class="col-6">
-									<div class="custom-control custom-checkbox">
-										<input type="checkbox" class="custom-control-input" id="customCheck1">
-										<label class="custom-control-label" for="customCheck1">Remember</label>
-									</div>
-								</div>
-								<div class="col-6">
-									<div class="forgot-password"><a href="forgot-password.html">Forgot Password</a></div>
-								</div>
-							</div> --}}
 							<div class="row">
 								<div class="col-sm-12">
-									<div class="input-group mb-0">
-										<!--
-											use code for form submit
-											<input class="btn btn-primary btn-lg btn-block" type="submit" value="Sign In">
-										-->
-										<input type="submit" class="btn btn-lg btn-block" style="
-										background-color: #7faf51; color:white;" value="Đăng Ký" />
-									</div>
-									<div class="row">
-										<div class="col-5 horizontal-line"></div>
-										<div class="col-2 font-16 weight-600 pt-10 pb-10 text-center" data-color="#707373">Hoặc</div>
-										<div class="col-5 horizontal-line"></div>
-									</div>
-									<div class="row">
-										<div class="col-6">	
-											<a href="#" class="link-social">
-												<div  class="btn-social-bg">
-													<img class="icon-social" src="{{ asset('public/upload/logo-facebook.svg') }}" alt="">
-													<span class="">
-														Facebook
-													</span>
-												</div>
-											</a>
-										</div>
-										<div class="col-6">
-											<a href="#" class="link-social">
-												<div class="btn-social-bg">
-													<img class="icon-social" src="{{ asset('public/upload/logo-google.svg') }}">
-													<span class="">
-														Google
-													</span>
-												</div>
-											</a>
-										</div>
+									<div class="input-group mb-0 btn-login">
+										<input type="submit" class="btn btn-lg btn-block" style="background-color: #7faf51; color:white;" value="Đổi mật khẩu" />
 									</div>
 								</div>
 							</div>
