@@ -168,8 +168,6 @@ $(document).ready(function(){
             }
         });
     });
-
-
     // change live profile
     $('.change_name').keyup(function(){
         $('.following_name').text($('.change_name').val());
@@ -232,7 +230,6 @@ $(document).ready(function(){
 
             }
         });
-
     });
     $('.btn_update_storage').click(function(){
         var form_delete = document.forms['update_storage'];

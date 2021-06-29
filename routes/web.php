@@ -9,7 +9,6 @@ use App\Http\Controllers\StorageProductController;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 
-
 Route::get('login', 'AuthController@show_login');
 Route::post('process_login', 'AuthController@process_login');
 Route::get('logout_admin', 'AuthController@logout_admin');
@@ -134,6 +133,24 @@ Route::prefix('admin')->group(function () {
     Route::post('find_storage_product', 'StorageProductController@find_storage_product');
 
 });
+
+// FONT END
+Route::get('trangchu', 'HomeClientController@index');
+Route::get('product_detail/{product_id}', 'HomeClientController@product_detail');
+
+// CART
+Route::post('add_to_cart', 'CartController@add_cart');
+Route::post('load_quantity_cart', 'CartController@load_quantity_cart');
+Route::get('show_cart', 'CartController@show_cart');
+Route::post('update_cart', 'CartController@update_cart');
+Route::post('check_quatity_blur', 'CartController@check_quatity_blur');
+
+
+
+
+
+
+
 
 // ADDRESS ADD ADDRESS ADMIN LOAD
 Route::post('admin/load_district', 'AddressController@load_district');

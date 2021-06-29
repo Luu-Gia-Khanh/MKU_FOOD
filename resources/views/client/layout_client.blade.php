@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>MKU FOOD</title>
-    <link href="https://fonts.googleapis.com/css?family=Cairo:400,600,700&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Console:400,600,700&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins:600&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400i,700i" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Ubuntu&amp;display=swap" rel="stylesheet">
@@ -16,7 +16,10 @@
     <link rel="stylesheet" href="{{ asset('public/font_end/assets/css/nice-select.css') }}">
     <link rel="stylesheet" href="{{ asset('public/font_end/assets/css/slick.min.css') }}">
     <link rel="stylesheet" href="{{ asset('public/font_end/assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/font_end/custom/sweet.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('public/font_end/assets/css/main-color.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('public/font_end/assets/css/main-color03-green.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/font_end/custom/custom.css') }}">
 </head>
 <body class="biolife-body">
     <!-- Preloader -->
@@ -101,11 +104,16 @@
             <!--Block 08: Blog Posts-->
             @yield('blog_view_client')
 
+            @yield('content_body')
+
         </div>
     </div>
 
     <!-- FOOTER -->
     @include('client.layout.footer.footer')
+
+    {{-- quickview --}}
+    {{-- @include('client.layout.body.quickview_popup'); --}}
 
     <!-- Scroll Top Button -->
     <a class="btn-scroll-top"><i class="biolife-icon icon-left-arrow"></i></a>
@@ -119,6 +127,11 @@
     <script src="{{ asset('public/font_end/assets/js/slick.min.js') }}"></script>
     <script src="{{ asset('public/font_end/assets/js/biolife.framework.js') }}"></script>
     <script src="{{ asset('public/font_end/assets/js/functions.js') }}"></script>
+    <script src="{{ asset('public/font_end/custom/sweet.js') }}"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="{{ asset('public/font_end/custom/custom.js') }}"></script>
+    <script src="{{ asset('public/font_end/custom/update_cart_ajax.js') }}"></script>
 </body>
 
 </html>

@@ -6,7 +6,7 @@ use App\Customer;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Session;
-
+Session::start();
 class CustomerController extends Controller
 {
     //
@@ -24,11 +24,10 @@ class CustomerController extends Controller
         ]);
         $check_customer_login = Customer::where('email', $request->email)->where('password', md5($request->password))->first();
 
-        if(!empty($check_customer_login)){
+        if($check_customer_login){
             Session::put('customer_id', $check_customer_login->customer_id);
             Session::put('username', $check_customer_login->username);
-
-            echo 'dang nhap thanh cong';
+            return redirect('trangchu');
         }
         else {
             return redirect('login_client')->withErrors('Email hoặc mật khẩu không đúng');

@@ -29,7 +29,14 @@
                         <option value="jp">Japan (JPY)</option>
                     </select>
                 </li>
-                <li><a href="login.html" class="login-link"><i class="biolife-icon icon-login"></i>Login/Register</a></li>
+                <li>
+                    @if(Session::get('customer_id'))
+                        <a href="login.html" class="login-link"><i class="biolife-icon icon-login"></i>{{ Session::get('username') }}</a>
+
+                    @else
+                        <a href="login.html" class="login-link"><i class="biolife-icon icon-login"></i>Login/Register</a>
+                    @endif
+                </li>
             </ul>
         </div>
     </div>
