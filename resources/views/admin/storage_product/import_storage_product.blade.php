@@ -48,8 +48,12 @@
                     </div>
                     <div class="row">
                         <div class="ml-3" id="">
-                            <img src="{{ asset('public/upload/' . $product->product_image) }}" class="" alt="hình ảnh"
-                            id="image_upload" height="500" width="500">
+                            <div class="da-card box-shadow" style="height: 350x; width: 475px">
+                                <div class="da-card-photo">
+                                    <img src="{{ asset('public/upload/' . $product->product_image) }}" class="" alt="hình ảnh"
+                                    id="image_upload">
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="center mr-t mt-5">
