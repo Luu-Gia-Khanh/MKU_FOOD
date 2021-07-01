@@ -17,12 +17,13 @@
     <link rel="stylesheet" href="{{ asset('public/font_end/assets/css/slick.min.css') }}">
     <link rel="stylesheet" href="{{ asset('public/font_end/assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('public/font_end/custom/sweet.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/back_end/vendors/styles/icon-font.min.css') }}">
     {{-- <link rel="stylesheet" href="{{ asset('public/font_end/assets/css/main-color.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('public/font_end/assets/css/main-color03-green.css') }}">
     <link rel="stylesheet" href="{{ asset('public/font_end/custom/custom.css') }}">
     <link rel="stylesheet" href="{{ asset('public/font_end/custom_account/event_hover_account.css') }}">
     {{--  --}}
-
+    <link rel="stylesheet" href="{{ asset('public/font_end/custom_account/user_sidebar_content.css') }}">
     {{--  --}}
 </head>
 <body class="biolife-body">
@@ -136,6 +137,11 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="{{ asset('public/font_end/custom/custom.js') }}"></script>
     <script src="{{ asset('public/font_end/custom/update_cart_ajax.js') }}"></script>
+    <script src="{{ asset('public/font_end/custom_account/custom.js') }}"></script>
+
+
+    {{--  --}}
+    <script src="{{ asset('public/back_end/src/scripts/upload_image.js') }}"></script>
 </body>
 
 </html>

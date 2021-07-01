@@ -53,11 +53,7 @@
                     </div>
                     <div class="row">
                         <div class="ml-3" id="content_image_upload op-0">
-                            <div class="da-card box-shadow" style="height: 350x; width: 475px">
-                                <div class="da-card-photo">
-                                    <img src="" class="op-0" alt="hình ảnh" id="image_upload">
-                                </div>
-                            </div>
+                            <img src="" class="op-0" alt="hình ảnh" id="image_upload">
                         </div>
                     </div>
                     <div class="center mr-t">

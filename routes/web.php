@@ -150,6 +150,10 @@ Route::prefix('admin')->group(function () {
 // FONT END
 Route::get('/', 'HomeClientController@index');
 Route::get('product_detail/{product_id}', 'HomeClientController@product_detail');
+Route::get('user/account', 'AccountController@show_account');
+Route::get('user/address', 'AccountController@address_account');
+Route::get('user/resetpassword', 'AccountController@reset_password_account');
+Route::get('user/order', 'AccountController@order_account');
 
 // CART
 Route::post('add_to_cart', 'CartController@add_cart');
