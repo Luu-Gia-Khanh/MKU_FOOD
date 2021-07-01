@@ -156,8 +156,13 @@ Route::post('add_to_cart', 'CartController@add_cart');
 Route::post('load_quantity_cart', 'CartController@load_quantity_cart');
 Route::get('show_cart', 'CartController@show_cart');
 Route::post('update_cart', 'CartController@update_cart');
+Route::post('update_cart_checkbox', 'CartController@update_cart_checkbox');
 Route::post('check_quatity_blur', 'CartController@check_quatity_blur');
+Route::post('remove_item_cart', 'CartController@remove_item_cart');
+Route::post('get_val_checkbox', 'CartController@get_val_checkbox');
 
+//
+Route::post('test', 'CartController@test');
 
 
 // ADDRESS ADD ADDRESS ADMIN LOAD

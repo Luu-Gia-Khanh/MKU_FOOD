@@ -74,3 +74,15 @@
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
 }
+.pointer_none{
+    pointer-events: none;
+}
+.pointer_not_none{
+    pointer-events:fill;
+}
+.line_spacing{
+    height: 1px;
+    background: #7faf51;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}

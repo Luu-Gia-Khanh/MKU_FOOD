@@ -71,6 +71,9 @@ jQuery(document).ready(function() {
 
 // add to cart
 $(document).ready(function(){
+    function formatNumber (num) {
+        return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")
+    }
 
     $('.add_cart_one').click(function(){
         var product_id = $(this).attr('data-id');
@@ -183,6 +186,25 @@ $(document).ready(function(){
         }
 
     });
+
+
+    //delete item cart
+    $('.delete_item_cart').click(function(){
+        var cart_id = $(this).attr('data-id');
+        $('.delete_item_cart').val(cart_id);
+    });
+    $('.btn_confirm_delete_item_cart').click(function(){
+        var form_delete = document.forms['form_delete_item_cart'];
+        form_delete.submit();
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'xóa thành công',
+          showConfirmButton: false,
+          timer: 1500
+        });
+    });
+
 });
 
 
