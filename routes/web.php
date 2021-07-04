@@ -148,12 +148,25 @@ Route::prefix('admin')->group(function () {
 });
 
 // FONT END
+
+//USER
 Route::get('/', 'HomeClientController@index');
 Route::get('product_detail/{product_id}', 'HomeClientController@product_detail');
 Route::get('user/account', 'AccountController@show_account');
 Route::get('user/address', 'AccountController@address_account');
 Route::get('user/resetpassword', 'AccountController@reset_password_account');
 Route::get('user/order', 'AccountController@order_account');
+
+Route::post('update_account/{customer_id}', 'AccountController@update_account');
+Route::post('process_update_password_account', 'AccountController@process_update_password');
+
+// USER ADDRESS
+Route::post('process_add_address', 'AccountController@process_add_address');
+Route::post('trans_id_update', 'AccountController@get_id_trans');
+Route::post('get_phone_address', 'AccountController@get_phone_trans');
+Route::post('process_update_address', 'AccountController@process_update_address');
+Route::post('process_delete_address', 'AccountController@process_delete_address');
+Route::post('process_mode_default', 'AccountController@process_mode_default');
 
 // CART
 Route::post('add_to_cart', 'CartController@add_cart');

@@ -1,0 +1,65 @@
+
+.content__user-address{
+    padding-bottom: 50px;
+}
+.address-card{
+    display: flex;
+    padding: 32px 0;
+    border-bottom: 1px solid rgb(228, 228, 228);
+}
+.address-display__field-container{
+    display: flex;
+    flex-wrap: nowrap;
+    height: 35px;
+    align-items: center;
+}
+.address-dislay__left{
+    display: flex;
+    flex-grow: 8;
+    flex-direction: column;
+}
+.address-display__field-content{
+    display: flex;
+    align-items: center;
+}
+.address-display__field-label{
+    text-align: right;
+    width: 200px;
+    padding: 0 18px;
+    font-weight: 700;
+}
+.address-default{
+    padding: 0 8px;
+    background-color: seagreen;
+    margin-left: 8px;
+    color: white;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 10px;
+}
+.address-display__field-content{
+    display: flex;
+}
+.address-display__button{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 2;
+}
+.address-display__button-group{
+    display: flex;
+    justify-content: flex-end;
+}
+.address-btn-action{
+    /* color: #7faf51; */
+    padding-left: 16px;
+    padding-bottom: 8px;
+    text-decoration: underline;
+}
+.address-btn-action:hover{
+    color: #7faf51;
+    text-decoration: underline;
+}
+.address-btn-action-primary--disable{
+    opacity: 0.4;
+    cursor: no-drop;
+}

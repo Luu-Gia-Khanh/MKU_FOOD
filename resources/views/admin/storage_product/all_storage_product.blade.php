@@ -131,7 +131,7 @@
                                                         <td class="table-plus sorting_1" tabindex="0">
                                                             <div class="da-card box-shadow" style="height: 80px; width: 80px">
                                                                 <div class="da-card-photo">
-                                                                    <img src="{{ asset('public/upload/'.$product->product_image) }}" alt="hình ảnh" srcset="">
+                                                                    <img src="{{ asset('public/upload/'.$product->product_image) }}" style="height: 80px !important; width: 80px !important;" alt="hình ảnh" srcset="">
                                                                 </div>
                                                             </div>
                                                         </td>

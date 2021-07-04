@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="{{ asset('public/font_end/custom_account/user_sidebar_content.css') }}">
 @extends('client.layout_client')
 @section('content_body')
     <div class="container">
@@ -20,8 +21,8 @@
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
                         <nav class="user">
                             <div class="user-heading">
-                                <img src="{{ asset('public/upload/avatar74.png') }}" alt="" class="user-img">
-                                <span class="user-name">Phan Hoài Kha</span>
+                                <img src="{{ asset('public/upload/'.$customer_info->customer_avt) }}" alt="" class="user-img">
+                                <span class="user-name">{{ $customer->username }}</span>
                             </div>
                             <ul class="user-list-module">
                                 <li class="user-module-item">
@@ -47,7 +48,7 @@
                     </div>
 
                     <!--content-user-->
-                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12" style="background-color: rgb(245, 245, 245); display: flex;">
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12" style="background-color: rgb(245, 245, 245); display: flex; margin-bottom: 32px;">
                         <div class="content__user">
                             <div class="tabs">
                                 <input type="radio" class="tabs__radio" name="tabs-example" id="tab1" checked>

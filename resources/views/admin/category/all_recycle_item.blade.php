@@ -89,7 +89,7 @@
                                             <td>
                                                 <div class="da-card box-shadow" style="height: 80px; width: 80px">
                                                     <div class="da-card-photo">
-                                                        <img src="{{ asset('public/upload/'.$recy->cate_image) }}" alt="" srcset="" height="70px" width="70px">
+                                                        <img src="{{ asset('public/upload/'.$recy->cate_image) }}" alt="" srcset="" style="height: 80px !important; width: 80px !important;">
                                                     </div>
                                                 </div>
                                             </td>
