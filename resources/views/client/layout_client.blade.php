@@ -25,6 +25,8 @@
     {{--  --}}
     <link rel="stylesheet" href="{{ asset('public/font_end/custom_account/user_sidebar_content.css') }}">
     {{--  --}}
+    {{-- checkout custom
+    <link rel="stylesheet" href="{{ asset('public/font_end/custom/checkout_custom.css') }}"> --}}
 </head>
 <body class="biolife-body">
     <!-- Preloader -->
@@ -121,7 +123,6 @@
     {{-- @include('client.layout.body.quickview_popup'); --}}
 
     {{-- Modal delete cart --}}
-    <!-- The Modal -->
     <div class="modal fade" id="delete_cart_item">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -150,10 +151,6 @@
     </div>
 
 
-
-
-
-
     <!-- Scroll Top Button -->
     <a class="btn-scroll-top"><i class="biolife-icon icon-left-arrow"></i></a>
 
@@ -172,6 +169,8 @@
     <script src="{{ asset('public/font_end/custom/custom.js') }}"></script>
     <script src="{{ asset('public/font_end/custom/update_cart_ajax.js') }}"></script>
     <script src="{{ asset('public/font_end/custom_account/custom.js') }}"></script>
+    {{-- check out custom
+    <script src="{{ asset('public/font_end/custom/checkout_custom.js') }}"></script> --}}
 
 
     {{--  --}}

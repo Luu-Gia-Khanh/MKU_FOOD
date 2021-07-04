@@ -165,8 +165,8 @@ Route::post('check_quatity_blur', 'CartController@check_quatity_blur');
 Route::post('remove_item_cart', 'CartController@remove_item_cart');
 Route::post('get_val_checkbox', 'CartController@get_val_checkbox');
 
-//
-Route::post('test', 'CartController@test');
+//CHECK OUT
+Route::post('checkout', 'CheckOutController@show_checkout');
 
 
 // ADDRESS ADD ADDRESS ADMIN LOAD

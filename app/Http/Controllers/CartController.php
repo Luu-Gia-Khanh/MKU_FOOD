@@ -64,12 +64,25 @@ class CartController extends Controller
         $all_product = Product::all();
         $product_storage = Storage_Product::all();
         $product_price = ProductPrice::where('status',1)->get();
+        $total_price_all_cart = 0;
+
+        foreach ($all_cart as $cart){
+            foreach ($product_price as $price){
+                if($cart->product_id == $price->product_id){
+                    $price = $price->price;
+                    $qty = $cart->quantity;
+                   $total_price_all_cart += $price * $qty;
+                }
+            }
+        }
+
         return view('client.cart.show_cart',[
             'all_cart' => $all_cart,
             'all_product' => $all_product,
             'product_storage' => $product_storage,
             'product_price' => $product_price,
             'old_date_cart' => $old_date_cart,
+            'total_price_all_cart' => $total_price_all_cart
         ]);
     }
     public function auto_update_cart(){

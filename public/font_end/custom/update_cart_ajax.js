@@ -198,15 +198,49 @@ $(document).ready(function () {
     var check_all = $('.check_all');
     var itemCheck = $('.item_check');
     check_all.click(function(){
-
         var isCheckAll = $(this).prop('checked');
         if(isCheckAll){
             itemCheck.prop('checked', true);
+            $('.val_update_cart_change').prop('readonly', true);
         }
         else{
             itemCheck.prop('checked', false);
+            $('.val_update_cart_change').prop('readonly', false);
         }
+
     });
+    if(check_all.is(':checked')){
+        $('.val_update_cart_change').prop('readonly', true);
+        var tota_price_hidden = $('.show_total_price_check_item_cart_hidden').val();
+        tota_price_hidden = Number(tota_price_hidden);
+        $('.btn_up_update_cart').click(function(){
+            var cart_id = $(this).attr('data-id');
+            var max_val = $('.max_val_'+cart_id).val();
+            var qty = $('.val_quantity_update_cart_'+cart_id).val();
+            qty++;
+            if($('.check_item_'+cart_id).is(':checked')){
+                if(qty <= max_val){
+                    var price = $('.val_price_update_cart_'+cart_id).val();
+                    tota_price_hidden = tota_price_hidden + Number(price);
+                    $('.show_total_price_check_item_cart').html(formatNumber(tota_price_hidden)+' vnđ');
+                    $('.show_total_price_check_item_cart_hidden').val(tota_price_hidden);
+                }
+            }
+        });
+        $('.btn_down_update_cart').click(function(){
+                var cart_id = $(this).attr('data-id');
+                var qty = $('.val_quantity_update_cart_'+cart_id).val();
+                if($('.check_item_'+cart_id).is(':checked')){
+                    qty--;
+                    if(qty > 0){
+                        var price = $('.val_price_update_cart_'+cart_id).val();
+                        tota_price_hidden = tota_price_hidden - Number(price);
+                        $('.show_total_price_check_item_cart').html(formatNumber(tota_price_hidden)+' vnđ');
+                        $('.show_total_price_check_item_cart_hidden').val(tota_price_hidden);
+                    }
+                }
+        });
+    }
     itemCheck.change(function(){
         var countCheck = itemCheck.length === $('input[name="itemCart[]"]:checked').length;
         if(!countCheck){
@@ -218,4 +252,21 @@ $(document).ready(function () {
     });
     // end process checkbox
 
+    // submit form
+    $('.submit_form_check_out').click(function (){
+        var countCheckItem = $('input[name="itemCart[]"]:checked').length;
+        var formCart = document.forms['form_show_cart'];
+        if(countCheckItem > 0){
+            formCart.submit();
+        }
+        else{
+            Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: 'Bạn chưa chọn sản phẩm nào để tiến hành đặt hàng !',
+                showConfirmButton: false,
+                timer: 1500
+            });
+        }
+    });
 });

@@ -51,14 +51,14 @@
                         <div class="row">
                             <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
                                 <h3 class="box-title"></h3>
-                                <form class="shopping-cart-form form_checkbox_cart" action="{{ URL::to('test') }}" method="post" name="test_form">
+                                <form class="shopping-cart-form form_checkbox_cart" action="{{ URL::to('checkout') }}" method="post" name="form_show_cart">
                                     @csrf
                                     <table class="shop_table cart-form">
                                         <thead>
                                             <tr>
                                                 <th>
                                                     <label class="container-checkbox">
-                                                        <input type="checkbox" class="check_all">
+                                                        <input type="checkbox" class="check_all" checked>
                                                         <span class="checkmark"></span>
                                                     </label>
                                                 </th>
@@ -73,7 +73,7 @@
                                                     <tr class="cart_item">
                                                         <td>
                                                             <label class="container-checkbox" style="margin-left: 10px">
-                                                                <input type="checkbox" class="check_item_{{ $cart->cart_id }} item_check" name="itemCart[]" value="{{ $cart->cart_id }}">
+                                                                <input type="checkbox" class="check_item_{{ $cart->cart_id }} item_check" name="itemCart[]" value="{{ $cart->cart_id }}" checked>
                                                                 <span class="checkmark"></span>
                                                             </label>
                                                         </td>
@@ -95,7 +95,7 @@
                                                                 {{-- <a href="#" class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></a> --}}
                                                                 <a class="remove delete_item_cart"
                                                                     data-id="{{ $cart->cart_id }}" data-toggle="modal"
-                                                                    data-target="#delete_cart_item"><i class="fa fa-trash-o"
+                                                                    data-target="#delete_cart_item" style="cursor: pointer;"><i class="fa fa-trash-o"
                                                                         aria-hidden="true"></i> xóa</a>
                                                             </div>
                                                         </td>
@@ -162,7 +162,8 @@
                                                     <td class="wrap-btn-control" colspan="5">
                                                         <a class="btn back-to-shop">Back to Shop</a>
                                                         <button class="btn btn-update" style="opacity: 0;" type="submit" disabled="">update</button>
-                                                        <button class="btn btn-clear" type="reset">clear all</button>
+                                                        <button class="btn btn-clear" type="reset" data-toggle="modal"
+                                                        data-target="#biolife-quickview-block">clear all</button>
                                                     </td>
                                                 </tr>
                                         </tbody>
@@ -172,20 +173,20 @@
                             <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
                                 <div class="shpcart-subtotal-block">
                                     <div class="subtotal-line">
-                                        <b class="stt-name">Tổng sản phẩm <span class="sub total_item_cart">(0 sản phẩm)</span></b>
+                                        <b class="stt-name">Tổng sản phẩm <span class="sub total_item_cart">({{ count($all_cart) }} sản phẩm)</span></b>
 
                                     </div>
                                     <div class="subtotal-line">
                                         <b class="stt-name">Tổng tiền</b>
-                                        <span class="stt-price show_total_price_check_item_cart">0 vnđ</span>
-                                        <input type="hidden" value="0" class="show_total_price_check_item_cart_hidden">
+                                        <span class="stt-price show_total_price_check_item_cart">{{ number_format($total_price_all_cart, 0, ',', '.') }} vnđ</span>
+                                        <input type="hidden" value="{{ $total_price_all_cart }}" class="show_total_price_check_item_cart_hidden">
                                     </div>
                                     <div class="tax-fee">
                                         <p class="title">Est. Taxes &amp; Fees</p>
                                         <p class="desc">Based on 56789</p>
                                     </div>
-                                    <div class="btn-checkout">
-                                        <a class="btn checkout test_submit_form">Check out</a>
+                                    <div class="btn-checkout content_btn_check_out">
+                                        <a class="btn checkout submit_form_check_out">Thanh Toán</a>
                                     </div>
                                     <div class="biolife-progress-bar">
                                         <table>
@@ -567,5 +568,4 @@
             </div>
         </div>
     </div>
-
 @endsection
