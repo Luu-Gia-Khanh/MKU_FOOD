@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="{{ asset('public/font_end/custom_account/user_sidebar_content.css') }}">
 @extends('client.layout_client')
 @section('content_body')
     <div class="container">
@@ -20,8 +21,8 @@
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
                         <nav class="user">
                             <div class="user-heading">
-                                <img src="{{ asset('public/upload/avatar74.png') }}" alt="" class="user-img">
-                                <span class="user-name">Phan Hoài Kha</span>
+                                <img src="{{ asset('public/upload/'.$customer_info->customer_avt) }}" alt="" class="user-img">
+                                <span class="user-name">{{ $customer->username }}</span>
                             </div>
                             <ul class="user-list-module">
                                 <li class="user-module-item user-module-item--active">
@@ -47,57 +48,85 @@
                     </div>
 
                     <!--content-user-->
-                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12" style="background-color: rgb(245, 245, 245); height:500px; display: flex;">
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12" style="background-color: rgb(245, 245, 245); min-height:500px; height: auto; display: flex; margin-bottom: 32px;">
                         <div class="content__user">
                             <div class="content__user-heading">
                                 <span class="user-heading-title">Thông tin cá nhân</span>
                             </div>
-                            <form>
+                            <form action="{{ URL::to('update_account/'.$customer->customer_id) }}" method="post" enctype="multipart/form-data">
+                                @csrf
                                 <div class="content__user-profile">
                                     <div class="user-profile">
                                         <div class="user-profile-name">
                                             <span >Tên đăng nhập</span>
-                                            <label>Phan Hoài Kha</label>
+                                            <label>{{ $customer->username }}</label>
                                         </div>
                                         <div class="user-profile-fullname">
                                             <span>Họ và Tên</span>
-                                            <input class="custom-input-user" type="text" name="fname" value="Phan Hoài Kha">
+                                            <input class="custom-input-user" type="text" name="customer_fullname" value=" {{ $customer_info->customer_fullname }}">
                                         </div>
+                                        @if ($errors->has('customer_fullname'))
+                                            <div style="margin-left: 132px; color: #dc3545;">
+                                                {{ $errors->first('customer_fullname') }}
+                                            </div>
+                                        @endif
                                         <div class="user-profile-email">
                                             <span>Email</span>
-                                            <input class="custom-input-user" type="text" name="fname" value="khaphan@gmail.com" readonly>
+                                            <input class="custom-input-user" type="text" name="email" value="{{ $customer->email }}" readonly>
                                         </div>
                                         <div class="user-profile-phone">
                                             <span>Số điện thoại</span>
-                                            <input class="custom-input-user" type="text" name="fname" value="0911635153">
+                                            <input class="custom-input-user" type="text" name="customer_phone" value="{{ $customer_info->customer_phone }}">
                                         </div>
+                                        @if ($errors->has('customer_phone'))
+                                            <div style="margin-left: 132px; color: #dc3545;">
+                                                {{ $errors->first('customer_phone') }}
+                                            </div>
+                                        @endif
                                         <div class="user-profile-gender">
                                             <span>Giới tính</span>
                                             <div class="radio-gender">
-                                                <input type="radio" name="fav_language" value="1">
+                                                <input type="radio" name="customer_gender"
+                                                @if($customer_info->customer_gender == 'Nam')
+                                                    checked="checked"
+                                                @endif
+                                                value="Nam">
                                                 <label for="html">Nam</label><br>
                                             </div>
                                             <div class="radio-gender">
-                                                <input type="radio" name="fav_language" value="2">
+                                                <input type="radio" name="customer_gender" 
+                                                @if($customer_info->customer_gender == 'Nu')
+                                                    checked="checked"
+                                                @endif
+                                                value="Nu">
                                                 <label for="css">Nữ</label><br>
                                             </div>
                                             <div class="radio-gender">
-                                                <input type="radio" name="fav_language" value="3">
+                                                <input type="radio" name="customer_gender"
+                                                @if($customer_info->customer_gender == 'Khac')
+                                                    checked="checked"
+                                                @endif
+                                                value="Khac">
                                                 <label for="javascript">Khác</label> 
                                             </div>
                                         </div>
                                         <div class="user-profile-phone">
                                             <span>Ngày sinh</span>
-                                            <input class="custom-input-user" type="date" name="fname" value="11/14/2000">
+                                            <input class="custom-input-user" type="date" name="customer_birthday" value="{{ $customer_info->customer_birthday }}">
                                         </div>
+                                        @if (session('check_update_birthday'))
+                                            <div style="margin-left: 132px; color: #dc3545;">
+                                                {{ session('check_update_birthday') }}
+                                            </div>
+                                        @endif
                                         <button type="submit" class="btn-update-user">Lưu</button>
                                     </div>
                                     <div class="user-upload-img">
                                         <div id="content_image_upload op-0">
-                                            <img src="{{ asset('public/upload/default_image64.png') }}" class="op-0 img-upload" alt="hình ảnh" id="image_upload">
+                                            <img src="{{ asset('public/upload/'.$customer_info->customer_avt) }}" class="op-0 img-upload" alt="hình ảnh" id="image_upload">
                                         </div>
                                         <div class="input-upload-img">
-                                            <input type="file" name="cate_image" id="file_upload"
+                                            <input type="file" name="customer_avt" id="file_upload"
                                                 onchange="return uploadhinh()" class="custom-file-input">
                                         </div>
                                     </div>

@@ -258,8 +258,7 @@
                             <label>Tên Kho hàng</label>
                             <input type="hidden" class="form-control val_storage" name="storage_id" value="">
                             <input class="form-control upper_val name_storage_update" type="text" name="storage_name"
-                             onblur="return upberFirstKey()" 
-                           >
+                             onblur="return upberFirstKey()">
                         </form>
                     </div>
 

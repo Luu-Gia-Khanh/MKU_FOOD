@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Customer;
+use App\Customer_Info;
 use App\Http\Controllers\Controller;
 use App\Mail\ResetPassword as MailResetPassword;
 use App\Mail\VerifyAccount;
@@ -54,6 +55,15 @@ class CustomerController extends Controller
             $customer_register->email = $email;
             $customer_register->password = md5($password);
             $customer_register->save();
+
+            $customer_info = new Customer_Info();
+            $customer_info->customer_id = $customer_register->customer_id;
+            $customer_info->customer_fullname = '';
+            $customer_info->customer_phone = '';
+            $customer_info->customer_avt = 'no_image.png';
+            $customer_info->customer_gender = '';
+            $customer_info->customer_birthday = '2000-01-01';
+            $customer_info->save();
 
             return redirect('success_process_register');
         }
