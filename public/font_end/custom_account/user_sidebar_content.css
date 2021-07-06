@@ -85,12 +85,15 @@
     border-radius: 50%;
 }
 .input-upload-img{
-    padding: 16px 0;
-    width: 50%;
+    padding: 16px 8px;
+    width: 100%;
+}
+.custom-file-input{
+    border: 1px solid #a5a5a5;
+    border-radius: 4px;
 }
 .custom-input-user {
     width: 100%;
-    padding: 12px 20px;
     margin: 8px 0;
     box-sizing: border-box;
     border: 1px solid #ccc;
@@ -116,7 +119,7 @@
 }
 .user-profile-gender span{
     display: flex;
-    width: calc(100% - 425px);
+    width: calc(100% - 441px);
     align-items: center;
 }
 .user-profile-gender{
@@ -133,6 +136,33 @@
 }
 .radio-gender{
     padding-right: 16px;
+}
+input[type='radio']:after {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    top: 0;
+    left: -1px;
+    position: relative;
+    background-color: white;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid #d1d3d1;
+}
+
+input[type='radio']:checked:after {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    top: 0;
+    left: -1px;
+    position: relative;
+    background-color: #7faf51;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid rgb(172, 172, 172);
 }
 .btn-update-user{
     background-color: #7faf51;
