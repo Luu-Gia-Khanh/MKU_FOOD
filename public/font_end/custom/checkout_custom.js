@@ -1,9 +1,13 @@
 $(document).ready(function(){
     $('.btn_change_address_trans').click(function(){
         $('.hidden_address').css('opacity', 0);
+        $('.btn-add-new-add-trans').removeClass('op-0');
+        $('.btn-thietlap').removeClass('op-0');
     });
     $('.btn_show_hidden').click(function(){
         $('.hidden_address').css('opacity', 1);
+        $('.btn-add-new-add-trans').addClass('op-0');
+        $('.btn-thietlap').addClass('op-0');
     });
 
     //btn change-payemnt
@@ -27,34 +31,141 @@ $(document).ready(function(){
         $('.group-checkbox_btn').addClass('op-0');
         $('.text_payment_method').html('Thanh toán bằng paypal');
     });
+
+    // MODAL ADD ADDRESS
+    var modal_address = $('.modal_address');
+    var btn_address = $('.btn_open_modal_adress');
+    var close_address = $('.close_modal_address');
+    var btn_back_modal_address = $('.btn_back_modal_address');
+    btn_address.click(function () {
+        modal_address.show();
+    });
+    close_address.click(function () {
+        modal_address.hide();
+    });
+    $(window).on('click', function (e) {
+        if ($(e.target).is('.modal_address')) {
+            modal_address.hide();
+        }
+    });
+    btn_back_modal_address.click(function () {
+        modal_address.hide();
+    });
+    //
+    $('.btn_submit_form_add_address').click(function(){
+        var fullname = $('.trans_fullname').val();
+        var phone = $('.trans_phone').val();
+        var city = $('#city_add_trans').val();
+        var district = $('#district_add_trans').val();
+        var ward = $('#ward_add_trans').val();
+        var detail_address = $('#detail_address').val();
+        var _token = $('input[name="_token"]').val();
+        var check = 1;
+
+        if(fullname == "" || phone == "" || city == "" || district == "" || ward == "" || detail_address == ""){
+            check = 0;
+            Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: 'Bạn chưa nhập đủ thông tin',
+                showConfirmButton: false,
+                timer: 1500
+              });
+
+        }
+        else{
+            if(phone.length != 10 || phone.indexOf('0')!==0){
+                check = 0;
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: 'Số điện thoại không đúng định dạng',
+                    showConfirmButton: false,
+                    timer: 1500
+                  });
+            }
+        }
+        if(check == 1){
+            $.ajax({
+                url: 'add_address_trans',
+                method: 'POST',
+                data: {
+                    fullname: fullname,
+                    phone: phone,
+                    city: city,
+                    district: district,
+                    ward: ward,
+                    detail_address: detail_address,
+                    _token: _token,
+                },
+                success: function (data) {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Thêm địa chỉ thành công',
+                        showConfirmButton: false,
+                        timer: 1500
+                        });
+                    setTimeout(
+                        function(){
+                            location.reload();
+                        }, 2000);
+                }
+            });
+        }
+
+
+
+
+
+
+    });
+
+    // radio check choose address trans
+    $('.btn_change_address_radio_button').click(function (){
+        $('.hidden_address').css('opacity', 1);
+        $('.btn-add-new-add-trans').addClass('op-0');
+        $('.btn-thietlap').addClass('op-0');
+
+        var trans_id = $('input[name="radio_trans"]:checked').val();
+        var name_phone = $('.name_phone_'+trans_id).val();
+        var detail_address = $('.detail_address_trans_'+trans_id).val();
+        var static = $('.static_choose_'+trans_id).html();
+
+        $('.info_trans_js_change').html(name_phone);
+        $('.address_detail_change').html(detail_address);
+
+        if(static == null || static == ""){
+            $('.static_change').html("");
+        }
+        else{
+            $('.static_change').html(static);
+        }
+
+
+    });
+
+
+
 });
 
 
-
-
-//
-// Get the modal
-var modal = document.getElementById("modal_voucher");
-
-// Get the button that opens the modal
-var btn = document.getElementById("btn-open-model-voucher");
-
-// Get the <span> element that closes the modal
+// MODAL CHOOSE VOUCHER
+var modal_voucher = document.getElementById("modal_voucher");
+var btn_voucher = document.getElementById("btn-open-model-voucher");
 var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks the button, open the modal
-btn.onclick = function() {
-  modal.style.display = "block";
+btn_voucher.onclick = function() {
+    modal_voucher.style.display = "block";
 }
-
-// When the user clicks on <span> (x), close the modal
 span.onclick = function() {
-  modal.style.display = "none";
+    modal_voucher.style.display = "none";
 }
-
-// When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
+  if (event.target == modal_voucher) {
+    modal_voucher.style.display = "none";
   }
 }
+
+
+
+

@@ -180,6 +180,7 @@ Route::post('get_val_checkbox', 'CartController@get_val_checkbox');
 
 //CHECK OUT
 Route::post('checkout', 'CheckOutController@show_checkout');
+Route::post('add_address_trans', 'CheckOutController@add_address_trans');
 
 
 // ADDRESS ADD ADDRESS ADMIN LOAD
@@ -191,3 +192,7 @@ Route::post('admin/load_ward_update_address_admin', 'AddressController@load_ward
 //ADDRESS UPDATE ADDRESS PROFILE ADDMIN LOAD
 Route::post('admin/load_district_update_profile_admin', 'AddressController@load_district');
 Route::post('admin/load_ward_update_address_profile_admin', 'AddressController@load_ward');
+
+//ADDRESS ADD TRANS
+Route::post('load_district', 'AddressController@load_district');
+Route::post('load_ward', 'AddressController@load_ward');

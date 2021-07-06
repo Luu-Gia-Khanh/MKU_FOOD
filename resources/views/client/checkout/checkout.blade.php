@@ -17,49 +17,78 @@
 @section('content_body')
     {{-- checkout custom --}}
     <link rel="stylesheet" href="{{ asset('public/font_end/custom/checkout_custom.css') }}">
+
     <div class="content-checkout" style="background: rgb(245, 245, 245);">
         <div class="container">
             <form action="">
                 <div class="_1G9Cv7"></div>
                 <div class="row">
                     <div class="cus_view place_trans">
-                        <div class="">
+                        <div class="content-title-address-trans">
                             <h4 class="title_place_trans"><i class="biolife-icon icon-location"></i> Địa Chỉ Nhận Hàng</h4>
+                            <div class="content-tow-btn-trans">
+                                <button type="button" id="btn_add_address_trans" class="btn-add-new-add-trans btn-address-trans op-0 btn_add_address_trans btn_open_modal_adress"><span class="icon-copy ti-plus"></span> Thêm Địa Chỉ Mới</button>
+                                <a class="btn-address-trans btn-thietlap op-0">Thiết Lập Địa Chỉ</a>
+                            </div>
                         </div>
                         <div class="address_static_show">
-                            <div class="static-address hidden_address">
-                                <strong style="info-trans">Khánh (+84) 368038738</strong>
-                                Số 540,tổ 41,phú quới,long hồ ,việt nam, Xã Phú Quới, Huyện Long Hồ, Vĩnh Long
-                                <i class="static">Mặc Định</i>
-                                <button type="button" class="btn-green btn_change_address_trans" data-toggle="collapse"
-                                    data-target="#change_address_trans">THAY ĐỔI</button>
-                            </div>
-                            <div id="change_address_trans" class="collapse">
-
-                                <p>
-                                    <input type="radio" id="id1" name="radio-group" checked>
-                                    <label for="id1" class="static-address">
-                                        <strong style="info-trans">Khánh (+84) 368038738</strong>
-                                        Số 540,tổ 41,phú quới,long hồ ,việt nam, Xã Phú Quới, Huyện Long Hồ, Vĩnh Long
+                            @if ($static_trans)
+                                <div class="static-address hidden_address">
+                                    <strong class="info-trans info_trans_js_change">{{ $static_trans->trans_fullname }} {{ $static_trans->trans_phone }}</strong>
+                                    <label class="detail-address address_detail_change">
+                                        {{ $static_trans->trans_address }}
                                     </label>
-                                </p>
-                                <p>
-                                    <input type="radio" id="id2" name="radio-group">
-                                    <label for="id2" class="static-address">
-                                        <strong style="info-trans">Khánh (+84) 368038738</strong>
-                                        Số 540,tổ 41,phú quới,long hồ ,việt nam, Xã Phú Quới, Huyện Long Hồ, Vĩnh Long
-                                    </label>
-                                </p>
-
-                                <div class="content-btn">
-                                    <button type="button" class="btn-green">Hoàn Thành</button>
-                                    <button type="button" class="btn-back btn_show_hidden" data-toggle="collapse"
-                                        data-target="#change_address_trans">Trở Lại</button>
+                                    <i class="static static_change">Mặc Định</i>
+                                    <button type="button" class="btn-green btn_change_address_trans" data-toggle="collapse"
+                                        data-target="#change_address_trans">THAY ĐỔI</button>
                                 </div>
-
+                            @else
+                                <div class="static-address hidden_address" style="display:flex; justify-content: center">
+                                    <label style="opacity: .6;">Bạn chưa có địa chỉ nhận hàng nào</label>
+                                    <button type="button" id="btn_add_address_trans"
+                                        style="margin-left: 10px; margin-top: -8px;"
+                                        class="btn-add-new-add-trans btn-address-trans btn_add_address_trans btn_open_modal_adress">
+                                        <span class="icon-copy ti-plus"></span> Thêm Địa Chỉ Mới</button>
+                                </div>
+                            @endif
+                            @if (count($cus_trans) > 0)
                                 <div id="change_address_trans" class="collapse">
+                                    @foreach ($cus_trans as $trans)
+                                        <p>
+                                            @if ($trans->trans_status == 1)
+                                                <input type="radio" value="{{ $trans->trans_id }}" id="{{ $trans->trans_id }}" name="radio_trans" checked>
+                                            @else
+                                                <input type="radio" value="{{ $trans->trans_id }}" id="{{ $trans->trans_id }}" name="radio_trans">
+                                            @endif
+
+                                            <label for="{{ $trans->trans_id }}" class="static-address">
+                                                <strong class="info-trans">{{ $trans->trans_fullname }} {{ $trans->trans_phone }}</strong>
+                                                <label class="detail-address">
+                                                    {{ $trans->trans_address }}
+                                                </label>
+                                                <input type="hidden" class="detail_address_trans_{{ $trans->trans_id }}" value="{{ $trans->trans_address }}">
+                                                @if($trans->trans_status == 1)
+                                                    <i class="static static_choose_{{ $trans->trans_id }}">Mặc Định</i>
+                                                @else
+                                                    <i class="static static_choose_{{ $trans->trans_id }}"></i>
+                                                @endif
+
+                                            </label>
+                                        </p>
+                                    @endforeach
+
+                                    <div class="content-btn">
+                                        <button type="button" class="btn-green btn_change_address_radio_button" data-toggle="collapse"
+                                        data-target="#change_address_trans">Hoàn Thành</button>
+                                        <button type="button" class="btn-back btn_show_hidden" data-toggle="collapse"
+                                            data-target="#change_address_trans">Trở Lại</button>
+                                    </div>
+
+                                    <div id="change_address_trans" class="collapse">
+                                    </div>
                                 </div>
-                            </div>
+                            @endif
+
                         </div>
                     </div>
 
@@ -154,28 +183,54 @@
                             {{-- <button id="myBtn" type="button">Open Modal</button> --}}
                         </div>
                     </div>
-                    <div class="cus_view">
+                    <div class="view-payment">
                         <div class="content-payment-method row">
                             <h4 class="title-payment-method">Phương Thức Thanh Toán</h4>
-                            <div class="btn-group btn-group-toggle group-checkbox-btn group-checkbox_btn op-0" data-toggle="buttons">
-								<label class="btn btn-outline-secondary active btn-outline-payment btn_cash">
-									<input type="radio" name="payment_method" value="0" id="cash_pay" autocomplete="off" checked=""> Thanh toán khi nhận hàng
-								</label>
+                            <div class="btn-group btn-group-toggle group-checkbox-btn group-checkbox_btn op-0"
+                                data-toggle="buttons">
+                                <label class="btn btn-outline-secondary active btn-outline-payment btn_cash">
+                                    <input type="radio" name="payment_method" value="0" id="cash_pay" autocomplete="off"
+                                        checked=""> Thanh toán khi nhận hàng
+                                </label>
                                 <label for=""></label>
-								<label class="btn btn-outline-secondary btn-outline-payment btn_paypal">
-									<input type="radio" name="payment_method" value="1" id="paypal" autocomplete="off"> Paypal
-								</label>
-							</div>
+                                <label class="btn btn-outline-secondary btn-outline-payment btn_paypal">
+                                    <input type="radio" name="payment_method" value="1" id="paypal" autocomplete="off">
+                                    Paypal
+                                </label>
+                            </div>
                             <div class="content-text-payment_method text_payment_method">
                                 Thanh toán khi nhận hàng
                             </div>
-                            <button type="button" class="btn-green btn-change-method btn_change_method_pay">Thay Đổi</button>
+                            <button type="button" class="btn-green btn-change-method btn_change_method_pay">Thay
+                                Đổi</button>
                         </div>
                     </div>
+                    <div class="view-summary">
+                        <div class="content-total-summary">
+                            <div class="title-total-price">Tổng tiền hàng</div>
+                            <div class="val-total-price">{{ number_format($total_temporary_price, 0, ',', '.') }} vnđ</div>
+                            <div class="format-free-trans">Phí vận chuyển</div>
+                            <div class="val-free-trans">0 vnđ</div>
+                            <div class="format-total-voucher">Tổng cộng Voucher giảm giá:</div>
+                            <div class="val-total-voucher">0 vnđ</div>
+                            <div class="format-total-summary">Tổng thanh toán:</div>
+                            <div class="val-total-summary">{{ number_format($total_temporary_price, 0, ',', '.') }} vnđ</div>
+                        </div>
+                        <div class="view-btn-buy">
+                            <div class="title-rule">Nhấn "Đặt hàng" đồng nghĩa với việc bạn đồng ý tuân theo
+                                <a
+                                    href="https://shopee.vn/legaldoc/policies/" target="_blank"
+                                    rel="noopener noreferrer">Điều khoản MKU_FOOD
+                                </a>
+                            </div>
+                            <button type="button" class="btn-dathang">Đặt Hàng</button>
+                        </div>
+                    </div>
+
             </form>
         </div>
     </div>
-    <!-- The Modal -->
+    <!-- The Modal Choose Voucher -->
     <div id="modal_voucher" class="modal">
         <!-- Modal content -->
         <div class="modal-content container">
@@ -193,10 +248,53 @@
                 </div>
             </div>
         </div>
-
     </div>
+    {{-- ----------------------------------------------- --}}
+    <!-- The Modal Add Address Trans -->
+    <div class="modal_address modal">
+        <!-- Modal content -->
+        <div class="modal-content_address container">
+            <div class="modal-header-cus modal-header-address">
+                <span class="close close_modal_address">&times;</span>
+                <h4>Địa Chỉ Mới</h4>
+            </div>
+            <div class="modal-body-cus">
+                <div class="content-add-address">
+                    <form name="form_add_address">
+                        @csrf
+                        <div class="line">
+                                <input type="text" name="fullname" class="form-control input trans_fullname upper_val" placeholder="Họ và tên" onblur="return upberFirstKey()">
+                                <div class="" style="width: 50px"></div>
+                                <input type="text" name="phone" class="form-control input trans_phone" placeholder="Số điện thoại">
+                        </div>
+                        <div class="line">
+                            <select name="city" id="city_add_trans" class="select form-control">
+                                <option value="">Chọn Tỉnh/TP</option>
+                                @foreach ($citys as $city)
+                                    <option value="{{ $city->matp }}" max = "5">{{ $city->name_tp }}</option>
+                                @endforeach
 
+                            </select>
+                            <select name="district" id="district_add_trans" class="select form-control">
+                                <option value="">Chọn Quận/Huyện</option>
+                            </select>
+                            <select name="ward" id="ward_add_trans" class="select">
+                                <option value="">Chọn Phường/Xã</option>
 
+                            </select>
+                        </div>
+                        <div class="line">
+                            <textarea class="upper_val" name="detail_address" id="detail_address" cols="80" rows="3" placeholder="Địa chỉ cụ thể" onblur="return upberFirstKey()"></textarea>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="content-modal-footer-address">
+                <button class="btn btn-secondary btn_back_modal_address" style="margin-right: 10px">TRỞ LẠI</button>
+                <button class="btn btn-success btn_submit_form_add_address">HOÀN THÀNH</button>
+            </div>
+        </div>
+    </div>
 
     <script src="{{ asset('public/font_end/assets/js/jquery-3.4.1.min.js') }}"></script>
     <script src="{{ asset('public/font_end/bootstrap/js/bootstrap.min.js') }}"></script>
