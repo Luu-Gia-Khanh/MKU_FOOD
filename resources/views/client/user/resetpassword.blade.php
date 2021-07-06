@@ -48,7 +48,7 @@
                     </div>
 
                     <!--content-user-->
-                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12" style="background-color: rgb(245, 245, 245); margin-bottom: 32px;">
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12" style="background-color: rgb(245, 245, 245);  margin-bottom: 32px;">
                         <div class="content__user">
                             <div class="content__user-heading">
                                 <span class="user-heading-title">Đổi mật khẩu</span>
@@ -58,15 +58,15 @@
                                 <div class="content__user-resetpassword">
                                     <div class="user-password">
                                         <span>Mật khẩu hiện tại</span>
-                                        <input class="custom-input-user" type="password" name="password" value="{{ old('password') }}">
+                                        <input class="custom-input-user" type="password" name="password" value="{{ old('password') }}" style="padding: 7px 8px;">
                                     </div>
                                     @if ($errors->has('password'))
-                                        <div style="margin-left: 142px; color: #dc3545;">
+                                        <div style="margin-left: 146px; color: #dc3545;">
                                             {{ $errors->first('password') }}
                                         </div>
                                     @endif
                                     @if (session('check_update_password'))
-                                        <div style="margin-left: 142px; color: #dc3545;">
+                                        <div style="margin-left: 146px; color: #dc3545;">
                                             {{ session('check_update_password') }}
                                         </div>
                                      @endif
@@ -75,19 +75,19 @@
                                     </div>
                                     <div class="user-password">
                                         <span>Mật khẩu mới</span>
-                                        <input class="custom-input-user" type="password" name="password_new" value="{{ old('password_new') }}">
+                                        <input class="custom-input-user" type="password" name="password_new" value="{{ old('password_new') }}" style="padding: 7px 8px;">
                                     </div>
                                     @if ($errors->has('password_new'))
-                                        <div style="margin-left: 142px; color: #dc3545;">
+                                        <div style="margin-left: 146px; color: #dc3545;">
                                             {{ $errors->first('password_new') }}
                                         </div>
                                     @endif
                                     <div class="user-password">
                                         <span>Xác nhận mật khẩu</span>
-                                        <input class="custom-input-user" type="password" name="password_new_confirmation" value="{{ old('password_new_confirmation') }}">
+                                        <input class="custom-input-user" type="password" name="password_new_confirmation" value="{{ old('password_new_confirmation') }}" style="padding: 7px 8px;">
                                     </div>
                                     @if ($errors->has('password_new_confirmation'))
-                                        <div style="margin-left: 142px; color: #dc3545;">
+                                        <div style="margin-left: 146pxpx; color: #dc3545;">
                                             {{ $errors->first('password_new_confirmation') }}
                                         </div>
                                     @endif

@@ -48,7 +48,7 @@
                     </div>
 
                     <!--content-user-->
-                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12" style="background-color: rgb(245, 245, 245); min-height:500px; height: auto; display: flex; margin-bottom: 32px;">
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12" style="background-color: rgb(245, 245, 245); height:530px; margin-bottom: 32px;">
                         <div class="content__user">
                             <div class="content__user-heading">
                                 <span class="user-heading-title">Thông tin cá nhân</span>
@@ -63,7 +63,8 @@
                                         </div>
                                         <div class="user-profile-fullname">
                                             <span>Họ và Tên</span>
-                                            <input class="custom-input-user" type="text" name="customer_fullname" value=" {{ $customer_info->customer_fullname }}">
+                                            <input class="custom-input-user upper_val" type="text" name="customer_fullname" value="{{ $customer_info->customer_fullname }}"
+                                            onblur="return upberFirstKey()" style="padding: 7px 8px;">
                                         </div>
                                         @if ($errors->has('customer_fullname'))
                                             <div style="margin-left: 132px; color: #dc3545;">
@@ -72,11 +73,11 @@
                                         @endif
                                         <div class="user-profile-email">
                                             <span>Email</span>
-                                            <input class="custom-input-user" type="text" name="email" value="{{ $customer->email }}" readonly>
+                                            <input class="custom-input-user" type="text" name="email" value="{{ $customer->email }}" readonly style="padding: 7px 8px;">
                                         </div>
                                         <div class="user-profile-phone">
                                             <span>Số điện thoại</span>
-                                            <input class="custom-input-user" type="text" name="customer_phone" value="{{ $customer_info->customer_phone }}">
+                                            <input class="custom-input-user" type="text" name="customer_phone" value="{{ $customer_info->customer_phone }}" style="padding: 7px 8px;">
                                         </div>
                                         @if ($errors->has('customer_phone'))
                                             <div style="margin-left: 132px; color: #dc3545;">
@@ -86,7 +87,7 @@
                                         <div class="user-profile-gender">
                                             <span>Giới tính</span>
                                             <div class="radio-gender">
-                                                <input type="radio" name="customer_gender"
+                                                <input class="gender_checked" type="radio" name="customer_gender"
                                                 @if($customer_info->customer_gender == 'Nam')
                                                     checked="checked"
                                                 @endif
@@ -112,7 +113,7 @@
                                         </div>
                                         <div class="user-profile-phone">
                                             <span>Ngày sinh</span>
-                                            <input class="custom-input-user" type="date" name="customer_birthday" value="{{ $customer_info->customer_birthday }}">
+                                            <input class="custom-input-user" type="date" name="customer_birthday" value="{{ $customer_info->customer_birthday }}" style="padding: 7px 8px;">
                                         </div>
                                         @if (session('check_update_birthday'))
                                             <div style="margin-left: 132px; color: #dc3545;">
@@ -127,7 +128,7 @@
                                         </div>
                                         <div class="input-upload-img">
                                             <input type="file" name="customer_avt" id="file_upload"
-                                                onchange="return uploadhinh()" class="custom-file-input">
+                                                onchange="return uploadhinh()" class="custom-file-input" style="width: 220px;">
                                         </div>
                                     </div>
                                 </div>

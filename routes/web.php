@@ -164,9 +164,16 @@ Route::post('process_update_password_account', 'AccountController@process_update
 Route::post('process_add_address', 'AccountController@process_add_address');
 Route::post('trans_id_update', 'AccountController@get_id_trans');
 Route::post('get_phone_address', 'AccountController@get_phone_trans');
+Route::post('get_address_detail_trans', 'AccountController@get_address_detail_trans');
+
 Route::post('process_update_address', 'AccountController@process_update_address');
 Route::post('process_delete_address', 'AccountController@process_delete_address');
 Route::post('process_mode_default', 'AccountController@process_mode_default');
+
+Route::post('load_district', 'AddressController@load_district');
+Route::post('load_ward', 'AddressController@load_ward');
+Route::post('load_district_update_address_user', 'AddressController@load_district');
+Route::post('load_ward_update_address_user', 'AddressController@load_ward');
 
 // CART
 Route::post('add_to_cart', 'CartController@add_cart');

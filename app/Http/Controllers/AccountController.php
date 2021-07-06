@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Foundation\Console\Presets\React;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Session;
 class AccountController extends Controller
 {
@@ -88,13 +89,20 @@ class AccountController extends Controller
 
         $customer = Customer::where('customer_id', $customer_id)->first();
         $customer_info = Customer_Info::where('customer_id', $customer_id)->first();
-        return view('client.user.address', compact('customer_info', 'customer', 'all_address'));
+        $citys = DB::table('tinhthanhpho')->get();
+        $districts = DB::table('quanhuyen')->get();
+        $wards = DB::table('xaphuongthitran')->get();
+        return view('client.user.address', compact('customer_info', 'customer', 'all_address', 'citys', 'districts', 'wards'));
     }
 
     public function process_add_address(Request $request){
         $this->validate($request, [
             'trans_fullname' => 'required|min:5|max:100',
             'trans_phone' => 'required|starts_with:0|digits:10|numeric',
+            'city' => 'required',
+            'district' => 'required',
+            'ward' => 'required',
+            'trans_address_detail' => 'required|min:5|max:100',
         ],[
             'trans_fullname.required'=>'Họ và Tên không được để trống',
             'trans_fullname.min'=>'Họ và Tên phải ít nhất 5 ký tự',
@@ -105,15 +113,33 @@ class AccountController extends Controller
             'trans_phone.digits' => 'Số điện thoại phải đúng 10 số',
             'trans_phone.numeric' => 'Số điện thoại phải là chữ số',
             'trans_phone.starts_with' => 'Số điện thoại phải bắt đầu bằng số 0',
+
+            'trans_address_detail.required'=>'Địa chỉ cụ thể không được để trống',
+            'trans_address_detail.min'=>'Địa chỉ cụ thể phải ít nhất 5 ký tự',
+            'trans_address_detail.max'=>'Địa chỉ cụ thể có độ dài tối đa là 100 ký tự',
+
+            'city.required' => 'Tỉnh/Thành Phố không được để trống',
+            'district.required' => 'Quận Huyện không được để trống',
+            'ward.required' => 'Xã/Phường/Thị Trấn không được để trống',
         ]);
 
         $customer_id = Session::get('customer_id');
+
+        $city = $request->city;
+        $district = $request->district;
+        $ward = $request->ward;
+        $name_city = DB::table('tinhthanhpho')->where('matp', $city)->first();
+        $name_district = DB::table('quanhuyen')->where('maqh', $district)->first();
+        $name_ward = DB::table('xaphuongthitran')->where('xaid', $ward)->first();
+
+        //address
+        $trans_address = $name_city->name_tp.", ".$name_district->name_qh.", ".$name_ward->name_xa.", ".$request->trans_address_detail;
 
         $transport = new Customer_Transport();
         $transport->customer_id = $customer_id;
         $transport->trans_fullname = $request->trans_fullname;
         $transport->trans_phone = $request->trans_phone;
-        $transport->trans_address = 'dong thap';
+        $transport->trans_address = $trans_address;
 
         $all_transport = Customer_Transport::where('customer_id', $customer_id)->get();
         if(count($all_transport) == 0){
@@ -124,7 +150,6 @@ class AccountController extends Controller
         }
         $transport->save();
         return redirect()->back();
-        
     }
 
     public function get_id_trans(Request $request){
@@ -137,11 +162,23 @@ class AccountController extends Controller
         $transport = Customer_Transport::find($trans_id);
         echo $transport->trans_phone;
     }
+    public function get_address_detail_trans(Request $request){
+        $trans_id = $request->trans_id;
+        $trans_address = Customer_Transport::find($trans_id);
+
+
+        $address_detail = explode(", ", $trans_address->trans_address);
+        echo $address_detail[3];
+    }
 
     public function process_update_address(Request $request){
         $this->validate($request, [
             'trans_fullname' => 'required|min:5|max:100',
             'trans_phone' => 'required|starts_with:0|digits:10|numeric',
+            'city' => 'required',
+            'district' => 'required',
+            'ward' => 'required',
+            'trans_address_detail' => 'required|min:5|max:100',
         ],[
             'trans_fullname.required'=>'Họ và Tên không được để trống',
             'trans_fullname.min'=>'Họ và Tên phải ít nhất 5 ký tự',
@@ -152,12 +189,30 @@ class AccountController extends Controller
             'trans_phone.digits' => 'Số điện thoại phải đúng 10 số',
             'trans_phone.numeric' => 'Số điện thoại phải là chữ số',
             'trans_phone.starts_with' => 'Số điện thoại phải bắt đầu bằng số 0',
+
+            'trans_address_detail.required'=>'Địa chỉ cụ thể không được để trống',
+            'trans_address_detail.min'=>'Địa chỉ cụ thể phải ít nhất 5 ký tự',
+            'trans_address_detail.max'=>'Địa chỉ cụ thể có độ dài tối đa là 100 ký tự',
+
+            'city.required' => 'Tỉnh/Thành Phố không được để trống',
+            'district.required' => 'Quận Huyện không được để trống',
+            'ward.required' => 'Xã/Phường/Thị Trấn không được để trống',
         ]);
+
+        $city = $request->city;
+        $district = $request->district;
+        $ward = $request->ward;
+        $name_city = DB::table('tinhthanhpho')->where('matp', $city)->first();
+        $name_district = DB::table('quanhuyen')->where('maqh', $district)->first();
+        $name_ward = DB::table('xaphuongthitran')->where('xaid', $ward)->first();
+
+        //address
+        $trans_address = $name_city->name_tp.", ".$name_district->name_qh.", ".$name_ward->name_xa.", ".$request->trans_address_detail;
 
         $transport = Customer_Transport::where('trans_id', $request->trans_id)->first();
         $transport->trans_fullname = $request->trans_fullname;
         $transport->trans_phone = $request->trans_phone;
-        $transport->trans_address = 'dong thap';
+        $transport->trans_address = $trans_address;
 
         $transport->save();
         return redirect()->back();

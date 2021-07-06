@@ -10,8 +10,7 @@
 .address-display__field-container{
     display: flex;
     flex-wrap: nowrap;
-    height: 35px;
-    align-items: center;
+    margin-bottom: 8px;
 }
 .address-dislay__left{
     display: flex;
@@ -24,7 +23,7 @@
 }
 .address-display__field-label{
     text-align: right;
-    width: 200px;
+    min-width: 200px;
     padding: 0 18px;
     font-weight: 700;
 }
@@ -39,6 +38,7 @@
 }
 .address-display__field-content{
     display: flex;
+    max-width: 500px;
 }
 .address-display__button{
     display: flex;
@@ -56,10 +56,27 @@
     text-decoration: underline;
 }
 .address-btn-action:hover{
+    cursor: pointer;
     color: #7faf51;
     text-decoration: underline;
 }
 .address-btn-action-primary--disable{
     opacity: 0.4;
     cursor: no-drop;
+    background: #fff;
+    color: #555;
+    border: 1px solid rgba(0,0,0,.09);
+    box-shadow: 0 1px 1px 0 rgb(0 0 0 / 3%);
+}
+.address-btn-action-primary--disable:hover{
+    background: rgba(0,0,0,.03);
+}
+.address-btn-action-primary{
+    background: #fff;
+    color: #555;
+    border: 1px solid rgba(0,0,0,.09);
+    box-shadow: 0 1px 1px 0 rgb(0 0 0 / 3%);
+}
+.address-btn-action-primary:hover{
+    background: rgba(0,0,0,.03);
 }
