@@ -164,6 +164,7 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="{{ asset('public/font_end/custom/custom.js') }}"></script>
     <script src="{{ asset('public/font_end/custom/update_cart_ajax.js') }}"></script>
+    <script src="{{ asset('public/back_end/src/scripts/upperFirstKey.js') }}"></script>
 
     {{-- check out custom
     <script src="{{ asset('public/font_end/custom/checkout_custom.js') }}"></script> --}}

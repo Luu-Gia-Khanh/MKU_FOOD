@@ -114,11 +114,6 @@ $(document).ready(function(){
             });
         }
 
-
-
-
-
-
     });
 
     // radio check choose address trans
