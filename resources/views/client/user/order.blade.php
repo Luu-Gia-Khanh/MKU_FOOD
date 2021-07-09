@@ -4,9 +4,9 @@
     <div class="container">
         <nav class="biolife-nav">
             <ul>
-                <li class="nav-item"><a href="index-2.html" class="permal-link">Home</a></li>
-                <li class="nav-item"><a href="#" class="permal-link">Natural Organic</a></li>
-                <li class="nav-item"><span class="current-page">Fresh Fruit</span></li>
+                <li class="nav-item"><a href="{{ URL::to('/') }}" class="permal-link">Trang chủ</a></li>
+                <li class="nav-item"><a href="{{ URL::to('user/account') }}" class="permal-link">Tài khoản</a></li>
+                <li class="nav-item"><span class="current-page">Đơn hàng</span></li>
             </ul>
         </nav>
     </div>
@@ -21,8 +21,17 @@
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
                         <nav class="user">
                             <div class="user-heading">
+                                @if(Session::get('customer_id'))
                                 <img src="{{ asset('public/upload/'.$customer_info->customer_avt) }}" alt="" class="user-img">
-                                <span class="user-name">{{ $customer->username }}</span>
+                                @else
+                                    <img src="{{ asset('public/upload/no_image.png') }}" alt="" class="user-img">
+                                @endif
+                                
+                                @if(Session::get('customer_id'))
+                                    <span class="user-name">{{ $customer->username }}</span>
+                                @else
+                                    <span class="user-name">Unknown</span>
+                                @endif
                             </div>
                             <ul class="user-list-module">
                                 <li class="user-module-item">

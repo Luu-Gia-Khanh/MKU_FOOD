@@ -6,8 +6,8 @@
                 <li><a href="#">Free Shipping for all Order of $99</a></li>
             </ul>
         </div>
-        <div class="top-bar right">
-            <ul class="social-list">
+        <div class="top-bar right" style="display: flex;">
+            <ul class="social-list" style=" align-items: center; display: flex;">
                 <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
                 <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
                 <li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>

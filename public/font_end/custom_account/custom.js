@@ -7,80 +7,12 @@ $(document).ready(function(){
         location.reload();
     });
 
-    //add address
+    //add count
     $('.add_address_account').click(function(){
-        var cart_id = $(this).attr('data-id');
-        $('.add_address_account').val(cart_id);
+        var id = $(this).attr('data-id');
+        $('.add_address_account').val(id);
     });
-
-    //add address
-    $('.btn_add_address').click(function(){
-        var form_add_address = document.forms['add_transport'];
-        form_add_address.submit();
-    });
-
-    //update address
-    $('.update_address').click(function(){
-        var trans_id = $(this).attr('data-id');
-        var _token = $('input[name="_token"]').val();
-         $('.trans_id').val(trans_id);
-        $.ajax({
-            url: '../trans_id_update',
-            method: 'post',
-            data: {
-                _token: _token,
-                trans_id: trans_id
-            },
-            success: function (data) {
-                $('.fullname_address_update').val(data);
-            }
-        });
-        $.ajax({
-            url: '../get_phone_address',
-            method: 'post',
-            data: {
-                _token: _token,
-                trans_id: trans_id
-            },
-            success: function (data) {
-                $('.phone_address_update').val(data);
-            }
-        });
-        $.ajax({
-            url: '../get_address_detail_trans',
-            method: 'post',
-            data: {
-                _token: _token,
-                trans_id: trans_id
-            },
-            success: function (data) {
-                $('.address_detail_trans_update').val(data);
-            }
-        });
-    });
-    $('.btn_update_address').click(function(){
-        var form_update_address = document.forms['update_transport'];
-        form_update_address.submit();
-    });
-
-    //delete item address
-    $('.delete_address').click(function(){
-        var trans_id = $(this).attr('data-id');
-        $('.delete_address').val(trans_id);
-    });
-    $('.btn_delete_address').click(function(){
-        var form_delete = document.forms['form_delete_address'];
-        form_delete.submit();
-    });
-
 });
-function upberFirstKey(){
-    var str = document.getElementsByClassName('upper_val')[0].value;
-    str = str.toLowerCase().replace(/^[\u00C0-\u1FFF\u2C00-\uD7FF\w]|\s[\u00C0-\u1FFF\u2C00-\uD7FF\w]/g, function(letter) {
-        return letter.toUpperCase();
-    });
-    document.getElementsByClassName('upper_val')[0].value=str;
-}
 
 
 // Get the modal

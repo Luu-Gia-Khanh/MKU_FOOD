@@ -1,12 +1,13 @@
-<link rel="stylesheet" href="{{ asset('public/font_end/custom_account/user_sidebar_content.css') }}">
+<link rel="stylesheet" href="{{ asset('public/font_end/bootstrap/css/bootstrap.min.css') }}">
 @extends('client.layout_client')
 @section('content_body')
+<link rel="stylesheet" href="{{ asset('public/font_end/custom_account/user_sidebar_content.css') }}">
     <div class="container">
         <nav class="biolife-nav">
             <ul>
-                <li class="nav-item"><a href="index-2.html" class="permal-link">Home</a></li>
-                <li class="nav-item"><a href="#" class="permal-link">Natural Organic</a></li>
-                <li class="nav-item"><span class="current-page">Fresh Fruit</span></li>
+                <li class="nav-item"><a href="{{ URL::to('/') }}" class="permal-link">Trang chủ</a></li>
+                <li class="nav-item"><a href="{{ URL::to('user/account') }}" class="permal-link">Tài khoản</a></li>
+                <li class="nav-item"><span class="current-page">Đổi mật khẩu</span></li>
             </ul>
         </nav>
     </div>
@@ -21,8 +22,17 @@
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
                         <nav class="user">
                             <div class="user-heading">
-                                <img src="{{ asset('public/upload/'.$customer_info->customer_avt) }}" alt="" class="user-img">
-                                <span class="user-name">{{ $customer->username }}</span>
+                                @if(Session::get('customer_id'))
+                                    <img src="{{ asset('public/upload/'.$customer_info->customer_avt) }}" alt="" class="user-img">
+                                @else
+                                    <img src="{{ asset('public/upload/no_image.png') }}" alt="" class="user-img">
+                                @endif
+                                
+                                @if(Session::get('customer_id'))
+                                    <span class="user-name">{{ $customer->username }}</span>
+                                @else
+                                    <span class="user-name">Unknown</span>
+                                @endif
                             </div>
                             <ul class="user-list-module">
                                 <li class="user-module-item">
@@ -53,45 +63,25 @@
                             <div class="content__user-heading">
                                 <span class="user-heading-title">Đổi mật khẩu</span>
                             </div>
-                            <form action="{{ URL::to('process_update_password_account') }}" method="post">
+                            <form name="form_update_resetpassword">
                                 @csrf
                                 <div class="content__user-resetpassword">
                                     <div class="user-password">
                                         <span>Mật khẩu hiện tại</span>
-                                        <input class="custom-input-user" type="password" name="password" value="{{ old('password') }}" style="padding: 7px 8px;">
+                                        <input class="custom-input-user password_old" type="password" name="password_old" style="padding: 7px 8px;">
                                     </div>
-                                    @if ($errors->has('password'))
-                                        <div style="margin-left: 146px; color: #dc3545;">
-                                            {{ $errors->first('password') }}
-                                        </div>
-                                    @endif
-                                    @if (session('check_update_password'))
-                                        <div style="margin-left: 146px; color: #dc3545;">
-                                            {{ session('check_update_password') }}
-                                        </div>
-                                     @endif
                                     <div class="forget-password">
                                         <a href="{{ URL::to('mail_reset_password') }}">Quên mật khẩu?</a>
                                     </div>
                                     <div class="user-password">
                                         <span>Mật khẩu mới</span>
-                                        <input class="custom-input-user" type="password" name="password_new" value="{{ old('password_new') }}" style="padding: 7px 8px;">
+                                        <input class="custom-input-user password_new" type="password" name="password_new" style="padding: 7px 8px;">
                                     </div>
-                                    @if ($errors->has('password_new'))
-                                        <div style="margin-left: 146px; color: #dc3545;">
-                                            {{ $errors->first('password_new') }}
-                                        </div>
-                                    @endif
                                     <div class="user-password">
                                         <span>Xác nhận mật khẩu</span>
-                                        <input class="custom-input-user" type="password" name="password_new_confirmation" value="{{ old('password_new_confirmation') }}" style="padding: 7px 8px;">
+                                        <input class="custom-input-user password_new_confirmation" type="password" name="password_new_confirmation" style="padding: 7px 8px;">
                                     </div>
-                                    @if ($errors->has('password_new_confirmation'))
-                                        <div style="margin-left: 146pxpx; color: #dc3545;">
-                                            {{ $errors->first('password_new_confirmation') }}
-                                        </div>
-                                    @endif
-                                    <button type="submit" class="btn-update-user">Xác Nhận</button>
+                                    <button type="button" class="btn-update-user btn_confirm_resetpassword">Xác Nhận</button>
                                 </div>
                             </form>
                         </div>
@@ -100,4 +90,6 @@
             </div>
         </div>
     </div>
+    <script src="{{ asset('public/font_end/assets/js/jquery-3.4.1.min.js') }}"></script>
+    <script src="{{ asset('public/font_end/custom_account/resetpassword.js') }}"></script>
 @endsection

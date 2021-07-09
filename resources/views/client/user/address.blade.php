@@ -7,9 +7,9 @@
     <div class="container">
         <nav class="biolife-nav">
             <ul>
-                <li class="nav-item"><a href="index-2.html" class="permal-link">Home</a></li>
-                <li class="nav-item"><a href="#" class="permal-link">Natural Organic</a></li>
-                <li class="nav-item"><span class="current-page">Fresh Fruit</span></li>
+                <li class="nav-item"><a href="{{ URL::to('/') }}" class="permal-link">Trang chủ</a></li>
+                <li class="nav-item"><a href="{{ URL::to('user/account') }}" class="permal-link">Tài khoản</a></li>
+                <li class="nav-item"><span class="current-page">Địa chỉ</span></li>
             </ul>
         </nav>
     </div>
@@ -24,8 +24,17 @@
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
                         <nav class="user">
                             <div class="user-heading">
+                                @if(Session::get('customer_id'))
                                 <img src="{{ asset('public/upload/'.$customer_info->customer_avt) }}" alt="" class="user-img">
-                                <span class="user-name">{{ $customer->username }}</span>
+                                @else
+                                    <img src="{{ asset('public/upload/no_image.png') }}" alt="" class="user-img">
+                                @endif
+                                
+                                @if(Session::get('customer_id'))
+                                    <span class="user-name">{{ $customer->username }}</span>
+                                @else
+                                    <span class="user-name">Unknown</span>
+                                @endif
                             </div>
                             <ul class="user-list-module">
                                 <li class="user-module-item">
@@ -51,12 +60,7 @@
                     </div>
 
                     <!--content-user-->
-                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12" style="background-color: rgb(245, 245, 245); height:auto; margin-bottom: 32px; border-bottom: 1px solid #ddd;">
-                        <div class="card-box-mb-30" style="margin-top: 8px">
-                            @if($errors->any())
-                                <div class="alert alert-danger alert-blog">{{ $errors->first() }}</div>
-                            @endif
-                        </div>
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12" style="background-color: rgb(245, 245, 245); min-height: 300px; margin-bottom: 32px; border-bottom: 1px solid #ddd;">
                         <div class="content__user-address">
                             <div class="content__user-address-heading">
                                 <span class="user-heading-address-title">Địa chỉ của tôi</span>
@@ -64,63 +68,73 @@
                                 data-target="#add_address_account"><span class="icon-copy ti-plus"></span> Thêm địa chỉ</button>
                             </div>
 
-                            @foreach ($all_address as $address)
+                            @if (count($all_address) > 0)
+
+                                @foreach ($all_address as $address)
+                                    
                                 
-                            
-                            <div class="address-card">
-                                <div class="address-dislay__left">
-                                    <div class="address-display__field-container">
-                                        <div class="address-display__field-label">Họ và Tên</div>
-                                        <div class="address-display__field-content">
-                                            <span class="address-display__name-text">
-                                                {{ $address->trans_fullname }}
-                                            </span>
-                                            @if ($address->trans_status == 1)
-                                                <div class="address-default">Mặc Định</div>
+                                <div class="address-card">
+                                    <div class="address-dislay__left">
+                                        <div class="address-display__field-container">
+                                            <div class="address-display__field-label">Họ và Tên</div>
+                                            <div class="address-display__field-content">
+                                                <span class="address-display__name-text">
+                                                    {{ $address->trans_fullname }}
+                                                </span>
+                                                @if ($address->trans_status == 1)
+                                                    <div class="address-default">Mặc Định</div>
+                                                @endif
+                                            </div>
+                                        </div>
+
+                                        <div class="address-display__field-container">
+                                            <div class="address-display__field-label">Số điện thoại</div>
+                                            <div class="address-display__field-content">
+                                                {{ $address->trans_phone }}
+                                            </div>
+                                        </div>
+
+                                        <div class="address-display__field-container">
+                                            <div class="address-display__field-label">Địa chỉ</div>
+                                            <div class="address-display__field-content">
+                                                <span>{{ $address->trans_address }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="address-display__button">
+                                        <div class="address-display__button-group">
+                                            <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                                            <span  class="address-btn-action update_address get_trans_id_update_address" data-id = {{ $address->trans_id }} id="btn-open-model-update_address_{{ $address->trans_id }}" data-toggle="modal_update_address" 
+                                                data-target="#modal_update_address">Sửa</span>
+                                            @if ($address->trans_status == 0)
+                                                <span class="address-btn-action delete_address get_trans_id" data-id = {{ $address->trans_id }} id="btn-open-model-delete_address_{{ $address->trans_id }}" data-toggle="modal_delete_address" 
+                                                    data-target="#modal_delete_address">Xóa</span>
+                                            @endif
+                                        </div>
+                                        <div class="address-display__button-group">
+                                            @if($address->trans_status == 1)
+                                                <button class="address-btn-action-primary--disable">Thiết Lập Mặc Định</button>
+                                            @else
+                                                <form action="{{ URL::to('process_mode_default') }}" method="post">
+                                                    @csrf
+                                                    <input type="hidden" name="trans_id" value="{{ $address->trans_id }}">
+                                                    <button type="submit" class="address-btn-action-primary">Thiết Lập Mặc Định</button>
+                                                </form>
                                             @endif
                                         </div>
                                     </div>
-
-                                    <div class="address-display__field-container">
-                                        <div class="address-display__field-label">Số điện thoại</div>
-                                        <div class="address-display__field-content">
-                                            {{ $address->trans_phone }}
-                                        </div>
-                                    </div>
-
-                                    <div class="address-display__field-container">
-                                        <div class="address-display__field-label">Địa chỉ</div>
-                                        <div class="address-display__field-content">
-                                            <span>{{ $address->trans_address }}</span>
-                                        </div>
-                                    </div>
                                 </div>
 
-                                <div class="address-display__button">
-                                    <div class="address-display__button-group">
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-                                        <span  class="address-btn-action update_address get_trans_id_update_address" data-id = {{ $address->trans_id }} id="btn-open-model-update_address_{{ $address->trans_id }}" data-toggle="modal_update_address" 
-                                            data-target="#modal_update_address">Sửa</span>
-                                        @if ($address->trans_status == 0)
-                                            <span class="address-btn-action delete_address get_trans_id" data-id = {{ $address->trans_id }} id="btn-open-model-delete_address_{{ $address->trans_id }}" data-toggle="modal_delete_address" 
-                                                data-target="#modal_delete_address">Xóa</span>
-                                        @endif
-                                    </div>
-                                    <div class="address-display__button-group">
-                                        @if($address->trans_status == 1)
-                                            <button class="address-btn-action-primary--disable">Thiết Lập Mặc Định</button>
-                                        @else
-                                            <form action="{{ URL::to('process_mode_default') }}" method="post">
-                                                @csrf
-                                                <input type="hidden" name="trans_id" value="{{ $address->trans_id }}">
-                                                <button type="submit" class="address-btn-action-primary">Thiết Lập Mặc Định</button>
-                                            </form>
-                                        @endif
-                                    </div>
-                                </div>
-                            </div>
+                                @endforeach
 
-                            @endforeach
+                            @else
+
+                                <div class="div_img_no_address">
+                                    <img src="{{ asset('public/upload/no_address.png') }}" alt="" class="img_no_address_in_user">
+                                </div>
+
+                            @endif
 
                         </div>
                     </div>
@@ -140,34 +154,34 @@
             </div>
             <div class="modal-body-cus">
                 <div class="content-add-address">
-                    <form action="{{ URL::to('process_add_address') }}" method="post" name="add_transport">
+                    <form name="form_add_transport">
                         @csrf
                         <div class="line">
-                            <input type="text" class="form-control input upper_val" name="trans_fullname"
+                            <input type="text" class="form-control input upper_val trans_fullname"
                             value="{{ old('trans_fullname') }}" onblur="return upberFirstKey()" placeholder="Họ và tên">
                             <div class="" style="width: 50px"></div>
 
-                            <input type="text" class="form-control input upper_val" name="trans_phone"
-                            value="{{ old('trans_phone') }}" onblur="return upberFirstKey()" placeholder="Số điện thoại">
+                            <input type="text" class="form-control input upper_val trans_phone"
+                            value="{{ old('trans_phone') }}"  placeholder="Số điện thoại">
                         </div>
                         <div class="line">
-                            <select name="city" id="city_add_address" value="{{ old('city') }}" class="select" data-select2-id="1" tabindex="-1" aria-hidden="true">
+                            <select name="city" id="city_add_address" class="select" data-select2-id="1" tabindex="-1" aria-hidden="true">
                                 <option value="">Chọn Tỉnh/TP</option>
                                 @foreach ($citys as $city)
                                     <option value="{{ $city->matp }}">{{ $city->name_tp }}</option>
                                 @endforeach
                             </select>
 
-                            <select name="district" id="district_add_address" value="{{ old('district') }}" class="select">
+                            <select name="district" id="district_add_address" class="select">
                                 <option value="">Chọn Quận/Huyện</option>
                             </select>
 
-                            <select name="ward" id="ward_add_address" value="{{ old('ward') }}" class="select">
+                            <select name="ward" id="ward_add_address" class="select">
                                 <option value="">Chọn Phường/Xã</option>
                             </select>
                         </div>
                         <div class="line">
-                            <textarea name="trans_address_detail" cols="80" rows="3" value="{{ old('trans_address_detail') }}" placeholder="Địa chỉ cụ thể"></textarea>
+                            <textarea name="trans_address_detail" id="detail_address" cols="80" rows="3" placeholder="Địa chỉ cụ thể"></textarea>
                         </div>
                     </form>
                 </div>
@@ -189,9 +203,9 @@
             <div class="modal-body-cus">
                 <div class="content-delete-address">
                     Bạn có thực sự muốn xóa địa chỉ này không?
-                    <form action="{{ URL::to('process_delete_address') }}" method="post" name="form_delete_address">
+                    <form name="form_delete_address">
                         @csrf
-                        <input type="hidden" name="trans_id" class="delete_address">
+                        <input type="hidden" name="trans_id" class="delete_address" id="trans_id">
                     </form>
                 </div>
             </div>
@@ -211,66 +225,36 @@
             </div>
             <div class="modal-body-cus">
                 <div class="content-add-address">
-                    {{-- <form action="{{ URL::to('process_update_address') }}" method="post" name="update_transport">
-                        @csrf
-                        <label>Họ Và Tên</label>
-                        
-                        <input class="form-control upper_val fullname_address_update" type="text" name="trans_fullname"
-                        onblur="return upberFirstKey()" value=""
-                        placeholder="Nhập Họ Và Tên">
-
-                        <label>Số Điện Thoại</label>
-                        <input class="form-control upper_val phone_address_update" type="text" name="trans_phone"
-                            onblur="return upberFirstKey()" value=""
-                        placeholder="Nhập Số Điện Thoại">
-                    </form> --}}
-
-
-
-                    <form action="{{ URL::to('process_update_address') }}" method="post" name="update_transport">
+                    <form name="update_transport">
                         @csrf
                         <div class="line">
                             <input type="hidden" class="trans_id" name="trans_id">
-                            <input type="text" class="form-control input upper_val fullname_address_update" name="trans_fullname"
+                            <input type="text" class="form-control input upper_val fullname_address_update" id="trans_fullname"
                             value="{{ old('trans_fullname') }}" onblur="return upberFirstKey()" placeholder="Họ và tên">
                             <div class="" style="width: 50px"></div>
 
-                            <input type="text" class="form-control input upper_val phone_address_update" name="trans_phone"
-                            value="{{ old('trans_phone') }}" onblur="return upberFirstKey()" placeholder="Số điện thoại">
+                            <input type="text" class="form-control input phone_address_update trans_phone" id="trans_phone"
+                            value="{{ old('trans_phone') }}" placeholder="Số điện thoại">
                         </div>
                         <div class="line">
-                            <select name="city" id="city_update_address" value="{{ old('city') }}" class="select" data-select2-id="4" tabindex="-1" aria-hidden="true">
-                                <option value="">Chọn Tỉnh/TP</option>
+                            <select name="city" id="city_update_address" class="select">
+
+                                <option class="show_address_city_trans_update" value=""></option>
                                 @foreach ($citys as $city)
                                     <option value="{{ $city->matp }}">{{ $city->name_tp }}</option>
-                                    {{-- @if ($address[0] == $city->name_tp)
-                                        <option value="{{ $city->matp }}" selected>{{ $city->name_tp }}</option>
-                                    @else
-                                        <option value="{{ $city->matp }}">{{ $city->name_tp }}</option>
-                                    @endif --}}
                                 @endforeach
                             </select>
 
-                            <select name="district" id="district_update_address" value="{{ old('district') }}" class="select">
-                                <option value="">Chọn Quận/Huyện</option>
-                                {{-- @foreach ($districts as $dis)
-                                    @if ($dis->name_qh == $address[1])
-                                        <option value="{{ $dis->maqh }}">{{ $address[1] }}</option>
-                                    @endif
-                                @endforeach --}}
+                            <select name="district" id="district_update_address" class="select">
+                                <option class="show_address_district_trans_update" value=""></option>
                             </select>
 
-                            <select name="ward" id="ward_update_address" value="{{ old('ward') }}" class="select">
-                                <option value="">Chọn Phường/Xã</option>
-                                {{-- @foreach ($wards as $ward)
-                                    @if ($ward->name_xa == $address[2])
-                                        <option value="{{ $ward->xaid }}">{{ $address[2] }}</option>
-                                    @endif
-                                @endforeach --}}
+                            <select name="ward" id="ward_update_address" class="select">
+                                <option class="show_address_ward_trans_update" value=""></option>
                             </select>
                         </div>
                         <div class="line">
-                            <textarea class="address_detail_trans_update" name="trans_address_detail" cols="80" rows="3" value="{{ old('trans_address_detail') }}" placeholder="Địa chỉ cụ thể"></textarea>
+                            <textarea class="address_detail_trans_update" name="trans_address_detail" id="detail_update_address" cols="80" rows="3" value="{{ old('trans_address_detail') }}" placeholder="Địa chỉ cụ thể"></textarea>
                         </div>
                     </form>
                 </div>
@@ -285,6 +269,5 @@
     <script src="{{ asset('public/font_end/assets/js/jquery-3.4.1.min.js') }}"></script>
     {{-- check out custom --}}
     <script src="{{ asset('public/font_end/custom_account/custom.js') }}"></script>
-    <script src="{{ asset('public/font_end/custom_account/modal_delete_address.js') }}"></script>
     <script src="{{ asset('public/font_end/custom_account/address.js') }}"></script>
 @endsection

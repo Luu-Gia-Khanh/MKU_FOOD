@@ -4,9 +4,9 @@
     <div class="container">
         <nav class="biolife-nav">
             <ul>
-                <li class="nav-item"><a href="index-2.html" class="permal-link">Home</a></li>
-                <li class="nav-item"><a href="#" class="permal-link">Natural Organic</a></li>
-                <li class="nav-item"><span class="current-page">Fresh Fruit</span></li>
+                <li class="nav-item"><a href="{{ URL::to('/') }}" class="permal-link">Trang chủ</a></li>
+                <li class="nav-item"><a href="{{ URL::to('user/account') }}" class="permal-link">Tài khoản</a></li>
+                <li class="nav-item"><span class="current-page">Hồ sơ</span></li>
             </ul>
         </nav>
     </div>
@@ -21,8 +21,19 @@
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
                         <nav class="user">
                             <div class="user-heading">
-                                <img src="{{ asset('public/upload/'.$customer_info->customer_avt) }}" alt="" class="user-img">
-                                <span class="user-name">{{ $customer->username }}</span>
+
+                                @if(Session::get('customer_id'))
+                                    <img src="{{ asset('public/upload/'.$customer_info->customer_avt) }}" alt="" class="user-img">
+                                @else
+                                    <img src="{{ asset('public/upload/no_image.png') }}" alt="" class="user-img">
+                                @endif
+                                
+                                @if(Session::get('customer_id'))
+                                    <span class="user-name">{{ $customer->username }}</span>
+                                @else
+                                    <span class="user-name">Unknown</span>
+                                @endif
+                                    
                             </div>
                             <ul class="user-list-module">
                                 <li class="user-module-item user-module-item--active">
@@ -48,12 +59,12 @@
                     </div>
 
                     <!--content-user-->
-                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12" style="background-color: rgb(245, 245, 245); height:530px; margin-bottom: 32px;">
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12" style="background-color: rgb(245, 245, 245); height:500px; margin-bottom: 32px;">
                         <div class="content__user">
                             <div class="content__user-heading">
                                 <span class="user-heading-title">Thông tin cá nhân</span>
                             </div>
-                            <form action="{{ URL::to('update_account/'.$customer->customer_id) }}" method="post" enctype="multipart/form-data">
+                            <form enctype="multipart/form-data">
                                 @csrf
                                 <div class="content__user-profile">
                                     <div class="user-profile">
@@ -63,64 +74,49 @@
                                         </div>
                                         <div class="user-profile-fullname">
                                             <span>Họ và Tên</span>
-                                            <input class="custom-input-user upper_val" type="text" name="customer_fullname" value="{{ $customer_info->customer_fullname }}"
+                                            <input class="custom-input-user upper_val customer_fullname" type="text" name="customer_fullname" value="{{ $customer_info->customer_fullname }}"
                                             onblur="return upberFirstKey()" style="padding: 7px 8px;">
                                         </div>
-                                        @if ($errors->has('customer_fullname'))
-                                            <div style="margin-left: 132px; color: #dc3545;">
-                                                {{ $errors->first('customer_fullname') }}
-                                            </div>
-                                        @endif
                                         <div class="user-profile-email">
                                             <span>Email</span>
                                             <input class="custom-input-user" type="text" name="email" value="{{ $customer->email }}" readonly style="padding: 7px 8px;">
                                         </div>
                                         <div class="user-profile-phone">
                                             <span>Số điện thoại</span>
-                                            <input class="custom-input-user" type="text" name="customer_phone" value="{{ $customer_info->customer_phone }}" style="padding: 7px 8px;">
+                                            <input class="custom-input-user customer_phone" type="text" name="customer_phone" value="{{ $customer_info->customer_phone }}" style="padding: 7px 8px;">
                                         </div>
-                                        @if ($errors->has('customer_phone'))
-                                            <div style="margin-left: 132px; color: #dc3545;">
-                                                {{ $errors->first('customer_phone') }}
-                                            </div>
-                                        @endif
                                         <div class="user-profile-gender">
                                             <span>Giới tính</span>
                                             <div class="radio-gender">
-                                                <input class="gender_checked" type="radio" name="customer_gender"
+                                                <input class="gender_checked customer_gender" type="radio" name="customer_gender"
                                                 @if($customer_info->customer_gender == 'Nam')
                                                     checked="checked"
                                                 @endif
                                                 value="Nam">
-                                                <label for="html">Nam</label><br>
+                                                <label>Nam</label><br>
                                             </div>
                                             <div class="radio-gender">
-                                                <input type="radio" name="customer_gender"
+                                                <input type="radio" class="customer_gender" name="customer_gender"
                                                 @if($customer_info->customer_gender == 'Nu')
                                                     checked="checked"
                                                 @endif
                                                 value="Nu">
-                                                <label for="css">Nữ</label><br>
+                                                <label>Nữ</label><br>
                                             </div>
                                             <div class="radio-gender">
-                                                <input type="radio" name="customer_gender"
+                                                <input type="radio" class="customer_gender" name="customer_gender"
                                                 @if($customer_info->customer_gender == 'Khac')
                                                     checked="checked"
                                                 @endif
                                                 value="Khac">
-                                                <label for="javascript">Khác</label>
+                                                <label>Khác</label>
                                             </div>
                                         </div>
                                         <div class="user-profile-phone">
                                             <span>Ngày sinh</span>
-                                            <input class="custom-input-user" type="date" name="customer_birthday" value="{{ $customer_info->customer_birthday }}" style="padding: 7px 8px;">
+                                            <input class="custom-input-user customer_birthday" type="date" name="customer_birthday" value="{{ $customer_info->customer_birthday }}" style="padding: 7px 8px;">
                                         </div>
-                                        @if (session('check_update_birthday'))
-                                            <div style="margin-left: 132px; color: #dc3545;">
-                                                {{ session('check_update_birthday') }}
-                                            </div>
-                                        @endif
-                                        <button type="submit" class="btn-update-user">Lưu</button>
+                                        <button type="button" class="btn-update-user btn_update_info_account">Lưu</button>
                                     </div>
                                     <div class="user-upload-img">
                                         <div id="content_image_upload">
@@ -128,7 +124,7 @@
                                         </div>
                                         <div class="input-upload-img">
                                             <input type="file" name="customer_avt" id="file_upload"
-                                                onchange="return uploadhinh()" class="custom-file-input" style="width: 220px;">
+                                                onchange="return uploadhinh()" class="custom-file-input customer_avt" style="width: 220px;">
                                         </div>
                                     </div>
                                 </div>
@@ -140,4 +136,6 @@
             </div>
         </div>
     </div>
+    <script src="{{ asset('public/font_end/assets/js/jquery-3.4.1.min.js') }}"></script>
+    <script src="{{ asset('public/font_end/custom_account/update_info_account.js') }}"></script>
 @endsection

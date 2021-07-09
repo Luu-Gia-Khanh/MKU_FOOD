@@ -80,3 +80,12 @@
 .address-btn-action-primary:hover{
     background: rgba(0,0,0,.03);
 }
+.div_img_no_address{
+    display: flex;
+    justify-content: center;
+    padding: 8px 0;
+}
+.img_no_address_in_user{
+    max-width: 750px;
+    max-height: 350px;
+}

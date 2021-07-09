@@ -157,7 +157,9 @@ Route::get('user/address', 'AccountController@address_account');
 Route::get('user/resetpassword', 'AccountController@reset_password_account');
 Route::get('user/order', 'AccountController@order_account');
 
-Route::post('update_account/{customer_id}', 'AccountController@update_account');
+Route::post('update_info_account', 'AccountController@update_account');
+
+// USER RESETPASSWORD
 Route::post('process_update_password_account', 'AccountController@process_update_password');
 
 // USER ADDRESS
@@ -165,6 +167,9 @@ Route::post('process_add_address', 'AccountController@process_add_address');
 Route::post('trans_id_update', 'AccountController@get_id_trans');
 Route::post('get_phone_address', 'AccountController@get_phone_trans');
 Route::post('get_address_detail_trans', 'AccountController@get_address_detail_trans');
+Route::post('get_address_ward_trans', 'AccountController@get_address_ward_trans');
+Route::post('get_address_district_trans', 'AccountController@get_address_district_trans');
+Route::post('get_address_city_trans', 'AccountController@get_address_city_trans');
 
 Route::post('process_update_address', 'AccountController@process_update_address');
 Route::post('process_delete_address', 'AccountController@process_delete_address');
