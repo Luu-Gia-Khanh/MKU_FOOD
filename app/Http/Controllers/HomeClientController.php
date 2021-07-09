@@ -37,13 +37,31 @@ class HomeClientController extends Controller
         $all_image = ImageProduct::where('product_id',$product_id)->get();
         $all_cart = Cart::where('customer_id', $customer_id)->where('status', 1)->get();
         $product_storage = Storage_Product::all();
+        $all_product = Product::all();
+        $all_price = ProductPrice::where('status',1)->get();
         return view('client.home.product_detail',[
             'product'=>$product,
             'cate'=>$cate,
             'price'=>$price,
             'all_image'=>$all_image,
             'all_cart' => $all_cart,
+            'all_product'=>$all_product,
+            'all_price' =>$all_price,
             'product_storage' => $product_storage,
+        ]);
+    }
+    public function load_detail_product(Request $request){
+        $product_id = $request->product_id;
+
+        $product = Product::find($product_id);
+        $cate = Category::where('cate_id',$product->category_id)->first();
+        $price = ProductPrice::where('product_id',$product_id)->where('status', 1)->first();
+        $product_storage = Storage_Product::where('product_id',$product_id)->where('deleted_at', null)->first();
+        echo view('client.home.mini_detail_product',[
+            'product' =>$product,
+            'cate' =>$cate,
+            'price' =>$price,
+            'product_storage' =>$product_storage,
         ]);
     }
 }

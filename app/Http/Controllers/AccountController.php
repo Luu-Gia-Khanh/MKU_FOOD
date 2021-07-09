@@ -11,6 +11,9 @@ use Illuminate\Foundation\Console\Presets\React;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Session;
+use App\Cart;
+use App\Product;
+use App\ProductPrice;
 class AccountController extends Controller
 {
     //
@@ -18,7 +21,11 @@ class AccountController extends Controller
         $customer_id = Session::get('customer_id');
         $customer = Customer::where('customer_id', $customer_id)->first();
         $customer_info = Customer_Info::where('customer_id', $customer_id)->first();
-        return view('client.user.account', compact('customer_info', 'customer'));
+        $all_cart = Cart::where('customer_id', $customer_id)->where('status', 1)->get();
+        $all_product = Product::all();
+        $all_price = ProductPrice::where('status',1)->get();
+        return view('client.user.account',
+            compact('customer_info', 'customer', 'all_product', 'all_cart', 'all_price'));
     }
 
     public function update_account(Request $request, $customer_id){
@@ -50,7 +57,7 @@ class AccountController extends Controller
         }
 
         $customer_info = Customer_Info::where('customer_id', $customer_id)->first();
-        
+
         $customer_info->customer_fullname = $request->customer_fullname;
         $customer_info->customer_phone = $request->customer_phone;
         $customer_info->customer_gender = $request->customer_gender;
@@ -92,7 +99,11 @@ class AccountController extends Controller
         $citys = DB::table('tinhthanhpho')->get();
         $districts = DB::table('quanhuyen')->get();
         $wards = DB::table('xaphuongthitran')->get();
-        return view('client.user.address', compact('customer_info', 'customer', 'all_address', 'citys', 'districts', 'wards'));
+        $all_cart = Cart::where('customer_id', $customer_id)->where('status', 1)->get();
+        $all_product = Product::all();
+        $all_price = ProductPrice::where('status',1)->get();
+        return view('client.user.address',
+            compact('customer_info', 'customer', 'all_address', 'citys', 'districts', 'wards', 'all_product', 'all_cart', 'all_price'));
     }
 
     public function process_add_address(Request $request){
@@ -240,7 +251,10 @@ class AccountController extends Controller
         $customer_id = Session::get('customer_id');
         $customer = Customer::where('customer_id', $customer_id)->first();
         $customer_info = Customer_Info::where('customer_id', $customer_id)->first();
-        return view('client.user.resetpassword', compact('customer_info', 'customer'));
+        $all_cart = Cart::where('customer_id', $customer_id)->where('status', 1)->get();
+        $all_product = Product::all();
+        $all_price = ProductPrice::where('status',1)->get();
+        return view('client.user.resetpassword', compact('customer_info', 'customer', 'all_product', 'all_cart', 'all_price'));
     }
 
     public function process_update_password(Request $request){
@@ -277,6 +291,9 @@ class AccountController extends Controller
         $customer_id = Session::get('customer_id');
         $customer = Customer::where('customer_id', $customer_id)->first();
         $customer_info = Customer_Info::where('customer_id', $customer_id)->first();
-        return view('client.user.order', compact('customer_info', 'customer'));
+        $all_cart = Cart::where('customer_id', $customer_id)->where('status', 1)->get();
+        $all_product = Product::all();
+        $all_price = ProductPrice::where('status',1)->get();
+        return view('client.user.order', compact('customer_info', 'customer', 'all_product', 'all_cart', 'all_price'));
     }
 }

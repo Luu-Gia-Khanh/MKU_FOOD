@@ -28,7 +28,7 @@
                             <h4 class="title_place_trans"><i class="biolife-icon icon-location"></i> Địa Chỉ Nhận Hàng</h4>
                             <div class="content-tow-btn-trans">
                                 <button type="button" id="btn_add_address_trans" class="btn-add-new-add-trans btn-address-trans op-0 btn_add_address_trans btn_open_modal_adress"><span class="icon-copy ti-plus"></span> Thêm Địa Chỉ Mới</button>
-                                <a class="btn-address-trans btn-thietlap op-0">Thiết Lập Địa Chỉ</a>
+                                <a href="{{ URL::to('user/address') }}" class="btn-address-trans btn-thietlap op-0">Thiết Lập Địa Chỉ</a>
                             </div>
                         </div>
                         <div class="address_static_show">

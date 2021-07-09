@@ -65,8 +65,8 @@
                             </div>
 
                             @foreach ($all_address as $address)
-                                
-                            
+
+
                             <div class="address-card">
                                 <div class="address-dislay__left">
                                     <div class="address-display__field-container">
@@ -99,10 +99,10 @@
                                 <div class="address-display__button">
                                     <div class="address-display__button-group">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-                                        <span  class="address-btn-action update_address get_trans_id_update_address" data-id = {{ $address->trans_id }} id="btn-open-model-update_address_{{ $address->trans_id }}" data-toggle="modal_update_address" 
+                                        <span  class="address-btn-action update_address get_trans_id_update_address" data-id = {{ $address->trans_id }} id="btn-open-model-update_address_{{ $address->trans_id }}" data-toggle="modal_update_address"
                                             data-target="#modal_update_address">Sửa</span>
                                         @if ($address->trans_status == 0)
-                                            <span class="address-btn-action delete_address get_trans_id" data-id = {{ $address->trans_id }} id="btn-open-model-delete_address_{{ $address->trans_id }}" data-toggle="modal_delete_address" 
+                                            <span class="address-btn-action delete_address get_trans_id" data-id = {{ $address->trans_id }} id="btn-open-model-delete_address_{{ $address->trans_id }}" data-toggle="modal_delete_address"
                                                 data-target="#modal_delete_address">Xóa</span>
                                         @endif
                                     </div>
@@ -214,7 +214,7 @@
                     {{-- <form action="{{ URL::to('process_update_address') }}" method="post" name="update_transport">
                         @csrf
                         <label>Họ Và Tên</label>
-                        
+
                         <input class="form-control upper_val fullname_address_update" type="text" name="trans_fullname"
                         onblur="return upberFirstKey()" value=""
                         placeholder="Nhập Họ Và Tên">
@@ -239,7 +239,7 @@
                             value="{{ old('trans_phone') }}" onblur="return upberFirstKey()" placeholder="Số điện thoại">
                         </div>
                         <div class="line">
-                            <select name="city" id="city_update_address" value="{{ old('city') }}" class="select" data-select2-id="4" tabindex="-1" aria-hidden="true">
+                            <select name="city" id="city_update_address" value="{{ old('city') }}" class="select set-none" data-select2-id="4" tabindex="-1" aria-hidden="true">
                                 <option value="">Chọn Tỉnh/TP</option>
                                 @foreach ($citys as $city)
                                     <option value="{{ $city->matp }}">{{ $city->name_tp }}</option>

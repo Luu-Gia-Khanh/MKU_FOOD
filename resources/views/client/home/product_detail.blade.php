@@ -1,12 +1,11 @@
 @extends('client.layout_client')
 @section('content_body')
-
+<link rel="stylesheet" href="{{ asset('public/font_end/custom/custom.css') }}">
     <div class="container">
         <nav class="biolife-nav">
             <ul>
-                <li class="nav-item"><a href="index-2.html" class="permal-link">Home</a></li>
-                <li class="nav-item"><a href="#" class="permal-link">Natural Organic</a></li>
-                <li class="nav-item"><span class="current-page">Fresh Fruit</span></li>
+                <li class="nav-item"><a href="{{ URL::to('/') }}" class="permal-link">Trang chủ</a></li>
+                <li class="nav-item"><span class="current-page">Chi tiết sản phẩm</span></li>
             </ul>
         </nav>
     </div>
@@ -22,6 +21,8 @@
                             <div class="col-xs-12">
                                 <div class="card">
                                     <div class="carousel card-block">
+                                        <img class="card-img-top" src="{{ asset('public/upload/' . $product->product_image) }}"
+                                                style="height: 428px; width: 428px" />
                                         @foreach ($all_image as $image)
                                             <img class="card-img-top" src="{{ asset('public/upload/' . $image->image) }}"
                                                 style="height: 428px; width: 428px" />
@@ -29,6 +30,8 @@
                                     </div>
                                 </div>
                                 <div class="carousel-nav card-block slide_image_detail_product">
+                                    <img style="width: 89px; height: 89px;" class="card-img-top"
+                                            src="{{ asset('public/upload/' . $product->product_image) }}" />
                                     @foreach ($all_image as $image)
                                         <img style="width: 89px; height: 89px;" class="card-img-top"
                                             src="{{ asset('public/upload/' . $image->image) }}" />
@@ -66,7 +69,7 @@
                         <div class="quantity-box">
                             <span class="title">Số lượng:</span>
                             <div class="qty-input">
-                                <input type="text" class="val_quantity val_qty_{{ $product->product_id }}" value="1" data-max_value="20" data-min_value="1"
+                                <input type="number" class="val_quantity val_qty_{{ $product->product_id }}" value="1" data-max_value="20" data-min_value="1"
                                     data-step="1">
                                 <a href="#" class="qty-btn btn-up btn_up_add_cart"><i class="fa fa-caret-up" aria-hidden="true"></i></a>
                                 <a href="#" class="qty-btn btn-down btn_down_add_cart"><i class="fa fa-caret-down" aria-hidden="true"></i></a>
@@ -75,7 +78,12 @@
                         <div class="row">
                             <div class="buttons">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-                                <a href="#" class="btn add-to-cart-btn btn-block btn-sm add_cart_many" data-id="{{ $product->product_id }}">thêm vào giỏ hàng</a>
+                                @if (Session::get('customer_id'))
+                                    <a href="#" class="btn add-to-cart-btn btn-block btn-sm add_cart_many" data-id="{{ $product->product_id }}">thêm vào giỏ hàng</a>
+                                @else
+                                    <a href="{{ URL::to('login_client') }}" class="btn add-to-cart-btn btn-block btn-sm">thêm vào giỏ hàng</a>
+                                @endif
+
                             </div>
                         </div>
                         <div class="row buttons">
@@ -291,5 +299,5 @@
             </div>
         </div>
     </div>
-
+    <script src="{{ asset('public/font_end/assets/js/jquery.nice-select.min.js') }}"></script>
 @endsection

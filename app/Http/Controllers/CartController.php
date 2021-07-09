@@ -33,7 +33,9 @@ class CartController extends Controller
                     echo 1;
                 }
                 else{
-                    echo 0;
+                    $qty_in_cart = $check_cart->quantity;
+                    $div_qty_cart = $product_storage_quantity - $qty_in_cart;
+                    echo $div_qty_cart;
                 }
             }
             else{
@@ -64,6 +66,7 @@ class CartController extends Controller
         $all_product = Product::all();
         $product_storage = Storage_Product::all();
         $product_price = ProductPrice::where('status',1)->get();
+        $all_price = ProductPrice::where('status',1)->get();
         $total_price_all_cart = 0;
 
         foreach ($all_cart as $cart){
@@ -82,7 +85,8 @@ class CartController extends Controller
             'product_storage' => $product_storage,
             'product_price' => $product_price,
             'old_date_cart' => $old_date_cart,
-            'total_price_all_cart' => $total_price_all_cart
+            'total_price_all_cart' => $total_price_all_cart,
+            'all_price' => $all_price
         ]);
     }
     public function auto_update_cart(){
@@ -193,8 +197,35 @@ class CartController extends Controller
         $remove_item_cart->delete();
         return redirect()->back();
     }
-    public function test(Request $request){
-        $cart_id = $request->itemCart;
-        print_r($cart_id);
+
+    public function update_qty_when_change(Request $request){
+        $customer_id = Session::get('customer_id');
+        $product_id = $request->product_id;
+        $cart = Cart::where('customer_id', $customer_id)->where('product_id', $product_id)->where('status',1)->first();
+        $qty = $cart->quantity;
+        echo $qty;
     }
+    public function update_qty_when_update_cart(Request $request){
+        $customer_id = Session::get('customer_id');
+        $cart_id = $request->cart_id;
+        $cart = Cart::find($cart_id);
+        $qty = $cart->quantity;
+        echo $qty;
+    }
+    public function show_mini_cart_when_add(Request $request){
+        // $product_id = $request->product_id;
+        // $check = Cart::where('product_id',$product_id)->where('customer_id',Session::get('customer_id'))->first();
+        // if(!$check){
+            $all_cart = Cart::where('customer_id', Session::get('customer_id'))->where('status', 1)->get();
+            $all_product = Product::all();
+            $all_price = ProductPrice::where('status',1)->get();
+            echo view('client.cart.mini_cart_ajax',[
+                'all_cart'=> $all_cart,
+                'all_product'=> $all_product,
+                'all_price'=> $all_price,
+            ]);
+        //}
+    }
+
+
 }

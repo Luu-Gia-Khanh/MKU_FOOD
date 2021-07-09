@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>MKU FOOD</title>
-    <link href="https://fonts.googleapis.com/css?family=Console:400,600,700&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Rancho:400,600,700&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins:600&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400i,700i" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Ubuntu&amp;display=swap" rel="stylesheet">
@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="{{ asset('public/font_end/custom/sweet.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('public/back_end/vendors/styles/icon-font.min.css') }}">
     <link rel="stylesheet" href="{{ asset('public/font_end/assets/css/main-color03-green.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/font_end/custom/custom.css') }}">
+
     <link rel="stylesheet" href="{{ asset('public/font_end/custom_account/event_hover_account.css') }}">
     <link rel="stylesheet" href="{{ asset('public/font_end/custom_account/user_sidebar_content.css') }}">
 </head>
@@ -144,9 +144,6 @@
             </div>
         </div>
     </div>
-
-
-
     <!-- Scroll Top Button -->
     <a class="btn-scroll-top"><i class="biolife-icon icon-left-arrow"></i></a>
 
@@ -154,7 +151,7 @@
     <script src="{{ asset('public/font_end/assets/js/jquery-3.4.1.min.js') }}"></script>
     <script src="{{ asset('public/font_end/assets/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('public/font_end/assets/js/jquery.countdown.min.js') }}"></script>
-    {{-- <script src="{{ asset('public/font_end/assets/js/jquery.nice-select.min.js') }}"></script> --}}
+    <script src="{{ asset('public/font_end/assets/js/jquery.nice-select.min.js') }}"></script>
     <script src="{{ asset('public/font_end/assets/js/jquery.nicescroll.min.js') }}"></script>
     <script src="{{ asset('public/font_end/assets/js/slick.min.js') }}"></script>
     <script src="{{ asset('public/font_end/assets/js/biolife.framework.js') }}"></script>

@@ -1,11 +1,11 @@
 @extends('client.layout_client')
 @section('content_body')
+<link rel="stylesheet" href="{{ asset('public/font_end/custom/custom.css') }}">
     <div class="container">
         <nav class="biolife-nav">
             <ul>
-                <li class="nav-item"><a href="index-2.html" class="permal-link">Home</a></li>
-                <li class="nav-item"><a href="#" class="permal-link">Natural Organic</a></li>
-                <li class="nav-item"><span class="current-page">Fresh Fruit</span></li>
+                <li class="nav-item"><a href="{{ URL::to('/') }}" class="permal-link">Trang chủ</a></li>
+                <li class="nav-item"><span class="current-page">Giỏ hàng</span></li>
             </ul>
         </nav>
     </div>
@@ -13,38 +13,6 @@
         <!-- Main content -->
         <div id="main-content" class="main-content">
             <div class="container">
-
-                <!--Top banner-->
-                {{-- <div class="top-banner background-top-banner-for-shopping min-height-346px">
-                    <h3 class="title">Save $50!*</h3>
-                    <p class="subtitle">Save $50 when you open an account online &amp; spen $50 on your first online
-                        purchase to day</p>
-                    <ul class="list">
-                        <li>
-                            <div class="price-less">
-                                <span class="desc">Purchase amount</span>
-                                <span class="cost">$0.00</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="price-less">
-                                <span class="desc">Credit on billing statement</span>
-                                <span class="cost">$0.00</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="price-less sum">
-                                <span class="desc">Cost affter statemen credit</span>
-                                <span class="cost">$0.00</span>
-                            </div>
-                        </li>
-                    </ul>
-                    <p class="btns">
-                        <a href="#" class="btn">Open Account</a>
-                        <a href="#" class="btn">Learn more</a>
-                    </p>
-                </div> --}}
-
                 <!--Cart Table-->
                 @if (count($all_cart) > 0 || count($old_date_cart) > 0)
                     <div class="shopping-cart-container">
@@ -127,7 +95,7 @@
                                                                     <input type="hidden"
                                                                         class="val_price_update_cart_{{ $cart->cart_id }}"
                                                                         value="{{ $price_product }}">
-                                                                    <input type="text"
+                                                                    <input type="number"
                                                                         class="val_quantity_update_cart_{{ $cart->cart_id }} val_update_cart_change"
                                                                         data-id="{{ $cart->cart_id }}" name=""
                                                                         value="{{ $cart->quantity }}" data-max_value="20"
@@ -158,14 +126,12 @@
                                                         </td>
                                                     </tr>
                                                 @endforeach
-                                                <tr class="cart_item wrap-buttons">
+                                                {{-- <tr class="cart_item wrap-buttons">
                                                     <td class="wrap-btn-control" colspan="5">
-                                                        <a class="btn back-to-shop">Back to Shop</a>
-                                                        <button class="btn btn-update" style="opacity: 0;" type="submit" disabled="">update</button>
                                                         <button class="btn btn-clear" type="reset" data-toggle="modal"
-                                                        data-target="#biolife-quickview-block">clear all</button>
+                                                        data-target="#biolife-quickview-block">xóa tất cả giỏ hàng</button>
                                                     </td>
-                                                </tr>
+                                                </tr> --}}
                                         </tbody>
                                     </table>
                                 </form>
@@ -182,13 +148,12 @@
                                         <input type="hidden" value="{{ $total_price_all_cart }}" class="show_total_price_check_item_cart_hidden">
                                     </div>
                                     <div class="tax-fee">
-                                        <p class="title">Est. Taxes &amp; Fees</p>
-                                        <p class="desc">Based on 56789</p>
+
                                     </div>
                                     <div class="btn-checkout content_btn_check_out">
                                         <a class="btn checkout submit_form_check_out">Thanh Toán</a>
                                     </div>
-                                    <div class="biolife-progress-bar">
+                                    {{-- <div class="biolife-progress-bar">
                                         <table>
                                             <tbody>
                                                 <tr>
@@ -209,7 +174,7 @@
                                         </table>
                                     </div>
                                     <p class="pickup-info"><b>Free Pickup</b> is available as soon as today More about shipping
-                                        and pickup</p>
+                                        and pickup</p> --}}
                                 </div>
                             </div>
                         </div>
@@ -277,19 +242,25 @@
                                             </tr>
                                             @endforeach
 
-                                            <tr class="cart_item wrap-buttons">
+                                            {{-- <tr class="cart_item wrap-buttons">
                                                 <td class="wrap-btn-control" colspan="4">
                                                     <a class="btn back-to-shop">Back to Shop</a>
                                                     <button class="btn btn-update" type="submit" disabled="">update</button>
                                                     <button class="btn btn-clear" type="reset">clear all</button>
                                                 </td>
-                                            </tr>
+                                            </tr> --}}
                                         </tbody>
                                     </table>
                                 </form>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                                <div class="line_spacing"></div>
+                            </div>
+                        </div>
                         @endif
+
 
                     </div>
                 @else

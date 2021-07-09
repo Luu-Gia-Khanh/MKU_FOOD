@@ -13,6 +13,20 @@ $(document).ready(function () {
         $('.totol_price_cart_item_update_'+ cart_id).html(formatNumber(total_price));
         $('.get_total_price_cart_item_check_'+ cart_id).val(total_price);
     }
+    //
+    function update_qty_when_update_cart(cart_id, _token){
+        $.ajax({
+            url: 'update_qty_when_update_cart',
+            method: 'POST',
+            data: {
+                _token: _token,
+                cart_id: cart_id,
+            },
+            success: function (data) {
+                $('.qty_update_when_change_cart_'+cart_id).val(data);
+            }
+        });
+    }
 
 
     // up cart
@@ -44,6 +58,7 @@ $(document).ready(function () {
                 }
                 else {
                     loadValCart(cart_id, data, price);
+                    update_qty_when_update_cart(cart_id, _token);
                 }
             }
         });
@@ -80,6 +95,7 @@ $(document).ready(function () {
                     }
                     else {
                         loadValCart(cart_id, data, price);
+                        update_qty_when_update_cart(cart_id, _token);
                     }
                 }
             });
@@ -127,6 +143,7 @@ $(document).ready(function () {
                     }
                     else{
                         loadValCart(cart_id, data, price);
+                        update_qty_when_update_cart(cart_id, _token);
                     }
                 }
             });

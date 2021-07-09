@@ -10,11 +10,12 @@ use App\Mail\verify;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 
-
+// LOGIN ADDMIN
 Route::get('login', 'AuthController@show_login');
 Route::post('process_login', 'AuthController@process_login');
 Route::get('logout_admin', 'AuthController@logout_admin');
 
+// LOGIN CLIENT
 Route::get('login_client', 'CustomerController@show_login');
 Route::post('process_login_client', 'CustomerController@process_login');
 Route::get('register_client', 'CustomerController@show_register');
@@ -152,6 +153,7 @@ Route::prefix('admin')->group(function () {
 //USER
 Route::get('/', 'HomeClientController@index');
 Route::get('product_detail/{product_id}', 'HomeClientController@product_detail');
+Route::post('load_detail_product', 'HomeClientController@load_detail_product');
 Route::get('user/account', 'AccountController@show_account');
 Route::get('user/address', 'AccountController@address_account');
 Route::get('user/resetpassword', 'AccountController@reset_password_account');
@@ -178,6 +180,10 @@ Route::post('load_ward_update_address_user', 'AddressController@load_ward');
 // CART
 Route::post('add_to_cart', 'CartController@add_cart');
 Route::post('load_quantity_cart', 'CartController@load_quantity_cart');
+Route::post('update_qty_when_change', 'CartController@update_qty_when_change');
+Route::post('update_qty_when_update_cart', 'CartController@update_qty_when_update_cart');
+Route::post('show_mini_cart_when_add', 'CartController@show_mini_cart_when_add');
+
 Route::get('show_cart', 'CartController@show_cart');
 Route::post('update_cart', 'CartController@update_cart');
 Route::post('update_cart_checkbox', 'CartController@update_cart_checkbox');
