@@ -6,6 +6,16 @@
 {{-- TAB SHOW PRODUCT --}}
 @section('product_tap_view_client')
     <link rel="stylesheet" href="{{ asset('public/font_end/custom/mini_detail_product.css') }}">
+    <style>
+        .btn:focus,
+        .btn:active:focus,
+        .btn.active:focus,
+        .btn.focus,
+        .btn:active.focus,
+        .btn.active.focus {
+            outline: none;
+        }
+    </style>
     <div class="product-tab z-index-20 sm-margin-top-193px xs-margin-top-30px">
         <div class="container">
             <div class="biolife-title-box">

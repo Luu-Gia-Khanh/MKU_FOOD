@@ -1,12 +1,12 @@
 <link rel="stylesheet" href="{{ asset('public/font_end/custom_account/user_sidebar_content.css') }}">
-@extends('client.layout_client')
+@extends('client.layout_account_client')
 @section('content_body')
     <div class="container">
         <nav class="biolife-nav">
             <ul>
-                <li class="nav-item"><a href="index-2.html" class="permal-link">Home</a></li>
-                <li class="nav-item"><a href="#" class="permal-link">Natural Organic</a></li>
-                <li class="nav-item"><span class="current-page">Fresh Fruit</span></li>
+                <li class="nav-item"><a href="{{ URL::to('/') }}" class="permal-link">Trang chủ</a></li>
+                <li class="nav-item"><a href="{{ URL::to('user/account') }}" class="permal-link">Tài khoản</a></li>
+                <li class="nav-item"><span class="current-page">Đơn hàng</span></li>
             </ul>
         </nav>
     </div>
@@ -21,8 +21,17 @@
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
                         <nav class="user">
                             <div class="user-heading">
+                                @if(Session::get('customer_id'))
                                 <img src="{{ asset('public/upload/'.$customer_info->customer_avt) }}" alt="" class="user-img">
-                                <span class="user-name">{{ $customer->username }}</span>
+                                @else
+                                    <img src="{{ asset('public/upload/no_image.png') }}" alt="" class="user-img">
+                                @endif
+
+                                @if(Session::get('customer_id'))
+                                    <span class="user-name">{{ $customer->username }}</span>
+                                @else
+                                    <span class="user-name">Unknown</span>
+                                @endif
                             </div>
                             <ul class="user-list-module">
                                 <li class="user-module-item">
@@ -65,7 +74,7 @@
                                                     <div class="content-item-info">
                                                         <span class="content-item-name">Máy Lạnh Daikin Inverter FTKA35VAVMV 1.5HP (12000BTU) - Tiết kiệm điện</span>
                                                         <span class="content-item-quantity">
-                                                            Số lượng x 3 
+                                                            Số lượng x 3
                                                         </span>
                                                         <div class="content-item-price">3000.300</div>
                                                     </div>
@@ -91,7 +100,7 @@
                                                 </li>
                                             </a>
                                             <a href="#" class="content-item-link">
-                                                <li class="content-item">    
+                                                <li class="content-item">
                                                     <img src="https://vn-test-11.slatic.net/p/fd262b92dc65ac8e0fd82b9fa1f8a913.png_200x200q90.jpg_.webp" alt="" class="content-item-img">
                                                     <div class="content-item-info">
                                                         <div class="content-item-head">
@@ -118,7 +127,7 @@
                                         </div>
                                         <ul class="content-item-list">
                                             <a href="#" class="content-item-link">
-                                                <li class="content-item">    
+                                                <li class="content-item">
                                                     <img src="https://vn-test-11.slatic.net/p/fd262b92dc65ac8e0fd82b9fa1f8a913.png_200x200q90.jpg_.webp" alt="" class="content-item-img">
                                                     <div class="content-item-info">
                                                         <div class="content-item-head">
@@ -134,7 +143,7 @@
                                                 </li>
                                             </a>
                                             <a href="#" class="content-item-link">
-                                                <li class="content-item">    
+                                                <li class="content-item">
                                                     <img src="https://vn-test-11.slatic.net/p/fd262b92dc65ac8e0fd82b9fa1f8a913.png_200x200q90.jpg_.webp" alt="" class="content-item-img">
                                                     <div class="content-item-info">
                                                         <div class="content-item-head">
@@ -171,7 +180,7 @@
                                         </div>
                                         <ul class="content-item-list">
                                             <a href="#" class="content-item-link">
-                                                <li class="content-item">    
+                                                <li class="content-item">
                                                     <img src="https://vn-test-11.slatic.net/p/fd262b92dc65ac8e0fd82b9fa1f8a913.png_200x200q90.jpg_.webp" alt="" class="content-item-img">
                                                     <div class="content-item-info">
                                                         <div class="content-item-head">
@@ -187,7 +196,7 @@
                                                 </li>
                                             </a>
                                             <a href="#" class="content-item-link">
-                                                <li class="content-item">    
+                                                <li class="content-item">
                                                     <img src="https://vn-test-11.slatic.net/p/fd262b92dc65ac8e0fd82b9fa1f8a913.png_200x200q90.jpg_.webp" alt="" class="content-item-img">
                                                     <div class="content-item-info">
                                                         <div class="content-item-head">
@@ -208,7 +217,7 @@
                                         </footer>
                                     </div>
                                 </div>
-                                
+
                                 <input type="radio" class="tabs__radio" name="tabs-example" id="tab4">
                                 <label for="tab4" class="tabs__label">Đã giao</label>
                                 <div class="tabs__content">
