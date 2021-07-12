@@ -293,16 +293,7 @@ $(document).ready(function(){
                     Swal.fire({
                         position: 'top-end',
                         icon: 'error',
-                        title: 'Tỉnh/Thành Phố không được để trống',
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                }
-                else if(data == 6){
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'error',
-                        title: 'Quận/Huyện không được để trống',
+                        title: 'Địa chị cụ thể không được để trống',
                         showConfirmButton: false,
                         timer: 1500
                     });
@@ -311,7 +302,7 @@ $(document).ready(function(){
                     Swal.fire({
                         position: 'top-end',
                         icon: 'error',
-                        title: 'Xã/Thị Trấn không được để trống',
+                        title: 'Quận/Huyện không được để trống',
                         showConfirmButton: false,
                         timer: 1500
                     });
@@ -320,12 +311,12 @@ $(document).ready(function(){
                     Swal.fire({
                         position: 'top-end',
                         icon: 'error',
-                        title: 'Địa chị cụ thể không được để trống',
+                        title: 'Xã/Thị Trấn không được để trống',
                         showConfirmButton: false,
                         timer: 1500
                     });
                 }
-                else if(data == 9){
+                else if(data == 6 || data == 9){
                     Swal.fire({
                         position: 'top-end',
                         icon: 'success',

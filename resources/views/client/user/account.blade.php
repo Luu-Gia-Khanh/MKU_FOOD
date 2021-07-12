@@ -1,6 +1,16 @@
 <link rel="stylesheet" href="{{ asset('public/font_end/custom_account/user_sidebar_content.css') }}">
 @extends('client.layout_account_client')
 @section('content_body')
+    <style>
+        .btn:focus,
+        .btn:active:focus,
+        .btn.active:focus,
+        .btn.focus,
+        .btn:active.focus,
+        .btn.active.focus {
+            outline: none;
+        }
+    </style>
     <div class="container">
         <nav class="biolife-nav">
             <ul>
@@ -124,7 +134,7 @@
                                         </div>
                                         <div class="input-upload-img">
                                             <input type="file" name="customer_avt" id="file_upload"
-                                                onchange="return uploadhinh()" class="custom-file-input customer_avt" style="width: 220px;">
+                                                onchange="return uploadhinh()" class="custom-file-input customer_avt file_upload" style="width: 220px;">
                                         </div>
                                     </div>
                                 </div>
