@@ -38,6 +38,8 @@ class AccountController extends Controller
         $year_now = Carbon::now()->year;
         $input_year = date('Y', strtotime($request->customer_birthday));
         $check_year = $year_now - $input_year;
+
+        $avt = $request->customer_avt;
         if($customer_fullname == ''){
             echo 1;
         }

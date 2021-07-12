@@ -5,7 +5,7 @@ $(document).ready(function(){
         var customer_phone = $('.customer_phone').val();
         var customer_gender = $('.customer_gender:checked').val();
         var customer_birthday = $('.customer_birthday').val();
-        var customer_avt = $('.customer_avt').val();
+        //
         var _token = $('input[name="_token"]').val();
         $.ajax({
             url: '../update_info_account',
@@ -16,7 +16,6 @@ $(document).ready(function(){
                 customer_phone: customer_phone,
                 customer_gender: customer_gender,
                 customer_birthday: customer_birthday,
-                customer_avt: customer_avt,
                 _token: _token,
             },
             success: function (data) {
