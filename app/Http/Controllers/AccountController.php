@@ -30,6 +30,8 @@ class AccountController extends Controller
 
     public function update_account(Request $request){
 
+        // echo $request->fd;
+
         $customer_fullname = $request->customer_fullname;
         $customer_phone = $request->customer_phone;
         $customer_gender = $request->customer_gender;
@@ -173,6 +175,7 @@ class AccountController extends Controller
 
     public function process_update_address(Request $request){
 
+        $trans_id = $request->trans_id;
         $name = $request->fullname;
         $phone = $request->phone;
         $city = $request->city;
@@ -192,33 +195,48 @@ class AccountController extends Controller
         else if($phone[0] != 0){
             echo 4;
         }
-        else if($city == ''){
+        else if($detail_address == ''){
             echo 5;
         }
-        else if($district == ''){
-            echo 6;
-        }
-        else if($ward == ''){
-            echo 7;
-        }
-        else if($detail_address == ''){
-            echo 8;
-        }
         else{
-            $name_city = DB::table('tinhthanhpho')->where('matp', $city)->first();
-            $name_district = DB::table('quanhuyen')->where('maqh', $district)->first();
-            $name_ward = DB::table('xaphuongthitran')->where('xaid', $ward)->first();
+            if($city == '' && $district == '' && $ward == ''){
+                $customer_transport = Customer_Transport::where('trans_id', $trans_id)->first();
+                $trans_address = $customer_transport->trans_address;
+                $trans_address_old = explode(", ", $trans_address);
+                $trans_address_explode = $trans_address_old[1].', '.$trans_address_old[2].', '.$trans_address_old[3];
+                $trans_address_new = $detail_address.', '.$trans_address_explode;
 
-            //address
-            $trans_address = $detail_address.", ".$name_ward->name_xa.", ".$name_district->name_qh.", ".$name_city->name_tp;
+                $customer_transport->trans_fullname = $name;
+                $customer_transport->trans_phone = $phone;
+                $customer_transport->trans_address = $trans_address_new;
+                $customer_transport->save();
 
-            $transport = Customer_Transport::where('trans_id', $request->trans_id)->first();
-            $transport->trans_fullname = $name;
-            $transport->trans_phone = $phone;
-            $transport->trans_address = $trans_address;
+                echo 6;
 
-            $transport->save();
-            echo 9;
+            }
+            else{
+                if($city != '' && $district == '' && $ward == ''){
+                    echo 7;
+                }
+                else if($city != '' && $district != '' && $ward == ''){
+                    echo 8;
+                }
+                else if($city != '' && $district != '' && $ward != ''){
+                    $name_city = DB::table('tinhthanhpho')->where('matp', $city)->first();
+                    $name_district = DB::table('quanhuyen')->where('maqh', $district)->first();
+                    $name_ward = DB::table('xaphuongthitran')->where('xaid', $ward)->first();
+        
+                    $trans_address = $detail_address.", ".$name_ward->name_xa.", ".$name_district->name_qh.", ".$name_city->name_tp;
+        
+                    $transport = Customer_Transport::where('trans_id', $trans_id)->first();
+                    $transport->trans_fullname = $name;
+                    $transport->trans_phone = $phone;
+                    $transport->trans_address = $trans_address;
+                    $transport->save();
+        
+                    echo 9;
+                }
+            }
         }
     }
 

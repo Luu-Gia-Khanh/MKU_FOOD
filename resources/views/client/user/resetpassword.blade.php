@@ -2,6 +2,16 @@
 @extends('client.layout_account_client')
 @section('content_body')
 <link rel="stylesheet" href="{{ asset('public/font_end/custom_account/user_sidebar_content.css') }}">
+<style>
+    .btn:focus,
+    .btn:active:focus,
+    .btn.active:focus,
+    .btn.focus,
+    .btn:active.focus,
+    .btn.active.focus {
+        outline: none;
+    }
+</style>
     <div class="container">
         <nav class="biolife-nav">
             <ul>

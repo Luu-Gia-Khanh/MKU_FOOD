@@ -4,6 +4,16 @@
 <link rel="stylesheet" href="{{ asset('public/font_end/custom_account/user_sidebar_content.css') }}">
 <link rel="stylesheet" href="{{ asset('public/font_end/custom_account/user_address_account.css') }}">
 <link rel="stylesheet" href="{{ asset('public/font_end/custom_account/modal_address.css') }}">
+<style>
+    .btn:focus,
+    .btn:active:focus,
+    .btn.active:focus,
+    .btn.focus,
+    .btn:active.focus,
+    .btn.active.focus {
+        outline: none;
+    }
+</style>
     <div class="container">
         <nav class="biolife-nav">
             <ul>

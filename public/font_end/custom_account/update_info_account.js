@@ -10,7 +10,6 @@ $(document).ready(function(){
         $.ajax({
             url: '../update_info_account',
             method: 'POST',
-            enctype: 'multipart/form-data',
             data: {
                 customer_fullname: customer_fullname,
                 customer_phone: customer_phone,
@@ -89,5 +88,36 @@ $(document).ready(function(){
                 }
             }
         });
+
+
+        // var fd = new FormData();
+        // var files = $('#file_upload')[0].files;
+
+        // if(files.length > 0){
+        //     fd.append('',files[0]);
+
+        //     $.ajax({
+        //         url: '../update_info_account',
+        //         type: 'post',
+        //         data: {
+        //             fd: fd,
+        //             _token: _token,
+        //         },
+        //         contentType: false,
+        //         processData: false,
+        //         success: function(response){
+        //             if(response != 0){
+        //                 alert(response)
+        //             }
+        //             else{
+        //                 alert('file not uploaded');
+        //             }
+        //         }
+        //     });
+        //     alert(fd)
+        // }
+        // else{
+        //     alert('Please select a file');
+        // }
     });
 });
