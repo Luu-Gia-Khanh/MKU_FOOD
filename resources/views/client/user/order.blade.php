@@ -67,8 +67,8 @@
                     </div>
 
                     <!--content-user-->
-                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12" style="background-color: rgb(245, 245, 245); display: flex; margin-bottom: 32px;">
-                        <div class="content__user">
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12" style="display: flex; margin-bottom: 32px;">
+                        <div class="content__user-order">
                             <div class="tabs">
                                 <input type="radio" class="tabs__radio" name="tabs-example" id="tab1" checked>
                                 <label for="tab1" class="tabs__label">Tất cả</label>
@@ -77,20 +77,6 @@
                                         <div class="heading-item">
                                             <span class="heading-item-status">ĐÃ GIAO</span>
                                         </div>
-                                        {{-- <ul class="content-item-list">
-                                            <li class="content-item">
-                                                <a href="#" class="content-item-link">
-                                                    <img src="https://vn-test-11.slatic.net/p/fd262b92dc65ac8e0fd82b9fa1f8a913.png_200x200q90.jpg_.webp" alt="" class="content-item-img">
-                                                    <div class="content-item-info">
-                                                        <span class="content-item-name">Máy Lạnh Daikin Inverter FTKA35VAVMV 1.5HP (12000BTU) - Tiết kiệm điện</span>
-                                                        <span class="content-item-quantity">
-                                                            Số lượng x 3
-                                                        </span>
-                                                        <div class="content-item-price">3000.300</div>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                        </ul> --}}
 
                                         <ul class="content-item-list">
                                             <a href="#" class="content-item-link">
@@ -129,19 +115,24 @@
                                         <footer class="content-item-footer">
                                             <span class="content-item-total">Tổng tiền: 123.000đ</span>
                                         </footer>
+                                        <footer class="content-btn-footer">
+                                            <a href="#" class="item-btn-footer-primary">Xem chi tiết đơn hàng</a>
+                                            <a href="#" class="item-btn-footer">Xem đánh giá</a>
+                                        </footer>
                                     </div>
 
                                     <div class="tab__content-item">
                                         <div class="heading-item">
-                                            <span class="heading-item-status">ĐÃ HỦY</span>
+                                            <span class="heading-item-status">ĐÃ GIAO</span>
                                         </div>
+
                                         <ul class="content-item-list">
                                             <a href="#" class="content-item-link">
                                                 <li class="content-item">
                                                     <img src="https://vn-test-11.slatic.net/p/fd262b92dc65ac8e0fd82b9fa1f8a913.png_200x200q90.jpg_.webp" alt="" class="content-item-img">
                                                     <div class="content-item-info">
                                                         <div class="content-item-head">
-                                                            <h5 class="content-item-name">Bộ kem đặc trị vùng mắt</h5>
+                                                            <h5 class="content-item-name">Máy Lạnh Daikin Inverter FTKA35VAVMV 1.5HP (12000BTU) - Tiết kiệm điệnt</h5>
                                                             <div class="content-item-price-wrap">
                                                                 <span class="content-item-price">2.000.000đ</span>
                                                             </div>
@@ -172,13 +163,22 @@
                                         <footer class="content-item-footer">
                                             <span class="content-item-total">Tổng tiền: 123.000đ</span>
                                         </footer>
+                                        <footer class="content-btn-footer">
+                                            <a href="#" class="item-btn-footer-primary">Xem chi tiết đơn hàng</a>
+                                            <a href="#" class="item-btn-footer">Xem đánh giá</a>
+                                        </footer>
                                     </div>
                                 </div>
 
                                 <input type="radio" class="tabs__radio" name="tabs-example" id="tab2">
                                 <label for="tab2" class="tabs__label">Chờ xác nhận</label>
                                 <div class="tabs__content">
-                                  CONTENT for Tab #2
+                                    <div class="tab__content-item">
+                                        <div class="content-item-empty">
+                                            <img src="{{ asset('public/upload/empty.png') }}" width="200" height="200" alt="">
+                                            <span class="content-item-empty-text">Hiện không có đơn hàng nào đang chờ xác nhận</span>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <input type="radio" class="tabs__radio" name="tabs-example" id="tab3">
@@ -231,13 +231,21 @@
                                 <input type="radio" class="tabs__radio" name="tabs-example" id="tab4">
                                 <label for="tab4" class="tabs__label">Đã giao</label>
                                 <div class="tabs__content">
-                                  CONTENT for Tab #4
+                                    <div class="tab__content-item" style="background-color: rgb(245, 245, 245);">
+                                        <div class="content-item-empty">
+                                            <span class="content-item-empty-text">Hiện không có đơn hàng đang chờ xác nhận</span>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <input type="radio" class="tabs__radio" name="tabs-example" id="tab5">
                                 <label for="tab5" class="tabs__label">Đã hủy</label>
                                 <div class="tabs__content">
-                                  CONTENT for Tab #5
+                                    <div class="tab__content-item" style="background-color: rgb(245, 245, 245);">
+                                        <div class="content-item-empty">
+                                            <span class="content-item-empty-text">Hiện không có đơn hàng đang chờ xác nhận</span>
+                                        </div>
+                                    </div>
                                 </div>
                               </div>
                         </div>
