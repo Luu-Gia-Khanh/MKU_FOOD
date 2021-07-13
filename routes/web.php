@@ -199,6 +199,10 @@ Route::post('get_val_checkbox', 'CartController@get_val_checkbox');
 //CHECK OUT
 Route::post('checkout', 'CheckOutController@show_checkout');
 Route::post('add_address_trans', 'CheckOutController@add_address_trans');
+Route::post('process_checkout', 'CheckOutController@process_checkout');
+Route::post('paypal_check_out', 'CheckOutController@paypal_check_out');
+
+Route::get('check_out_success', 'CheckOutController@check_out_success');
 
 
 // ADDRESS ADD ADDRESS ADMIN LOAD

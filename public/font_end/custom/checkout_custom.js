@@ -140,6 +140,48 @@ $(document).ready(function(){
 
     });
 
+    // submit form check out
+    $('.btn_dathang').click(function(){
+        var _token = $('input[name="_token"]').val();
+        var trans_id = $('input[name="radio_trans"]:checked').val();
+        var payment_method = $('input[name="payment_method"]:checked').val();
+        var summary_total_order = $('.summary_total_order').val();
+        var cart_id = [];
+        $("input:checkbox[name='cart_id[]']:checked").each(function() {
+            cart_id.push($(this).val());
+        });
+        $.ajax({
+            url: 'process_checkout',
+            method: 'POST',
+            data: {
+                _token: _token,
+                trans_id: trans_id,
+                payment_method: payment_method,
+                summary_total_order: summary_total_order,
+                cart_id: cart_id,
+            },
+            success: function (data) {
+                if(data == 0){
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'error',
+                        title: 'Đặt hàng thất bại, số lượng trong kho không đủ với số lượng bạn mua',
+                        showConfirmButton: false,
+                        timer: 1500
+                        });
+                }
+                else if(data == 1){
+                    $('.btn_check_out_success').click();
+                    //$(".check_out_success").trigger('click');
+                }
+                else{
+                    $('.price_checkout_paypal').val(data);
+                    $('.btn_payment_checkout').click();
+                }
+            }
+        });
+    });
+
 
 
 });

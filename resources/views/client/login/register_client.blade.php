@@ -114,7 +114,7 @@
 										<div class="col-5 horizontal-line"></div>
 									</div>
 									<div class="row">
-										<div class="col-6">	
+										<div class="col-6">
 											<a href="#" class="link-social">
 												<div  class="btn-social-bg">
 													<img class="icon-social" src="{{ asset('public/upload/logo-facebook.svg') }}" alt="">

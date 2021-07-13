@@ -20,7 +20,8 @@
 
     <div class="content-checkout" style="background: rgb(245, 245, 245);">
         <div class="container">
-            <form action="">
+            <form>
+                @csrf
                 <div class="_1G9Cv7"></div>
                 <div class="row">
                     <div class="cus_view place_trans">
@@ -129,7 +130,7 @@
                                                                         alt="" style="width:45px; height:45px">
                                                                     <label
                                                                         class="name-product">{{ $product->product_name }}</label>
-                                                                    <input type="checkbox" name="cart_id[]"
+                                                                    <input type="checkbox" name="cart_id[]" value="{{ $cart->cart_id }}"
                                                                         style="opacity: 0" checked>
                                                                 </div>
                                                             </td>
@@ -214,7 +215,11 @@
                             <div class="format-total-voucher">Tổng cộng Voucher giảm giá:</div>
                             <div class="val-total-voucher">0 vnđ</div>
                             <div class="format-total-summary">Tổng thanh toán:</div>
-                            <div class="val-total-summary">{{ number_format($total_temporary_price, 0, ',', '.') }} vnđ</div>
+                            @php
+                                $summary_total_order = $total_temporary_price;
+                            @endphp
+                            <div class="val-total-summary">{{ number_format($summary_total_order, 0, ',', '.') }} vnđ</div>
+                            <input type="hidden" class="summary_total_order" name="summary_total_order" value="{{ $summary_total_order }}">
                         </div>
                         <div class="view-btn-buy">
                             <div class="title-rule">Nhấn "Đặt hàng" đồng nghĩa với việc bạn đồng ý tuân theo
@@ -223,10 +228,17 @@
                                     rel="noopener noreferrer">Điều khoản MKU_FOOD
                                 </a>
                             </div>
-                            <button type="button" class="btn-dathang">Đặt Hàng</button>
+                            <button type="button" class="btn-dathang btn_dathang">Đặt Hàng</button>
                         </div>
                     </div>
-
+            </form>
+            <form action="{{ URL::to('paypal_check_out') }}" method="post">
+                @csrf
+                <input type="hidden" class="price_checkout_paypal" value="" name="price_checkout_paypal">
+                <button type="submit" class="btn_payment_checkout" style="opacity: 0; visibility: hidden"></button>
+            </form>
+            <form action="{{ URL::to('check_out_success') }}" method="get">
+                <button type="submit" class="btn_check_out_success" style="opacity: 0; visibility: hidden"></button>
             </form>
         </div>
     </div>

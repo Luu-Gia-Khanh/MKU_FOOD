@@ -151,7 +151,7 @@
 
                                     </div>
                                     <div class="btn-checkout content_btn_check_out">
-                                        <a class="btn checkout submit_form_check_out">Thanh Toán</a>
+                                        <a class="btn checkout submit_form_check_out">Mua Hàng</a>
                                     </div>
                                     {{-- <div class="biolife-progress-bar">
                                         <table>
