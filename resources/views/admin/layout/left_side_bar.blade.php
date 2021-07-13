@@ -43,6 +43,7 @@
                         <li><a href="{{ URL::to('admin/add_category') }}">Thêm Loại Sản Phẩm</a></li>
                     </ul>
                 </li>
+
                 {{-- STORAGE --}}
 
                 <li class="dropdown">
@@ -51,6 +52,21 @@
                     </a>
                     <ul class="submenu">
                         <li><a href="{{ URL::to('admin/all_storage') }}">Danh Sách Kho Hàng</a></li>
+                    </ul>
+                </li>
+
+                {{-- ORDER --}}
+
+                <li class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <span class="micon icon-copy ti-harddrives"></span><span class="mtext">Đơn Hàng</span>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="{{ URL::to('admin/all_order') }}">Danh Sách Đơn Hàng</a></li>
+                        <li><a href="{{ URL::to('admin/all_order') }}">Chờ Xác Nhận</a></li>
+                        <li><a href="{{ URL::to('admin/all_order') }}">Đang Giao</a></li>
+                        <li><a href="{{ URL::to('admin/all_order') }}">Đã Giao</a></li>
+                        <li><a href="{{ URL::to('admin/all_order') }}">Đã Hủy</a></li>
                     </ul>
                 </li>
             </ul>

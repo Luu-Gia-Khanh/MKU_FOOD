@@ -146,6 +146,10 @@ Route::prefix('admin')->group(function () {
 
     Route::post('find_storage_product', 'StorageProductController@find_storage_product');
 
+
+    //ORDER
+    Route::get('all_order', 'OrderController@all_order');
+
 });
 
 // FONT END
