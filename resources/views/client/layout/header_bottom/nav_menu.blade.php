@@ -264,3 +264,4 @@
         </div>
     </div>
 </div>
+<script src="{{ asset('public/font_end/assets/js/jquery.nice-select.min.js') }}"></script>

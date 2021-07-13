@@ -10,7 +10,7 @@
     .btn.active.focus {
         outline: none;
     }
-</style>    
+</style>
     <div class="container">
         <nav class="biolife-nav">
             <ul>
