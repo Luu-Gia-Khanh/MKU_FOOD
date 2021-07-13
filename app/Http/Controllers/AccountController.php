@@ -16,8 +16,15 @@ use App\Product;
 use App\ProductPrice;
 class AccountController extends Controller
 {
+    function check_login(){
+        $session = Session::get('customer_id');
+        if($session == "" || $session == null){
+            return redirect('login_client')->send();
+        }
+    }
     //
     public function show_account(){
+        $this->check_login();
         $customer_id = Session::get('customer_id');
         $customer = Customer::where('customer_id', $customer_id)->first();
         $customer_info = Customer_Info::where('customer_id', $customer_id)->first();
@@ -227,15 +234,15 @@ class AccountController extends Controller
                     $name_city = DB::table('tinhthanhpho')->where('matp', $city)->first();
                     $name_district = DB::table('quanhuyen')->where('maqh', $district)->first();
                     $name_ward = DB::table('xaphuongthitran')->where('xaid', $ward)->first();
-        
+
                     $trans_address = $detail_address.", ".$name_ward->name_xa.", ".$name_district->name_qh.", ".$name_city->name_tp;
-        
+
                     $transport = Customer_Transport::where('trans_id', $trans_id)->first();
                     $transport->trans_fullname = $name;
                     $transport->trans_phone = $phone;
                     $transport->trans_address = $trans_address;
                     $transport->save();
-        
+
                     echo 9;
                 }
             }

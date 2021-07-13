@@ -18,8 +18,8 @@ use Carbon\Carbon;
 Session::start();
 class CheckOutController extends Controller
 {
-    public function show_checkout(Request $request){
 
+    public function show_checkout(Request $request){
         $arrCart_id = $request->itemCart;
         $all_cart = Cart::where('status', 1)->get();
         $all_product = Product::all();
@@ -40,6 +40,7 @@ class CheckOutController extends Controller
         ]);
     }
     public function add_address_trans(Request $request){
+
         $name = $request->fullname;
         $phone = $request->phone;
         $city = $request->city;
@@ -86,6 +87,7 @@ class CheckOutController extends Controller
     }
 
     public function process_checkout(Request $request){
+
         $trans_id = $request->trans_id;
         $payment_method = $request->payment_method;
         $cart_id = $request->cart_id;
@@ -214,6 +216,7 @@ class CheckOutController extends Controller
         return view('client.checkout.view_checkout_success');
     }
     public function paypal_check_out(Request $request){
+
         $total_price = $request->price_checkout_paypal;
         return view('client.checkout.check_out_paypal',['total_price'=>$total_price]);
     }
