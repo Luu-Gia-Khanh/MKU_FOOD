@@ -1,6 +1,6 @@
 @extends('admin.layout_admin')
 @section('container')
-<div class="mb-4">
+<div class="min-height-200px">
 
     <div class="page-header">
         <div class="row">
@@ -22,10 +22,10 @@
     <div class="row pb-10">
         <div class="col-xl-3 col-lg-3 col-md-6 mb-20">
             <div class="card-box height-100-p widget-style3">
-                <a href="#">
+                <a href="{{ URL::to('admin/await_confirm_order') }}">
                     <div class="d-flex flex-wrap">
                         <div class="widget-data">
-                            <div class="weight-700 font-24 text-dark">75</div>
+                            <div class="weight-700 font-24 text-dark">{{ count($wait_confirm) }}</div>
                             <div class="font-14 text-secondary weight-500">Chờ Xác Nhận</div>
                         </div>
                         <div class="widget-icon">
@@ -37,11 +37,11 @@
         </div>
         <div class="col-xl-3 col-lg-3 col-md-6 mb-20">
             <div class="card-box height-100-p widget-style3">
-                <a href="#">
+                <a href="{{ URL::to('admin/confirmed') }}">
                     <div class="d-flex flex-wrap">
                         <div class="widget-data">
-                            <div class="weight-700 font-24 text-dark">124,551</div>
-                            <div class="font-14 text-secondary weight-500">Đã Xác Nhận</div>
+                            <div class="weight-700 font-24 text-dark">{{ count($confirmed) }}</div>
+                            <div class="font-14 text-secondary weight-500">Chờ Giao</div>
                         </div>
                         <div class="widget-icon">
                             {{-- <i class="icon-copy dw dw-down-chevron"></i> --}}
@@ -53,10 +53,10 @@
         </div>
         <div class="col-xl-3 col-lg-3 col-md-6 mb-20">
             <div class="card-box height-100-p widget-style3">
-                <a href="#">
+                <a href="{{ URL::to('admin/delivering') }}">
                     <div class="d-flex flex-wrap">
                         <div class="widget-data">
-                            <div class="weight-700 font-24 text-dark">400+</div>
+                            <div class="weight-700 font-24 text-dark">{{ count($delivering) }}</div>
                             <div class="font-14 text-secondary weight-500">Đang Giao</div>
                         </div>
                         <div class="widget-icon">
@@ -68,10 +68,10 @@
         </div>
         <div class="col-xl-3 col-lg-3 col-md-6 mb-20">
             <div class="card-box height-100-p widget-style3">
-                <a href="#">
+                <a href="{{ URL::to('admin/delivery_success') }}">
                     <div class="d-flex flex-wrap">
                         <div class="widget-data">
-                            <div class="weight-700 font-24 text-dark">40+</div>
+                            <div class="weight-700 font-24 text-dark">{{ count($delivery_success) }}</div>
                             <div class="font-14 text-secondary weight-500">Đã Giao</div>
                         </div>
                         <div class="widget-icon">
@@ -83,10 +83,10 @@
         </div>
         <div class="col-xl-6 col-lg-6 col-md-6 mb-20">
             <div class="card-box height-100-p widget-style3">
-                <a href="#">
+                <a href="{{ URL::to('admin/cancelled') }}">
                     <div class="d-flex flex-wrap">
                         <div class="widget-data">
-                            <div class="weight-700 font-24 text-dark">300+</div>
+                            <div class="weight-700 font-24 text-dark">{{ count($cancelled) }}</div>
                             <div class="font-14 text-secondary weight-500">Đã Hủy</div>
                         </div>
                         <div class="widget-icon">
@@ -101,7 +101,7 @@
                 <a href="#">
                     <div class="d-flex flex-wrap">
                         <div class="widget-data">
-                            <div class="weight-700 font-24 text-dark">4000+</div>
+                            <div class="weight-700 font-24 text-dark">{{ count($orders) }}</div>
                             <div class="font-14 text-secondary weight-500">Tổng Đơn Hàng</div>
                         </div>
                         <div class="widget-icon">
@@ -129,107 +129,103 @@
                             <form action="">
                                 @csrf
                                 <label>Tìm Kiếm:<input type="search" class="form-control form-control-sm"  placeholder="Tìm Kiếm"
-                                    aria-controls="DataTables_Table_0"></label>
+                                    aria-controls="DataTables_Table_0" id="search_order"></label>
                             </form>
                         </div>
                     </div>
                 </div>
-                <div class="content_find_category">
+                <div class="content_find_order">
                     <div class="row">
                         <div class="col-12 table-responsive">
                             <table class="data-table table table-hover multiple-select-row nowrap no-footer dtr-inline sortable"
-                            id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                                id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
                                 <thead>
                                     <tr role="row">
-                                        <th style="width: 5%;" class="sorting text-center" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                                        <th style="width: 2%;" class="sorting text-center" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                                             colspan="1">STT</th>
                                         <th style="width: 13%;" class="sorting text-center" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                                             colspan="1" data-defaultsort="disabled">Mã Đơn Hàng</th>
-                                        <th style="width: 19%;" class="table-plus datatable-nosort sorting_asc text-center" rowspan="1" colspan="1"
-                                            aria-label="Name" data-defaultsign="AZ">Họ Và Tên</th>
-                                        <th style="width: 13%;" class="sorting text-center" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                            colspan="1" data-defaultsort="disabled">Số Điện Thoại</th>
-                                        <th style="width: 30%;" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                            colspan="1" data-defaultsort="disabled">Địa Chỉ</th>
+                                        <th style="width: 20%;" class="sorting" text-center tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                                            colspan="1">Tổng Giá Đơn Hàng</th>
+                                        <th style="width: 30%;" class="sorting" text-center tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                                            colspan="1" data-defaultsort="disabled">Phương Thức Thanh Toán</th>
+                                        <th style="width: 20%;" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                                            colspan="1" data-defaultsort="disabled">Tình Trạng Đơn Hàng</th>
                                         <th style="width: 15%;" class="datatable-nosort sorting_disabled" rowspan="1" colspan="1"
                                             aria-label="Action" data-defaultsort="disabled">Trạng Thái</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr role="row" class="odd">
-                                        <td class="text-center">1</td>
-                                        <td class="text-center">
-                                            <b>#120720213333</b>
-                                        </td>
-                                        <td class="text-center">Nguyễn Hoàng Quốc Bảo</td>
-                                        <td class="text-center">0911635153</td>
-                                        <td>Ấp 3, xã Láng Biển, huyện Tháp Mười, tỉnh Đồng Tháp Ấp 3, xã Láng Biển, huyện Tháp Mười, tỉnh Đồng Tháp</td>
-                                        <td>
-                                            <span class="badge badge-success" style="width: 88.5px;">Đã Giao</span>
-                                        </td>
-                                    </tr>
-                                    <tr role="row" class="odd">
-                                        <td class="text-center">1</td>
-                                        <td class="text-center">
-                                            <b>#120720213333</b>
-                                        </td>
-                                        <td class="text-center">Phan Hoài Kha</td>
-                                        <td class="text-center">0911635153</td>
-                                        <td>Ấp 3, xã Láng Biển, huyện Tháp Mười, tỉnh Đồng Tháp</td>
-                                        <td>
-                                            <span class="badge badge-warning" style="width: 88.5px;">Chờ Xác Nhận</span>
-                                        </td>
-                                    </tr>
-                                    <tr role="row" class="odd">
-                                        <td class="text-center">1</td>
-                                        <td class="text-center">
-                                            <b>#120720213333</b>
-                                        </td>
-                                        <td class="text-center">Phan Hoài Kha</td>
-                                        <td class="text-center">0911635153</td>
-                                        <td>Ấp 3, xã Láng Biển, huyện Tháp Mười, tỉnh Đồng Tháp</td>
-                                        <td>
-                                            <span class="badge badge-danger" style="width: 88.5px;">Đã Hủy</span>
-                                        </td>
-                                    </tr>
-                                    <tr role="row" class="odd">
-                                        <td class="text-center">1</td>
-                                        <td class="text-center">
-                                            <b>#120720213333</b>
-                                        </td>
-                                        <td class="text-center">Phan Hoài Kha</td>
-                                        <td class="text-center">0911635153</td>
-                                        <td>Ấp 3, xã Láng Biển, huyện Tháp Mười, tỉnh Đồng Tháp</td>
-                                        <td>
-                                            <span class="badge badge-info" style="width: 88.5px;">Đã Xác Nhận</span>
-                                        </td>
-                                    </tr>
-                                    <tr role="row" class="odd">
-                                        <td class="text-center">1</td>
-                                        <td class="text-center">
-                                            <b>#120720213333</b>
-                                        </td>
-                                        <td class="text-center">Phan Hoài Kha</td>
-                                        <td class="text-center">0911635153</td>
-                                        <td>Ấp 3, xã Láng Biển, huyện Tháp Mười, tỉnh Đồng Tháp</td>
-                                        <td>
-                                            <span class="badge" style="background-color:rgb(0, 180, 137); color: white; width: 88.5px;">Đang Giao</span>
-                                        </td>
-                                    </tr>
+                                    @php
+                                        $stt = 1;
+                                    @endphp
+                                    @foreach ($orders as $order)
+                                                <tr role="row" class="odd">
+                                                    <td class="text-center">{{ $stt++ }}</td>
+                                                    <td class="text-center">
+                                                        <a href="{{ URL::to('admin/detail_order_item/'.$order->order_id) }}"><b>{{ $order->order_code }}</b></a>
+                                                    </td>
+                                                    <td class="">{{ number_format($order->total_price, 0, ',', '.') }} vnđ</td>
+                                                    <td class="">
+                                                        @foreach ($payment_method as $method_pay)
+                                                            @if ($order->payment_id == $method_pay->payment_id)
+                                                                {{ $method_pay->payment_name }}
+                                                            @endif
+                                                        @endforeach
+                                                    </td>
+                                                    <td class="text-center">
+                                                        @if ($order->status_pay == 1)
+                                                            <span class="badge badge-success" style="width: 107px">Đã Thanh Toán</span>
+                                                        @else
+                                                            <span class="badge badge-danger" style="width: 107px">Chưa Thanh Toán</span>
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @foreach ($order_detail_status as $status_order_detail)
+                                                                @if ($order->order_id == $status_order_detail->order_id)
+                                                                    @foreach ($status_order as $status)
+                                                                        @if ($status->status_id == $status_order_detail->status_id)
+                                                                            @if ($status_order_detail->status_id == 1)
+                                                                                <span class="badge badge-warning" style="width: 88.5px;">{{ $status->status_name }}</span>
+
+                                                                            @elseif($status_order_detail->status_id == 2)
+                                                                                <span class="badge badge-info" style="width: 88.5px;">{{ $status->status_name }}</span>
+
+                                                                            @elseif($status_order_detail->status_id == 3)
+                                                                                <span class="badge" style="background-color:rgb(0, 180, 137); color: white; width: 88.5px;">{{ $status->status_name }}</span>
+
+                                                                            @elseif($status_order_detail->status_id == 4)
+                                                                                <span class="badge badge-success" style="width: 88.5px;">{{ $status->status_name }}</span>
+
+                                                                            @elseif($status_order_detail->status_id == 5)
+                                                                                <span class="badge badge-danger" style="width: 88.5px;">{{ $status->status_name }}</span>
+                                                                            @endif
+
+                                                                        @endif
+                                                                    @endforeach
+                                                                @endif
+                                                        @endforeach
+                                                    </td>
+                                                </tr>
+                                    @endforeach
+
+
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12 col-md-7">
-                        <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
-                            <ul class="pagination">
-                                {{-- {!! $all_category->links() !!} --}}
-                            </ul>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-5"><div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite"></div></div>
+                        <div class="col-sm-12 col-md-7">
+                            <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
+                                <ul class="pagination">
+                                    {!! $orders->links() !!}
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>

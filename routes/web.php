@@ -149,6 +149,17 @@ Route::prefix('admin')->group(function () {
 
     //ORDER
     Route::get('all_order', 'OrderController@all_order');
+    Route::get('await_confirm_order', 'OrderController@await_confirm_order');
+    Route::get('confirmed', 'OrderController@confirmed');
+    Route::get('delivering', 'OrderController@delivering');
+    Route::get('delivery_success', 'OrderController@delivery_success');
+    Route::get('detail_order_item/{order_id}', 'OrderController@detail_order_item');
+    Route::get('cancelled', 'OrderController@cancelled');
+
+    Route::post('confirm_order', 'OrderController@confirm_order');
+    Route::post('confirm_delivary_order', 'OrderController@confirm_delivary_order');
+    Route::post('confirm_delivery_success_order', 'OrderController@confirm_delivery_success_order');
+    Route::post('search_order', 'OrderController@search_order');
 
 });
 
@@ -203,9 +214,11 @@ Route::post('get_val_checkbox', 'CartController@get_val_checkbox');
 //CHECK OUT
 Route::post('checkout', 'CheckOutController@show_checkout');
 Route::post('add_address_trans', 'CheckOutController@add_address_trans');
-Route::post('process_checkout', 'CheckOutController@process_checkout');
-Route::post('paypal_check_out', 'CheckOutController@paypal_check_out');
 
+Route::post('check_qty_to_checkout', 'CheckOutController@check_qty_to_checkout');
+Route::post('process_checkout', 'CheckOutController@process_checkout');
+
+Route::post('paypal_check_out', 'CheckOutController@paypal_check_out');
 Route::get('check_out_success', 'CheckOutController@check_out_success');
 
 

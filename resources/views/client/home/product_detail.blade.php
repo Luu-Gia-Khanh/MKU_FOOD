@@ -79,7 +79,7 @@
                             <div class="buttons">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                                 @if (Session::get('customer_id'))
-                                    <a href="#" class="btn add-to-cart-btn btn-block btn-sm add_cart_many" data-id="{{ $product->product_id }}">thêm vào giỏ hàng</a>
+                                    <a href="#" class="btn add-to-cart-btn btn-block btn-sm add_cart_many add_cart_many_detail" data-id="{{ $product->product_id }}">thêm vào giỏ hàng</a>
                                 @else
                                     <a href="{{ URL::to('login_client') }}" class="btn add-to-cart-btn btn-block btn-sm">thêm vào giỏ hàng</a>
                                 @endif
@@ -299,5 +299,5 @@
             </div>
         </div>
     </div>
-    <script src="{{ asset('public/font_end/assets/js/jquery.nice-select.min.js') }}"></script>
+
 @endsection

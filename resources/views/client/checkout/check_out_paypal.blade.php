@@ -21,14 +21,14 @@
             <input type="hidden" name="item_name" value="HoaDonMuaHang">
 
              <input type="hidden" name="amount" placeholder="Nhập số tiền vào"
-            value="{{ $total_price }}">
+            value="{{ $vnd_to_usd }}">
 
             <!-- loại tiền -->
             <input type="hidden" name="currency_code" value="USD">
 
             <input type="hidden" name="return" value="http://luugiakhanh.com/Laravel_CuaHangDoChoiTreEm/history_order">
 
-            <input type="hidden" name="cancel_return" value="http://luugiakhanh.com/Laravel_CuaHangDoChoiTreEm/check_out">
+            <input type="hidden" name="cancel_return" value="">
 
             <input type="submit" id="papal_click" name="submit" style="opacity: 0">
         </form>

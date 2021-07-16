@@ -51,7 +51,7 @@
     <script src="{{ asset('public/font_end/assets/js/jquery-3.4.1.min.js') }}"></script>
     <script src="{{ asset('public/font_end/assets/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('public/font_end/assets/js/jquery.countdown.min.js') }}"></script>
-    <script src="{{ asset('public/font_end/assets/js/jquery.nice-select.min.js') }}"></script>
+    {{-- <script src="{{ asset('public/font_end/assets/js/jquery.nice-select.min.js') }}"></script> --}}
     <script src="{{ asset('public/font_end/assets/js/jquery.nicescroll.min.js') }}"></script>
     <script src="{{ asset('public/font_end/assets/js/slick.min.js') }}"></script>
     <script src="{{ asset('public/font_end/assets/js/biolife.framework.js') }}"></script>

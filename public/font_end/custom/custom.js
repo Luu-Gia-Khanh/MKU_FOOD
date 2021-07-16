@@ -113,6 +113,19 @@ $(document).ready(function(){
             }
         });
     }
+    function show_mini_cart_when_add_detail(product_id, _token){
+        $.ajax({
+            url: '../show_mini_cart_when_add',
+            method: 'POST',
+            data: {
+                product_id:product_id,
+                _token: _token,
+            },
+            success: function (data) {
+                $('.show_mini_cart_when_add').html(data);
+            }
+        });
+    }
 
     $('.add_cart_one').click(function(){
         var product_id = $(this).attr('data-id');
@@ -164,6 +177,11 @@ $(document).ready(function(){
         });
 
     });
+    // $('.add_cart_many_detail').click(function(){
+    //     var product_id = $(this).attr('data-id');
+    //     var _token = $('input[name="_token"]').val();
+    //     show_mini_cart_when_add_detail(product_id, _token);
+    // });
     $('.add_cart_many').click(function(){
         var product_id = $(this).attr('data-id');
         var qty = $('.val_qty_'+product_id).val();
@@ -204,6 +222,7 @@ $(document).ready(function(){
                     if(data == 1){
                         show_mini_cart_when_add(product_id, _token);
                         update_qty_when_change_many(product_id, _token);
+                        show_mini_cart_when_add_detail(product_id, _token);
                         Swal.fire({
                             position: 'top-end',
                             icon: 'success',
@@ -239,10 +258,6 @@ $(document).ready(function(){
                 }
             });
         }
-
-
-
-
     });
 
     //btn-up quantity

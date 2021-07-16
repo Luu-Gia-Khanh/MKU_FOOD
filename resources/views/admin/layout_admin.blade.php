@@ -79,5 +79,6 @@
     <script src="{{ asset('public/back_end/src/scripts/find_ajax_product.js') }}"></script>
     <script src="{{ asset('public/back_end/ckeditor/ckeditor.js') }}"></script>
     <script src="{{ asset('public/back_end/src/scripts/ckeditor_custom.js') }}"></script>
+    <script src="{{ asset('public/back_end/src/scripts/custom_order.js') }}"></script>
 </body>
 </html>

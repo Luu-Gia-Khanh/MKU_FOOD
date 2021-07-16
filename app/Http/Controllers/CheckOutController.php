@@ -86,18 +86,14 @@ class CheckOutController extends Controller
         return $randomString;
     }
 
-    public function process_checkout(Request $request){
-
+    public function check_qty_to_checkout(Request $request){
         $trans_id = $request->trans_id;
         $payment_method = $request->payment_method;
         $cart_id = $request->cart_id;
         $summary_total_order = $request->summary_total_order;
         $date = date('Ymd');
         $check = 1;
-
         $all_storage_product = Storage_Product::all();
-
-
         foreach ($cart_id as $id){
             $cart = Cart::find($id);
             foreach ($all_storage_product as $storage_product){
@@ -106,111 +102,126 @@ class CheckOutController extends Controller
                     $qty_sto = $storage_product->total_quantity_product;
                     if($qty_cart > $qty_sto){
                         $check = 0;
-                        echo $check;
+
+                    }
+                    else{
+                        $check = 1;
                     }
                 }
             }
         }
-        if($check == 1){
-            if($payment_method == 0){
-                $orders = new Orders();
-                $orders->order_code = $date.''.$this->generateRandomString();
-                $orders->customer_id = Session::get('customer_id');
-                $orders->total_price = $summary_total_order;
-                $orders->payment_id = $payment_method;
-                $orders->trans_id = $trans_id;
-                $orders->create_at = Carbon::now('Asia/Ho_Chi_Minh');
-                $orders->save();
+        echo $check;
+    }
+    public function process_checkout(Request $request){
+
+        $trans_id = $request->trans_id;
+        $payment_method = $request->payment_method;
+        $cart_id = $request->cart_id;
+        $summary_total_order = $request->summary_total_order;
+        $date = date('Ymd');
+
+        $all_storage_product = Storage_Product::all();
+        if($payment_method == 0){
+            $orders = new Orders();
+            $orders->order_code = $date.''.$this->generateRandomString();
+            $orders->customer_id = Session::get('customer_id');
+            $orders->total_price = $summary_total_order;
+            $orders->payment_id = $payment_method;
+            $orders->trans_id = $trans_id;
+            $orders->create_at = Carbon::now('Asia/Ho_Chi_Minh');
+            $orders->save();
+            //
+            foreach ($cart_id as $id){
+                $cart = Cart::find($id);
+
+                $order_item = new Order_Item();
+                $order_item->product_id = $cart->product_id;
+                $order_item->order_id = $orders->order_id;
+                $order_item->quantity_product = $cart->quantity;
+
                 //
-                foreach ($cart_id as $id){
-                    $cart = Cart::find($id);
+                $price_product = ProductPrice::where('product_id',$cart->product_id)->where('status',1)->first();
+                $order_item->price_product = $price_product->price;
+                $order_item->save();
 
-                    $order_item = new Order_Item();
-                    $order_item->product_id = $cart->product_id;
-                    $order_item->order_id = $orders->order_id;
-                    $order_item->quantity_product = $cart->quantity;
-
-                    //
-                    $price_product = ProductPrice::where('product_id',$cart->product_id)->where('status',1)->first();
-                    $order_item->price_product = $price_product->price;
-                    $order_item->save();
-
-                    foreach ($all_storage_product as $storage_product){
-                        if($cart->product_id == $storage_product->product_id){
-                            $qty_cart = $cart->quantity;
-                            $qty_sto = $storage_product->total_quantity_product;
-                            $update_storage_product = Storage_Product::where('product_id',$storage_product->product_id)->first();
-                            $update_storage_product -> total_quantity_product = $qty_sto - $qty_cart;
-                            $update_storage_product->save();
-                        }
+                foreach ($all_storage_product as $storage_product){
+                    if($cart->product_id == $storage_product->product_id){
+                        $qty_cart = $cart->quantity;
+                        $qty_sto = $storage_product->total_quantity_product;
+                        $update_storage_product = Storage_Product::where('product_id',$storage_product->product_id)->first();
+                        $update_storage_product -> total_quantity_product = $qty_sto - $qty_cart;
+                        $update_storage_product->save();
                     }
-
-                    $delete_cart = Cart::find($id);
-                    $delete_cart->delete();
                 }
 
-                //
-                $order_detail_status = new Order_Detail_Status();
-                $order_detail_status->order_id = $orders->order_id;
-                $order_detail_status->status_id = 1;
-                $order_detail_status->time_status = Carbon::now('Asia/Ho_Chi_Minh');
-                $order_detail_status->status = 1;
-                $order_detail_status->save();
-
-                echo $check;
+                $delete_cart = Cart::find($id);
+                $delete_cart->delete();
             }
-            else{
-                $orders = new Orders();
-                $orders->order_code = $date.''.$this->generateRandomString();
-                $orders->customer_id = Session::get('customer_id');
-                $orders->total_price = $summary_total_order;
-                $orders->payment_id = $payment_method;
-                $orders->trans_id = $trans_id;
-                $orders->status_pay = 1;
-                $orders->create_at = Carbon::now('Asia/Ho_Chi_Minh');
-                $orders->save();
-                //
-                foreach ($cart_id as $id){
-                    $cart = Cart::find($id);
 
-                    $order_item = new Order_Item();
-                    $order_item->product_id = $cart->product_id;
-                    $order_item->order_id = $orders->order_id;
-                    $order_item->quantity_product = $cart->quantity;
+            //
+            $order_detail_status = new Order_Detail_Status();
+            $order_detail_status->order_id = $orders->order_id;
+            $order_detail_status->status_id = 1;
+            $order_detail_status->time_status = Carbon::now('Asia/Ho_Chi_Minh');
+            $order_detail_status->status = 1;
+            $order_detail_status->save();
 
-                    //
-                    $price_product = ProductPrice::where('product_id',$cart->product_id)->where('status',1)->first();
-                    $order_item->price_product = $price_product->price;
-                    $order_item->save();
-
-                    foreach ($all_storage_product as $storage_product){
-                        if($cart->product_id == $storage_product->product_id){
-                            $qty_cart = $cart->quantity;
-                            $qty_sto = $storage_product->total_quantity_product;
-                            $update_storage_product = Storage_Product::where('product_id',$storage_product->product_id)->first();
-                            $update_storage_product -> total_quantity_product = $qty_sto - $qty_cart;
-                            $update_storage_product->save();
-                        }
-                    }
-
-                    $delete_cart = Cart::find($id);
-                    $delete_cart->delete();
-                }
-
-                //
-                $order_detail_status = new Order_Detail_Status();
-                $order_detail_status->order_id = $orders->order_id;
-                $order_detail_status->status_id = 1;
-                $order_detail_status->time_status = Carbon::now('Asia/Ho_Chi_Minh');
-                $order_detail_status->status = 1;
-                $order_detail_status->save();
-
-                $vnd_to_usd = $summary_total_order/23022;
-                echo $vnd_to_usd;
-                //return view('client.checkout.check_out_paypal',['vnd_to_usd'=>$vnd_to_usd]);
-            }
+            return view('client.checkout.view_checkout_success',[
+                'orders' => $orders,
+                'payment_method' => $payment_method,
+                'summary_total_order' => $summary_total_order,
+                'status' => $orders->status,
+            ]);
         }
+        else{
+            $orders = new Orders();
+            $orders->order_code = $date.''.$this->generateRandomString();
+            $orders->customer_id = Session::get('customer_id');
+            $orders->total_price = $summary_total_order;
+            $orders->payment_id = $payment_method;
+            $orders->trans_id = $trans_id;
+            $orders->status_pay = 1;
+            $orders->create_at = Carbon::now('Asia/Ho_Chi_Minh');
+            $orders->save();
+            //
+            foreach ($cart_id as $id){
+                $cart = Cart::find($id);
 
+                $order_item = new Order_Item();
+                $order_item->product_id = $cart->product_id;
+                $order_item->order_id = $orders->order_id;
+                $order_item->quantity_product = $cart->quantity;
+
+                //
+                $price_product = ProductPrice::where('product_id',$cart->product_id)->where('status',1)->first();
+                $order_item->price_product = $price_product->price;
+                $order_item->save();
+
+                foreach ($all_storage_product as $storage_product){
+                    if($cart->product_id == $storage_product->product_id){
+                        $qty_cart = $cart->quantity;
+                        $qty_sto = $storage_product->total_quantity_product;
+                        $update_storage_product = Storage_Product::where('product_id',$storage_product->product_id)->first();
+                        $update_storage_product -> total_quantity_product = $qty_sto - $qty_cart;
+                        $update_storage_product->save();
+                    }
+                }
+
+                $delete_cart = Cart::find($id);
+                $delete_cart->delete();
+            }
+
+            //
+            $order_detail_status = new Order_Detail_Status();
+            $order_detail_status->order_id = $orders->order_id;
+            $order_detail_status->status_id = 1;
+            $order_detail_status->time_status = Carbon::now('Asia/Ho_Chi_Minh');
+            $order_detail_status->status = 1;
+            $order_detail_status->save();
+
+            $vnd_to_usd = $summary_total_order/23022;
+            return view('client.checkout.check_out_paypal',['vnd_to_usd'=>$vnd_to_usd]);
+        }
     }
     public function check_out_success(){
         return view('client.checkout.view_checkout_success');

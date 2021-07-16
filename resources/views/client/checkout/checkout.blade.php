@@ -20,7 +20,7 @@
 
     <div class="content-checkout" style="background: rgb(245, 245, 245);">
         <div class="container">
-            <form>
+            <form action="{{ URL::to('process_checkout') }}" method="post" name="form_content_check_out_pay">
                 @csrf
                 <div class="_1G9Cv7"></div>
                 <div class="row">
@@ -57,9 +57,9 @@
                                     @foreach ($cus_trans as $trans)
                                         <p>
                                             @if ($trans->trans_status == 1)
-                                                <input type="radio" value="{{ $trans->trans_id }}" id="{{ $trans->trans_id }}" name="radio_trans" checked>
+                                                <input type="radio" value="{{ $trans->trans_id }}" id="{{ $trans->trans_id }}" name="trans_id" checked>
                                             @else
-                                                <input type="radio" value="{{ $trans->trans_id }}" id="{{ $trans->trans_id }}" name="radio_trans">
+                                                <input type="radio" value="{{ $trans->trans_id }}" id="{{ $trans->trans_id }}" name="trans_id">
                                             @endif
 
                                             <label for="{{ $trans->trans_id }}" class="static-address">
@@ -231,14 +231,6 @@
                             <button type="button" class="btn-dathang btn_dathang">Đặt Hàng</button>
                         </div>
                     </div>
-            </form>
-            <form action="{{ URL::to('paypal_check_out') }}" method="post">
-                @csrf
-                <input type="hidden" class="price_checkout_paypal" value="" name="price_checkout_paypal">
-                <button type="submit" class="btn_payment_checkout" style="opacity: 0; visibility: hidden"></button>
-            </form>
-            <form action="{{ URL::to('check_out_success') }}" method="get">
-                <button type="submit" class="btn_check_out_success" style="opacity: 0; visibility: hidden"></button>
             </form>
         </div>
     </div>

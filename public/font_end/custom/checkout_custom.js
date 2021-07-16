@@ -151,7 +151,7 @@ $(document).ready(function(){
             cart_id.push($(this).val());
         });
         $.ajax({
-            url: 'process_checkout',
+            url: 'check_qty_to_checkout',
             method: 'POST',
             data: {
                 _token: _token,
@@ -171,12 +171,9 @@ $(document).ready(function(){
                         });
                 }
                 else if(data == 1){
-                    $('.btn_check_out_success').click();
-                    //$(".check_out_success").trigger('click');
-                }
-                else{
-                    $('.price_checkout_paypal').val(data);
-                    $('.btn_payment_checkout').click();
+                    var form_checkout = document.forms['form_content_check_out_pay'];
+                    form_checkout.submit();
+
                 }
             }
         });

@@ -33,9 +33,12 @@
 }
 .content-body{
     display: flex;
-    background: rgb(245, 245, 245);;
+    background: rgb(245, 245, 245);
 }
-.pd-20{
+.content-img{
+    margin-top: 40px;
+}
+.pd-40{
     padding: 20px;
 }
 .img-success{
@@ -51,7 +54,7 @@
     border-radius: 2px;
     margin-left: 150px;
     margin-right: 150px;
-    margin-top: 15px;
+    margin-top: 30px;
 
 }
 .content-text-bill{
