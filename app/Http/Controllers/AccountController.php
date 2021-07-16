@@ -12,6 +12,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Session;
 use App\Cart;
+use App\Order_Detail_Status;
+use App\Order_Item;
+use App\Orders;
 use App\Product;
 use App\ProductPrice;
 class AccountController extends Controller
@@ -321,6 +324,33 @@ class AccountController extends Controller
         $all_cart = Cart::where('customer_id', $customer_id)->where('status', 1)->get();
         $all_product = Product::all();
         $all_price = ProductPrice::where('status',1)->get();
-        return view('client.user.order', compact('customer_info', 'customer', 'all_product', 'all_cart', 'all_price'));
+        $all_order = Orders::where('customer_id', $customer_id)->get();
+        $all_order_item = Order_Item::all();
+        $all_order_detail_status = Order_Detail_Status::all();
+        $status_order = DB::table('status_order')->get();
+        $status_order_confirm = Order_Detail_Status::where('status_id', 1)->where('status',1)->get();
+        $status_order_delivering = Order_Detail_Status::where('status_id', 3)->where('status',1)->get();
+        $status_order_delivered = Order_Detail_Status::where('status_id', 4)->where('status',1)->get();
+        $status_order_cancelled = Order_Detail_Status::where('status_id', 5)->where('status',1)->get();
+        return view('client.user.order', compact('customer_info', 'customer', 'all_product', 'all_cart',
+         'all_price', 'all_order', 'all_order_item', 'all_order_detail_status', 'status_order',
+         'status_order_confirm', 'status_order_delivering', 'status_order_delivered', 'status_order_cancelled'));
+    }
+
+    public function order_detail_account($order_id){
+        $customer_id = Session::get('customer_id');
+        $all_cart = Cart::where('customer_id', $customer_id)->where('status', 1)->get();
+        $all_product = Product::all();
+        $all_price = ProductPrice::where('status',1)->get();
+        $customer = Customer::where('customer_id', $customer_id)->first();
+        $customer_info = Customer_Info::where('customer_id', $customer_id)->first();
+        $order = Orders::where('order_id', $order_id)->first();
+        $all_order_item = Order_Item::all();
+        $all_order_detail_status = Order_Detail_Status::orderBy('time_status', 'desc')->get();
+        $status_order = DB::table('status_order')->get();
+        $payment_method = DB::table('payment_method')->get();
+        $trans_address = Customer_Transport::all();
+        return view('client.user.order_detail', compact('customer', 'customer_info', 'all_cart',
+         'all_product', 'all_price', 'order', 'all_order_item', 'all_order_detail_status', 'status_order', 'payment_method', 'trans_address'));
     }
 }
