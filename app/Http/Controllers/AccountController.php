@@ -329,12 +329,13 @@ class AccountController extends Controller
         $all_order_detail_status = Order_Detail_Status::all();
         $status_order = DB::table('status_order')->get();
         $status_order_confirm = Order_Detail_Status::where('status_id', 1)->where('status',1)->get();
+        $status_order_confirmed = Order_Detail_Status::where('status_id', 2)->where('status',1)->get();
         $status_order_delivering = Order_Detail_Status::where('status_id', 3)->where('status',1)->get();
         $status_order_delivered = Order_Detail_Status::where('status_id', 4)->where('status',1)->get();
         $status_order_cancelled = Order_Detail_Status::where('status_id', 5)->where('status',1)->get();
         return view('client.user.order', compact('customer_info', 'customer', 'all_product', 'all_cart',
          'all_price', 'all_order', 'all_order_item', 'all_order_detail_status', 'status_order',
-         'status_order_confirm', 'status_order_delivering', 'status_order_delivered', 'status_order_cancelled'));
+         'status_order_confirm', 'status_order_confirmed', 'status_order_delivering', 'status_order_delivered', 'status_order_cancelled'));
     }
 
     public function order_detail_account($order_id){

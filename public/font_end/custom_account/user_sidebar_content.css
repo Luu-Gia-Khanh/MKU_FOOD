@@ -256,7 +256,7 @@ input[type='radio']:checked:after {
     padding: 16px 32px;
     cursor: pointer;
     background-color: #f9f9f9;
-    width: 20%;
+    width: 16.6%;
     text-align: center;
     border-bottom: 2px solid #eaeaea;
 }
@@ -274,7 +274,7 @@ input[type='radio']:checked:after {
 }
 
 .tabs__radio:checked + .tabs__label {
-    font-weight: bold;
+    font-weight: 500;
     color: #7faf51;
     border-bottom: 2px solid #7faf51;
     background-color: #f1f1f1;
