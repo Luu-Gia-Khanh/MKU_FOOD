@@ -73,179 +73,396 @@
                                 <input type="radio" class="tabs__radio" name="tabs-example" id="tab1" checked>
                                 <label for="tab1" class="tabs__label">Tất cả</label>
                                 <div class="tabs__content">
-                                    <div class="tab__content-item">
-                                        <div class="heading-item">
-                                            <span class="heading-item-status">ĐÃ GIAO</span>
+
+
+                                    @if(count($all_order) > 0)
+
+                                    @foreach ($all_order as $order)
+
+                                    <div class="tab__content-item">                                        
+                                            <div class="heading-item">
+                                                @foreach ($all_order_detail_status as $status_order_detail)
+                                                    @if ($status_order_detail->order_id == $order->order_id)
+                                                        @foreach ($status_order as $status)
+                                                            @if ($status->status_id == $status_order_detail->status_id  && $status_order_detail->status == 1)
+                                                                <span class="heading-item-status">{{ $status->status_name }}</span>
+                                                            @endif
+                                                        @endforeach
+                                                    @endif
+                                                @endforeach
+                                            </div>
+
+                                            <ul class="content-item-list">
+
+                                                @foreach ($all_order_item as $order_item)
+                                                    @if ($order_item->order_id == $order->order_id)
+
+                                                    <a href="#" class="content-item-link">
+                                                        <li class="content-item">
+                                                            @foreach ($all_product as $product)
+                                                                @if ($product->product_id == $order_item->product_id)
+                                                                    <img src="{{ asset('public/upload/'.$product->product_image) }}" alt="" class="content-item-img">
+                                                                @endif
+                                                            @endforeach
+                                                            <div class="content-item-info">
+                                                                <div class="content-item-head">
+                                                                    @foreach ($all_product as $product)
+                                                                        @if ($order_item->product_id == $product->product_id)
+                                                                            <h5 class="content-item-name">{{ $product->product_name }}</h5>
+                                                                        @endif
+                                                                    @endforeach
+                                                                    
+                                                                    <div class="content-item-price-wrap">
+                                                                        <span class="content-item-price">{{ number_format($order_item->quantity_product * $order_item->price_product, 0,'','.') }}đ</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="content-item-body">
+                                                                    <span class="content-item-quantity">Số lượng x {{ $order_item->quantity_product }}</span>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    </a>
+
+                                                    @endif
+                                                @endforeach
+
+                                            </ul>
+                                            <footer class="content-item-footer">
+                                                <span class="content-item-total">Tổng tiền: {{ number_format($order->total_price, 0,'.',',') }}đ</span>
+                                            </footer>
+                                            <footer class="content-btn-footer">
+                                                <a href="{{ URL::to('user/order/'.$order->order_id) }}" class="item-btn-footer-primary">Xem chi tiết đơn hàng</a>
+                                                <a href="#" class="item-btn-footer">Xem đánh giá</a>
+                                            </footer>
                                         </div>
 
-                                        <ul class="content-item-list">
-                                            <a href="#" class="content-item-link">
-                                                <li class="content-item">
-                                                    <img src="https://vn-test-11.slatic.net/p/fd262b92dc65ac8e0fd82b9fa1f8a913.png_200x200q90.jpg_.webp" alt="" class="content-item-img">
-                                                    <div class="content-item-info">
-                                                        <div class="content-item-head">
-                                                            <h5 class="content-item-name">Máy Lạnh Daikin Inverter FTKA35VAVMV 1.5HP (12000BTU) - Tiết kiệm điệnt</h5>
-                                                            <div class="content-item-price-wrap">
-                                                                <span class="content-item-price">2.000.000đ</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="content-item-body">
-                                                            <span class="content-item-quantity">Số lượng x 3</span>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </a>
-                                            <a href="#" class="content-item-link">
-                                                <li class="content-item">
-                                                    <img src="https://vn-test-11.slatic.net/p/fd262b92dc65ac8e0fd82b9fa1f8a913.png_200x200q90.jpg_.webp" alt="" class="content-item-img">
-                                                    <div class="content-item-info">
-                                                        <div class="content-item-head">
-                                                            <h5 class="content-item-name">Bộ kem đặc trị vùng mắt</h5>
-                                                            <div class="content-item-price-wrap">
-                                                                <span class="content-item-price">2.000.000đ</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="content-item-body">
-                                                            <span class="content-item-quantity">Số lượng x 3</span>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </a>
-                                        </ul>
-                                        <footer class="content-item-footer">
-                                            <span class="content-item-total">Tổng tiền: 123.000đ</span>
-                                        </footer>
-                                        <footer class="content-btn-footer">
-                                            <a href="#" class="item-btn-footer-primary">Xem chi tiết đơn hàng</a>
-                                            <a href="#" class="item-btn-footer">Xem đánh giá</a>
-                                        </footer>
-                                    </div>
-
-                                    <div class="tab__content-item">
-                                        <div class="heading-item">
-                                            <span class="heading-item-status">ĐÃ GIAO</span>
-                                        </div>
-
-                                        <ul class="content-item-list">
-                                            <a href="#" class="content-item-link">
-                                                <li class="content-item">
-                                                    <img src="https://vn-test-11.slatic.net/p/fd262b92dc65ac8e0fd82b9fa1f8a913.png_200x200q90.jpg_.webp" alt="" class="content-item-img">
-                                                    <div class="content-item-info">
-                                                        <div class="content-item-head">
-                                                            <h5 class="content-item-name">Máy Lạnh Daikin Inverter FTKA35VAVMV 1.5HP (12000BTU) - Tiết kiệm điệnt</h5>
-                                                            <div class="content-item-price-wrap">
-                                                                <span class="content-item-price">2.000.000đ</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="content-item-body">
-                                                            <span class="content-item-quantity">Số lượng x 3</span>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </a>
-                                            <a href="#" class="content-item-link">
-                                                <li class="content-item">
-                                                    <img src="https://vn-test-11.slatic.net/p/fd262b92dc65ac8e0fd82b9fa1f8a913.png_200x200q90.jpg_.webp" alt="" class="content-item-img">
-                                                    <div class="content-item-info">
-                                                        <div class="content-item-head">
-                                                            <h5 class="content-item-name">Bộ kem đặc trị vùng mắt</h5>
-                                                            <div class="content-item-price-wrap">
-                                                                <span class="content-item-price">2.000.000đ</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="content-item-body">
-                                                            <span class="content-item-quantity">Số lượng x 3</span>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </a>
-                                        </ul>
-                                        <footer class="content-item-footer">
-                                            <span class="content-item-total">Tổng tiền: 123.000đ</span>
-                                        </footer>
-                                        <footer class="content-btn-footer">
-                                            <a href="#" class="item-btn-footer-primary">Xem chi tiết đơn hàng</a>
-                                            <a href="#" class="item-btn-footer">Xem đánh giá</a>
-                                        </footer>
-                                    </div>
-                                </div>
-
-                                <input type="radio" class="tabs__radio" name="tabs-example" id="tab2">
-                                <label for="tab2" class="tabs__label">Chờ xác nhận</label>
-                                <div class="tabs__content">
+                                    @endforeach
+                                    
+                                    @else
+                                    
                                     <div class="tab__content-item">
                                         <div class="content-item-empty">
                                             <img src="{{ asset('public/upload/empty.png') }}" width="200" height="200" alt="">
                                             <span class="content-item-empty-text">Hiện không có đơn hàng nào đang chờ xác nhận</span>
                                         </div>
                                     </div>
+
+                                    @endif
+
+                                </div>
+
+                                <input type="radio" class="tabs__radio" name="tabs-example" id="tab2">
+                                <label for="tab2" class="tabs__label">Chờ xác nhận</label>
+                                <div class="tabs__content">
+
+                                    @if (count($status_order_confirm) > 0)
+
+                                        @foreach ($all_order as $order)
+                                            @foreach ($all_order_detail_status as $status_order_detail)
+                                                @if ($status_order_detail->status_id == 1 && $status_order_detail->order_id == $order->order_id)
+                                                    <div class="tab__content-item">                                        
+                                                        <div class="heading-item">
+                                                            @foreach ($all_order_detail_status as $status_order_detail)
+                                                                @if ($status_order_detail->order_id == $order->order_id)
+                                                                    @foreach ($status_order as $status)
+                                                                        @if ($status->status_id == $status_order_detail->status_id  && $status_order_detail->status == 1)
+                                                                            <span class="heading-item-status">{{ $status->status_name }}</span>
+                                                                        @endif
+                                                                    @endforeach
+                                                                @endif
+                                                            @endforeach
+                                                        </div>
+            
+                                                        <ul class="content-item-list">
+            
+                                                            @foreach ($all_order_item as $order_item)
+                                                                @if ($order_item->order_id == $order->order_id)
+            
+                                                                <a href="#" class="content-item-link">
+                                                                    <li class="content-item">
+                                                                        @foreach ($all_product as $product)
+                                                                            @if ($product->product_id == $order_item->product_id)
+                                                                                <img src="{{ asset('public/upload/'.$product->product_image) }}" alt="" class="content-item-img">
+                                                                            @endif
+                                                                        @endforeach
+                                                                        <div class="content-item-info">
+                                                                            <div class="content-item-head">
+                                                                                @foreach ($all_product as $product)
+                                                                                    @if ($order_item->product_id == $product->product_id)
+                                                                                        <h5 class="content-item-name">{{ $product->product_name }}</h5>
+                                                                                    @endif
+                                                                                @endforeach
+                                                                                
+                                                                                <div class="content-item-price-wrap">
+                                                                                    <span class="content-item-price">{{ number_format($order_item->quantity_product * $order_item->price_product, 0,'',',') }}đ</span>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="content-item-body">
+                                                                                <span class="content-item-quantity">Số lượng x {{ $order_item->quantity_product }}</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                </a>
+            
+                                                                @endif
+                                                            @endforeach
+            
+                                                        </ul>
+                                                        <footer class="content-item-footer">
+                                                            <span class="content-item-total">Tổng tiền: {{ number_format($order->total_price, 0,'.',',') }}đ</span>
+                                                        </footer>
+                                                        <footer class="content-btn-footer">
+                                                            <a href="{{ URL::to('user/order/'.$order->order_id) }}" class="item-btn-footer-primary">Xem chi tiết đơn hàng</a>
+                                                            <a href="#" class="item-btn-footer">Xem đánh giá</a>
+                                                        </footer>
+                                                    </div>
+                                                @endif
+                                            @endforeach
+                                        @endforeach
+
+                                    @else
+                                        <div class="tab__content-item">
+                                            <div class="content-item-empty">
+                                                <img src="{{ asset('public/upload/empty.png') }}" width="200" height="200" alt="">
+                                                <span class="content-item-empty-text">Hiện không có đơn hàng nào đang chờ xác nhận</span>
+                                            </div>
+                                        </div>     
+                                    @endif
+                                    
                                 </div>
 
                                 <input type="radio" class="tabs__radio" name="tabs-example" id="tab3">
                                 <label for="tab3" class="tabs__label">Đang giao</label>
                                 <div class="tabs__content">
-                                    <div class="tab__content-item">
-                                        <div class="heading-item">
-                                            <span class="heading-item-status">ĐÃ HỦY</span>
-                                        </div>
-                                        <ul class="content-item-list">
-                                            <a href="#" class="content-item-link">
-                                                <li class="content-item">
-                                                    <img src="https://vn-test-11.slatic.net/p/fd262b92dc65ac8e0fd82b9fa1f8a913.png_200x200q90.jpg_.webp" alt="" class="content-item-img">
-                                                    <div class="content-item-info">
-                                                        <div class="content-item-head">
-                                                            <h5 class="content-item-name">Bộ kem đặc trị vùng mắt</h5>
-                                                            <div class="content-item-price-wrap">
-                                                                <span class="content-item-price">2.000.000đ</span>
-                                                            </div>
+                                    @if (count($status_order_delivering) > 0)
+
+                                        @foreach ($all_order as $order)
+                                            @foreach ($all_order_detail_status as $status_order_detail)
+                                                @if ($status_order_detail->status_id == 3 && $status_order_detail->order_id == $order->order_id)
+                                                    <div class="tab__content-item">                                        
+                                                        <div class="heading-item">
+                                                            @foreach ($all_order_detail_status as $status_order_detail)
+                                                                @if ($status_order_detail->order_id == $order->order_id)
+                                                                    @foreach ($status_order as $status)
+                                                                        @if ($status->status_id == $status_order_detail->status_id  && $status_order_detail->status == 1)
+                                                                            <span class="heading-item-status">{{ $status->status_name }}</span>
+                                                                        @endif
+                                                                    @endforeach
+                                                                @endif
+                                                            @endforeach
                                                         </div>
-                                                        <div class="content-item-body">
-                                                            <span class="content-item-quantity">Số lượng x 3</span>
-                                                        </div>
+            
+                                                        <ul class="content-item-list">
+            
+                                                            @foreach ($all_order_item as $order_item)
+                                                                @if ($order_item->order_id == $order->order_id)
+            
+                                                                <a href="#" class="content-item-link">
+                                                                    <li class="content-item">
+                                                                        @foreach ($all_product as $product)
+                                                                            @if ($product->product_id == $order_item->product_id)
+                                                                                <img src="{{ asset('public/upload/'.$product->product_image) }}" alt="" class="content-item-img">
+                                                                            @endif
+                                                                        @endforeach
+                                                                        <div class="content-item-info">
+                                                                            <div class="content-item-head">
+                                                                                @foreach ($all_product as $product)
+                                                                                    @if ($order_item->product_id == $product->product_id)
+                                                                                        <h5 class="content-item-name">{{ $product->product_name }}</h5>
+                                                                                    @endif
+                                                                                @endforeach
+                                                                                
+                                                                                <div class="content-item-price-wrap">
+                                                                                    <span class="content-item-price">{{ number_format($order_item->quantity_product * $order_item->price_product, 0,'',',') }}đ</span>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="content-item-body">
+                                                                                <span class="content-item-quantity">Số lượng x {{ $order_item->quantity_product }}</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                </a>
+            
+                                                                @endif
+                                                            @endforeach
+            
+                                                        </ul>
+                                                        <footer class="content-item-footer">
+                                                            <span class="content-item-total">Tổng tiền: {{ number_format($order->total_price, 0,'.',',') }}đ</span>
+                                                        </footer>
+                                                        <footer class="content-btn-footer">
+                                                            <a href="{{ URL::to('user/order/'.$order->order_id) }}" class="item-btn-footer-primary">Xem chi tiết đơn hàng</a>
+                                                            <a href="#" class="item-btn-footer">Xem đánh giá</a>
+                                                        </footer>
                                                     </div>
-                                                </li>
-                                            </a>
-                                            <a href="#" class="content-item-link">
-                                                <li class="content-item">
-                                                    <img src="https://vn-test-11.slatic.net/p/fd262b92dc65ac8e0fd82b9fa1f8a913.png_200x200q90.jpg_.webp" alt="" class="content-item-img">
-                                                    <div class="content-item-info">
-                                                        <div class="content-item-head">
-                                                            <h5 class="content-item-name">Bộ kem đặc trị vùng mắt</h5>
-                                                            <div class="content-item-price-wrap">
-                                                                <span class="content-item-price">2.000.000đ</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="content-item-body">
-                                                            <span class="content-item-quantity">Số lượng x 3</span>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </a>
-                                        </ul>
-                                        <footer class="content-item-footer">
-                                            <span class="content-item-total">Tổng tiền: 123.000đ</span>
-                                        </footer>
-                                    </div>
+                                                @endif
+                                            @endforeach
+                                        @endforeach
+
+                                    @else
+                                        <div class="tab__content-item">
+                                            <div class="content-item-empty">
+                                                <img src="{{ asset('public/upload/empty.png') }}" width="200" height="200" alt="">
+                                                <span class="content-item-empty-text">Hiện không có đơn hàng nào đang chờ xác nhận</span>
+                                            </div>
+                                        </div>     
+                                    @endif
                                 </div>
 
                                 <input type="radio" class="tabs__radio" name="tabs-example" id="tab4">
                                 <label for="tab4" class="tabs__label">Đã giao</label>
                                 <div class="tabs__content">
-                                    <div class="tab__content-item" style="background-color: rgb(245, 245, 245);">
-                                        <div class="content-item-empty">
-                                            <span class="content-item-empty-text">Hiện không có đơn hàng đang chờ xác nhận</span>
-                                        </div>
-                                    </div>
+                                    @if (count($status_order_delivered) > 0)
+
+                                        @foreach ($all_order as $order)
+                                            @foreach ($all_order_detail_status as $status_order_detail)
+                                                @if ($status_order_detail->status_id == 4 && $status_order_detail->order_id == $order->order_id)
+                                                    <div class="tab__content-item">                                        
+                                                        <div class="heading-item">
+                                                            @foreach ($all_order_detail_status as $status_order_detail)
+                                                                @if ($status_order_detail->order_id == $order->order_id)
+                                                                    @foreach ($status_order as $status)
+                                                                        @if ($status->status_id == $status_order_detail->status_id  && $status_order_detail->status == 1)
+                                                                            <span class="heading-item-status">{{ $status->status_name }}</span>
+                                                                        @endif
+                                                                    @endforeach
+                                                                @endif
+                                                            @endforeach
+                                                        </div>
+            
+                                                        <ul class="content-item-list">
+            
+                                                            @foreach ($all_order_item as $order_item)
+                                                                @if ($order_item->order_id == $order->order_id)
+            
+                                                                <a href="#" class="content-item-link">
+                                                                    <li class="content-item">
+                                                                        @foreach ($all_product as $product)
+                                                                            @if ($product->product_id == $order_item->product_id)
+                                                                                <img src="{{ asset('public/upload/'.$product->product_image) }}" alt="" class="content-item-img">
+                                                                            @endif
+                                                                        @endforeach
+                                                                        <div class="content-item-info">
+                                                                            <div class="content-item-head">
+                                                                                @foreach ($all_product as $product)
+                                                                                    @if ($order_item->product_id == $product->product_id)
+                                                                                        <h5 class="content-item-name">{{ $product->product_name }}</h5>
+                                                                                    @endif
+                                                                                @endforeach
+                                                                                
+                                                                                <div class="content-item-price-wrap">
+                                                                                    <span class="content-item-price">{{ number_format($order_item->quantity_product * $order_item->price_product, 0,'',',') }}đ</span>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="content-item-body">
+                                                                                <span class="content-item-quantity">Số lượng x {{ $order_item->quantity_product }}</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                </a>
+            
+                                                                @endif
+                                                            @endforeach
+            
+                                                        </ul>
+                                                        <footer class="content-item-footer">
+                                                            <span class="content-item-total">Tổng tiền: {{ number_format($order->total_price, 0,'.',',') }}đ</span>
+                                                        </footer>
+                                                        <footer class="content-btn-footer">
+                                                            <a href="{{ URL::to('user/order/'.$order->order_id) }}" class="item-btn-footer-primary">Xem chi tiết đơn hàng</a>
+                                                            <a href="#" class="item-btn-footer">Xem đánh giá</a>
+                                                        </footer>
+                                                    </div>
+                                                @endif
+                                            @endforeach
+                                        @endforeach
+
+                                    @else
+                                        <div class="tab__content-item">
+                                            <div class="content-item-empty">
+                                                <img src="{{ asset('public/upload/empty.png') }}" width="200" height="200" alt="">
+                                                <span class="content-item-empty-text">Hiện không có đơn hàng nào đang chờ xác nhận</span>
+                                            </div>
+                                        </div>     
+                                    @endif
                                 </div>
 
                                 <input type="radio" class="tabs__radio" name="tabs-example" id="tab5">
                                 <label for="tab5" class="tabs__label">Đã hủy</label>
                                 <div class="tabs__content">
-                                    <div class="tab__content-item" style="background-color: rgb(245, 245, 245);">
-                                        <div class="content-item-empty">
-                                            <span class="content-item-empty-text">Hiện không có đơn hàng đang chờ xác nhận</span>
-                                        </div>
-                                    </div>
+                                    @if (count($status_order_cancelled) > 0)
+
+                                        @foreach ($all_order as $order)
+                                            @foreach ($all_order_detail_status as $status_order_detail)
+                                                @if ($status_order_detail->status_id == 5 && $status_order_detail->order_id == $order->order_id)
+                                                    <div class="tab__content-item">                                        
+                                                        <div class="heading-item">
+                                                            @foreach ($all_order_detail_status as $status_order_detail)
+                                                                @if ($status_order_detail->order_id == $order->order_id)
+                                                                    @foreach ($status_order as $status)
+                                                                        @if ($status->status_id == $status_order_detail->status_id  && $status_order_detail->status == 1)
+                                                                            <span class="heading-item-status">{{ $status->status_name }}</span>
+                                                                        @endif
+                                                                    @endforeach
+                                                                @endif
+                                                            @endforeach
+                                                        </div>
+            
+                                                        <ul class="content-item-list">
+            
+                                                            @foreach ($all_order_item as $order_item)
+                                                                @if ($order_item->order_id == $order->order_id)
+            
+                                                                <a href="#" class="content-item-link">
+                                                                    <li class="content-item">
+                                                                        @foreach ($all_product as $product)
+                                                                            @if ($product->product_id == $order_item->product_id)
+                                                                                <img src="{{ asset('public/upload/'.$product->product_image) }}" alt="" class="content-item-img">
+                                                                            @endif
+                                                                        @endforeach
+                                                                        <div class="content-item-info">
+                                                                            <div class="content-item-head">
+                                                                                @foreach ($all_product as $product)
+                                                                                    @if ($order_item->product_id == $product->product_id)
+                                                                                        <h5 class="content-item-name">{{ $product->product_name }}</h5>
+                                                                                    @endif
+                                                                                @endforeach
+                                                                                
+                                                                                <div class="content-item-price-wrap">
+                                                                                    <span class="content-item-price">{{ number_format($order_item->quantity_product * $order_item->price_product, 0,'',',') }}đ</span>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="content-item-body">
+                                                                                <span class="content-item-quantity">Số lượng x {{ $order_item->quantity_product }}</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                </a>
+            
+                                                                @endif
+                                                            @endforeach
+            
+                                                        </ul>
+                                                        <footer class="content-item-footer">
+                                                            <span class="content-item-total">Tổng tiền: {{ number_format($order->total_price, 0,'.',',') }}đ</span>
+                                                        </footer>
+                                                        <footer class="content-btn-footer">
+                                                            <a href="{{ URL::to('user/order/'.$order->order_id) }}" class="item-btn-footer-primary">Xem chi tiết đơn hàng</a>
+                                                            <a href="#" class="item-btn-footer">Xem đánh giá</a>
+                                                        </footer>
+                                                    </div>
+                                                @endif
+                                            @endforeach
+                                        @endforeach
+
+                                    @else
+                                        <div class="tab__content-item">
+                                            <div class="content-item-empty">
+                                                <img src="{{ asset('public/upload/empty.png') }}" width="200" height="200" alt="">
+                                                <span class="content-item-empty-text">Hiện không có đơn hàng nào đang chờ xác nhận</span>
+                                            </div>
+                                        </div>     
+                                    @endif
                                 </div>
                               </div>
                         </div>

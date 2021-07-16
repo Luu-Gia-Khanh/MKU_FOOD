@@ -186,6 +186,9 @@ Route::post('load_ward', 'AddressController@load_ward');
 Route::post('load_district_update_address_user', 'AddressController@load_district');
 Route::post('load_ward_update_address_user', 'AddressController@load_ward');
 
+// USER ORDER
+Route::get('user/order/{order_id}', 'AccountController@order_detail_account');
+
 // CART
 Route::post('add_to_cart', 'CartController@add_cart');
 Route::post('load_quantity_cart', 'CartController@load_quantity_cart');
