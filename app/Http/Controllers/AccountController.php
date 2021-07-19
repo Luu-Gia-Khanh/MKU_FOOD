@@ -17,6 +17,8 @@ use App\Order_Item;
 use App\Orders;
 use App\Product;
 use App\ProductPrice;
+use App\Storage_Product;
+
 class AccountController extends Controller
 {
     function check_login(){
@@ -328,14 +330,45 @@ class AccountController extends Controller
         $all_order_item = Order_Item::all();
         $all_order_detail_status = Order_Detail_Status::all();
         $status_order = DB::table('status_order')->get();
-        $status_order_confirm = Order_Detail_Status::where('status_id', 1)->where('status',1)->get();
-        $status_order_confirmed = Order_Detail_Status::where('status_id', 2)->where('status',1)->get();
-        $status_order_delivering = Order_Detail_Status::where('status_id', 3)->where('status',1)->get();
-        $status_order_delivered = Order_Detail_Status::where('status_id', 4)->where('status',1)->get();
-        $status_order_cancelled = Order_Detail_Status::where('status_id', 5)->where('status',1)->get();
+        
+        // $status_order_confirm = Order_Detail_Status::where('status_id', 1)->where('status',1)->get();
+        $order_confirm = DB::table('order_detail_status')
+        ->join('orders','orders.order_id','=','order_detail_status.order_id')
+        ->where('orders.customer_id', $customer_id)
+        ->where('status',1)
+        ->where('order_detail_status.status_id',1)->get();
+
+        // $status_order_confirmed = Order_Detail_Status::where('status_id', 2)->where('status',1)->get();
+        $order_confirmed = DB::table('order_detail_status')
+        ->join('orders','orders.order_id','=','order_detail_status.order_id')
+        ->where('orders.customer_id', $customer_id)
+        ->where('status',1)
+        ->where('order_detail_status.status_id',2)->get();
+
+        // $status_order_delivering = Order_Detail_Status::where('status_id', 3)->where('status',1)->get();
+        $order_delivering = DB::table('order_detail_status')
+        ->join('orders','orders.order_id','=','order_detail_status.order_id')
+        ->where('orders.customer_id', $customer_id)
+        ->where('status',1)
+        ->where('order_detail_status.status_id',3)->get();
+
+        // $status_order_delivered = Order_Detail_Status::where('status_id', 4)->where('status',1)->get();
+        $order_delivered = DB::table('order_detail_status')
+        ->join('orders','orders.order_id','=','order_detail_status.order_id')
+        ->where('orders.customer_id', $customer_id)
+        ->where('status',1)
+        ->where('order_detail_status.status_id',4)->get();
+
+        // $status_order_cancelled = Order_Detail_Status::where('status_id', 5)->where('status',1)->get();
+        $order_cancelled = DB::table('order_detail_status')
+        ->join('orders','orders.order_id','=','order_detail_status.order_id')
+        ->where('orders.customer_id', $customer_id)
+        ->where('status',1)
+        ->where('order_detail_status.status_id',5)->get();
+
         return view('client.user.order', compact('customer_info', 'customer', 'all_product', 'all_cart',
          'all_price', 'all_order', 'all_order_item', 'all_order_detail_status', 'status_order',
-         'status_order_confirm', 'status_order_confirmed', 'status_order_delivering', 'status_order_delivered', 'status_order_cancelled'));
+        'order_confirm', 'order_confirmed', 'order_delivering', 'order_delivered', 'order_cancelled'));
     }
 
     public function order_detail_account($order_id){
@@ -353,5 +386,22 @@ class AccountController extends Controller
         $trans_address = Customer_Transport::all();
         return view('client.user.order_detail', compact('customer', 'customer_info', 'all_cart',
          'all_product', 'all_price', 'order', 'all_order_item', 'all_order_detail_status', 'status_order', 'payment_method', 'trans_address'));
+    }
+
+    public function process_cancel_order(Request $request){
+        $order_id = $request->order_id;
+        $order_detail_status = Order_Detail_Status::where('order_id', $order_id)->where('status', 1)->first();
+        $order_item = Order_Item::where('order_id', $order_id)->get();
+        foreach($order_item as $item){
+            $product_id = $item->product_id;
+            $quantity_item = $item->quantity_product;
+            $quantity_storage_product = Storage_Product::where('product_id', $product_id)->first();
+            $quantity_product = $quantity_storage_product->total_quantity_product;
+            $quantity_storage_product->total_quantity_product =  $quantity_item + $quantity_product;
+            $quantity_storage_product->save();
+            // echo $product_id.'--- Số lượng sản phẩm/item ---'.$quantity_item.'-- Trước khi đổi ---'.$quantity_product.'-- Sau khi thay đổi --'.$quantity_storage_product->total_quantity_product.'<br>';
+        }
+        $order_detail_status->status_id = 5;
+        $order_detail_status->save();
     }
 }

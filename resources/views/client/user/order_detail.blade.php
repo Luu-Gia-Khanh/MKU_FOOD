@@ -81,7 +81,15 @@
                                 <div class="head-order-detail-right">
                                     <span class="head-order-detail-right--text-id">ID ĐƠN HÀNG: {{ $order->order_code }}</span>
                                     <span class="head-order-detail-right--separation"></span>
-                                    <span class="head-order-detail-right--text-status">ĐƠN HÀNG ĐÃ GIAO</span>
+                                    @foreach ($all_order_detail_status as $status_order_detail)
+                                        @if ($status_order_detail->order_id == $order->order_id)
+                                            @foreach ($status_order as $status)
+                                                @if ($status->status_id == $status_order_detail->status_id  && $status_order_detail->status == 1)
+                                                    <span class="head-order-detail-right--text-status">{{ $status->status_name }}</span>
+                                                @endif
+                                            @endforeach
+                                        @endif
+                                    @endforeach
                                 </div>
                             </div>
                             {{-- <div class="separation"></div> --}}

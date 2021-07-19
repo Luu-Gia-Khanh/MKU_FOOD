@@ -43,7 +43,10 @@
     color: #7faf51;
     text-transform: uppercase;
 }
-
+.head-order-detail-right--text-status-cancel{
+    color: #dc3545;
+    text-transform: uppercase;
+}
 .separation{
     width: 99%;
     height: 0;
