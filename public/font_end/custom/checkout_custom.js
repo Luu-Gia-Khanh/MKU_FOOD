@@ -143,7 +143,7 @@ $(document).ready(function(){
     // submit form check out
     $('.btn_dathang').click(function(){
         var _token = $('input[name="_token"]').val();
-        var trans_id = $('input[name="radio_trans"]:checked').val();
+        var trans_id = $('input[name="trans_id"]:checked').val();
         var payment_method = $('input[name="payment_method"]:checked').val();
         var summary_total_order = $('.summary_total_order').val();
         var cart_id = [];
@@ -173,7 +173,15 @@ $(document).ready(function(){
                 else if(data == 1){
                     var form_checkout = document.forms['form_content_check_out_pay'];
                     form_checkout.submit();
-
+                }
+                else if(data == 2){
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'error',
+                        title: 'Bạn chưa nhập địa chỉ nhận hàng',
+                        showConfirmButton: false,
+                        timer: 1500
+                        });
                 }
             }
         });

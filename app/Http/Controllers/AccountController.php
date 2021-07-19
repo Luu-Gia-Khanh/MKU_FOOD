@@ -324,7 +324,7 @@ class AccountController extends Controller
         $all_cart = Cart::where('customer_id', $customer_id)->where('status', 1)->get();
         $all_product = Product::all();
         $all_price = ProductPrice::where('status',1)->get();
-        $all_order = Orders::where('customer_id', $customer_id)->get();
+        $all_order = Orders::where('customer_id', $customer_id)->orderBy('order_id','desc')->get();
         $all_order_item = Order_Item::all();
         $all_order_detail_status = Order_Detail_Status::all();
         $status_order = DB::table('status_order')->get();

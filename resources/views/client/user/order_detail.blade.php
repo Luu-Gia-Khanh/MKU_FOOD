@@ -170,7 +170,7 @@
                                                         <span class="timeline--status"
                                                             @if ($order_detail_status->status == 1)
                                                                 id="timeline--status-active"
-                                                            @endif    
+                                                            @endif
                                                         >
                                                             @foreach ($status_order as $status)
                                                                 @if ($status->status_id == $order_detail_status->status_id)
@@ -214,7 +214,7 @@
                                                             </li>
                                                         </a>
                                                     @endif
-                                                @endforeach   
+                                                @endforeach
                                             @endif
                                         @endforeach
                                     </ul>

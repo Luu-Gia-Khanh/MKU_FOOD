@@ -94,23 +94,29 @@ class CheckOutController extends Controller
         $date = date('Ymd');
         $check = 1;
         $all_storage_product = Storage_Product::all();
-        foreach ($cart_id as $id){
-            $cart = Cart::find($id);
-            foreach ($all_storage_product as $storage_product){
-                if($cart->product_id == $storage_product->product_id){
-                    $qty_cart = $cart->quantity;
-                    $qty_sto = $storage_product->total_quantity_product;
-                    if($qty_cart > $qty_sto){
-                        $check = 0;
+        if($trans_id == null || $trans_id == ""){
+            echo 2;
+        }
+        else{
+            foreach ($cart_id as $id){
+                $cart = Cart::find($id);
+                foreach ($all_storage_product as $storage_product){
+                    if($cart->product_id == $storage_product->product_id){
+                        $qty_cart = $cart->quantity;
+                        $qty_sto = $storage_product->total_quantity_product;
+                        if($qty_cart > $qty_sto){
+                            $check = 0;
 
-                    }
-                    else{
-                        $check = 1;
+                        }
+                        else{
+                            $check = 1;
+                        }
                     }
                 }
             }
+            echo $check;
         }
-        echo $check;
+
     }
     public function process_checkout(Request $request){
 
