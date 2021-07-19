@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="{{ asset('public/font_end/custom_account/user_sidebar_content.css') }}">
 @extends('client.layout_account_client')
 @section('content_body')
+<link rel="stylesheet" href="{{ asset('public/font_end/custom_account/custom_modal.css') }}">
 <style>
     .btn:focus,
     .btn:active:focus,
@@ -85,7 +86,11 @@
                                                         @if ($status_order_detail->order_id == $order->order_id)
                                                             @foreach ($status_order as $status)
                                                                 @if ($status->status_id == $status_order_detail->status_id  && $status_order_detail->status == 1)
-                                                                    <span class="heading-item-status">{{ $status->status_name }}</span>
+                                                                    @if ($status_order_detail->status_id == 5)
+                                                                        <span class="heading-item-status-cancel">{{ $status->status_name }}</span>
+                                                                    @else
+                                                                        <span class="heading-item-status">{{ $status->status_name }}</span>
+                                                                    @endif
                                                                 @endif
                                                             @endforeach
                                                         @endif
@@ -131,8 +136,22 @@
                                                     <span class="content-item-total">Tổng tiền: {{ number_format($order->total_price, 0,'.',',') }}đ</span>
                                                 </footer>
                                                 <footer class="content-btn-footer">
-                                                    <a href="{{ URL::to('user/order/'.$order->order_id) }}" class="item-btn-footer-primary">Xem chi tiết đơn hàng</a>
-                                                    <a href="#" class="item-btn-footer">Xem đánh giá</a>
+                                                    @foreach ($all_order_detail_status as $status_order_detail)
+                                                        @if ($status_order_detail->order_id == $order->order_id)
+                                                            @if ($status_order_detail->status_id == 1 && $status_order_detail->status == 1 || $status_order_detail->status_id == 2 && $status_order_detail->status == 1)
+                                                                <a href="{{ URL::to('user/order/'.$order->order_id) }}" class="item-btn-footer-primary">Xem chi tiết đơn hàng</a>
+                                                                <a href="#" class="item-btn-footer">Xem đánh giá</a>
+                                                                <button class="item-btn-footer delete_order get_order_id btn_open_order_cancel" data-id = {{ $order->order_id }}
+                                                                >Hủy đơn hàng</button>
+                                                            @elseif($status_order_detail->status_id == 5 && $status_order_detail->status == 1)
+                                                                <button class="item-btn-footer-primary--disable">Xem chi tiết đơn hàng</button>
+                                                                <a href="#" class="item-btn-footer">Xem đánh giá</a>
+                                                            @elseif($status_order_detail->status == 1)
+                                                                <a href="{{ URL::to('user/order/'.$order->order_id) }}" class="item-btn-footer-primary">Xem chi tiết đơn hàng</a>
+                                                                <a href="#" class="item-btn-footer">Xem đánh giá</a>
+                                                            @endif
+                                                        @endif
+                                                    @endforeach
                                                 </footer>
                                             </div>
 
@@ -155,10 +174,9 @@
                                 <label for="tab2" class="tabs__label">Chờ xác nhận</label>
                                 <div class="tabs__content">
 
-                                    @if (count($status_order_confirm) > 0)
-
+                                    @if (count($order_confirm) > 0)
                                         @foreach ($all_order as $order)
-                                            @foreach ($status_order_confirm as $status_order_detail)
+                                            @foreach ($order_confirm as $status_order_detail)
                                                 @if ($status_order_detail->status_id == 1 && $status_order_detail->order_id == $order->order_id)
                                                     <div class="tab__content-item">
                                                         <div class="heading-item">
@@ -210,6 +228,8 @@
                                                         <footer class="content-btn-footer">
                                                             <a href="{{ URL::to('user/order/'.$order->order_id) }}" class="item-btn-footer-primary">Xem chi tiết đơn hàng</a>
                                                             <a href="#" class="item-btn-footer">Xem đánh giá</a>
+                                                            <button class="item-btn-footer delete_order get_order_id btn_open_order_cancel" data-id = {{ $order->order_id }}
+                                                                >Hủy đơn hàng</button>
                                                         </footer>
                                                     </div>
                                                 @endif
@@ -231,10 +251,9 @@
                                 <label for="tab3" class="tabs__label">Đã xác nhận</label>
                                 <div class="tabs__content">
 
-                                    @if (count($status_order_confirmed) > 0)
-
+                                    @if (count($order_confirmed) > 0)
                                         @foreach ($all_order as $order)
-                                            @foreach ($status_order_confirmed as $status_order_detail)
+                                            @foreach ($order_confirmed as $status_order_detail)
                                                 @if ($status_order_detail->status_id == 2 && $status_order_detail->order_id == $order->order_id)
                                                     <div class="tab__content-item">
                                                         <div class="heading-item">
@@ -270,7 +289,7 @@
                                                                                 </div>
                                                                             </div>
                                                                             <div class="content-item-body">
-                                                                                <span class="content-item-quantity">Số lượng x {{ $order_item->quantity_product }}</span>
+                                                                                <span class="content-item-quantity get_quantity_">Số lượng x {{ $order_item->quantity_product }}</span>
                                                                             </div>
                                                                         </div>
                                                                     </li>
@@ -286,6 +305,8 @@
                                                         <footer class="content-btn-footer">
                                                             <a href="{{ URL::to('user/order/'.$order->order_id) }}" class="item-btn-footer-primary">Xem chi tiết đơn hàng</a>
                                                             <a href="#" class="item-btn-footer">Xem đánh giá</a>
+                                                            <button class="item-btn-footer delete_order get_order_id btn_open_order_cancel" data-id = {{ $order->order_id }}
+                                                                >Hủy đơn hàng</button>
                                                         </footer>
                                                     </div>
                                                 @endif
@@ -307,10 +328,10 @@
                                 <label for="tab4" class="tabs__label">Đang giao</label>
                                 <div class="tabs__content">
 
-                                    @if (count($status_order_delivering) > 0)
+                                    @if (count($order_delivering) > 0)
 
                                         @foreach ($all_order as $order)
-                                            @foreach ($status_order_delivering as $status_order_detail)
+                                            @foreach ($order_delivering as $status_order_detail)
                                                 @if ($status_order_detail->status_id == 3 && $status_order_detail->order_id == $order->order_id)
                                                     <div class="tab__content-item">
                                                         <div class="heading-item">
@@ -383,10 +404,10 @@
                                 <label for="tab5" class="tabs__label">Đã giao</label>
                                 <div class="tabs__content">
 
-                                    @if (count($status_order_delivered) > 0)
+                                    @if (count($order_delivered) > 0)
 
                                         @foreach ($all_order as $order)
-                                            @foreach ($status_order_delivered as $status_order_detail)
+                                            @foreach ($order_delivered as $status_order_detail)
                                                 @if ($status_order_detail->status_id == 4 && $status_order_detail->order_id == $order->order_id)
                                                     <div class="tab__content-item">
                                                         <div class="heading-item">
@@ -459,16 +480,16 @@
                                 <label for="tab6" class="tabs__label">Đã hủy</label>
                                 <div class="tabs__content">
 
-                                    @if (count($status_order_cancelled) > 0)
+                                    @if (count($order_cancelled) > 0)
 
                                         @foreach ($all_order as $order)
-                                            @foreach ($status_order_cancelled as $status_order_detail)
+                                            @foreach ($order_cancelled as $status_order_detail)
                                                 @if ($status_order_detail->status_id == 5 && $status_order_detail->order_id == $order->order_id)
                                                     <div class="tab__content-item">
                                                         <div class="heading-item">
                                                                 @foreach ($status_order as $status)
                                                                     @if ($status->status_id == 5)
-                                                                        <span class="heading-item-status">{{ $status->status_name }}</span>
+                                                                    <span class="heading-item-status-cancel">{{ $status->status_name }}</span>
                                                                     @endif
                                                                 @endforeach
                                                         </div>
@@ -512,7 +533,7 @@
                                                             <span class="content-item-total">Tổng tiền: {{ number_format($order->total_price, 0,'.',',') }}đ</span>
                                                         </footer>
                                                         <footer class="content-btn-footer">
-                                                            <a href="{{ URL::to('user/order/'.$order->order_id) }}" class="item-btn-footer-primary">Xem chi tiết đơn hàng</a>
+                                                            <button class="item-btn-footer-primary--disable">Xem chi tiết đơn hàng</button>
                                                             <a href="#" class="item-btn-footer">Xem đánh giá</a>
                                                         </footer>
                                                     </div>
@@ -538,4 +559,28 @@
             </div>
         </div>
     </div>
+    <div class="modal_delete_order modal" id="modal_delete_order">
+        <!-- Modal content -->
+        <div class="modal-content container">
+            <div class="modal-header-cus">
+                <span class="close close_cancel_order">&times;</span>
+                <h4>Thông báo</h4>
+            </div>
+            <div class="modal-body-cus">
+                <div class="content">
+                    Bạn có thực sự muốn hủy đơn hàng này không?
+                    <form>
+                        @csrf
+                        <input type="hidden" name="order_id" class="cancel_order" id="order_id">
+                    </form>
+                </div>
+            </div>
+            <div class="content-modal-footer">
+                <button class="btn btn-secondary close_cancel_order" style="margin-right: 10px">TRỞ LẠI</button>
+                <button class="btn btn-success btn_cancel_order">HỦY</button>
+            </div>
+        </div>
+    </div>
+    <script src="{{ asset('public/font_end/assets/js/jquery-3.4.1.min.js') }}"></script>
+    <script src="{{ asset('public/font_end/custom_account/cancel_order.js') }}"></script>
 @endsection

@@ -199,6 +199,7 @@ Route::post('load_ward_update_address_user', 'AddressController@load_ward');
 
 // USER ORDER
 Route::get('user/order/{order_id}', 'AccountController@order_detail_account');
+Route::post('process_cancel_order', 'AccountController@process_cancel_order');
 
 // CART
 Route::post('add_to_cart', 'CartController@add_cart');
