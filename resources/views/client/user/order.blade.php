@@ -576,8 +576,8 @@
                 </div>
             </div>
             <div class="content-modal-footer">
+                <button class="btn btn-success btn_cancel_order" style="margin-right: 10px">HỦY</button>
                 <button class="btn btn-secondary close_cancel_order" style="margin-right: 10px">TRỞ LẠI</button>
-                <button class="btn btn-success btn_cancel_order">HỦY</button>
             </div>
         </div>
     </div>

@@ -330,7 +330,7 @@ class AccountController extends Controller
         $all_order_item = Order_Item::all();
         $all_order_detail_status = Order_Detail_Status::all();
         $status_order = DB::table('status_order')->get();
-        
+
         // $status_order_confirm = Order_Detail_Status::where('status_id', 1)->where('status',1)->get();
         $order_confirm = DB::table('order_detail_status')
         ->join('orders','orders.order_id','=','order_detail_status.order_id')
