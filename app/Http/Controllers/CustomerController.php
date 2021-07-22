@@ -166,6 +166,7 @@ class CustomerController extends Controller
 
         Session::forget('customer_id');
         Session::forget('username');
+        Session::flush();
 
         return redirect('login_client');
     }

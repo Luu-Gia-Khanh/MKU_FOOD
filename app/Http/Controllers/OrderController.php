@@ -10,8 +10,11 @@ use Illuminate\Http\Request;
 use App\Product;
 use App\Customer_Transport;
 use App\Admin_Action_Order;
+use App\Customer;
+use App\Mail\Confirm_Order_Mail;
 use Session;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
@@ -74,6 +77,13 @@ class OrderController extends Controller
             $action_order->action_time = Carbon::now('Asia/Ho_Chi_Minh');
             $action_order->action_message = 'Duyệt đơn hàng';
             $action_order->save();
+
+            //
+            $data=[
+                'order' => $order,
+            ];
+            $customer = Customer::find($order->customer_id);
+            Mail::to($customer->email)->send(new Confirm_Order_Mail($data));
 
             $request->session()->flash('confirm_success', 'Xác nhận đơn hàng thành công');
             return redirect()->back();
@@ -159,6 +169,9 @@ class OrderController extends Controller
             $action_order->action_time = Carbon::now('Asia/Ho_Chi_Minh');
             $action_order->action_message = 'Xác nhận giao hàng thành công';
             $action_order->save();
+
+            //
+
 
             $request->session()->flash('confirm_delivary_success_order', 'Xác nhận giao đơn hàng thành công');
             return redirect()->back();

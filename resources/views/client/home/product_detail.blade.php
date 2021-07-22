@@ -127,7 +127,7 @@
                         <ul class="tabs">
                             <li class="tab-element active"><a href="#tab_1st" class="tab-link">Mô Tả Sản Phẩm</a>
                             </li>
-                            <li class="tab-element"><a href="#tab_4th" class="tab-link">Đánh Giá Sản Phẩm <sup>(3)</sup></a>
+                            <li class="tab-element"><a href="#tab_4th" class="tab-link">Đánh Giá Sản Phẩm <sup class="count_comment_tab">({{ count($all_comment_to_count) }})</sup></a>
                             </li>
                         </ul>
                     </div>
@@ -139,158 +139,261 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
+                                        @php
+                                            $total_comment = count($all_comment_to_count);
+                                            if ($total_comment != 0){
+                                                $persen_rating_5 = number_format(($rating_5/$total_comment)*100,0,",",".");
+                                                $persen_rating_4 = number_format(($rating_4/$total_comment)*100,0,",",".");
+                                                $persen_rating_3 = number_format(($rating_3/$total_comment)*100,0,",",".");
+                                                $persen_rating_2 = number_format(($rating_2/$total_comment)*100,0,",",".");
+                                                $persen_rating_1 = 100-$persen_rating_5-$persen_rating_4-$persen_rating_3-$persen_rating_2;
+
+                                                $avg_rating = (($rating_5*5)+($rating_4*4)+($rating_3*3)+($rating_2*2)+($rating_1*1))/$total_comment;
+                                            }
+                                            else{
+                                                $persen_rating_5 = 0;
+                                                $persen_rating_4 = 0;
+                                                $persen_rating_3 = 0;
+                                                $persen_rating_2 = 0;
+                                                $persen_rating_1 = 0;
+                                                $avg_rating = 0;
+                                            }
+
+                                        @endphp
                                         <div class="rating-info">
-                                            <p class="index"><strong class="rating">4.4</strong>out of 5</p>
+                                            <p class="index" style="font-size: 18px; font-weight: bold"><strong class="rating">{{ number_format($avg_rating,1,".",".") }}</strong>trên 5</p>
                                             <div class="rating">
-                                                <p class="star-rating"><span class="width-80percent"></span></p>
+                                                <p class="star-rating"><span class="width-80percent" style="width: {{ $avg_rating*20 }}%"></span></p>
                                             </div>
-                                            <p class="see-all">See all 68 reviews</p>
+                                            <p class="see-all count_comment_rating">{{ count($all_comment_to_count) }} đánh giá</p>
                                             <ul class="options">
                                                 <li>
                                                     <div class="detail-for">
-                                                        <span class="option-name">5stars</span>
+                                                        <span class="option-name">
+                                                            5 <i class="fa fa-star-o" aria-hidden="true" style="color: #68645f; font-size: 16px"></i>
+                                                        </span>
                                                         <span class="progres">
                                                             <span class="line-100percent"><span
-                                                                    class="percent width-90percent"></span></span>
+                                                                    class="percent width-30percent" style="width: {{ $persen_rating_5 }}%"></span></span>
                                                         </span>
-                                                        <span class="number">90</span>
+                                                        <span class="number">{{ $persen_rating_5 }}%</span>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="detail-for">
-                                                        <span class="option-name">4stars</span>
+                                                        <span class="option-name">
+                                                            4 <i class="fa fa-star-o" aria-hidden="true" style="color: #68645f; font-size: 16px"></i>
+                                                        </span>
                                                         <span class="progres">
                                                             <span class="line-100percent"><span
-                                                                    class="percent width-30percent"></span></span>
+                                                                    class="percent width-30percent" style="width: {{ $persen_rating_4 }}%"></span></span>
                                                         </span>
-                                                        <span class="number">30</span>
+                                                        <span class="number">{{ $persen_rating_4 }}%</span>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="detail-for">
-                                                        <span class="option-name">3stars</span>
+                                                        <span class="option-name">
+                                                            3 <i class="fa fa-star-o" aria-hidden="true" style="color: #68645f; font-size: 16px"></i>
+                                                        </span>
                                                         <span class="progres">
                                                             <span class="line-100percent"><span
-                                                                    class="percent width-40percent"></span></span>
+                                                                    class="percent width-40percent" style="width: {{ $persen_rating_3 }}%"></span></span>
                                                         </span>
-                                                        <span class="number">40</span>
+                                                        <span class="number">{{ $persen_rating_3 }}%</span>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="detail-for">
-                                                        <span class="option-name">2stars</span>
+                                                        <span class="option-name">
+                                                            2 <i class="fa fa-star-o" aria-hidden="true" style="color: #68645f; font-size: 16px"></i>
+                                                        </span>
                                                         <span class="progres">
                                                             <span class="line-100percent"><span
-                                                                    class="percent width-20percent"></span></span>
+                                                                    class="percent width-20percent" style="width: {{ $persen_rating_2 }}%"></span></span>
                                                         </span>
-                                                        <span class="number">20</span>
+                                                        <span class="number">{{ $persen_rating_2 }}%</span>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="detail-for">
-                                                        <span class="option-name">1star</span>
+                                                        <span class="option-name">
+                                                            1 <i class="fa fa-star-o" aria-hidden="true" style="color: #68645f; font-size: 16px"></i>
+                                                        </span>
                                                         <span class="progres">
                                                             <span class="line-100percent"><span
-                                                                    class="percent width-10percent"></span></span>
+                                                                    class="percent width-10percent" style="width: {{ $persen_rating_1 }}%"></span></span>
                                                         </span>
-                                                        <span class="number">10</span>
+                                                        <span class="number">{{ $persen_rating_1 }}%</span>
                                                     </div>
                                                 </li>
                                             </ul>
                                         </div>
                                     </div>
                                     <div class="col-lg-7 col-md-7 col-sm-6 col-xs-12">
-                                        <div class="review-form-wrapper">
-                                            <span class="title">Submit your review</span>
-                                            <form action="#" name="frm-review" method="post">
-                                                <div class="comment-form-rating">
-                                                    <label>1. Your rating of this products:</label>
-                                                    <p class="stars">
-                                                        <span>
-                                                            <a class="btn-rating" data-value="star-1" href="#"><i
-                                                                    class="fa fa-star-o" aria-hidden="true"></i></a>
-                                                            <a class="btn-rating" data-value="star-2" href="#"><i
-                                                                    class="fa fa-star-o" aria-hidden="true"></i></a>
-                                                            <a class="btn-rating" data-value="star-3" href="#"><i
-                                                                    class="fa fa-star-o" aria-hidden="true"></i></a>
-                                                            <a class="btn-rating" data-value="star-4" href="#"><i
-                                                                    class="fa fa-star-o" aria-hidden="true"></i></a>
-                                                            <a class="btn-rating" data-value="star-5" href="#"><i
-                                                                    class="fa fa-star-o" aria-hidden="true"></i></a>
-                                                        </span>
+                                        @if (Session::get('able_rating_comment_'.$product->product_id))
+                                            <div class="review-form-wrapper">
+                                                <span class="title">Submit your review</span>
+                                                    <div class="comment-form-rating">
+                                                        <label>1. Your rating of this products:</label>
+                                                        <p class="stars">
+                                                            <span>
+                                                                <a class="btn-rating choose_rating" data-value="1" href="#">
+                                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                                </a>
+                                                                <a class="btn-rating choose_rating" data-value="2" href="#">
+                                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                                </a>
+                                                                <a class="btn-rating choose_rating" data-value="3" href="#">
+                                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                                </a>
+                                                                <a class="btn-rating choose_rating" data-value="4" href="#">
+                                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                                </a>
+                                                                <a class="btn-rating choose_rating" data-value="5" href="#">
+                                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                                </a>
+                                                            </span>
+                                                        </p>
+                                                    </div>
+                                                    <p class="form-row">
+                                                        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                                                        <textarea name="comment" class="comment_message" id="txt_comment" cols="30" rows="10"
+                                                            placeholder="Write your review here..."></textarea>
                                                     </p>
-                                                </div>
-                                                <p class="form-row wide-half">
-                                                    <input type="text" name="name" value="" placeholder="Your name">
-                                                </p>
-                                                <p class="form-row wide-half">
-                                                    <input type="email" name="email" value="" placeholder="Email address">
-                                                </p>
-                                                <p class="form-row">
-                                                    <textarea name="comment" id="txt-comment" cols="30" rows="10"
-                                                        placeholder="Write your review here..."></textarea>
-                                                </p>
-                                                <p class="form-row">
-                                                    <button type="submit" name="submit">submit review</button>
-                                                </p>
-                                            </form>
-                                        </div>
+                                                    <p class="form-row">
+                                                        <button type="submit" name="submit" class="send_comment_rating">submit review</button>
+                                                    </p>
+                                            </div>
+                                        @endif
+
                                     </div>
                                 </div>
-                                <div id="comments">
-                                    <ol class="commentlist">
-                                        <li class="review">
-                                            <div class="comment-container">
-                                                <div class="row">
-                                                    <div class="comment-content col-lg-8 col-md-9 col-sm-8 col-xs-12">
-                                                        <p class="comment-in"><span class="post-name">Quality is our way of
-                                                                life</span><span class="post-date">01/04/2018</span></p>
-                                                        <div class="rating">
-                                                            <p class="star-rating"><span class="width-80percent"></span></p>
-                                                        </div>
-                                                        <p class="author">by: <b>Shop organic</b></p>
-                                                        <p class="comment-text">There are few things in life that please
-                                                            people more than the succulence of quality fresh fruit and
-                                                            vegetables. At Fresh Fruits we work to deliver the world’s
-                                                            freshest, choicest, and juiciest produce to discerning customers
-                                                            across the UAE and GCC.</p>
-                                                    </div>
-                                                    <div
-                                                        class="comment-review-form col-lg-3 col-lg-offset-1 col-md-3 col-sm-4 col-xs-12">
-                                                        <span class="title">Was this review helpful?</span>
-                                                        <ul class="actions">
-                                                            <li><a href="#" class="btn-act like" data-type="like"><i
-                                                                        class="fa fa-thumbs-up" aria-hidden="true"></i>Yes
-                                                                    (100)</a></li>
-                                                            <li><a href="#" class="btn-act hate" data-type="dislike"><i
-                                                                        class="fa fa-thumbs-down" aria-hidden="true"></i>No
-                                                                    (20)</a></li>
-                                                            <li><a href="#" class="btn-act report" data-type="dislike"><i
-                                                                        class="fa fa-flag" aria-hidden="true"></i>Report</a>
+                                    <div id="comments">
+                                        <ol class="commentlist content_comment_rating">
+                                            @if (count($all_comment) > 0)
+                                                @foreach ($all_comment as $comment)
+                                                    @foreach ($all_rating as $rating)
+                                                        @if ($comment->customer_id == $rating->customer_id && $comment->product_id == $rating->product_id && $comment->created_at == $rating->created_at)
+                                                            <li class="review">
+                                                                <div class="comment-container">
+                                                                    <div class="row">
+                                                                        <div class="comment-content col-lg-8 col-md-9 col-sm-8 col-xs-12">
+                                                                            <div class="content_info_customer">
+                                                                                {{-- <p class="comment-in"><span class="post-name"> --}}
+                                                                                    @foreach ($customers as $customer)
+                                                                                        @if ($comment->customer_id == $customer->customer_id)
+                                                                                            @foreach ($customer_info as $info)
+                                                                                                @if ($info->customer_id == $customer->customer_id)
+                                                                                                    <img src="{{ asset('public/upload/'.$info->customer_avt) }}" style="width: 60px; height: 60px; border-radius: 50%" alt="">
+                                                                                                @endif
+                                                                                            @endforeach
+
+                                                                                            <div class="content-name-rating">
+                                                                                                <p class="comment-in"><span class="post-name" style="font-size: 17px">{{ $customer->username }}</span></p>
+                                                                                                <div class="rating">
+                                                                                                    <p class="star-rating">
+                                                                                                        @php
+                                                                                                            $convert_persen = 0;
+                                                                                                        @endphp
+                                                                                                        @if ($rating->rating_level == 1)
+                                                                                                            @php
+                                                                                                                $convert_persen = 20;
+                                                                                                            @endphp
+                                                                                                        @elseif($rating->rating_level == 2)
+                                                                                                            @php
+                                                                                                                $convert_persen = 40;
+                                                                                                            @endphp
+                                                                                                        @elseif($rating->rating_level == 3)
+                                                                                                            @php
+                                                                                                                $convert_persen = 60;
+                                                                                                            @endphp
+                                                                                                        @elseif($rating->rating_level == 4)
+                                                                                                            @php
+                                                                                                                $convert_persen = 80;
+                                                                                                            @endphp
+                                                                                                        @elseif($rating->rating_level == 5)
+                                                                                                            @php
+                                                                                                                $convert_persen = 100;
+                                                                                                            @endphp
+                                                                                                        @endif
+                                                                                                        <span class="width-{{ $convert_persen }}percent"></span>
+                                                                                                    </p>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        @endif
+                                                                                    @endforeach
+                                                                                    <span class="post-date date-comment">{{ date("d/m/Y H:i a", strtotime($comment->created_at)) }}</span>
+                                                                                {{-- </p> --}}
+                                                                            </div>
+
+                                                                            <p class="author place_order" style="margin-left: 70px"><i class="fa fa-check-circle" style="color: #7faf51"></i> đã mua tại <b class="brand_mku">MKU_FOOD</b></p>
+                                                                            <p class="comment-text comment_message" style="font-size: 15px">{{ $comment->comment_message }}</p>
+                                                                        </div>
+                                                                        <div
+                                                                            class="comment-review-form col-lg-3 col-lg-offset-1 col-md-3 col-sm-4 col-xs-12">
+                                                                            <span class="title">Đánh giá này có hữu ích?</span>
+                                                                            <ul class="actions">
+                                                                                @php
+                                                                                    $session = Session::get('user_like_comment_'.$comment->comment_id);
+                                                                                @endphp
+                                                                                @if (isset($session))
+                                                                                    <li><a class="btn-act like btn_useful_comment btn_useful_comment_{{ $comment->comment_id }}" style="color: #7faf51; cursor: pointer;" data-id="{{ $comment->comment_id }}">
+                                                                                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                                                                                        <span class="txt_count_comment_useful_{{ $comment->comment_id }}">Hữu ích ({{ $comment->comment_useful }})</span>
+                                                                                    </a></li>
+                                                                                    <input type="hidden" class="hidden_check_comment_like_{{ $comment->comment_id }}" name="" id="" value="{{ $session }}">
+                                                                                @else
+                                                                                    <li><a class="btn-act like btn_useful_comment btn_useful_comment_{{ $comment->comment_id }}" style="cursor: pointer;" data-id="{{ $comment->comment_id }}">
+                                                                                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                                                                                        <span class="txt_count_comment_useful_{{ $comment->comment_id }}">Hữu ích ({{ $comment->comment_useful }})</span>
+                                                                                    </a></li>
+                                                                                    <input type="hidden" class="hidden_check_comment_like_{{ $comment->comment_id }}" name="" id="" value="{{ $session }}">
+                                                                                @endif
+
+                                                                                {{-- <li><a href="#" class="btn-act hate" data-type="dislike"><i
+                                                                                            class="fa fa-thumbs-down" aria-hidden="true"></i>No
+                                                                                        (20)</a></li>
+                                                                                <li><a href="#" class="btn-act report" data-type="dislike"><i
+                                                                                            class="fa fa-flag" aria-hidden="true"></i>Report</a>
+                                                                                </li> --}}
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </li>
-                                                        </ul>
-                                                    </div>
+                                                        @endif
+                                                    @endforeach
+                                                @endforeach
+                                            @else
+                                                <div class="center pd-20" style="font-size: 18px;padding-top: 30px; opacity: .5;">Sản phẩm chưa có đánh giá nào</div>
+                                            @endif
+                                        </ol>
+                                        <input type="hidden" value="{{ $product->product_id }}" class="val_product_id">
+                                        <input type="hidden" value="{{ count($all_comment_to_count) }}" class="all_comment_to_count">
+                                        <input type="hidden" value="5" class="val_load_add_5">
+                                        @if ($check_show > 0)
+                                            <div class="biolife-panigations-block version-2">
+                                                <ul class="panigation-contain">
+                                                    {{-- <li><span class="current-page">1</span></li>
+                                                    <li><a href="#" class="link-page">2</a></li>
+                                                    <li><a href="#" class="link-page">3</a></li>
+                                                    <li><span class="sep">....</span></li>
+                                                    <li><a href="#" class="link-page">20</a></li>
+                                                    <li><a href="#" class="link-page next"><i class="fa fa-angle-right"
+                                                                aria-hidden="true"></i></a></li> --}}
+                                                        {{-- {!! $all_comment->links() !!} --}}
+                                                </ul>
+                                                <div class="result-count">
+
+                                                    {{-- <p class="txt-count"><b>1-5</b> of <b>126</b> reviews</p> --}}
+                                                    <a class="link-to load_more_comment" style="cursor: pointer;">Xem Thêm...<i class="fa fa-caret-right"
+                                                            aria-hidden="true"></i></a>
                                                 </div>
                                             </div>
-                                        </li>
-                                    </ol>
-                                    <div class="biolife-panigations-block version-2">
-                                        <ul class="panigation-contain">
-                                            <li><span class="current-page">1</span></li>
-                                            <li><a href="#" class="link-page">2</a></li>
-                                            <li><a href="#" class="link-page">3</a></li>
-                                            <li><span class="sep">....</span></li>
-                                            <li><a href="#" class="link-page">20</a></li>
-                                            <li><a href="#" class="link-page next"><i class="fa fa-angle-right"
-                                                        aria-hidden="true"></i></a></li>
-                                        </ul>
-                                        <div class="result-count">
-                                            <p class="txt-count"><b>1-5</b> of <b>126</b> reviews</p>
-                                            <a href="#" class="link-to">See all<i class="fa fa-caret-right"
-                                                    aria-hidden="true"></i></a>
-                                        </div>
+                                        @else
                                     </div>
-                                </div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -299,5 +402,4 @@
             </div>
         </div>
     </div>
-
 @endsection

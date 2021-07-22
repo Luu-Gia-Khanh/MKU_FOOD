@@ -161,6 +161,9 @@ Route::prefix('admin')->group(function () {
     Route::post('confirm_delivery_success_order', 'OrderController@confirm_delivery_success_order');
     Route::post('search_order', 'OrderController@search_order');
 
+    //DISCOUNT PRODUCT
+    Route::get('all_discount', 'DiscountController@test');
+
 });
 
 // FONT END
@@ -168,6 +171,13 @@ Route::prefix('admin')->group(function () {
 //USER
 Route::get('/', 'HomeClientController@index');
 Route::get('product_detail/{product_id}', 'HomeClientController@product_detail');
+//comment_rating
+Route::post('add_comment_rating', 'HomeClientController@add_comment_rating');
+Route::post('load_comment', 'HomeClientController@load_comment');
+Route::post('load_more_comment', 'HomeClientController@load_more_comment');
+Route::post('like_comment', 'HomeClientController@like_comment');
+
+
 Route::post('load_detail_product', 'HomeClientController@load_detail_product');
 Route::get('user/account', 'AccountController@show_account');
 Route::get('user/address', 'AccountController@address_account');

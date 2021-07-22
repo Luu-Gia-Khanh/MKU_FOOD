@@ -135,8 +135,8 @@ class ProductController extends Controller
             $day_cre = date('d', strtotime($time_cre));
             $month_cre = date('m', strtotime($time_cre));
             $year_cre = date('Y', strtotime($time_cre));
-            $check_time = $day_now - $day_cre;
-            if($check_time > 1 && $month_now == $month_cre && $year_cre == $year_now){
+            $check_time = $this->convert_day($month_now, $day_now) - $this->convert_day($month_cre, $day_cre);
+            if($check_time > 1 && $year_cre == $year_now){
                 DB::table('product')->where('product_id',$prod->product_id)->update(['is_new'=>0]);
             }else{
                 DB::table('product')->where('product_id',$prod->product_id)->update(['is_new'=>1]);
@@ -396,5 +396,47 @@ class ProductController extends Controller
             'product_sort_desc.required' => 'Bạn không được để trống',
             'product_desc.required' => 'Mô tả sản phẩm không được để trống',
         ]);
+    }
+    public function convert_day($month, $date){
+        $num_day = 0;
+        switch ($month) {
+            case 1:
+                $num_day = $date + 31;
+                break;
+            case 2:
+                $num_day = $date + 28;
+                break;
+            case 3:
+                $num_day = $date + 31;
+                break;
+            case 4:
+                $num_day = $date + 30;
+                break;
+            case 5:
+                $num_day = $date + 31;
+                break;
+            case 6:
+                $num_day = $date + 30;
+                break;
+            case 7:
+                $num_day = $date + 31;
+                break;
+            case 8:
+                $num_day = $date + 31;
+                break;
+            case 9:
+                $num_day = $date + 30;
+                break;
+            case 10:
+                $num_day = $date + 31;
+                break;
+            case 11:
+                $num_day = $date + 30;
+                break;
+            case 12:
+                $num_day = $date + 31;
+                break;
+        }
+        return $num_day;
     }
 }

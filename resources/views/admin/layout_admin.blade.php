@@ -21,6 +21,8 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('public/back_end/src/plugins/datatables/css/dataTables.bootstrap4.min.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('public/back_end/src/plugins/datatables/css/responsive.bootstrap4.min.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('public/back_end/vendors/styles/style.css') }}">
+    <!-- bootstrap-tagsinput css -->
+	<link rel="stylesheet" type="text/css" href="{{ asset('public/back_end/src/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css') }}">
     {{-- sort table --}}
     <link rel="stylesheet" type="text/css" href="{{ asset('public/back_end/sort_table/Contents/bootstrap-sortable.css') }}">
 
@@ -79,6 +81,9 @@
     <script src="{{ asset('public/back_end/src/scripts/find_ajax_product.js') }}"></script>
     <script src="{{ asset('public/back_end/ckeditor/ckeditor.js') }}"></script>
     <script src="{{ asset('public/back_end/src/scripts/ckeditor_custom.js') }}"></script>
+    <!-- bootstrap-tagsinput js -->
+	<script src="{{ asset('public/back_end/src/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js') }}"></script>
     <script src="{{ asset('public/back_end/src/scripts/custom_order.js') }}"></script>
+    <script src="{{ asset('public/back_end/src/scripts/discount_custom.js') }}"></script>
 </body>
 </html>

@@ -69,6 +69,16 @@
                         <li><a href="{{ URL::to('admin/all_order') }}">Đã Hủy</a></li>
                     </ul>
                 </li>
+
+                {{-- DISCOUNT --}}
+                <li class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <span class="micon icon-copy ti-harddrives"></span><span class="mtext">Giảm Giá</span>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="{{ URL::to('admin/all_discount') }}">Danh Sách Giảm Giá</a></li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>
