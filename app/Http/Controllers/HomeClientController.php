@@ -64,4 +64,19 @@ class HomeClientController extends Controller
             'product_storage' =>$product_storage,
         ]);
     }
+    public function shop_product(){
+        $customer_id = Session::get('customer_id');
+        $all_category = Category::all();
+        $all_product = Product::all();
+        $all_price = ProductPrice::where('status',1)->get();
+        $all_cart = Cart::where('customer_id', $customer_id)->where('status', 1)->get();
+        $product_storage = Storage_Product::all();
+        return view('client.home.shop_product', [
+            'all_category'=>$all_category,
+            'all_product'=>$all_product,
+            'all_price' =>$all_price,
+            'all_cart' => $all_cart,
+            'product_storage' => $product_storage,
+        ]);
+    }
 }
