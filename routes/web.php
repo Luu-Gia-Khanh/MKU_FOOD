@@ -10,6 +10,13 @@ use App\Mail\verify;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 
+// LOGIN SOCIAL
+Route::get('/login_facebook','LoginSocialController@login_facebook');
+Route::get('/callback','LoginSocialController@callback_facebook');
+
+Route::get('login_google','LoginSocialController@login_google');
+Route::get('/google/callback','LoginSocialController@callback_google');
+
 // LOGIN ADDMIN
 Route::get('login', 'AuthController@show_login');
 Route::post('process_login', 'AuthController@process_login');
@@ -235,6 +242,8 @@ Route::post('process_checkout', 'CheckOutController@process_checkout');
 Route::post('paypal_check_out', 'CheckOutController@paypal_check_out');
 Route::get('check_out_success', 'CheckOutController@check_out_success');
 
+//SHOP PRODUCT
+Route::get('shop_product', 'HomeClientController@shop_product');
 
 // ADDRESS ADD ADDRESS ADMIN LOAD
 Route::post('admin/load_district', 'AddressController@load_district');
