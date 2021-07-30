@@ -26,9 +26,11 @@
 }
 .op-0{
     opacity: 0;
+    visibility: hidden;
 }
 .op-1{
     opacity: 1;
+    visibility: visible;
 }
 .font-size-text{
     font-size: 14px;
@@ -64,3 +66,10 @@
 .btn.btn-lg.btn-block .btn-login:hover{
     background-color: #69a82f;
 }
+.dis_none{
+    display: none;
+}
+.dis_block{
+    display: block;
+}
+

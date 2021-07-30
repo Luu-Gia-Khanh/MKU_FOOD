@@ -169,7 +169,20 @@ Route::prefix('admin')->group(function () {
     Route::post('search_order', 'OrderController@search_order');
 
     //DISCOUNT PRODUCT
-    Route::get('all_discount', 'DiscountController@test');
+    Route::get('all_discount', 'DiscountController@all_discount');
+    Route::get('add_discount', 'DiscountController@add_discount');
+    Route::get('update_discount/{discount_id}', 'DiscountController@update_discount');
+    Route::get('detail_discount/{discount_id}', 'DiscountController@detail_discount');
+
+    Route::post('process_add_discount', 'DiscountController@process_add_discount');
+    Route::post('check_val_discount', 'DiscountController@check_val_discount');
+    Route::post('check_val_discount_2', 'DiscountController@check_val_discount_2');
+    Route::post('check_val_discount_update', 'DiscountController@check_val_discount_update');
+    Route::post('check_val_discount_update_2', 'DiscountController@check_val_discount_update_2');
+    //Route::post('search_product_discount', 'DiscountController@search_product_discount');
+    Route::post('process_update_discount/{discount_id}', 'DiscountController@process_update_discount');
+    Route::post('delete_discount', 'DiscountController@delete_discount');
+
 
 });
 
@@ -178,11 +191,14 @@ Route::prefix('admin')->group(function () {
 //USER
 Route::get('/', 'HomeClientController@index');
 Route::get('product_detail/{product_id}', 'HomeClientController@product_detail');
+
 //comment_rating
 Route::post('add_comment_rating', 'HomeClientController@add_comment_rating');
 Route::post('load_comment', 'HomeClientController@load_comment');
 Route::post('load_more_comment', 'HomeClientController@load_more_comment');
 Route::post('like_comment', 'HomeClientController@like_comment');
+Route::post('delete_comment', 'HomeClientController@delete_comment');
+Route::post('update_comment', 'HomeClientController@update_comment');
 
 
 Route::post('load_detail_product', 'HomeClientController@load_detail_product');

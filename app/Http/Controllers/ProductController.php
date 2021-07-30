@@ -401,40 +401,40 @@ class ProductController extends Controller
         $num_day = 0;
         switch ($month) {
             case 1:
-                $num_day = $date + 31;
+                $num_day = $date + $month*31;
                 break;
             case 2:
-                $num_day = $date + 28;
+                $num_day = $date + $month*28;
                 break;
             case 3:
-                $num_day = $date + 31;
+                $num_day = $date + $month*31;
                 break;
             case 4:
-                $num_day = $date + 30;
+                $num_day = $date + $month*30;
                 break;
             case 5:
-                $num_day = $date + 31;
+                $num_day = $date + $month*31;
                 break;
             case 6:
-                $num_day = $date + 30;
+                $num_day = $date + $month*30;
                 break;
             case 7:
-                $num_day = $date + 31;
+                $num_day = $date + $month*31;
                 break;
             case 8:
-                $num_day = $date + 31;
+                $num_day = $date + $month*31;
                 break;
             case 9:
-                $num_day = $date + 30;
+                $num_day = $date + $month*30;
                 break;
             case 10:
-                $num_day = $date + 31;
+                $num_day = $date + $month*31;
                 break;
             case 11:
-                $num_day = $date + 30;
+                $num_day = $date + $month*30;
                 break;
             case 12:
-                $num_day = $date + 31;
+                $num_day = $date + $month*31;
                 break;
         }
         return $num_day;

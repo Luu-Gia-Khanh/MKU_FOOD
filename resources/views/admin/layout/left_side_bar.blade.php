@@ -77,6 +77,7 @@
                     </a>
                     <ul class="submenu">
                         <li><a href="{{ URL::to('admin/all_discount') }}">Danh Sách Giảm Giá</a></li>
+                        <li><a href="{{ URL::to('admin/add_discount') }}">Thêm Giảm Giá</a></li>
                     </ul>
                 </li>
             </ul>

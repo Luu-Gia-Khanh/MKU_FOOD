@@ -21,6 +21,8 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('public/back_end/src/plugins/datatables/css/dataTables.bootstrap4.min.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('public/back_end/src/plugins/datatables/css/responsive.bootstrap4.min.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('public/back_end/vendors/styles/style.css') }}">
+    {{-- sweetaler --}}
+    <link rel="stylesheet" href="{{ asset('public/font_end/custom/sweet.css') }}">
     <!-- bootstrap-tagsinput css -->
 	<link rel="stylesheet" type="text/css" href="{{ asset('public/back_end/src/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css') }}">
     {{-- sort table --}}
@@ -48,6 +50,7 @@
 	</div>
 	<!-- js -->
 	<script src="{{ asset('public/back_end/vendors/scripts/core.js') }}"></script>
+	<script src="{{ asset('public/back_end/vendors/scripts/script.min.j') }}s"></script>
 	<script src="{{ asset('public/back_end/vendors/scripts/script.min.j') }}s"></script>
 	<script src="{{ asset('public/back_end/vendors/scripts/process.js') }}"></script>
 	<script src="{{ asset('public/back_end/vendors/scripts/layout-settings.js') }}"></script>
@@ -81,6 +84,10 @@
     <script src="{{ asset('public/back_end/src/scripts/find_ajax_product.js') }}"></script>
     <script src="{{ asset('public/back_end/ckeditor/ckeditor.js') }}"></script>
     <script src="{{ asset('public/back_end/src/scripts/ckeditor_custom.js') }}"></script>
+    {{-- sweetaler --}}
+    <script src="{{ asset('public/font_end/custom/sweet.js') }}"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!-- bootstrap-tagsinput js -->
 	<script src="{{ asset('public/back_end/src/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js') }}"></script>
     <script src="{{ asset('public/back_end/src/scripts/custom_order.js') }}"></script>

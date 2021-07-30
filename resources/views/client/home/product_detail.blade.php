@@ -1,5 +1,26 @@
 @extends('client.layout_client')
 @section('content_body')
+@php
+    $total_comment = count($all_comment_to_count);
+    if ($total_comment != 0){
+        $persen_rating_5 = number_format(($rating_5/$total_comment)*100,0,",",".");
+        $persen_rating_4 = number_format(($rating_4/$total_comment)*100,0,",",".");
+        $persen_rating_3 = number_format(($rating_3/$total_comment)*100,0,",",".");
+        $persen_rating_2 = number_format(($rating_2/$total_comment)*100,0,",",".");
+        $persen_rating_1 = 100-$persen_rating_5-$persen_rating_4-$persen_rating_3-$persen_rating_2;
+
+        $avg_rating = (($rating_5*5)+($rating_4*4)+($rating_3*3)+($rating_2*2)+($rating_1*1))/$total_comment;
+    }
+    else{
+        $persen_rating_5 = 0;
+        $persen_rating_4 = 0;
+        $persen_rating_3 = 0;
+        $persen_rating_2 = 0;
+        $persen_rating_1 = 0;
+        $avg_rating = 0;
+    }
+
+@endphp
 <link rel="stylesheet" href="{{ asset('public/font_end/custom/custom.css') }}">
     <div class="container">
         <nav class="biolife-nav">
@@ -43,8 +64,8 @@
                     <div class="product-attribute">
                         <h3 class="title">{{ $product->product_name }}</h3>
                         <div class="rating">
-                            <p class="star-rating"><span class="width-80percent"></span></p>
-                            <span class="review-count">(04 Reviews)</span>
+                            <p class="star-rating"><span class="width-80percent" style="width: {{ $avg_rating*20 }}%"></span></p>
+                            <span class="review-count count_comment_on_detail">({{ count($all_comment_to_count) }} đánh giá)</span>
                             <span class="qa-text">Q&amp;A</span>
                             <b class="category">danh mục: {{ $cate->cate_name }}</b>
                         </div>
@@ -139,27 +160,7 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
-                                        @php
-                                            $total_comment = count($all_comment_to_count);
-                                            if ($total_comment != 0){
-                                                $persen_rating_5 = number_format(($rating_5/$total_comment)*100,0,",",".");
-                                                $persen_rating_4 = number_format(($rating_4/$total_comment)*100,0,",",".");
-                                                $persen_rating_3 = number_format(($rating_3/$total_comment)*100,0,",",".");
-                                                $persen_rating_2 = number_format(($rating_2/$total_comment)*100,0,",",".");
-                                                $persen_rating_1 = 100-$persen_rating_5-$persen_rating_4-$persen_rating_3-$persen_rating_2;
 
-                                                $avg_rating = (($rating_5*5)+($rating_4*4)+($rating_3*3)+($rating_2*2)+($rating_1*1))/$total_comment;
-                                            }
-                                            else{
-                                                $persen_rating_5 = 0;
-                                                $persen_rating_4 = 0;
-                                                $persen_rating_3 = 0;
-                                                $persen_rating_2 = 0;
-                                                $persen_rating_1 = 0;
-                                                $avg_rating = 0;
-                                            }
-
-                                        @endphp
                                         <div class="rating-info">
                                             <p class="index" style="font-size: 18px; font-weight: bold"><strong class="rating">{{ number_format($avg_rating,1,".",".") }}</strong>trên 5</p>
                                             <div class="rating">
@@ -233,25 +234,25 @@
                                     <div class="col-lg-7 col-md-7 col-sm-6 col-xs-12">
                                         @if (Session::get('able_rating_comment_'.$product->product_id))
                                             <div class="review-form-wrapper">
-                                                <span class="title">Submit your review</span>
+                                                <span class="title">đánh giá sản phẩm</span>
                                                     <div class="comment-form-rating">
-                                                        <label>1. Your rating of this products:</label>
+                                                        <label>1. Bạn cảm thấy sản phẩm này như thế nào ?</label>
                                                         <p class="stars">
                                                             <span>
                                                                 <a class="btn-rating choose_rating" data-value="1" href="#">
-                                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                                    <i class="fa fa-star-o" aria-hidden="true" style="font-size: 18px"></i>
                                                                 </a>
                                                                 <a class="btn-rating choose_rating" data-value="2" href="#">
-                                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                                    <i class="fa fa-star-o" aria-hidden="true" style="font-size: 18px"></i>
                                                                 </a>
                                                                 <a class="btn-rating choose_rating" data-value="3" href="#">
-                                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                                    <i class="fa fa-star-o" aria-hidden="true" style="font-size: 18px"></i>
                                                                 </a>
                                                                 <a class="btn-rating choose_rating" data-value="4" href="#">
-                                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                                    <i class="fa fa-star-o" aria-hidden="true" style="font-size: 18px"></i>
                                                                 </a>
                                                                 <a class="btn-rating choose_rating" data-value="5" href="#">
-                                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                                    <i class="fa fa-star-o" aria-hidden="true" style="font-size: 18px"></i>
                                                                 </a>
                                                             </span>
                                                         </p>
@@ -259,10 +260,10 @@
                                                     <p class="form-row">
                                                         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                                                         <textarea name="comment" class="comment_message" id="txt_comment" cols="30" rows="10"
-                                                            placeholder="Write your review here..."></textarea>
+                                                            placeholder="Viết đánh giá của bạn về sản phẩm này..."></textarea>
                                                     </p>
                                                     <p class="form-row">
-                                                        <button type="submit" name="submit" class="send_comment_rating">submit review</button>
+                                                        <button type="submit" name="submit" class="send_comment_rating">Gửi đánh giá</button>
                                                     </p>
                                             </div>
                                         @endif
@@ -274,7 +275,7 @@
                                             @if (count($all_comment) > 0)
                                                 @foreach ($all_comment as $comment)
                                                     @foreach ($all_rating as $rating)
-                                                        @if ($comment->customer_id == $rating->customer_id && $comment->product_id == $rating->product_id && $comment->created_at == $rating->created_at)
+                                                        @if ($comment->comment_id == $rating->rating_id && $comment->customer_id == $rating->customer_id && $comment->product_id == $rating->product_id && $comment->created_at == $rating->created_at)
                                                             <li class="review">
                                                                 <div class="comment-container">
                                                                     <div class="row">
@@ -324,11 +325,35 @@
                                                                                         @endif
                                                                                     @endforeach
                                                                                     <span class="post-date date-comment">{{ date("d/m/Y H:i a", strtotime($comment->created_at)) }}</span>
+                                                                                    @if (Session::get('customer_id') == $comment->customer_id)
+                                                                                        <div class="option_comment">
+                                                                                            <div class="dropdown_option_comment">
+                                                                                                <i class="fa fa-ellipsis-h dot"></i>
+                                                                                                <div class="dropdown_content_option_comment">
+                                                                                                    <a class="btn_open_modal_delete_comment btn_delete_comment" style="cursor: pointer;" data-id="{{ $comment->comment_id }}">
+                                                                                                        <i class="fa fa-trash-o" aria-hidden="true"></i> xóa
+                                                                                                    </a>
+                                                                                                    <a style="cursor: pointer;" class="btn_update_comment" data-id="{{ $comment->comment_id }}">
+                                                                                                        <i class="fa fa-pencil" aria-hidden="true"></i> sửa
+                                                                                                    </a>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    @endif
                                                                                 {{-- </p> --}}
                                                                             </div>
 
                                                                             <p class="author place_order" style="margin-left: 70px"><i class="fa fa-check-circle" style="color: #7faf51"></i> đã mua tại <b class="brand_mku">MKU_FOOD</b></p>
-                                                                            <p class="comment-text comment_message" style="font-size: 15px">{{ $comment->comment_message }}</p>
+                                                                            <p class="comment-text comment_message comment_message_{{ $comment->comment_id }}" style="font-size: 15px">{{ $comment->comment_message }}</p>
+                                                                            <div class="content_area_update_comment content_area_update_comment_{{ $comment->comment_id }}">
+
+                                                                            <textarea class="area_update_comment area_update_comment_{{ $comment->comment_id }}" style="padding: 2px 5px ">{{ $comment->comment_message }}</textarea>
+                                                                            <div class="content_btn_update_comment">
+                                                                                <button class="btn btn-secondary btn_huy_update_comment" data-id="{{ $comment->comment_id }}">Hủy</button>
+                                                                                <button class="btn btn-success btn_confirm_update_comment" data-id="{{ $comment->comment_id }}">Sửa</button>
+                                                                            </div>
+                                                                            </div>
+
                                                                         </div>
                                                                         <div
                                                                             class="comment-review-form col-lg-3 col-lg-offset-1 col-md-3 col-sm-4 col-xs-12">
@@ -359,6 +384,7 @@
                                                                                 </li> --}}
                                                                             </ul>
                                                                         </div>
+
                                                                     </div>
                                                                 </div>
                                                             </li>
@@ -387,7 +413,7 @@
                                                 <div class="result-count">
 
                                                     {{-- <p class="txt-count"><b>1-5</b> of <b>126</b> reviews</p> --}}
-                                                    <a class="link-to load_more_comment" style="cursor: pointer;">Xem Thêm...<i class="fa fa-caret-right"
+                                                    <a class="link-to load_more_comment" style="cursor: pointer;">Xem Thêm<i class="fa fa-caret-right"
                                                             aria-hidden="true"></i></a>
                                                 </div>
                                             </div>
@@ -399,6 +425,28 @@
                     </div>
                 </div>
                 {{-- realative product --}}
+            </div>
+        </div>
+    </div>
+    <!-- The Modal Add Address Trans -->
+    <div class="modal_delete_comment modal">
+        <!-- Modal content -->
+        <div class="modal-content container">
+            <div class="modal-header-cus modal-header-delete_comment">
+                <span class="close close_modal_delete_comment">&times;</span>
+                <h4 style="padding: 10px">Thông Báo</h4>
+            </div>
+            <div class="modal-body-cus" style="background: #f8f8f8">
+                    <form>
+                        @csrf
+                        <div class="">Bạn muốn xóa đánh giá này ?</div>
+                        <input type="hidden" value="" class="val_hidden_comment_to_delete">
+                    </form>
+            </div>
+            <div class="content-modal-footer-address">
+                <button class="btn btn-success btn_confirm_delete_comment" style="margin-right: 10px">Xóa</button>
+                <button class="btn btn-secondary btn_back_modal_address">Hủy</button>
+
             </div>
         </div>
     </div>

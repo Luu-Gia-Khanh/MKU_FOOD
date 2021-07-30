@@ -53,20 +53,69 @@
                                 @endforeach
                                 <span
                                     class="post-date date-comment">{{ date('d/m/Y H:i a', strtotime($comment->created_at)) }}</span>
+                                @if (Session::get('customer_id') == $comment->customer_id)
+                                    <div class="option_comment">
+                                        <div class="dropdown_option_comment">
+                                            <i class="fa fa-ellipsis-h dot"></i>
+                                            <div class="dropdown_content_option_comment">
+                                                <a class="btn_open_modal_delete_comment btn_delete_comment" style="cursor: pointer;" data-id="{{ $comment->comment_id }}">
+                                                    <i class="fa fa-trash-o" aria-hidden="true"></i> xóa
+                                                </a>
+                                                <a style="cursor: pointer;" class="btn_update_comment" data-id="{{ $comment->comment_id }}">
+                                                    <i class="fa fa-pencil" aria-hidden="true"></i> sửa
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
                                 {{-- </p> --}}
                             </div>
 
                             <p class="author place_order" style="margin-left: 70px"><i class="fa fa-check-circle"
                                     style="color: #7faf51"></i> đã mua tại <b class="brand_mku">MKU_FOOD</b></p>
-                            <p class="comment-text comment_message" style="font-size: 15px">
-                                {{ $comment->comment_message }}</p>
+                            <p class="comment-text comment_message comment_message_{{ $comment->comment_id }}"
+                                style="font-size: 15px">{{ $comment->comment_message }}</p>
+                            <div
+                                class="content_area_update_comment content_area_update_comment_{{ $comment->comment_id }}">
+
+                                <textarea class="area_update_comment area_update_comment_{{ $comment->comment_id }}"
+                                    style="padding: 2px 5px ">{{ $comment->comment_message }}</textarea>
+                                <div class="content_btn_update_comment">
+                                    <button class="btn btn-secondary btn_huy_update_comment"
+                                        data-id="{{ $comment->comment_id }}">Hủy</button>
+                                    <button class="btn btn-success btn_confirm_update_comment"
+                                        data-id="{{ $comment->comment_id }}">Sửa</button>
+                                </div>
+                            </div>
+
                         </div>
                         <div class="comment-review-form col-lg-3 col-lg-offset-1 col-md-3 col-sm-4 col-xs-12">
-                            <span class="title">Was this review helpful?</span>
+                            <span class="title">Đánh giá này có hữu ích?</span>
                             <ul class="actions">
-                                <li><a href="#" class="btn-act like" data-type="like"><i class="fa fa-thumbs-up"
-                                            aria-hidden="true"></i>Yes
-                                        (100)</a></li>
+                                @php
+                                    $session = Session::get('user_like_comment_' . $comment->comment_id);
+                                @endphp
+                                @if (isset($session))
+                                    <li><a class="btn-act like btn_useful_comment btn_useful_comment_{{ $comment->comment_id }}"
+                                            style="color: #7faf51; cursor: pointer;"
+                                            data-id="{{ $comment->comment_id }}">
+                                            <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                                            <span class="txt_count_comment_useful_{{ $comment->comment_id }}">Hữu ích
+                                                ({{ $comment->comment_useful }})</span>
+                                        </a></li>
+                                    <input type="hidden" class="hidden_check_comment_like_{{ $comment->comment_id }}"
+                                        name="" id="" value="{{ $session }}">
+                                @else
+                                    <li><a class="btn-act like btn_useful_comment btn_useful_comment_{{ $comment->comment_id }}"
+                                            style="cursor: pointer;" data-id="{{ $comment->comment_id }}">
+                                            <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                                            <span class="txt_count_comment_useful_{{ $comment->comment_id }}">Hữu ích
+                                                ({{ $comment->comment_useful }})</span>
+                                        </a></li>
+                                    <input type="hidden" class="hidden_check_comment_like_{{ $comment->comment_id }}"
+                                        name="" id="" value="{{ $session }}">
+                                @endif
+
                                 {{-- <li><a href="#" class="btn-act hate" data-type="dislike"><i
                                                                                             class="fa fa-thumbs-down" aria-hidden="true"></i>No
                                                                                         (20)</a></li>
@@ -75,9 +124,12 @@
                                                                                 </li> --}}
                             </ul>
                         </div>
+
                     </div>
                 </div>
             </li>
         @endif
     @endforeach
 @endforeach
+<script src="{{ asset('public/font_end/assets/js/jquery-3.4.1.min.js') }}"></script>
+<script src="{{ asset('public/font_end/custom/rating_comment.js') }}"></script>

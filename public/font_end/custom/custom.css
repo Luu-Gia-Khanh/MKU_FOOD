@@ -111,9 +111,61 @@ input[type=number] {
 .date-comment{
     position: absolute;
     top: 0;
-    right: 0;
+    right: 80px;
     font-size: 15px;
 }
+.option_comment{
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-right: 1px solid #f1f1f1;
+    height: 150px;
+    padding-right: 40px;
+    display: flex;
+    flex-direction: column;
+}
+.content_option{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+.dot{
+    font-size: 19px;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+/*  */
+.dropdown_option_comment {
+    position: relative;
+    display: inline-block;
+  }
+  .dropdown_content_option_comment {
+    display: none;
+    position: absolute;
+    background-color: #ffff;
+    min-width: 100px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+
+  .dropdown_content_option_comment a {
+    color: black;
+    padding: 6px 8px;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+  }
+
+  .dropdown_content_option_comment a:hover {background-color: rgb(248, 246, 246)}
+
+  .dropdown_option_comment:hover .dropdown_content_option_comment {
+    display: block;
+  }
+
+/*  */
+
+
 .comment_message{
     padding-left: 70px;
     padding-top: 5px;
@@ -127,4 +179,99 @@ input[type=number] {
 .brand_mku{
     font-size: 14px;
     color: #7faf51;
+}
+
+/* modal */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 100; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    border-radius: 2px;
+    padding: 0;
+    border: 1px solid #888;
+    width: 45%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+}
+.content-modal-footer-address{
+    padding: 20px;
+    display: flex;
+    justify-content:flex-end;
+}
+.close_modal_delete_comment{
+    padding-right: 10px;
+}
+.modal-header-delete_comment{
+    height: 50px;
+    background-color:#ffff;
+}
+.modal-body-cus{
+    padding: 20px;
+    /* background: #f1f1f1; */
+}
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {
+        top: -300px;
+        opacity: 0;
+    }
+    to {
+        top: 0;
+        opacity: 1;
+    }
+}
+
+@keyframes animatetop {
+    from {
+        top: -300px;
+        opacity: 0;
+    }
+    to {
+        top: 0;
+        opacity: 1;
+    }
+}
+
+/* ui update comment */
+.content_area_update_comment{
+    padding-left: 70px;
+    padding-top: 5px;
+    display: none;
+}
+.area_update_comment{
+    width: 700px;
+    height: auto;
+    border: 1px solid #7faf51;
+}
+.show_update_comment{
+    display: block;
+}
+.hidden_comment_message{
+    display: none;
+}
+.content_btn_update_comment{
+    padding-top: 10px;
+    display: flex;
+    justify-content: flex-end;
+}
+.btn_huy_update_comment{
+    margin-right: 5px;
 }

@@ -134,40 +134,40 @@ class HomeClientController extends Controller
         $num_day = 0;
         switch ($month) {
             case 1:
-                $num_day = $date + 31;
+                $num_day = $date + $month*31;
                 break;
             case 2:
-                $num_day = $date + 28;
+                $num_day = $date + $month*28;
                 break;
             case 3:
-                $num_day = $date + 31;
+                $num_day = $date + $month*31;
                 break;
             case 4:
-                $num_day = $date + 30;
+                $num_day = $date + $month*30;
                 break;
             case 5:
-                $num_day = $date + 31;
+                $num_day = $date + $month*31;
                 break;
             case 6:
-                $num_day = $date + 30;
+                $num_day = $date + $month*30;
                 break;
             case 7:
-                $num_day = $date + 31;
+                $num_day = $date + $month*31;
                 break;
             case 8:
-                $num_day = $date + 31;
+                $num_day = $date + $month*31;
                 break;
             case 9:
-                $num_day = $date + 30;
+                $num_day = $date + $month*30;
                 break;
             case 10:
-                $num_day = $date + 31;
+                $num_day = $date + $month*31;
                 break;
             case 11:
-                $num_day = $date + 30;
+                $num_day = $date + $month*30;
                 break;
             case 12:
-                $num_day = $date + 31;
+                $num_day = $date + $month*31;
                 break;
         }
         return $num_day;
@@ -258,6 +258,28 @@ class HomeClientController extends Controller
             'all_cart' => $all_cart,
             'product_storage' => $product_storage,
         ]);
+    }
+    public function delete_comment(Request $request){
+        $comment_id = $request->comment_id;
+
+        $delete_comment = Comment::find($comment_id);
+        $delete_comment->delete();
+
+        $delete_rating = Rating::find($comment_id);
+        $delete_rating->delete();
+    }
+    public function update_comment(Request $request){
+        $comment_id = $request->comment_id;
+        $comment_message = $request->comment_message;
+
+        $update_comment = Comment::find($comment_id);
+        $update_comment->comment_message = $comment_message;
+        $update_comment->created_at = Carbon::now('Asia/Ho_Chi_Minh');
+        $update_comment->save();
+
+        $update_rating = Rating::find($comment_id);
+        $update_rating->created_at = Carbon::now('Asia/Ho_Chi_Minh');
+        $update_rating->save();
     }
 
 }
