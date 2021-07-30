@@ -168,6 +168,24 @@ Route::prefix('admin')->group(function () {
     Route::post('confirm_delivery_success_order', 'OrderController@confirm_delivery_success_order');
     Route::post('search_order', 'OrderController@search_order');
 
+    // VOUCHER PRODUCT
+    Route::get('all_voucher', 'VoucherController@all_voucher');
+    Route::get('detail_voucher/{voucher_id}', 'VoucherController@detail_voucher');
+    Route::get('add_voucher', 'VoucherController@add_voucher');
+    Route::get('update_voucher/{voucher_id}', 'VoucherController@update_voucher');
+    Route::post('process_add_voucher', 'VoucherController@process_add_voucher');
+    Route::post('process_update_voucher/{voucher_id}', 'VoucherController@process_update_voucher');
+    Route::post('get_voucher_id', 'VoucherController@get_voucher_id');
+    Route::post('get_voucher_name', 'VoucherController@get_voucher_name');
+    Route::post('get_voucher_product', 'VoucherController@get_voucher_product');
+    Route::post('get_voucher_start_date', 'VoucherController@get_voucher_start_date');
+    Route::post('get_voucher_end_date', 'VoucherController@get_voucher_end_date');
+    Route::post('get_voucher_quantity', 'VoucherController@get_voucher_quantity');
+    Route::post('get_voucher_amount', 'VoucherController@get_voucher_amount');
+    Route::post('get_voucher_status', 'VoucherController@get_voucher_status');
+
+    Route::get('find_voucher', 'VoucherController@find_voucher');
+
     //DISCOUNT PRODUCT
     Route::get('all_discount', 'DiscountController@all_discount');
     Route::get('add_discount', 'DiscountController@add_discount');

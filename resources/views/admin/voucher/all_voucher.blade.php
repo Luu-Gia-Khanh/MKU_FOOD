@@ -1,0 +1,235 @@
+@extends('admin.layout_admin')
+<link rel="stylesheet" href="{{ asset('public/back_end/custom_voucher/modal_voucher_css.css') }}">
+@section('container')
+    <div class="min-height-200px">
+        <div class="page-header">
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <nav aria-label="breadcrumb" role="navigation">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{ URL::to('admin/dashboard') }}">Trang chủ</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Danh sách Voucher</li>
+                        </ol>
+                    </nav>
+                </div>
+
+                <div class="col-md-6 col-sm-12">
+                    {{-- <div class="dropdown">
+                    <a class="btn btn-primary dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                        January 2018
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="#">Export List</a>
+                        <a class="dropdown-item" href="#">Policies</a>
+                        <a class="dropdown-item" href="#">View Assets</a>
+                    </div>
+                </div> --}}
+                </div>
+            </div>
+        </div>
+
+        <div class="card-box mb-30">
+            @if (session('success_add_category'))
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        {{ session('success_add_category') }}
+                    </div>
+                @endif
+        </div>
+
+        <div class="card-box mb-30">
+            @if (session('success_update_category'))
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        {{ session('success_update_category') }}
+                    </div>
+                @endif
+        </div>
+
+        <div class="card-box mb-30">
+            @if (session('success_delete_soft_category'))
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        {{ session('success_delete_soft_category') }}
+                    </div>
+                @endif
+        </div>
+
+        <div class="card-box mb-30">
+            @if (session('success_delete_category'))
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        {{ session('success_delete_category') }}
+                    </div>
+                @endif
+        </div>
+
+        <!-- Simple Datatable start -->
+        <div class="card-box mb-30">
+            <div class="row pd-20">
+                <div class="col-10 pd-20">
+                    <h4 class="text-blue h4">Danh Sách Voucher</h4>
+                </div>
+                <div class="col-2 mt-4">
+                    <a href="{{ URL::to('admin/add_voucher') }}" class="btn color-btn-them float-right" style="width: max-content;">Thêm Voucher</a>
+                </div>
+            </div>
+            <div class="pb-20">
+                <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer ">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6">
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <div id="DataTables_Table_0_filter" class="dataTables_filter">
+                                <form action="">
+                                    @csrf
+                                    <label>Tìm Kiếm:<input type="search" class="form-control form-control-sm" id="find_voucher" placeholder="Tìm Kiếm"
+                                        aria-controls="DataTables_Table_0"></label>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content_find_voucher">
+                        <div class="row">
+                            <div class="col-12 table-responsive">
+                                <table class="data-table table table-hover multiple-select-row nowrap no-footer dtr-inline sortable"
+                                id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                                    <thead>
+                                        <tr role="row" class="text-center">
+                                            <th style="width: 2%;" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                                                colspan="1">STT</th>
+                                            <th style="width: 11%;" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                                                colspan="1" data-defaultsort="disabled">Mã Voucher</th>
+                                            <th style="width: 26%;" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                                                colspan="1" data-defaultsign="AZ">Tên Voucher</th>
+                                            <th style="width: 17%;" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                                                colspan="1">Ngày Bắt Đầu</th>
+                                            <th style="width: 17%;" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                                                colspan="1">Ngày Kết Thúc</th>
+                                            <th style="width: 15%;" class="datatable-nosort sorting_disabled" rowspan="1" colspan="1"
+                                                aria-label="Action" data-defaultsort="disabled">Tình Trạng</th>
+                                            <th style="width: 12%;" class="datatable-nosort sorting_disabled" rowspan="1" colspan="1"
+                                                aria-label="Action" data-defaultsort="disabled">Thao Tác</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @php
+                                            $stt = 0;
+                                        @endphp
+                                        @foreach ($all_voucher as $voucher)
+                                            @php
+                                                $stt++;
+                                            @endphp
+                                        <tr role="row" class="odd text-center">
+                                            <td>{{ $stt }}</td>
+                                            <td>
+                                                {{ $voucher->voucher_code }}
+                                            </td>
+                                            <td class="text-left" id="voucher_name">
+                                                {{ $voucher->voucher_name }}
+                                            </td>
+                                            <td> 
+                                                {{ date("d-m-y H:i a", strtotime($voucher->start_date)) }}                                         
+                                            </td>
+                                            <td>
+                                                {{ date("d-m-y H:i a", strtotime($voucher->end_date)) }}                                              </td>
+                                            <td>
+                                                @if ($voucher->status == 1)
+                                                    <span class="badge badge-success" style="width: 105px;">Đang áp dụng</span>
+                                                @else
+                                                    <span class="badge badge-danger" style="width: 105px;">Ngưng áp dụng</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"
+                                                        href="#" role="button" data-toggle="dropdown">
+                                                        <i class="dw dw-more"></i>
+                                                    </a>
+
+                                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                                                        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                                                        <button class="dropdown-item btn_open_modal" data-id={{ $voucher->voucher_id }}><i class="dw dw-eye"></i>Xem chi tiết</button>
+                                                        <a class="dropdown-item" href="{{ URL::to('admin/update_voucher/'.$voucher->voucher_id) }}"><i class="dw dw-edit2"></i>Chỉnh Sửa</a>                                                    
+                                                    </div>
+                                                </div>                                            
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-5">
+                        </div>
+                        <div class="col-sm-12 col-md-7">
+                            <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
+                                <ul class="pagination">
+                                    {{-- {!! $all_category->links() !!} --}}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal_delete_order modal" id="modal_voucher_detail">
+            <!-- Modal content -->
+            <div class="modal-content container" style="max-width: 800px; height: 450px;">
+                <div class="modal-header-cus">
+                    <span class="close btn_close_modal">&times;</span>
+                    <h4>Chi Tiết Voucher</h4>
+                </div>
+                <div class="modal-body-cus">
+                    <div class="content" style="border-radius: 5px">
+                        <div class="content__voucher-top">
+                            <span class="voucher-label">Code:</span>
+                            <span class="voucher-text voucher_code"></span>
+                        </div>
+                        <div class="content__voucher-top">
+                            <span class="voucher-label">Tên voucher:</span>
+                            <span class="voucher-text voucher_name"></span>
+                        </div>
+                        <div class="content__voucher-top">
+                            <span class="voucher-label">Áp dụng cho sản phẩm:</span>
+                            <span class="voucher-text voucher_product"></span>
+                        </div>
+                        <div class="content__voucher-top">
+                            <span class="voucher-label">Ngày bắt đầu:</span>
+                            <span class="voucher-text voucher_start_date"></span>
+                        </div>
+                        <div class="content__voucher-top">
+                            <span class="voucher-label">Ngày kết thúc:</span>
+                            <span class="voucher-text voucher_end_date"></span>
+                        </div>
+                        
+                    </div>
+                    <div class="separation"></div>
+                    <div class="content" style="border-radius: 6px">
+                        <div class="content__voucher-info">
+                            <div class="content__voucher-info--amount">
+                                <span class="voucher-label">Số tiền được giảm:</span>
+                                <span class="voucher-text voucher_amount"></span>
+                            </div>
+                            <div class="content__voucher-info--quantity">
+                                <span class="voucher-label">Số lượng voucher:</span>
+                                <span class="voucher-text voucher_quantity"></span>
+                            </div>
+                            <div class="content__voucher-info--status">
+                                <span class="voucher-label">Trạng thái:</span>
+                                <span class="voucher-text voucher_status"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-modal-footer">
+                    <button class="btn btn-secondary btn_close_modal" style="margin-right: 10px">TRỞ LẠI</button>
+                </div>
+            </div>
+        </div>
+        <script src="{{ asset('public/font_end/assets/js/jquery-3.4.1.min.js') }}"></script>
+        <script src="{{ asset('public/back_end/custom_voucher/modal_voucher.js') }}"></script>
+        <script src="{{ asset('public/back_end/custom_voucher/search_voucher.js') }}"></script>
+    @endsection

@@ -17,6 +17,7 @@
 @section('content_body')
     {{-- checkout custom --}}
     <link rel="stylesheet" href="{{ asset('public/font_end/custom/checkout_custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/font_end/custom/voucher_checkout_custom.css') }}">
 
     <div class="content-checkout" style="background: rgb(245, 245, 245);">
         <div class="container">
@@ -250,6 +251,12 @@
                     </div>
                     <button type="button" class="btn-green btn-voucher col-2">ÁP DỤNG</button>
                 </div>
+                <div class="voucher__content-list">
+                    <div class="coupon">
+                      <div class="coupon-left"></div>
+                      <div class="coupon-con"></div>
+                    </div>
+                  </div>
             </div>
         </div>
     </div>

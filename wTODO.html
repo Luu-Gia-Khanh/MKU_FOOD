@@ -11,20 +11,24 @@ Products
  5/ quan lý don hang sau dat.
  -> xong co ban.(1 tháng 16/06 - 16/7) -> FINISH
 ///
-22/7->23/7 -> RECHECK
-26/7->30/7 2h 8/8(finish voucher discount)
+26/7->30/7 2h 6/8(finish voucher discount)
 khanh =>{
-    admin->discount => add discount(list check, find check)
-                    => update =>(remove prod, update date, update amout discount)
-
-}->tomorrow delete sofr discount(), detail discount
+    1/romove taginput -> remove checkbox -> (add,update)
+    2/ show price discount
+    3/ realtime ajax to add, to show detail mini, show cart mini
+    4/ check price cart -> up, down, update price
+    5/ check box ->show total price
+    6/ check out -> price check out
+}
 kha =>{
-    admin->voucher => add voucher
-                    =>update voucher
+    1/ address-> update_address (client)
+    2/ UI all Product->Voucher (admin) -> new design
+    3/ add admin action voucher
+    4/ show voucher product -> product_id -> save (storage voucher customer)
+    5/ show voucher checkout ->(get voucher -> storage_voucher_customer and choose product_id in checkout)
+    6/ storage voucher of account customer-> show all voucher(customer)
 }
 
-
-//
 //// memory
 1/ paypal
 2/ upload image ajax client
@@ -33,7 +37,4 @@ kha =>{
 5/ bug address
 6/ check qty summary last to checkout
 
-// note
-1/ address
-2/ UI show Voucher
-3/ admin action voucher
+

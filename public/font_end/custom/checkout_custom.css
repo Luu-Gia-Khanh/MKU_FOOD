@@ -889,5 +889,10 @@ td {
 .btn-voucher:last-child {
     margin-left: auto;
 }
-
+.container__voucher-list{
+    display: flex;
+    position: relative;
+    width: 100%;
+    margin-bottom: 10px;
+}
 

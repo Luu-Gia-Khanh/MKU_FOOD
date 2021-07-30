@@ -9,9 +9,8 @@
     <div class="container">
         <nav class="biolife-nav">
             <ul>
-                <li class="nav-item"><a href="index-2.html" class="permal-link">Home</a></li>
-                <li class="nav-item"><a href="#" class="permal-link">Natural Organic</a></li>
-                <li class="nav-item"><span class="current-page">Fresh Fruit</span></li>
+                <li class="nav-item"><a href="{{ URL::to('/') }}" class="permal-link">Trang chủ</a></li>
+                <li class="nav-item"><span class="current-page">Cửa hàng</span></li>
             </ul>
         </nav>
     </div>
@@ -28,16 +27,10 @@
                                 <div class="contain-product layout-02">
                                     <div class="contain-product layout-default">
                                         <div class="product-thumb">
-                                            <a href="{{ URL::to('product_detail/' . $product->product_id) }}"
-                                                class="link-to-product" style="height: 158px; width: 158px">
+                                            <a href="#" class="link-to-product">
                                                 <img src="{{ asset('public/upload/' . $product->product_image) }}"
-                                                    style="height: 158px; width: 158px" alt="Vegetables" width="270"
-                                                    height="270" class="product-thumnail">
+                                                    style="height: 158px; width: 158px" alt="Vegetables" class="product-thumnail">
                                             </a>
-                                            <span href="#" class="lookup get_val_quickview btn_call_quickview_detail btn_open_modal"
-                                                data-id="{{ $product->product_id }}"><i
-                                                    class="biolife-icon icon-search"></i></a>
-                                            <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                                         </div>
                                         <div class="info">
                                             <b class="categories">
@@ -47,54 +40,17 @@
                                                     @endif
                                                 @endforeach
                                             </b>
-                                            <h4 class="product-title"><a
-                                                    href="{{ URL::to('product_detail/' . $product->product_id) }}"
-                                                    class="">{{ $product->product_name }}</a></h4>
-                                            <div class="price ">
-                                                <ins>
-                                                    <span class="price-amount"><span class="currencySymbol">
-                                                            @foreach ($all_price as $price)
-                                                                @if ($price->product_id == $product->product_id)
-                                                                    {{ number_format($price->price, 0, ',', '.') }}
-                                                                    <sub>vnđ</sub>
-                                                                @endif
-                                                            @endforeach
-                                                        </span>
-                                                </ins>
-                                                {{-- <del><span class="price-amount"><span class="currencySymbol">£</span>95.00</span></del> --}}
-                                            </div>
-                                            <div class="slide-down-box">
-                                                <p class="message">
-                                                    @foreach ($product_storage as $prod_qty)
-                                                        @if ($prod_qty->product_id == $product->product_id)
-                                                            Kho: {{ $prod_qty->total_quantity_product }}
+                                            <h6 class="product-title" style="height: 50px; margin: 0 1px; font-size: 16px; line-height: 20px"><a href="#" class="pr-name">{{ $product->product_name }} like like like</a></h6>
+                                            <div class="price">
+                                                <del><span class="price-amount">95.00 vnđ</span></del><br>
+                                                <ins><span class="price-amount">
+                                                    @foreach ($all_price as $price)
+                                                        @if ($price->product_id == $product->product_id)
+                                                            {{ number_format($price->price, 0, ',', '.') }}
+                                                            <sub>vnđ</sub>
                                                         @endif
                                                     @endforeach
-                                                </p>
-                                                <div class="buttons">
-                                                    <a href="#" class="btn wishlist-btn"><i class="fa fa-heart"
-                                                            aria-hidden="true"></i></a>
-                                                    @if (Session::get('customer_id'))
-                                                        <button href="#"
-                                                            class="btn add-to-cart-btn btn-block btn-sm add_cart_one"
-                                                            data-id="{{ $product->product_id }}"><i
-                                                                class="fa fa-cart-arrow-down" aria-hidden="true"></i>add to
-                                                            cart</button>
-                                                    @else
-                                                        <a href="{{ URL::to('login_client') }}"
-                                                            class="btn add-to-cart-btn btn-block btn-sm"><i
-                                                                class="fa fa-cart-arrow-down" aria-hidden="true"></i>add to
-                                                            cart</a>
-                                                    @endif
-                                                    {{-- add cart --}}
-    
-                                                    <input type="hidden" class="val_qty_{{ $product->product_id }}"
-                                                        value="1">
-                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-                                                    {{-- end add cart --}}
-                                                    <a href="#" class="btn compare-btn"><i class="fa fa-random"
-                                                            aria-hidden="true"></i></a>
-                                                </div>
+                                                </span></ins>
                                             </div>
                                         </div>
                                     </div>
@@ -183,8 +139,7 @@
                                             <a href="{{ URL::to('product_detail/' . $product->product_id) }}"
                                                 class="link-to-product" style="height: 270px; width: 270px">
                                                 <img src="{{ asset('public/upload/' . $product->product_image) }}"
-                                                    style="height: 270px; width: 270px" alt="Vegetables" width="270"
-                                                    height="270" class="product-thumnail">
+                                                    style="height: 270px; width: 270px" alt="Vegetables" class="product-thumnail">
                                             </a>
                                             <span href="#" class="lookup get_val_quickview btn_call_quickview_detail btn_open_modal"
                                                 data-id="{{ $product->product_id }}"><i

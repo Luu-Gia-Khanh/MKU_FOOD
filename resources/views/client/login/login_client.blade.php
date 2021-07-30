@@ -102,7 +102,7 @@
 									</div>
 									<div class="row">
 										<div class="col-6">	
-											<a href="#" class="link-social">
+											<a href="{{ URL::to('login_facebook') }}" class="link-social">
 												<div  class="btn-social-bg">
 													<img class="icon-social" src="{{ asset('public/upload/logo-facebook.svg') }}" alt="">
 													<span class="">
