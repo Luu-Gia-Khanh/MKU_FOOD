@@ -1,6 +1,7 @@
 @extends('client.layout_client')
 @section('content_body')
 <link rel="stylesheet" href="{{ asset('public/font_end/custom/custom.css') }}">
+<link rel="stylesheet" href="{{ asset('public/font_end/custom/voucher_checkout_custom.css') }}">
     <div class="container">
         <nav class="biolife-nav">
             <ul>
@@ -59,6 +60,79 @@
                         <div class="price">
                             <ins><span class="price-amount"><span
                                         class="currencySymbol">{{ number_format($price->price, 0, ',', '.') }}</span>vnđ</span></ins>
+                        </div>
+                        <div class="content__voucher">
+                            <div class="content__voucher--label">
+                                <span>Mã voucher</span>
+                            </div>
+                            <div class="content__voucher-list">
+                                <div class="content__voucher-item">
+                                    <span>Giảm 50%</span>
+                                </div>
+                                <div class="content__voucher-item">
+                                    <span>Giảm 100k</span>
+                                </div>
+                                <div class="content__voucher-item">
+                                    <span>Giảm 50%</span>
+                                </div>
+                                <div class="content__voucher-item">
+                                    <span>Giảm 50%</span>
+                                </div>
+                                <div class="content__voucher-item">
+                                    <span>Giảm 50%</span>
+                                </div>
+                            </div>
+                            <div class="container__voucher-list">
+                                <div class="container__voucher-item">
+                                    <div class="container__voucher-item--left">
+                                        <div class="voucher-item--left-img">
+                                            <img src="{{ asset('public/upload/voucher_image.png') }}" alt="">
+                                        </div>
+                                        <div class="voucher__item--left-name" style="font-size: 10px;">
+                                            MKU FOOD
+                                        </div>
+                                        <div class="_2t7jNq _3LWUvt"></div>
+                                    </div>
+                                    <div class="container__voucher-item--right">
+                                        <div class="voucher-item--right-info">
+                                            <div class="voucher-item--right-info-name">
+                                                Giảm 30% rinh ngay sản phẩm
+                                            </div>
+                                            <div class="voucher-item--right-info-end-date">
+                                                HSD: 27/07/2021
+                                            </div>
+                                        </div>
+                                        <div class="voucher-item--right-btn">
+                                            <button>Lưu</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="container__voucher-item">
+                                    <div class="container__voucher-item--left">
+                                        <div class="voucher-item--left-img">
+                                            <img src="{{ asset('public/upload/voucher_image.png') }}" alt="">
+                                        </div>
+                                        <div class="voucher__item--left-name" style="font-size: 10px;">
+                                            MKU FOOD
+                                        </div>
+                                        <div class="_2t7jNq _3LWUvt"></div>
+                                    </div>
+                                    <div class="container__voucher-item--right">
+                                        <div class="voucher-item--right-info">
+                                            <div class="voucher-item--right-info-name">
+                                                Giảm 15k với sản phẩm Rau
+                                            </div>
+                                            <div class="voucher-item--right-info-end-date">
+                                                HSD: 27/07/2021
+                                            </div>
+                                        </div>
+                                        <div class="voucher-item--right-btn">
+                                            <button>Lưu</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="shipping-info">
                             <p class="shipping-day">3-Ngày Trả Hàng</p>
@@ -280,7 +354,7 @@
                                                                     <div class="row">
                                                                         <div class="comment-content col-lg-8 col-md-9 col-sm-8 col-xs-12">
                                                                             <div class="content_info_customer">
-                                                                                {{-- <p class="comment-in"><span class="post-name"> --}}
+                                                                                    {{-- <p class="comment-in"><span class="post-name"> --}}
                                                                                     @foreach ($customers as $customer)
                                                                                         @if ($comment->customer_id == $customer->customer_id)
                                                                                             @foreach ($customer_info as $info)
@@ -324,7 +398,7 @@
                                                                                         @endif
                                                                                     @endforeach
                                                                                     <span class="post-date date-comment">{{ date("d/m/Y H:i a", strtotime($comment->created_at)) }}</span>
-                                                                                {{-- </p> --}}
+                                                                                    {{-- </p> --}}
                                                                             </div>
 
                                                                             <p class="author place_order" style="margin-left: 70px"><i class="fa fa-check-circle" style="color: #7faf51"></i> đã mua tại <b class="brand_mku">MKU_FOOD</b></p>
@@ -350,7 +424,6 @@
                                                                                     </a></li>
                                                                                     <input type="hidden" class="hidden_check_comment_like_{{ $comment->comment_id }}" name="" id="" value="{{ $session }}">
                                                                                 @endif
-
                                                                                 {{-- <li><a href="#" class="btn-act hate" data-type="dislike"><i
                                                                                             class="fa fa-thumbs-down" aria-hidden="true"></i>No
                                                                                         (20)</a></li>
@@ -375,17 +448,16 @@
                                         @if ($check_show > 0)
                                             <div class="biolife-panigations-block version-2">
                                                 <ul class="panigation-contain">
-                                                    {{-- <li><span class="current-page">1</span></li>
-                                                    <li><a href="#" class="link-page">2</a></li>
-                                                    <li><a href="#" class="link-page">3</a></li>
-                                                    <li><span class="sep">....</span></li>
-                                                    <li><a href="#" class="link-page">20</a></li>
-                                                    <li><a href="#" class="link-page next"><i class="fa fa-angle-right"
-                                                                aria-hidden="true"></i></a></li> --}}
-                                                        {{-- {!! $all_comment->links() !!} --}}
+                                                {{-- <li><span class="current-page">1</span></li>
+                                                <li><a href="#" class="link-page">2</a></li>
+                                                <li><a href="#" class="link-page">3</a></li>
+                                                <li><span class="sep">....</span></li>
+                                                <li><a href="#" class="link-page">20</a></li>
+                                                <li><a href="#" class="link-page next"><i class="fa fa-angle-right"
+                                                            aria-hidden="true"></i></a></li> --}}
+                                                    {{-- {!! $all_comment->links() !!} --}}
                                                 </ul>
                                                 <div class="result-count">
-
                                                     {{-- <p class="txt-count"><b>1-5</b> of <b>126</b> reviews</p> --}}
                                                     <a class="link-to load_more_comment" style="cursor: pointer;">Xem Thêm...<i class="fa fa-caret-right"
                                                             aria-hidden="true"></i></a>

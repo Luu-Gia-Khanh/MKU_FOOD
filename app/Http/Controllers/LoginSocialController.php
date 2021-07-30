@@ -10,47 +10,54 @@ use Illuminate\Http\Request;
 
 class LoginSocialController extends Controller
 {
-    //
-    // public function login_facebook(){
-    //     return Socialite::driver('facebook')->redirect();
-    // }
+    
+    public function login_facebook(){
+        return Socialite::driver('facebook')->redirect();
+    }
 
-    // public function callback_facebook(){
-    //     $provider = Socialite::driver('facebook')->user();
-    //     $account = Social::where('provider','facebook')->where('provider_user_id',$provider->getId())->first();
-    //     if($account){
-    //         //login in vao trang quan tri
-    //         $account_name = Login::where('admin_id',$account->user)->first();
-    //         Session::put('admin_login',$account_name->admin_name);
-    //         Session::put('admin_id',$account_name->admin_id);
-    //         return redirect('/show_result');
-    //     }else{
+    public function callback_facebook(){
+        $provider = Socialite::driver('facebook')->stateless()->user();
+        $account = Social::where('provider','facebook')->where('provider_user_id',$provider->getId())->first();
+        if($account){
+            $account_name = Customer::where('customer_id',$account->user)->first();
+            Session::put('username',$account_name->username);
+            Session::put('customer_id',$account_name->customer_id);
+            return redirect('/');
+        }else{
 
-    //         $hieu = new Social([
-    //             'provider_user_id' => $provider->getId(),
-    //             'provider' => 'facebook'
-    //         ]);
+            $login_customer_new = new Social([
+                'provider_user_id' => $provider->getId(),
+                'provider' => 'facebook'
+            ]);
 
-    //         $orang = Login::where('admin_email',$provider->getEmail())->first();
+            $orang = Customer::where('email',$provider->getEmail())->first();
 
-    //         if(!$orang){
-    //             $orang = Login::create([
-    //                 'admin_name' => $provider->getName(),
-    //                 'admin_email' => $provider->getEmail(),
-    //                 'admin_password' => '',
-    //                 'admin_phone' => '',
-    //             ]);
-    //         }
-    //         $hieu->login()->associate($orang);
-    //         $hieu->save();
+            if(!$orang){
+                $orang = Customer::create([
+                    'username' => $provider->name,
+                    'email' => $provider->email,
+                    'password' => '',
+                ]);
+                $customer_info = Customer_Info::Create([
+                    'customer_id' => $orang->customer_id,
+                    'customer_fullname' => '',
+                    'customer_phone' => '',
+                    'customer_avt' => 'no_image.png',
+                    'customer_gender' => '',
+                    'customer_birthday' => '2000-01-01',
+                ]);
+                $customer_info->save();
+            }
+            $login_customer_new->login()->associate($orang);
+            $login_customer_new->save();
 
-    //         $account_name = Login::where('admin_id',$hieu->user)->first();
+            $account_name = Customer::where('customer_id',$login_customer_new->user)->first();
 
-    //         Session::put('admin_login',$account_name->admin_name);
-    //         Session::put('admin_id',$account_name->admin_id);
-    //         return redirect('/')->with('message', 'Đăng nhập Admin thành công');
-    //     }
-    // }
+            Session::put('username',$account_name->username);
+            Session::put('customer_id',$account_name->customer_id);
+            return redirect('/');
+        }
+    }
 
 
 

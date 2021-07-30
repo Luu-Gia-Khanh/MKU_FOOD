@@ -1,9 +1,9 @@
 <div class="col-lg-6 col-md-7 hidden-sm hidden-xs">
     <div class="primary-menu">
         <ul class="menu biolife-menu clone-main-menu clone-primary-menu" id="primary-menu" data-menuname="main menu">
-            <li class="menu-item"><a href="#">Home</a></li>
+            <li class="menu-item"><a href="{{ URL::to('/') }}">Trang chủ</a></li>
             <li class="menu-item menu-item-has-children has-megamenu">
-                <a href="#" class="menu-name" data-title="Shop" >Shop</a>
+                <a href="{{ URL::to('shop_product') }}" class="menu-name" data-title="Shop" >Cửa hàng</a>
                 <div class="wrap-megamenu lg-width-900 md-width-750">
                     <div class="mega-content">
                         <div class="col-lg-3 col-md-3 col-xs-12 md-margin-bottom-0 xs-margin-bottom-25">
@@ -58,7 +58,7 @@
                 </div>
             </li>
             <li class="menu-item menu-item-has-children has-child">
-                <a href="#" class="menu-name" data-title="Product">Product</a>
+                <a href="#" class="menu-name" data-title="Product">Sản phẩm</a>
                 <ul class="sub-menu">
                     <li class="menu-item"><a href="#">Omelettes</a></li>
                     <li class="menu-item"><a href="#">Breakfast Scrambles</a></li>
@@ -225,7 +225,6 @@
                     </div>
                 </div>
             </li>
-            <li class="menu-item"><a href="contact.html">Contact</a></li>
         </ul>
     </div>
 </div>

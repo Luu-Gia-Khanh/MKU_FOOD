@@ -56,17 +56,12 @@
                 </li>
 
                 {{-- ORDER --}}
-
                 <li class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle">
                         <span class="micon icon-copy ti-harddrives"></span><span class="mtext">Đơn Hàng</span>
                     </a>
                     <ul class="submenu">
                         <li><a href="{{ URL::to('admin/all_order') }}">Danh Sách Đơn Hàng</a></li>
-                        <li><a href="{{ URL::to('admin/all_order') }}">Chờ Xác Nhận</a></li>
-                        <li><a href="{{ URL::to('admin/all_order') }}">Đang Giao</a></li>
-                        <li><a href="{{ URL::to('admin/all_order') }}">Đã Giao</a></li>
-                        <li><a href="{{ URL::to('admin/all_order') }}">Đã Hủy</a></li>
                     </ul>
                 </li>
 
@@ -77,6 +72,16 @@
                     </a>
                     <ul class="submenu">
                         <li><a href="{{ URL::to('admin/all_discount') }}">Danh Sách Giảm Giá</a></li>
+                    </ul>
+                </li>
+
+                {{-- VOUCHER --}}
+                <li class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <span class="micon icon-copy ti-harddrives"></span><span class="mtext">Voucher</span>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="{{ URL::to('admin/all_voucher') }}">Danh Sách Voucher</a></li>
                     </ul>
                 </li>
             </ul>
