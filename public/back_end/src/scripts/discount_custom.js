@@ -67,6 +67,19 @@ $(document).ready(function(){
     });
     $(".list_product_discount").on('itemRemoved', function(event) {
         check_val_tag();
+        //alert(event.item);
+        var val_remove = event.item.replace( /\s/g, '');
+        var val_tag = $('.check_'+val_remove).val();
+        if(val_tag == event.item){
+            $('.check_'+val_remove).prop('checked', false);
+            var countCheck = $('.check').length === $('input[name="Product[]"]:checked').length;
+            if(!countCheck){
+                $('.checkAll').prop('checked', false);
+            }
+            else{
+                $('.checkAll').prop('checked', true);
+            }
+        }
     })
     // check button to submit form
     $('.btn_add_discount_product').click(function(){
@@ -227,16 +240,21 @@ $(document).ready(function(){
     $("#search_product_discount_add").on("keyup", function() {
         var value = $(this).val().toLowerCase();
         $("#table_add_discount tr").filter(function() {
-        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         });
     });
     $("#search_product_discount_update").on("keyup", function() {
         var value = $(this).val().toLowerCase();
         $("#table_update_discount tr").filter(function() {
-        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         });
     });
-
+    $("#search_all_discount").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#table_all_discount tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+    });
     ///
     function check_val(
         time_start_1,

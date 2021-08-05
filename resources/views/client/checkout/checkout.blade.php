@@ -69,6 +69,7 @@
                                                     {{ $trans->trans_address }}
                                                 </label>
                                                 <input type="hidden" class="detail_address_trans_{{ $trans->trans_id }}" value="{{ $trans->trans_address }}">
+                                                <input type="hidden" class="name_phone_{{ $trans->trans_id }}" value="{{ $trans->trans_fullname }} {{ $trans->trans_phone }}">
                                                 @if($trans->trans_status == 1)
                                                     <i class="static static_choose_{{ $trans->trans_id }}">Mặc Định</i>
                                                 @else
@@ -85,15 +86,10 @@
                                         <button type="button" class="btn-back btn_show_hidden" data-toggle="collapse"
                                             data-target="#change_address_trans">Trở Lại</button>
                                     </div>
-
-                                    <div id="change_address_trans" class="collapse">
-                                    </div>
                                 </div>
                             @endif
-
                         </div>
                     </div>
-
                     <div class="cus_view">
                         <div class="content-show-product">
                             <table class="tbl-content-product-checkout" cellspacing="0" cellpadding="0">
@@ -120,6 +116,7 @@
                                                 @php
                                                     $price_prod;
                                                     $qty_prod;
+                                                    $price_discount = App\Http\Controllers\HomeClientController::check_price_discount($cart->product_id);
                                                 @endphp
                                                 <tr>
                                                     @foreach ($all_product as $product)
@@ -136,15 +133,10 @@
                                                                 </div>
                                                             </td>
                                                             <td>
-                                                                @foreach ($product_price as $price)
-                                                                    @if ($price->product_id == $product->product_id)
-                                                                        {{ number_format($price->price, 0, ',', '.') }}
-                                                                        vnđ
-                                                                        @php
-                                                                            $price_prod = $price->price;
-                                                                        @endphp
-                                                                    @endif
-                                                                @endforeach
+                                                                {{ number_format($price_discount->price_now, 0, ',', '.') }}đ
+                                                                @php
+                                                                    $price_prod = $price_discount->price_now;
+                                                                @endphp
                                                             </td>
                                                             <td>
                                                                 {{ $cart->quantity }}
@@ -155,8 +147,8 @@
 
                                                             </td>
                                                             <td>
-                                                                {{ number_format($price_prod * $qty_prod, 0, ',', '.') }}
-                                                                vnđ
+                                                                {{ number_format($price_prod * $qty_prod, 0, ',', '.') }}₫
+
                                                                 @php
                                                                     $total_temporary_price += $price_prod * $qty_prod;
                                                                 @endphp
@@ -172,7 +164,7 @@
                         </div>
                         <div class="total-price-pay">
                             Tổng số tiền ({{ $total_qty }} sản phẩm):
-                            <div class="temporary-price">{{ number_format($total_temporary_price, 0, ',', '.') }} vnđ
+                            <div class="temporary-price">{{ number_format($total_temporary_price, 0, ',', '.') }}đ
                             </div>
                         </div>
                     </div>
@@ -210,16 +202,16 @@
                     <div class="view-summary">
                         <div class="content-total-summary">
                             <div class="title-total-price">Tổng tiền hàng</div>
-                            <div class="val-total-price">{{ number_format($total_temporary_price, 0, ',', '.') }} vnđ</div>
+                            <div class="val-total-price">{{ number_format($total_temporary_price, 0, ',', '.') }}đ</div>
                             <div class="format-free-trans">Phí vận chuyển</div>
-                            <div class="val-free-trans">0 vnđ</div>
+                            <div class="val-free-trans">0đ</div>
                             <div class="format-total-voucher">Tổng cộng Voucher giảm giá:</div>
-                            <div class="val-total-voucher">0 vnđ</div>
+                            <div class="val-total-voucher">0đ</div>
                             <div class="format-total-summary">Tổng thanh toán:</div>
                             @php
                                 $summary_total_order = $total_temporary_price;
                             @endphp
-                            <div class="val-total-summary">{{ number_format($summary_total_order, 0, ',', '.') }} vnđ</div>
+                            <div class="val-total-summary">{{ number_format($summary_total_order, 0, ',', '.') }}đ</div>
                             <input type="hidden" class="summary_total_order" name="summary_total_order" value="{{ $summary_total_order }}">
                         </div>
                         <div class="view-btn-buy">

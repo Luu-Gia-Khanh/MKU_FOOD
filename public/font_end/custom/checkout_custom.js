@@ -122,7 +122,7 @@ $(document).ready(function(){
         $('.btn-add-new-add-trans').addClass('op-0');
         $('.btn-thietlap').addClass('op-0');
 
-        var trans_id = $('input[name="radio_trans"]:checked').val();
+        var trans_id = $('input[name="trans_id"]:checked').val();
         var name_phone = $('.name_phone_'+trans_id).val();
         var detail_address = $('.detail_address_trans_'+trans_id).val();
         var static = $('.static_choose_'+trans_id).html();
@@ -136,8 +136,6 @@ $(document).ready(function(){
         else{
             $('.static_change').html(static);
         }
-
-
     });
 
     // submit form check out

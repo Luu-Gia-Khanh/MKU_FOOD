@@ -194,7 +194,7 @@
                                                             cart</a>
                                                     @endif
                                                     {{-- add cart --}}
-    
+
                                                     <input type="hidden" class="val_qty_{{ $product->product_id }}"
                                                         value="1">
                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />

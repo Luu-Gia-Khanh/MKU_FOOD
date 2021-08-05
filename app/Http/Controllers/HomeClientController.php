@@ -16,6 +16,7 @@ use App\Comment;
 use App\Rating;
 use App\Customer;
 use App\Customer_Info;
+use App\Discount;
 use Session;
 use DB;
 use Carbon\Carbon;
@@ -23,6 +24,117 @@ use Carbon\Carbon;
 Session::start();
 class HomeClientController extends Controller
 {
+    public static function check_price_discount($product_id){
+        $product = DB::table('product')
+        ->join('product_price','product_price.product_id','=','product.product_id')
+        ->where('product_price.status',1)->where('product.product_id',$product_id)->first();
+        $discount = Discount::find($product->discount_id);
+        $now = Carbon::now('Asia/Ho_Chi_Minh');
+        $Ob_price = (object)[];
+        if($product->discount_id == null){
+            $Ob_price = (object) [
+                'percent_discount' => 0,
+                'price_now' => $product->price,
+                'price_old' => 0
+            ];
+        }
+        else{
+            if($discount->start_date_2 != ''){
+                if ($now >= $discount->start_date_2 && $now <= $discount->end_date_2){
+                    if($discount->condition_discount_2 ==1){
+                        $price_discount = ($product->price * $discount->amount_discount_2) / 100;
+                        $price_now = $product->price - $price_discount;
+                    }
+                    else{
+                        $price_now = $product->price - $discount->amount_discount_2;
+                    }
+                    $percent_discount = 100 - ($price_now *100)/$product->price;
+                    $Ob_price = (object) [
+                        'percent_discount' => $percent_discount,
+                        'price_now' => $price_now,
+                        'price_old' => $product->price
+                    ];
+                }
+                else{
+                    if($now >= $discount->start_date_1 && $now <= $discount->end_date_1){
+                        if($discount->condition_discount_1 ==1){
+                            $price_discount = ($product->price * $discount->amount_discount_1) / 100;
+                            $price_now = $product->price - $price_discount;
+                        }
+                        else{
+                            $price_now = $product->price - $discount->amount_discount_1;
+                        }
+                        $percent_discount = 100 - ($price_now *100)/$product->price;
+                        $Ob_price = (object) [
+                            'percent_discount' => $percent_discount,
+                            'price_now' => $price_now,
+                            'price_old' => $product->price
+                        ];
+                    }
+                    else{
+                        $Ob_price = (object) [
+                            'percent_discount' => 0,
+                            'price_now' => $product->price,
+                            'price_old' => 0
+                        ];
+                    }
+                }
+            }
+            else{
+                if($now >= $discount->start_date_1 && $now <= $discount->end_date_1){
+                    if($discount->condition_discount_1 ==1){
+                        $price_discount = ($product->price * $discount->amount_discount_1) / 100;
+                        $price_now = $product->price - $price_discount;
+                    }
+                    else{
+                        $price_now = $product->price - $discount->amount_discount_1;
+                    }
+                    $percent_discount = 100 - ($price_now *100)/$product->price;
+                    $Ob_price = (object) [
+                        'percent_discount' => $percent_discount,
+                        'price_now' => $price_now,
+                        'price_old' => $product->price
+                    ];
+                }
+                else{
+                    $Ob_price = (object) [
+                        'percent_discount' => 0,
+                        'price_now' => $product->price,
+                        'price_old' => 0
+                    ];
+                }
+            }
+        }
+        return $Ob_price;
+    }
+    public static function info_rating_saled($product_id){
+        //Count rating
+        $rating_5 = count(Rating::where('product_id',$product_id)->where('rating_level', 5)->get());
+        $rating_4 = count(Rating::where('product_id',$product_id)->where('rating_level', 4)->get());
+        $rating_3 = count(Rating::where('product_id',$product_id)->where('rating_level', 3)->get());
+        $rating_2 = count(Rating::where('product_id',$product_id)->where('rating_level', 2)->get());
+        $rating_1 = count(Rating::where('product_id',$product_id)->where('rating_level', 1)->get());
+
+        $all_rating = count(Rating::where('product_id',$product_id)->get());
+        if ($all_rating != 0){
+            $avg_rating = (($rating_5*5)+($rating_4*4)+($rating_3*3)+($rating_2*2)+($rating_1*1))/$all_rating;
+        }
+        else{
+            $avg_rating = 0;
+        }
+
+        // count product saled
+        $count_product_saled = Order_Item::where('product_id',$product_id)->sum('quantity_product');
+
+        $Ob_rating = (object) [
+            'count_all_rating' => $all_rating,
+            'avg_rating' => $avg_rating,
+            'count_product_saled' => $count_product_saled,
+        ];
+        return $Ob_rating;
+    }
+
+    //
     public function index(){
         $customer_id = Session::get('customer_id');
         $all_category = Category::all();
@@ -30,13 +142,24 @@ class HomeClientController extends Controller
         $all_price = ProductPrice::where('status',1)->get();
         $all_cart = Cart::where('customer_id', $customer_id)->where('status', 1)->get();
         $product_storage = Storage_Product::all();
+        $all_discount = Discount::all();
+
+        $all_product_join = DB::table('product')
+        ->join('category','category.cate_id','=','product.category_id')
+        ->join('product_price','product_price.product_id','=','product.product_id')
+        ->join('storage_product','storage_product.product_id','=','product.product_id')
+        ->where('product.deleted_at', null)->where('product_price.status',1)->get();
         return view('client.home.trangchu',[
             'all_category'=>$all_category,
             'all_product'=>$all_product,
             'all_price' =>$all_price,
             'all_cart' => $all_cart,
             'product_storage' => $product_storage,
+
+            'all_product_join' => $all_product_join,
+            'all_discount' => $all_discount,
         ]);
+        //dd($all_product_join);
     }
     public function product_detail($product_id){
         $customer_id = Session::get('customer_id');
@@ -187,6 +310,7 @@ class HomeClientController extends Controller
         $add_rating->save();
 
         $add_comment = new Comment();
+        $add_comment->comment_id = $add_rating->rating_id;
         $add_comment->customer_id = $customer_id;
         $add_comment->product_id = $product_id;
         $add_comment->comment_message = $comment_message;

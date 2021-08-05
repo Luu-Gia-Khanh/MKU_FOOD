@@ -22,6 +22,7 @@
 
     <link rel="stylesheet" href="{{ asset('public/font_end/custom_account/event_hover_account.css') }}">
     <link rel="stylesheet" href="{{ asset('public/font_end/custom_account/user_sidebar_content.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/font_end/custom/custom_discount.css') }}">
 </head>
 <body class="biolife-body">
     <!-- Preloader -->
@@ -159,6 +160,7 @@
     <script src="{{ asset('public/font_end/custom/sweet.js') }}"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    {{--  --}}
     <script src="{{ asset('public/font_end/custom/custom.js') }}"></script>
     <script src="{{ asset('public/font_end/custom/rating_comment.js') }}"></script>
     <script src="{{ asset('public/font_end/custom/update_cart_ajax.js') }}"></script>

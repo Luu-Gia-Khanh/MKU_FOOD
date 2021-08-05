@@ -26,13 +26,13 @@
             <!-- loại tiền -->
             <input type="hidden" name="currency_code" value="USD">
 
-            <input type="hidden" name="return" value="http://luugiakhanh.com/Laravel_CuaHangDoChoiTreEm/history_order">
+            <input type="hidden" name="return" value='{{ URL::to('view_checkout_paypal_success/'.$payment_method.'/'.$summary_total_order.'/'.$status.'/'.$orders->order_code) }}'>
 
-            <input type="hidden" name="cancel_return" value="">
+            <input type="hidden" name="cancel_return" value="{{ URL::to('view_checkout_paypal_fail/'.$orders->order_id) }}">
 
             <input type="submit" id="papal_click" name="submit" style="opacity: 0">
         </form>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
+        <script src="{{ asset('public/font_end/assets/js/jquery-3.4.1.min.js') }}"></script>
     <script>
         $(document).ready(function(){
             $('#papal_click').click();

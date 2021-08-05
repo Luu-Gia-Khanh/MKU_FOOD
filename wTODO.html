@@ -1,7 +1,3 @@
-Admin->them, xoa->(xoa men), sua, tìm kiếm -> chinh sua thong tin ca nhan.
-category-> them, sua, xoa(men), tim kiem.(3 ngày)(16-19)
-Products
-////////
 /////////////
  thuc tap:
  1/ show sp.
@@ -13,28 +9,33 @@ Products
 ///
 26/7->30/7 2h 6/8(finish voucher discount)
 khanh =>{
-    1/romove taginput -> remove checkbox -> (add,update)
-    2/ show price discount
-    3/ realtime ajax to add, to show detail mini, show cart mini
-    4/ check price cart -> up, down, update price
-    5/ check box ->show total price
-    6/ check out -> price check out
+    1/ romove taginput -> remove checkbox -> (add,update) ->ok
+    2/ show price discount -> ok
+    3/ realtime ajax to add, to show detail mini, show cart mini -> ok
+    4/ check price cart -> up, down, update price -> ok
+    5/ check box ->show total price -> ok
+    6/ check out -> price check out -> ok
+    7/ do paypal -> ok
+    8/ upload image ajax -> ok
 }
 kha =>{
-    1/ address-> update_address (client)
-    2/ UI all Product->Voucher (admin) -> new design
-    3/ add admin action voucher
+    1/ address-> update_address (client) -> ok
+    2/ UI all Product->Voucher (admin) -> new design -> ok
+    3/ add admin action voucher -> ok
     4/ show voucher product -> product_id -> save (storage voucher customer)
     5/ show voucher checkout ->(get voucher -> storage_voucher_customer and choose product_id in checkout)
     6/ storage voucher of account customer-> show all voucher(customer)
 }
 
 //// memory
-1/ paypal
-2/ upload image ajax client
+1/ paypal -> call orther function from blade -> get(value)->process view ()
+2/ upload image ajax client ()
 3/ recheck day(comment_rating), day(product->new product)...-> check all with day
 4/ comment_id and rating_id check if add rating->get(rating_id) to comment_id
 5/ bug address
 6/ check qty summary last to checkout
 
-
+7/ write function check status voucher, discount, new product ->check anywhere
+8/ check time-> conver datetime_local ->datatime(or)
+9/ taginput-> recheck focus
+10/ convet đ -> ₫

@@ -73,6 +73,7 @@ $(document).ready(function(){
                     });
                 }
                 else if(data == 7){
+                    uploadImageAccount();
                     Swal.fire({
                         position: 'top-end',
                         icon: 'success',
@@ -119,4 +120,22 @@ $(document).ready(function(){
         //     alert('Please select a file');
         // }
     });
+    function uploadImageAccount(){
+        var formData = new FormData($('#formUpdateAccount')[0]);
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: 'POST',
+            url: '../upload_avt_account',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+
+            }
+        });
+    }
 });

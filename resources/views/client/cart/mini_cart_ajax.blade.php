@@ -5,6 +5,9 @@
                 <div class="minicart-item">
                     @foreach ($all_product as $product)
                         @if ($cart->product_id == $product->product_id)
+                            @php
+                                $price_discount = App\Http\Controllers\HomeClientController::check_price_discount($product->product_id);
+                            @endphp
                             <div class="thumb">
                                 <a href="{{ URL::to('product_detail/' . $product->product_id) }}"><img
                                         src="{{ asset('public/upload/' . $product->product_image) }}"
@@ -14,36 +17,45 @@
                                 <div class="product-title"><a
                                         href="{{ URL::to('product_detail/' . $product->product_id) }}"
                                         class="product-name">{{ $product->product_name }}</a></div>
-                        @endif
-                    @endforeach
-                    @foreach ($all_price as $price)
-                        @if ($price->product_id == $cart->product_id)
-                            <div class="price">
-                                <ins><span class="price-amount"><span
-                                            class="currencySymbol">{{ number_format($price->price, 0, ',', '.') }}</span>
-                                        vnđ</span></ins>
-                                {{-- <del><span class="price-amount"><span class="currencySymbol">£</span>95.00</span></del> --}}
+                                            <div class="price">
+                                                @if ($price_discount->percent_discount == 0)
+                                                    <ins><span class="price-amount">
+                                                        <span class="currencySymbol">
+                                                            {{ number_format($price_discount->price_now, 0, ',', '.') }}đ
+                                                        </span></span>
+                                                    </ins>
+                                                @else
+                                                    <ins><span class="price-amount">
+                                                        <span class="currencySymbol">
+                                                            {{ number_format($price_discount->price_now, 0, ',', '.') }}đ
+                                                        </span></span>
+                                                    </ins>
+                                                    <del><span class="price-amount">
+                                                        <span class="currencySymbol">
+                                                            {{ number_format($price_discount->price_old, 0, ',', '.') }}đ
+                                                        </span></span>
+                                                    </del>
+                                                @endif
+                                            </div>
+                                    <div class="qty">
+                                        <label for="cart[id123][qty]">Số lượng:</label>
+                                        @foreach ($all_product as $product)
+                                            @if ($cart->product_id == $product->product_id && $cart->customer_id == Session::get('customer_id'))
+                                                <input type="number"
+                                                    class="input-qty qty_cart_{{ $product->product_id }} qty_update_when_change_cart_{{ $cart->cart_id }}"
+                                                    name="cart[id123][qty]" id="cart[id123][qty]" value="{{ $cart->quantity }}"
+                                                    disabled>
+                                            @endif
+                                        @endforeach
+                                    </div>
+                                </div>
+                                <div class="action">
+                                    <a href="#" class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                    <a href="#" class="remove"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                </div>
                             </div>
                         @endif
                     @endforeach
-
-                    <div class="qty">
-                        <label for="cart[id123][qty]">Số lượng:</label>
-                        @foreach ($all_product as $product)
-                            @if ($cart->product_id == $product->product_id && $cart->customer_id == Session::get('customer_id'))
-                                <input type="number"
-                                    class="input-qty qty_cart_{{ $product->product_id }} qty_update_when_change_cart_{{ $cart->cart_id }}"
-                                    name="cart[id123][qty]" id="cart[id123][qty]" value="{{ $cart->quantity }}"
-                                    disabled>
-                            @endif
-                        @endforeach
-                    </div>
-                </div>
-                <div class="action">
-                    <a href="#" class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                    <a href="#" class="remove"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-                </div>
-                </div>
             </li>
 
         @endforeach

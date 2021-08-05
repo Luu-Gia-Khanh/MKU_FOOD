@@ -1,3 +1,15 @@
+@php
+    $price_discount = App\Http\Controllers\HomeClientController::check_price_discount($product->product_id);
+    $info_rating_saled = App\Http\Controllers\HomeClientController::info_rating_saled($product->product_id);
+@endphp
+<style>
+    .count_saled{
+        border-left: 1px solid green;
+        height: 24px;
+        padding-left: 10px;
+        margin-left: 10px;
+    }
+</style>
 <div class="content-image">
     <img src="{{ asset('public/upload/'.$product->product_image) }}" alt="" style="width: 361px; height: 361px;">
 </div>
@@ -6,11 +18,47 @@
         <div class="product_id"></div>
         <a href="#" class="pr-name name_product">{{ $product->product_name }}</a>
     </h4>
-    <div class="price price-contain">
-        <ins><span class="price-amount"><span class="currencySymbol price_prod">{{ number_format($price->price, 0, ',', '.') }}</span>vnđ</span></ins>
-        {{-- <del><span class="price-amount"><span class="currencySymbol">£</span>95.00</span></del> --}}
+    <div class="rating" style="display: flex;">
+        <p class="star-rating" style="align-self: flex-start">
+            <span class="width-80percent" style="width: {{ $info_rating_saled->avg_rating *20 }}"></span>
+        </p>
+        <span class="count_rating"> ({{ $info_rating_saled->count_all_rating }} Đánh Giá)</span>
+        <span class="count_saled">{{ $info_rating_saled->count_product_saled }} Đã Bán</span>
     </div>
-    <p class="excerpt sort_desc_product">{!! $product->product_sort_desc !!}</p>
+    <div class="price price-contain">
+        @if ($price_discount->percent_discount == 0)
+            <ins>
+                <span class="price-amount">
+                    <span class="currencySymbol price_prod">
+                        {{ number_format($price_discount->price_now, 0, ',', '.') }}đ
+                    </span>
+                </span>
+            </ins>
+        @else
+            <ins>
+                <span class="price-amount">
+                    <span class="currencySymbol price_prod">
+                        {{ number_format($price_discount->price_now, 0, ',', '.') }}đ
+                    </span>
+                </span>
+            </ins>
+            <del>
+                <span class="price-amount">
+                    <span class="currencySymbol">
+                        {{ number_format($price_discount->price_old, 0, ',', '.') }}đ
+                    </span>
+                </span>
+            </del>
+            <ins>
+                <span class="price-amount">
+                    <span class="badge custom_badge">GIẢM {{ $price_discount->percent_discount }}%</span>
+                </span>
+            </ins>
+
+        @endif
+
+    </div>
+    <p class="sort_desc_product">{!! $product->product_sort_desc !!}</p>
     <div class="from-cart">
         <div class="qty-input">
             <input class="qty_prod qty_mini_detail_{{ $product->product_id }}" type="number" name="qty_mini_detail" value="1" data-max_value="100" data-min_value="1" data-step="1">
@@ -34,7 +82,7 @@
                 <label for="">{{ $cate->cate_name }}</label>
             </div>
             <div class="show_qty_storage">
-                <b class="meta-title">Trong Kho:</b>
+                <b class="meta-title">Sản Phẩm Có Sẵn: </b>
                 <label for="">{{ $product_storage->total_quantity_product }}</label>
             </div>
         </div>

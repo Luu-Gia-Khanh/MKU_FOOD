@@ -218,14 +218,15 @@ Route::post('like_comment', 'HomeClientController@like_comment');
 Route::post('delete_comment', 'HomeClientController@delete_comment');
 Route::post('update_comment', 'HomeClientController@update_comment');
 
-
 Route::post('load_detail_product', 'HomeClientController@load_detail_product');
 Route::get('user/account', 'AccountController@show_account');
 Route::get('user/address', 'AccountController@address_account');
 Route::get('user/resetpassword', 'AccountController@reset_password_account');
 Route::get('user/order', 'AccountController@order_account');
 
+// update account info
 Route::post('update_info_account', 'AccountController@update_account');
+Route::post('upload_avt_account', 'AccountController@upload_avt_account');
 
 // USER RESETPASSWORD
 Route::post('process_update_password_account', 'AccountController@process_update_password');
@@ -255,9 +256,11 @@ Route::post('process_cancel_order', 'AccountController@process_cancel_order');
 // CART
 Route::post('add_to_cart', 'CartController@add_cart');
 Route::post('load_quantity_cart', 'CartController@load_quantity_cart');
+Route::post('show_mini_cart_when_add', 'CartController@show_mini_cart_when_add');
+
 Route::post('update_qty_when_change', 'CartController@update_qty_when_change');
 Route::post('update_qty_when_update_cart', 'CartController@update_qty_when_update_cart');
-Route::post('show_mini_cart_when_add', 'CartController@show_mini_cart_when_add');
+
 
 Route::get('show_cart', 'CartController@show_cart');
 Route::post('update_cart', 'CartController@update_cart');
@@ -272,9 +275,13 @@ Route::post('add_address_trans', 'CheckOutController@add_address_trans');
 
 Route::post('check_qty_to_checkout', 'CheckOutController@check_qty_to_checkout');
 Route::post('process_checkout', 'CheckOutController@process_checkout');
+//Route::post('paypal_check_out', 'CheckOutController@paypal_check_out');
+Route::get('view_checkout_paypal_success/{payment_method}/{summary_total_order}/{status}/{order_code}',
+        'CheckOutController@view_checkout_paypal_success');
+Route::get('view_checkout_paypal_fail/{order_id}', 'CheckOutController@view_checkout_paypal_fail');
 
-Route::post('paypal_check_out', 'CheckOutController@paypal_check_out');
 Route::get('check_out_success', 'CheckOutController@check_out_success');
+
 
 //SHOP PRODUCT
 Route::get('shop_product', 'HomeClientController@shop_product');

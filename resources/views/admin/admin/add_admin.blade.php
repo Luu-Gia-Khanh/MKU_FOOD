@@ -158,14 +158,23 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-3">
+                        {{-- <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Hình Ảnh</label>
                                 <input class="form-control" type="file" name="avt" id="file_upload"
                                     onchange="return uploadhinh()" placeholder="">
                             </div>
+                        </div> --}}
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label>Hình Ảnh</label>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" name="avt" onchange="return uploadhinh()" id="file_upload">
+                                    <label class="custom-file-label">Chọn Ảnh Đại Diện</label>
+                                </div>
+                            </div>
                         </div>
-                        <div class="" id="content_image_upload op-0">
+                        <div class="col-3" id="content_image_upload op-0">
                             <img src="" class="op-0" alt="hình ảnh" id="image_upload" height="100px" width="100px">
                         </div>
                     </div>

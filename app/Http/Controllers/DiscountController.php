@@ -15,7 +15,7 @@ use Carbon\Carbon;
 class DiscountController extends Controller
 {
     public function all_discount(){
-        $all_discount = Discount::all();
+        $all_discount = Discount::orderBy('discount_id','desc')->get();
         $all_product = Product::all();
         return view('admin.discount.all_discount',[
             'all_product'=> $all_product,
@@ -39,7 +39,10 @@ class DiscountController extends Controller
         $arrPrice = array();
 
         $now = Carbon::now('Asia/Ho_Chi_Minh');
-        if($time_start_1 < $now || $time_start_1 > $time_end_1 || $time_end_1 < $now || $time_start_1 == $time_end_1){
+        if(date('Y-m-d\TH:i', strtotime($now)) > date('Y-m-d\TH:i', strtotime($time_start_1)) ||
+            date('Y-m-d\TH:i', strtotime($time_start_1)) > date('Y-m-d\TH:i', strtotime($time_end_1)) ||
+             date('Y-m-d\TH:i', strtotime($time_end_1)) < date('Y-m-d\TH:i', strtotime($now)) ||
+              date('Y-m-d\TH:i', strtotime($time_start_1)) == date('Y-m-d\TH:i', strtotime($time_end_1))){
             echo 1;
         }
         else{
@@ -78,7 +81,10 @@ class DiscountController extends Controller
         $arrPrice = array();
         if($time_start_2 != '' && $time_end_2 != '' && $condition_discount_2 != '' && $amount_discount_2 != ''){
             $now = Carbon::now('Asia/Ho_Chi_Minh');
-            if($time_start_2 < $now || $time_start_2 > $time_end_2 || $time_end_2 < $now || $time_start_2 == $time_end_2){
+            if(date('Y-m-d\TH:i', strtotime($now)) > date('Y-m-d\TH:i', strtotime($time_start_2)) ||
+                date('Y-m-d\TH:i', strtotime($time_start_2)) > date('Y-m-d\TH:i', strtotime($time_end_2)) ||
+                date('Y-m-d\TH:i', strtotime($time_end_2)) < date('Y-m-d\TH:i', strtotime($now)) ||
+                date('Y-m-d\TH:i', strtotime($time_start_2)) == date('Y-m-d\TH:i', strtotime($time_end_2))){
                 echo 1;
             }
             else{
@@ -138,7 +144,10 @@ class DiscountController extends Controller
             }
         else{
             $now = Carbon::now('Asia/Ho_Chi_Minh');
-            if($time_start_1 < $now || $time_start_1 > $time_end_1 || $time_end_1 < $now || $time_start_1 == $time_end_1){
+            if(date('Y-m-d\TH:i', strtotime($now)) > date('Y-m-d\TH:i', strtotime($time_start_1)) ||
+                date('Y-m-d\TH:i', strtotime($time_start_1)) > date('Y-m-d\TH:i', strtotime($time_end_1)) ||
+                date('Y-m-d\TH:i', strtotime($time_end_1)) < date('Y-m-d\TH:i', strtotime($now)) ||
+                date('Y-m-d\TH:i', strtotime($time_start_1)) == date('Y-m-d\TH:i', strtotime($time_end_1))){
                 echo 1;
             }
             else{
@@ -175,7 +184,12 @@ class DiscountController extends Controller
         $time_end_2 = $request->time_end_2;
         $condition_discount_2 = $request->condition_discount_2;
         $amount_discount_2 = $request->amount_discount_2;
-        $arrProduct = $request->arrCheck;
+        if($request->arrCheck){
+            $arrProduct = $request->arrCheck;
+        }
+        else{
+            $arrProduct = array();
+        }
         $arrPrice = array();
         $discount_id = $request->discount_id;
         if($time_start_2 != '' && $time_end_2 != '' && $condition_discount_2 != '' && $amount_discount_2 != ''){
@@ -190,7 +204,10 @@ class DiscountController extends Controller
                 }
             else{
                 $now = Carbon::now('Asia/Ho_Chi_Minh');
-                if($time_start_2 < $now || $time_start_2 > $time_end_2 || $time_end_2 < $now || $time_start_2 == $time_end_2){
+                if(date('Y-m-d\TH:i', strtotime($now)) > date('Y-m-d\TH:i', strtotime($time_start_2)) ||
+                    date('Y-m-d\TH:i', strtotime($time_start_2)) > date('Y-m-d\TH:i', strtotime($time_end_2)) ||
+                    date('Y-m-d\TH:i', strtotime($time_end_2)) < date('Y-m-d\TH:i', strtotime($now)) ||
+                    date('Y-m-d\TH:i', strtotime($time_start_2)) == date('Y-m-d\TH:i', strtotime($time_end_2))){
                     echo 1;
                 }
                 else{
@@ -214,7 +231,15 @@ class DiscountController extends Controller
                             echo $arrPrice[0];
                         }
                         else{
-                            echo 3;
+                            $all_product_discount = Product::where('discount_id',$discount_id)->get();
+                            foreach ($all_product_discount as $product_discount) {
+                                $product = DB::table('product')
+                                ->join('product_price','product_price.product_id','=','product.product_id')
+                                ->where('product.product_id', $product_discount->product_id)->where('status',1)->first();
+                                array_push($arrPrice, $product->price);
+                            }
+                            sort($arrPrice);
+                            echo $arrPrice[0];
                         }
 
                     }
@@ -384,6 +409,32 @@ class DiscountController extends Controller
                     $add_history_discount->save();
                 }
             }
+            else{
+                $find_all_product = Product::where('discount_id',$discount_id)->get();
+                foreach($find_all_product as $find_product){
+                    //update new discount product
+                    $update_new_discount_product = Product::find($find_product->product_id);
+                    $update_new_discount_product->discount_id = $discount_id;
+                    $update_new_discount_product->save();
+
+                    // add history discount
+                    $add_history_discount = new History_Discount();
+                    $add_history_discount->product_id = $find_product->product_id;
+                    $add_history_discount->start_date_1 = $time_start_1;
+                    $add_history_discount->end_date_1 = $time_end_1;
+                    $add_history_discount->amount_discount_1 = $amount_discount_1;
+                    $add_history_discount->condition_discount_1 = $condition_discount_1;
+                    if($time_start_2 != '' && $time_end_2 != '' && $condition_discount_2 != '' && $amount_discount_2 != ''){
+                        $add_history_discount->start_date_2 = $time_start_2;
+                        $add_history_discount->end_date_2 = $time_end_2;
+                        $add_history_discount->amount_discount_2 = $amount_discount_2;
+                        $add_history_discount->condition_discount_2 = $condition_discount_2;
+                    }
+                    $add_history_discount->discount_id = $discount_id;
+                    $add_history_discount->created_at = Carbon::now('Asia/Ho_Chi_Minh');
+                    $add_history_discount->save();
+                }
+            }
             // add admin action
             $admin_action_discount = new Admin_Action_Discount();
             $admin_action_discount->admin_id = Session::get('admin_id');
@@ -450,4 +501,6 @@ class DiscountController extends Controller
         $request->session()->flash('delete_discount_success', 'Xóa giảm giá thành công');
         return redirect('admin/all_discount');
     }
+
+
 }

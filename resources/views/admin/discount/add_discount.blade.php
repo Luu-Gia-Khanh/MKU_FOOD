@@ -7,7 +7,7 @@
                 <nav aria-label="breadcrumb" role="navigation">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ URL::to('admin/dashboard') }}">Trang chủ</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Thêm loại sản phẩm</li>
+                        <li class="breadcrumb-item active" aria-current="page">Thêm giảm giá sản phẩm</li>
                     </ol>
                 </nav>
             </div>
@@ -165,7 +165,7 @@
                                         <tr>
                                             <td class=" dt-body-center" tabindex="0">
                                                 <div class="dt-checkbox">
-                                                    <input type="checkbox" class="check" name="Product[]" value="{{ $product->product_name }}">
+                                                    <input type="checkbox" class="check check_{{ str_replace(' ','',$product->product_name) }}" name="Product[]" value="{{ $product->product_name }}">
                                                     <span class="dt-checkbox-label"></span>
                                                 </div>
                                             </td>

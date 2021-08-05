@@ -147,7 +147,9 @@ class CheckOutController extends Controller
 
                 //
                 $price_product = ProductPrice::where('product_id',$cart->product_id)->where('status',1)->first();
-                $order_item->price_product = $price_product->price;
+                $callFunction = new HomeClientController;
+                $price_discount = $callFunction->check_price_discount($cart->product_id);
+                $order_item->price_product = $price_discount->price_now;
                 $order_item->save();
 
                 foreach ($all_storage_product as $storage_product){
@@ -176,7 +178,7 @@ class CheckOutController extends Controller
                 'orders' => $orders,
                 'payment_method' => $payment_method,
                 'summary_total_order' => $summary_total_order,
-                'status' => $orders->status,
+                'status' => $orders->status_pay,
             ]);
         }
         else{
@@ -200,7 +202,9 @@ class CheckOutController extends Controller
 
                 //
                 $price_product = ProductPrice::where('product_id',$cart->product_id)->where('status',1)->first();
-                $order_item->price_product = $price_product->price;
+                $callFunction = new HomeClientController;
+                $price_discount = $callFunction->check_price_discount($cart->product_id);
+                $order_item->price_product = $price_discount->price_now;
                 $order_item->save();
 
                 foreach ($all_storage_product as $storage_product){
@@ -226,15 +230,54 @@ class CheckOutController extends Controller
             $order_detail_status->save();
 
             $vnd_to_usd = $summary_total_order/23022;
-            return view('client.checkout.check_out_paypal',['vnd_to_usd'=>$vnd_to_usd]);
+            return view('client.checkout.check_out_paypal',[
+                'vnd_to_usd'=>$vnd_to_usd,
+
+                'orders' => $orders,
+                'payment_method' => $payment_method,
+                'summary_total_order' => $summary_total_order,
+                'status' => $orders->status_pay,
+            ]);
         }
     }
     public function check_out_success(){
         return view('client.checkout.view_checkout_success');
     }
-    public function paypal_check_out(Request $request){
+    public function view_checkout_paypal_success($payment_method,$summary_total_order,$status,$order_code){
+        return view('client.checkout.view_checkout_paypal_success',[
+            'payment_method'=>$payment_method,
+            'summary_total_order'=>$summary_total_order,
+            'status'=>$status,
+            'order_code'=>$order_code,
+        ]);
+    }
+    public function view_checkout_paypal_fail($order_id){
+        $order_item = Order_Item::where('order_id', $order_id)->get();
+        foreach($order_item as $item){
+            $re_add_cart = new Cart();
+            $re_add_cart->customer_id = Session::get('customer_id');
+            $re_add_cart->product_id = $item->product_id;
+            $re_add_cart->quantity = $item->quantity_product;
+            $re_add_cart->save();
 
-        $total_price = $request->price_checkout_paypal;
-        return view('client.checkout.check_out_paypal',['total_price'=>$total_price]);
+            // re add quantity storage_product
+            $storage_product = Storage_Product::where('product_id', $item->product_id)->first();
+            $storage_product->total_quantity_product = $storage_product->total_quantity_product + $item->quantity_product;
+            $storage_product->save();
+
+            // delete order items
+            $delete_item = Order_Item::find($item->order_item_id);
+            $delete_item->delete();
+        }
+
+        // delete order
+        $delete_order = Orders::find($order_id);
+        $delete_order->delete();
+
+        // delete order status
+        $delete_order_status = Order_Detail_Status::where('order_id', $order_id)->where('status', 1)->first();
+        $delete_order_status->delete();
+
+        return view('client.checkout.view_checkout_paypal_fail');
     }
 }

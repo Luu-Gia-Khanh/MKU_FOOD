@@ -88,11 +88,22 @@ class AccountController extends Controller
                 $get_image->move('public/upload',$new_image);
                 $customer_info->customer_avt = $new_image;
             }
-            else{
-                $customer_info->customer_avt = $customer_info->customer_avt;
-            }
             $customer_info->save();
             echo 7;
+        }
+    }
+    public function upload_avt_account(Request $request){
+        $customer_id = Session::get('customer_id');
+        if($request->hasFile('customer_avt')){
+            $get_image = $request->file('customer_avt');
+            $get_name_image = $get_image->getClientOriginalName();
+            $name_image = current(explode('.',$get_name_image));
+            $new_image = $name_image.rand(0,99).'.'.$get_image->getClientOriginalExtension();
+            $get_image->move('public/upload',$new_image);
+
+            $customer_info = Customer_Info::where('customer_id', $customer_id)->first();
+            $customer_info->customer_avt = $new_image;
+            $customer_info->save();
         }
     }
 

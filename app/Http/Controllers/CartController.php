@@ -72,7 +72,10 @@ class CartController extends Controller
         foreach ($all_cart as $cart){
             foreach ($product_price as $price){
                 if($cart->product_id == $price->product_id){
-                    $price = $price->price;
+                    // call another function
+                    $callFunction = new HomeClientController;
+                    $price_discount = $callFunction->check_price_discount($cart->product_id);
+                    $price = $price_discount->price_now;
                     $qty = $cart->quantity;
                    $total_price_all_cart += $price * $qty;
                 }
@@ -226,6 +229,4 @@ class CartController extends Controller
             ]);
         //}
     }
-
-
 }

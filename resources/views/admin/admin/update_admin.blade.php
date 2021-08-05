@@ -182,11 +182,13 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-3">
+                        <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Hình Ảnh</label>
-                                <input class="form-control" type="file" name="avt" id="file_upload"
-                                    onchange="return uploadhinh()" placeholder="">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" name="avt" onchange="return uploadhinh()" id="file_upload">
+                                    <label class="custom-file-label">Chọn ảnh đại diện</label>
+                                </div>
                             </div>
                         </div>
                         <div class="" id="content_image_upload">

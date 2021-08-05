@@ -10,7 +10,8 @@
                         <nav aria-label="breadcrumb" role="navigation">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{ URL::to('admin/dashboard') }}">Trang chủ</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Danh sách quản trị viên</li>
+                                <li class="breadcrumb-item"><a href="{{ URL::to('admin/all_discount') }}">Danh sách giảm giá</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Chi tiết giảm giá</li>
                             </ol>
                         </nav>
                     </div>

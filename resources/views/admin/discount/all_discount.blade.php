@@ -7,7 +7,7 @@
                         <nav aria-label="breadcrumb" role="navigation">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{ URL::to('admin/dashboard') }}">Trang chủ</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Danh sách quản trị viên</li>
+                                <li class="breadcrumb-item active" aria-current="page">Danh sách giảm giá</li>
                             </ol>
                         </nav>
                     </div>
@@ -52,7 +52,7 @@
                             <div id="DataTables_Table_0_filter" class="dataTables_filter">
                                 <form action="">
                                     @csrf
-                                    <label>Tìm Kiếm:<input type="search" class="form-control form-control-sm" id="" placeholder="Tìm Kiếm"
+                                    <label>Tìm Kiếm:<input type="search" class="form-control form-control-sm" id="search_all_discount" placeholder="Tìm Kiếm"
                                         aria-controls="DataTables_Table_0"></label>
                                 </form>
                             </div>
@@ -77,29 +77,38 @@
                                                 aria-label="Action" data-defaultsort="disabled">Thao Tác</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="content_find_admin">
+                                    <tbody id="table_all_discount">
                                         @php
                                             $stt = 0;
                                         @endphp
                                         @foreach ($all_discount as $discount)
                                             @php
                                                 $stt++;
+                                                $now = Carbon\Carbon::now();
                                             @endphp
                                             <tr role="row" class="odd">
                                                 <td>{{ $stt }}</td>
                                                 <td>
                                                     @foreach ($all_product as $product)
                                                         @if ($product->discount_id == $discount->discount_id)
-                                                        <i class="icon-copy fa fa-check-circle" aria-hidden="true" style="color: #626364"></i> {{ $product->product_name }}<br>
+                                                            <i class="icon-copy fa fa-check-circle" aria-hidden="true" style="color: #626364"></i> {{ $product->product_name }}<br>
                                                         @endif
                                                     @endforeach
                                                 </td>
                                                 <td>
                                                     @if ($discount->condition_discount_1 != "")
-                                                        @if ($discount->condition_discount_1 == 1)
-                                                            -{{ $discount->amount_discount_1 }}%
+                                                        @if ($now > $discount->end_date_1)
+                                                            @if ($discount->condition_discount_1 == 1)
+                                                                <del>-{{ $discount->amount_discount_1 }}%</del>
+                                                            @else
+                                                                <del>-{{ number_format($discount->amount_discount_1, 0, ',', '.') }}vnđ</del>
+                                                            @endif
                                                         @else
-                                                            -{{ number_format($discount->amount_discount_1, 0, ',', '.') }}vnđ
+                                                            @if ($discount->condition_discount_1 == 1)
+                                                                -{{ $discount->amount_discount_1 }}%
+                                                            @else
+                                                               -{{ number_format($discount->amount_discount_1, 0, ',', '.') }}vnđ
+                                                            @endif
                                                         @endif
                                                     @else
                                                         Null
@@ -108,10 +117,18 @@
                                                 </td>
                                                 <td>
                                                     @if ($discount->condition_discount_2 != "")
-                                                        @if ($discount->condition_discount_2 == 1)
-                                                            -{{ $discount->amount_discount_2 }}%
+                                                        @if ($now > $discount->end_date_2)
+                                                            @if ($discount->condition_discount_2 == 1)
+                                                                <del>-{{ $discount->amount_discount_2 }}%</del>
+                                                            @else
+                                                                <del>-{{ number_format($discount->amount_discount_2, 0, ',', '.') }}vnđ</del>
+                                                            @endif
                                                         @else
-                                                            -{{ number_format($discount->amount_discount_2, 0, ',', '.') }}vnđ
+                                                            @if ($discount->condition_discount_2 == 1)
+                                                                -{{ $discount->amount_discount_2 }}%
+                                                            @else
+                                                                -{{ number_format($discount->amount_discount_2, 0, ',', '.') }}vnđ
+                                                            @endif
                                                         @endif
                                                     @else
                                                         Null

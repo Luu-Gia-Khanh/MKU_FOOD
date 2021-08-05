@@ -36,9 +36,9 @@
                 <div class="tab-content">
                     <ul class="products-list biolife-carousel nav-center-02 nav-none-on-mobile eq-height-contain"
                         data-slick='{"rows":1 ,"arrows":true,"dots":false,"infinite":true,"speed":400,"slidesMargin":10,"slidesToShow":4, "responsive":[{"breakpoint":1200, "settings":{ "slidesToShow": 4}},{"breakpoint":992, "settings":{ "slidesToShow": 3, "slidesMargin":20}},{"breakpoint":768, "settings":{ "slidesToShow": 2, "slidesMargin":15}}]}'>
-                        @foreach ($all_product as $product)
+                        @foreach ($all_product_join as $product)
                             <li class="product-item">
-                                <div class="contain-product layout-default">
+                                <div class="contain-product layout-default" style="position: relative">
                                     <div class="product-thumb">
                                         <a href="{{ URL::to('product_detail/' . $product->product_id) }}"
                                             class="link-to-product" style="height: 270px; width: 270px">
@@ -53,35 +53,136 @@
                                     </div>
                                     <div class="info">
                                         <b class="categories">
-                                            @foreach ($all_category as $cate)
-                                                @if ($cate->cate_id == $product->category_id)
-                                                    {{ $cate->cate_name }}
-                                                @endif
-                                            @endforeach
+                                            {{ $product->cate_name }}
                                         </b>
                                         <h4 class="product-title"><a
                                                 href="{{ URL::to('product_detail/' . $product->product_id) }}"
-                                                class="">{{ $product->product_name }}</a></h4>
-                                        <div class="price ">
-                                            <ins>
-                                                <span class="price-amount"><span class="currencySymbol">
-                                                        @foreach ($all_price as $price)
-                                                            @if ($price->product_id == $product->product_id)
-                                                                {{ number_format($price->price, 0, ',', '.') }}
-                                                                <sub>vnđ</sub>
-                                                            @endif
-                                                        @endforeach
+                                                class="">{{ $product->product_name }}</a>
+                                        </h4>
+                                        {{-- <div class="price ">
+                                            @php
+                                                $now = Carbon\Carbon::now();
+                                            @endphp
+                                            @if ($product->discount_id == null)
+                                                <ins>
+                                                    <span class="price-amount"><span class="currencySymbol">
+                                                        {{ number_format($product->price, 0, ',', '.') }}đ
                                                     </span>
-                                            </ins>
-                                            {{-- <del><span class="price-amount"><span class="currencySymbol">£</span>95.00</span></del> --}}
-                                        </div>
-                                        <div class="slide-down-box">
-                                            <p class="message">
-                                                @foreach ($product_storage as $prod_qty)
-                                                    @if ($prod_qty->product_id == $product->product_id)
-                                                        Kho: {{ $prod_qty->total_quantity_product }}
+                                                </ins>
+                                            @else
+                                                @foreach ($all_discount as $discount)
+                                                    @if ($product->discount_id == $discount->discount_id)
+                                                        @if ($discount->start_date_2 != "")
+                                                            @if ($now >= $discount->start_date_2 && $now <= $discount->end_date_2)
+                                                                @if ($discount->condition_discount_2 ==1)
+                                                                    @php
+                                                                        $price_discount = ($product->price * $discount->amount_discount_2) / 100;
+                                                                        $price_now = $product->price - $price_discount;
+                                                                    @endphp
+                                                                @else
+                                                                    @php
+                                                                        $price_now = $product->price - $discount->amount_discount_2;
+                                                                    @endphp
+                                                                @endif
+                                                                <ins>
+                                                                    <span class="price-amount"><span class="currencySymbol">
+                                                                        {{ number_format($price_now, 0, ',', '.') }}đ
+                                                                    </span>
+                                                                </ins>
+                                                                <del>
+                                                                    <span class="price-amount"><span class="currencySymbol">
+                                                                        {{ number_format($product->price, 0, ',', '.') }}đ
+                                                                    </span>
+                                                                </del>
+                                                            @elseif($now >= $discount->start_date_1 && $now <= $discount->end_date_1)
+                                                                @if ($discount->condition_discount_1 ==1)
+                                                                    @php
+                                                                        $price_discount = ($product->price * $discount->amount_discount_1) / 100;
+                                                                        $price_now = $product->price - $price_discount;
+                                                                    @endphp
+                                                                @else
+                                                                    @php
+                                                                        $price_now = $product->price - $discount->amount_discount_1;
+                                                                    @endphp
+                                                                @endif
+                                                                <ins>
+                                                                    <span class="price-amount"><span class="currencySymbol">
+                                                                        {{ number_format($price_now, 0, ',', '.') }}đ
+                                                                    </span>
+                                                                </ins>
+                                                                <del>
+                                                                    <span class="price-amount"><span class="currencySymbol">
+                                                                        {{ number_format($product->price, 0, ',', '.') }}đ
+                                                                    </span>
+                                                                </del>
+                                                            @else
+                                                                <ins>
+                                                                    <span class="price-amount"><span class="currencySymbol">
+                                                                        {{ number_format($product->price, 0, ',', '.') }}đ
+                                                                    </span>
+                                                                </ins>
+                                                            @endif
+                                                        @else
+                                                            @if($now >= $discount->start_date_1 && $now <= $discount->end_date_1)
+                                                                @if ($discount->condition_discount_1 ==1)
+                                                                    @php
+                                                                        $price_discount = ($product->price * $discount->amount_discount_1) / 100;
+                                                                        $price_now = $product->price - $price_discount;
+                                                                    @endphp
+                                                                @else
+                                                                    @php
+                                                                        $price_now = $product->price - $discount->amount_discount_1;
+                                                                    @endphp
+                                                                @endif
+                                                                <ins>
+                                                                    <span class="price-amount"><span class="currencySymbol">
+                                                                        {{ number_format($price_now, 0, ',', '.') }}đ
+                                                                    </span>
+                                                                </ins>
+                                                                <del>
+                                                                    <span class="price-amount"><span class="currencySymbol">
+                                                                        {{ number_format($product->price, 0, ',', '.') }}đ
+                                                                    </span>
+                                                                </del>
+                                                            @else
+                                                                <ins>
+                                                                    <span class="price-amount"><span class="currencySymbol">
+                                                                        {{ number_format($product->price, 0, ',', '.') }}đ
+                                                                    </span>
+                                                                </ins>
+                                                            @endif
+                                                        @endif
                                                     @endif
                                                 @endforeach
+                                            @endif
+                                        </div> --}}
+                                        <div class="price ">
+                                            @php
+                                                $price_discount = App\Http\Controllers\HomeClientController::check_price_discount($product->product_id);
+                                            @endphp
+                                            @if ($price_discount->percent_discount == 0)
+                                                <ins>
+                                                    <span class="price-amount"><span class="currencySymbol">
+                                                        {{ number_format($price_discount->price_now, 0, ',', '.') }}đ
+                                                    </span>
+                                                </ins>
+                                            @else
+                                                <ins>
+                                                    <span class="price-amount"><span class="currencySymbol">
+                                                        {{ number_format($price_discount->price_now, 0, ',', '.') }}₫
+                                                    </span>
+                                                </ins>
+                                                <del>
+                                                    <span class="price-amount"><span class="currencySymbol">
+                                                        {{ number_format($price_discount->price_old, 0, ',', '.') }}₫
+                                                    </span>
+                                                </del>
+                                            @endif
+                                        </div>
+
+                                        <div class="slide-down-box">
+                                            <p class="message">
+                                                {{ $product->total_quantity_product }} sản phẩm có sẵn
                                             </p>
                                             <div class="buttons">
                                                 <a href="#" class="btn wishlist-btn"><i class="fa fa-heart"
@@ -109,6 +210,16 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @if ($price_discount->percent_discount != 0)
+                                        <div class="content_discount_product">
+                                            <div class="content_sub_discount bg_discount">
+                                                <div class="content_title_discount">
+                                                    <span class="percent">{{ $price_discount->percent_discount }}%</span>
+                                                    <span class="txt_giam">giảm</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
                                 </div>
                             </li>
                         @endforeach
@@ -125,54 +236,7 @@
                 <span class="close close_modal">&times;</span>
             </div>
             <div class="modal_body_mini_prod content_mini_detail">
-                {{-- <div class="content-image">
-                    <img src="{{ asset('public/upload/8up-10240.jpg') }}" alt="" style="width: 361px; height: 361px;">
-                </div>
-                <div class="content_info_product">
-                    <h4 class="title">
-                        <div class="product_id"></div>
 
-
-                        <a href="#" class="pr-name name_product">National Fresh Fruit</a>
-                    </h4>
-                    <div class="price price-contain">
-                        <ins><span class="price-amount"><span class="currencySymbol price_prod">£</span>85.00</span></ins>
-                        <del><span class="price-amount"><span class="currencySymbol">£</span>95.00</span></del>
-                    </div>
-                    <p class="excerpt sort_desc_product">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vel maximus lacus. Duis ut mauris eget justo dictum tempus sed vel tellus.</p>
-                    <div class="from-cart">
-                        <div class="qty-input">
-                            <input class="qty_prod" type="text" name="qty12554" value="1" data-max_value="20" data-min_value="1" data-step="1">
-                            <a href="#" class="qty-btn btn-up"><i class="fa fa-caret-up up" aria-hidden="true"></i></a>
-                            <a href="#" class="qty-btn btn-down"><i class="fa fa-caret-down down" aria-hidden="true"></i></a>
-                        </div>
-                        <div class="buttons">
-                            <a href="#" class="btn add-to-cart-btn btn-bold btn_add_cart">add to cart</a>
-                        </div>
-                    </div>
-                    <div class="product-meta">
-                        <div class="product-atts">
-                            <div class="product-atts-item show_category">
-                                <b class="meta-title">Danh mục sản phẩm:</b>
-                                <label for="">hehe</label>
-                            </div>
-                            <div class="show_qty_storage">
-                                <b class="meta-title">Trong Kho:</b>
-                                <label for="">hehe</label>
-                            </div>
-                        </div>
-                        <div class="biolife-social inline add-title">
-                            <span class="fr-title">Chia sẻ:</span>
-                            <ul class="socials">
-                                <li><a href="#" title="twitter" class="socail-btn"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                                <li><a href="#" title="facebook" class="socail-btn"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                                <li><a href="#" title="pinterest" class="socail-btn"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
-                                <li><a href="#" title="youtube" class="socail-btn"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
-                                <li><a href="#" title="instagram" class="socail-btn"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div> --}}
             </div>
         </div>
     </div>
@@ -180,4 +244,53 @@
     <script src="{{ asset('public/font_end/assets/js/jquery-3.4.1.min.js') }}"></script>
     <script src="{{ asset('public/font_end/bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('public/font_end/custom/mini_detail_product.js') }}"></script>
+@endsection
+@section('content_body')
+    <div class="container">
+        <div class="row">
+            <!-- Main content -->
+            <div id="main-content" class="main-content col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                <div class="block-item recently-products-cat md-margin-bottom-39">
+                    <ul class="products-list biolife-carousel nav-center-02 nav-none-on-mobile" data-slick='{"rows":1,"arrows":true,"dots":false,"infinite":false,"speed":400,"slidesMargin":0,"slidesToShow":5, "responsive":[{"breakpoint":1200, "settings":{ "slidesToShow": 3}},{"breakpoint":992, "settings":{ "slidesToShow": 3, "slidesMargin":30}},{"breakpoint":768, "settings":{ "slidesToShow": 2, "slidesMargin":10}}]}' >
+                        @foreach ($all_product as $product)
+                            <li class="product-item">
+                                <div class="contain-product layout-02">
+                                    <div class="contain-product layout-default">
+                                        <div class="product-thumb">
+                                            <a href="#" class="link-to-product">
+                                                <img src="{{ asset('public/upload/' . $product->product_image) }}"
+                                                    style="height: 158px; width: 158px" alt="Vegetables" class="product-thumnail">
+                                            </a>
+                                        </div>
+                                        <div class="info">
+                                            <b class="categories">
+                                                @foreach ($all_category as $cate)
+                                                    @if ($cate->cate_id == $product->category_id)
+                                                        {{ $cate->cate_name }}
+                                                    @endif
+                                                @endforeach
+                                            </b>
+                                            <h6 class="product-title" style="height: 50px; margin: 0 1px; font-size: 16px; line-height: 20px"><a href="#" class="pr-name">{{ $product->product_name }} like like like</a></h6>
+                                            <div class="price">
+                                                <del><span class="price-amount">95.00 vnđ</span></del><br>
+                                                <ins><span class="price-amount">
+                                                    @foreach ($all_price as $price)
+                                                        @if ($price->product_id == $product->product_id)
+                                                            {{ number_format($price->price, 0, ',', '.') }}
+                                                            <sub>vnđ</sub>
+                                                        @endif
+                                                    @endforeach
+                                                </span></ins>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

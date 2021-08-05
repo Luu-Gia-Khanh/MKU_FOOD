@@ -7,7 +7,8 @@
                 <nav aria-label="breadcrumb" role="navigation">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ URL::to('admin/dashboard') }}">Trang chủ</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Thêm loại sản phẩm</li>
+                        <li class="breadcrumb-item"><a href="{{ URL::to('admin/all_discount') }}">Danh sách giảm giá</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Thiết lập lại giảm giá</li>
                     </ol>
                 </nav>
             </div>
@@ -224,7 +225,7 @@
                                                 <tr>
                                                     <td class=" dt-body-center" tabindex="0">
                                                         <div class="dt-checkbox">
-                                                            <input type="checkbox" class="check" name="Product[]" value="{{ $product->product_name }}"
+                                                            <input type="checkbox" class="check check_{{ str_replace(' ','',$product->product_name) }}" name="Product[]" value="{{ $product->product_name }}"
                                                                 @foreach ($products as $prod)
                                                                     @if ($prod->product_id == $product->product_id)
                                                                         checked

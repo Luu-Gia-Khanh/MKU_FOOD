@@ -10,7 +10,7 @@ $(document).ready(function () {
     function loadValCart(cart_id, data, price){
         $('.val_quantity_update_cart_' + cart_id).val(data);
         var total_price = data*price;
-        $('.totol_price_cart_item_update_'+ cart_id).html(formatNumber(total_price));
+        $('.totol_price_cart_item_update_'+ cart_id).html(formatNumber(total_price)+'đ');
         $('.get_total_price_cart_item_check_'+ cart_id).val(total_price);
     }
     //
@@ -186,7 +186,7 @@ $(document).ready(function () {
                 if(qty <= max_val){
                     var price = $('.val_price_update_cart_'+cart_id).val();
                     total_price_all_item_check = total_price_all_item_check + Number(price);
-                    $('.show_total_price_check_item_cart').html(formatNumber(total_price_all_item_check)+' vnđ');
+                    $('.show_total_price_check_item_cart').html(formatNumber(total_price_all_item_check)+'đ');
                     $('.show_total_price_check_item_cart_hidden').val(total_price_all_item_check);
                 }
             }
@@ -199,14 +199,14 @@ $(document).ready(function () {
                     if(qty > 0){
                         var price = $('.val_price_update_cart_'+cart_id).val();
                         total_price_all_item_check = total_price_all_item_check - Number(price);
-                        $('.show_total_price_check_item_cart').html(formatNumber(total_price_all_item_check)+' vnđ');
+                        $('.show_total_price_check_item_cart').html(formatNumber(total_price_all_item_check)+'đ');
                         $('.show_total_price_check_item_cart_hidden').val(total_price_all_item_check);
                     }
                 }
         });
 
         $('.total_item_cart').html("("+arrCheck.length+" sản phẩm)");
-        $('.show_total_price_check_item_cart').html(formatNumber(total_price_all_item_check)+' vnđ');
+        $('.show_total_price_check_item_cart').html(formatNumber(total_price_all_item_check)+'đ');
         $('.show_total_price_check_item_cart_hidden').val(total_price_all_item_check);
 
 
@@ -239,7 +239,7 @@ $(document).ready(function () {
                 if(qty <= max_val){
                     var price = $('.val_price_update_cart_'+cart_id).val();
                     tota_price_hidden = tota_price_hidden + Number(price);
-                    $('.show_total_price_check_item_cart').html(formatNumber(tota_price_hidden)+' vnđ');
+                    $('.show_total_price_check_item_cart').html(formatNumber(tota_price_hidden)+'đ');
                     $('.show_total_price_check_item_cart_hidden').val(tota_price_hidden);
                 }
             }

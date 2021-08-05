@@ -74,7 +74,7 @@
                             <div class="content__user-heading">
                                 <span class="user-heading-title">Thông tin cá nhân</span>
                             </div>
-                            <form enctype="multipart/form-data">
+                            <form enctype="multipart/form-data" id="formUpdateAccount">
                                 @csrf
                                 <div class="content__user-profile">
                                     <div class="user-profile">
@@ -132,9 +132,11 @@
                                         <div id="content_image_upload">
                                             <img src="{{ asset('public/upload/'.$customer_info->customer_avt) }}" class="img-upload" alt="hình ảnh" id="image_upload">
                                         </div>
-                                        <div class="input-upload-img">
+                                        <div class="input-upload-img" style="text-align: center;">
+                                            {{-- <img src="{{ asset('public/upload/upimage.png') }}" height="50px" width="50px" alt="" style="cursor: pointer;"> --}}
+                                            <label for="file_upload" class="btn btn-success">Chọn Ảnh</label>
                                             <input type="file" name="customer_avt" id="file_upload"
-                                                onchange="return uploadhinh()" class="custom-file-input customer_avt file_upload" style="width: 220px;">
+                                                onchange="return uploadhinh()" class="custom-file-input customer_avt file_upload" style="width: 220px; opacity: 0;">
                                         </div>
                                     </div>
                                 </div>
