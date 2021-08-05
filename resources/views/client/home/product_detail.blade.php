@@ -26,6 +26,18 @@
 <link rel="stylesheet" href="{{ asset('public/font_end/custom/custom.css') }}">
 <link rel="stylesheet" href="{{ asset('public/font_end/custom/custom_home_detail.css') }}">
 <link rel="stylesheet" href="{{ asset('public/font_end/custom/voucher_checkout_custom.css') }}">
+<link rel="stylesheet" href="{{ asset('public/font_end/custom/voucher_product_detail.css') }}">
+<style>
+    .text {
+   overflow: hidden;
+   height: 35px;
+   line-height: 18px;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   -webkit-line-clamp: 2; /* number of lines to show */
+   -webkit-box-orient: vertical;
+}
+</style>
     <div class="container">
         <nav class="biolife-nav">
             <ul>
@@ -106,77 +118,68 @@
                                 </ins>
                             @endif
                         </div>
-                        <div class="content__voucher">
+                        <div
+                            @if (count($all_product_voucher) > 0)
+                                class="content__voucher content__voucher--hover"
+                            @else
+                                class="content__voucher"
+                            @endif
+                            style="padding-top: 14px;">
                             <div class="content__voucher--label">
                                 <span>Mã voucher</span>
                             </div>
                             <div class="content__voucher-list">
-                                <div class="content__voucher-item">
-                                    <span>Giảm 50%</span>
-                                </div>
-                                <div class="content__voucher-item">
-                                    <span>Giảm 100k</span>
-                                </div>
-                                <div class="content__voucher-item">
-                                    <span>Giảm 50%</span>
-                                </div>
-                                <div class="content__voucher-item">
-                                    <span>Giảm 50%</span>
-                                </div>
-                                <div class="content__voucher-item">
-                                    <span>Giảm 50%</span>
-                                </div>
+                                @if (count($all_product_voucher) > 0)
+                                    @foreach ($all_product_voucher as $product_voucher)
+                                        <div class="content__voucher-item">
+                                            <span>Giảm {{ ($product_voucher->voucher_amount/$price->price)*100  }}%</span>
+                                        </div>
+                                    @endforeach
+                                @else
+                                    <span class="content__voucher--text-empty">Hiện sản phẩm không có voucher</span>
+                                @endif
                             </div>
                             <div class="container__voucher-list">
-                                <div class="container__voucher-item">
-                                    <div class="container__voucher-item--left">
-                                        <div class="voucher-item--left-img">
-                                            <img src="{{ asset('public/upload/voucher_image.png') }}" alt="">
-                                        </div>
-                                        <div class="voucher__item--left-name" style="font-size: 10px;">
-                                            MKU FOOD
-                                        </div>
-                                        <div class="_2t7jNq _3LWUvt"></div>
-                                    </div>
-                                    <div class="container__voucher-item--right">
-                                        <div class="voucher-item--right-info">
-                                            <div class="voucher-item--right-info-name">
-                                                Giảm 30% rinh ngay sản phẩm
+                                @foreach ($all_product_voucher as $product_voucher)
+                                    <div class="container__voucher-item">
+                                        <div class="container__voucher-item--left">
+                                            <div class="voucher-item--left-img">
+                                                <img src="{{ asset('public/upload/voucher_image.png') }}" alt="">
                                             </div>
-                                            <div class="voucher-item--right-info-end-date">
-                                                HSD: 27/07/2021
+                                            <div class="voucher__item--left-name" style="font-size: 10px;">
+                                                MKU FOOD
                                             </div>
+                                            <div class="_2t7jNq _3LWUvt"></div>
                                         </div>
-                                        <div class="voucher-item--right-btn">
-                                            <button>Lưu</button>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="container__voucher-item">
-                                    <div class="container__voucher-item--left">
-                                        <div class="voucher-item--left-img">
-                                            <img src="{{ asset('public/upload/voucher_image.png') }}" alt="">
-                                        </div>
-                                        <div class="voucher__item--left-name" style="font-size: 10px;">
-                                            MKU FOOD
-                                        </div>
-                                        <div class="_2t7jNq _3LWUvt"></div>
-                                    </div>
-                                    <div class="container__voucher-item--right">
-                                        <div class="voucher-item--right-info">
-                                            <div class="voucher-item--right-info-name">
-                                                Giảm 15k với sản phẩm Rau
+                                        <div class="container__voucher-item--right">
+                                            <div class="voucher-item--right-info">
+                                                <div class="voucher-item--right-info-name text">
+                                                    {{ $product_voucher->voucher_name }}
+                                                </div>
+                                                <div class="voucher-item--right-info-end-date">
+                                                    HSD: {{ date("d/m/Y", strtotime($product_voucher->end_date)) }}
+                                                </div>
                                             </div>
-                                            <div class="voucher-item--right-info-end-date">
-                                                HSD: 27/07/2021
+                                            <div class="voucher-item--right-btn">
+                                                @php
+                                                    $count_voucher = 0;
+                                                @endphp
+                                                @foreach ($storage_customer_voucher as $item)
+                                                    @if ($item->voucher_id == $product_voucher->voucher_id)
+                                                        @php
+                                                            $count_voucher++;
+                                                        @endphp
+                                                    @endif
+                                                @endforeach
+                                                @if ($count_voucher > 0)
+                                                    <button>Lưu</button>
+                                                @else
+                                                    <a href="{{ URL::to('process_save_voucher/'.$product_voucher->voucher_id) }}">Lưu</a>
+                                                @endif
                                             </div>
                                         </div>
-                                        <div class="voucher-item--right-btn">
-                                            <button>Lưu</button>
-                                        </div>
                                     </div>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
                         <div class="shipping-info">

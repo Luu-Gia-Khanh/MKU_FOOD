@@ -169,12 +169,13 @@ Route::prefix('admin')->group(function () {
     Route::post('search_order', 'OrderController@search_order');
 
     // VOUCHER PRODUCT
-    Route::get('all_voucher', 'VoucherController@all_voucher');
+    Route::get('all_voucher/{product_id}', 'VoucherController@all_voucher');
     Route::get('detail_voucher/{voucher_id}', 'VoucherController@detail_voucher');
     Route::get('add_voucher', 'VoucherController@add_voucher');
     Route::get('update_voucher/{voucher_id}', 'VoucherController@update_voucher');
     Route::post('process_add_voucher', 'VoucherController@process_add_voucher');
     Route::post('process_update_voucher/{voucher_id}', 'VoucherController@process_update_voucher');
+    Route::get('all_product_voucher', 'VoucherController@all_product_voucher');
     Route::post('get_voucher_id', 'VoucherController@get_voucher_id');
     Route::post('get_voucher_name', 'VoucherController@get_voucher_name');
     Route::post('get_voucher_product', 'VoucherController@get_voucher_product');
@@ -184,7 +185,7 @@ Route::prefix('admin')->group(function () {
     Route::post('get_voucher_amount', 'VoucherController@get_voucher_amount');
     Route::post('get_voucher_status', 'VoucherController@get_voucher_status');
 
-    Route::get('find_voucher', 'VoucherController@find_voucher');
+    Route::get('find_product_voucher', 'VoucherController@find_product_voucher');
 
     //DISCOUNT PRODUCT
     Route::get('all_discount', 'DiscountController@all_discount');
@@ -282,6 +283,9 @@ Route::get('view_checkout_paypal_fail/{order_id}', 'CheckOutController@view_chec
 
 Route::get('check_out_success', 'CheckOutController@check_out_success');
 
+//CUSTOMER VOUCHER
+Route::get('user/voucher', 'AccountController@show_voucher');
+Route::get('process_save_voucher/{voucher_id}', 'StorageVoucherController@process_save_voucher');
 
 //SHOP PRODUCT
 Route::get('shop_product', 'HomeClientController@shop_product');

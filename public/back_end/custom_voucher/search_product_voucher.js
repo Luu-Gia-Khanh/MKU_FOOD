@@ -1,17 +1,17 @@
 $(document).ready(function(){
     //search voucher
-    $('#find_voucher').keyup(function(){
-        var value_find = $('#find_voucher').val();
+    $('#find_product_voucher').keyup(function(){
+        var value_find = $('#find_product_voucher').val();
         var _token = $('input[name="_token"]').val();
         $.ajax({
-            url: 'find_voucher',
+            url: 'find_product_voucher',
             method: 'get',
             data: {
                 value_find: value_find,
                 _token: _token
             },
             success: function (data) {
-                $('.content_find_voucher').html(data);
+                $('.content_find_product_voucher').html(data);
             }
         });
     });

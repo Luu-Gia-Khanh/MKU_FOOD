@@ -82,7 +82,8 @@
                         <span class="micon icon-copy ti-harddrives"></span><span class="mtext">Voucher</span>
                     </a>
                     <ul class="submenu">
-                        <li><a href="{{ URL::to('admin/all_voucher') }}">Danh Sách Voucher</a></li>
+                        <li><a href="{{ URL::to('admin/all_product_voucher') }}">DS Sản Phẩm Voucher</a></li>
+                        <li><a href="{{ URL::to('admin/add_voucher') }}">Thêm Voucher</a></li>
                     </ul>
                 </li>
             </ul>

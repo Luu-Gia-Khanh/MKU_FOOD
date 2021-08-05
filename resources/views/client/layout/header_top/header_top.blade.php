@@ -38,7 +38,7 @@
                                 <a href="{{ URL::to('user/account') }}">Tài khoản của tôi</a>
                             </li>
                             <li class="header__navbar-user-item">
-                                <a href="">Đơn hàng</a>
+                                <a href="{{ URL::to('user/order') }}">Đơn hàng</a>
                             </li>
                             <li class="header__navbar-user-item">
                                 <a href="{{ URL::to('logout_client') }}">Đăng xuất</a>

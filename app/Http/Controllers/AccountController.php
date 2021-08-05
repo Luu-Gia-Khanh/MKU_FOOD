@@ -17,7 +17,9 @@ use App\Order_Item;
 use App\Orders;
 use App\Product;
 use App\ProductPrice;
+use App\Storage_Customer_Voucher;
 use App\Storage_Product;
+use App\Voucher;
 
 class AccountController extends Controller
 {
@@ -169,9 +171,13 @@ class AccountController extends Controller
         $trans_id = $request->trans_id;
         $trans_address = Customer_Transport::find($trans_id);
 
-
-        $address_detail = explode(", ", $trans_address->trans_address);
-        echo $address_detail[0];
+        $address_detail = explode(", ", $trans_address->trans_address, -3);
+        $count_trans_address_old = count($address_detail);
+        $array_address_detail = '';
+        for($i = 0; $i < $count_trans_address_old; $i++){
+            $array_address_detail = $array_address_detail.', '.$address_detail[$i];
+        }
+        echo trim($array_address_detail,', ');
     }
     public function get_address_ward_trans(Request $request){
         $trans_id = $request->trans_id;
@@ -179,7 +185,8 @@ class AccountController extends Controller
 
 
         $address_ward = explode(", ", $trans_address->trans_address);
-        echo $address_ward[1];
+        $count_trans_address_old = count($address_ward);
+        echo $address_ward[$count_trans_address_old - 3];
     }
     public function get_address_district_trans(Request $request){
         $trans_id = $request->trans_id;
@@ -187,7 +194,8 @@ class AccountController extends Controller
 
 
         $address_district = explode(", ", $trans_address->trans_address);
-        echo $address_district[2];
+        $count_trans_address_old = count($address_district);
+        echo $address_district[$count_trans_address_old - 2];
     }
     public function get_address_city_trans(Request $request){
         $trans_id = $request->trans_id;
@@ -195,7 +203,8 @@ class AccountController extends Controller
 
 
         $address_city = explode(", ", $trans_address->trans_address);
-        echo $address_city[3];
+        $count_trans_address_old = count($address_city);
+        echo $address_city[$count_trans_address_old - 1];
     }
 
     public function process_update_address(Request $request){
@@ -228,8 +237,9 @@ class AccountController extends Controller
                 $customer_transport = Customer_Transport::where('trans_id', $trans_id)->first();
                 $trans_address = $customer_transport->trans_address;
                 $trans_address_old = explode(", ", $trans_address);
-                $trans_address_explode = $trans_address_old[1].', '.$trans_address_old[2].', '.$trans_address_old[3];
-                $trans_address_new = $detail_address.', '.$trans_address_explode;
+                $count_trans_address_old = count($trans_address_old);
+                $trans_address_explode = $trans_address_old[$count_trans_address_old - 3].', '.$trans_address_old[$count_trans_address_old - 2].', '.$trans_address_old[$count_trans_address_old - 1];
+                $trans_address_new = rtrim($detail_address, '.').', '.$trans_address_explode;
 
                 $customer_transport->trans_fullname = $name;
                 $customer_transport->trans_phone = $phone;
@@ -414,5 +424,26 @@ class AccountController extends Controller
         }
         $order_detail_status->status_id = 5;
         $order_detail_status->save();
+    }
+
+    public function show_voucher(){
+        $customer_id = Session::get('customer_id');
+        $all_cart = Cart::where('customer_id', $customer_id)->where('status', 1)->get();
+        $all_product = Product::all();
+        $all_price = ProductPrice::where('status',1)->get();
+        $customer = Customer::where('customer_id', $customer_id)->first();
+        $customer_info = Customer_Info::where('customer_id', $customer_id)->first();
+
+        $date_now = Carbon::now('Asia/Ho_Chi_Minh');
+        $storage_customer_voucher = DB::table('storage_customer_voucher')
+                                        ->join('voucher', 'voucher.voucher_id', '=', 'storage_customer_voucher.voucher_id')
+                                        ->where('voucher.status', 1)
+                                        ->where('voucher.start_date', '<=' , $date_now)
+                                        ->where('voucher.end_date', '>=', $date_now)
+                                        ->where('voucher.voucher_quantity', '>', 0)
+                                        ->where('storage_customer_voucher.status', 1)
+                                        ->where('customer_id', $customer_id)->get();
+        return view('client.user.storage_customer_voucher', compact('customer', 'customer_info','storage_customer_voucher',
+        'all_cart', 'all_product', 'all_price'));
     }
 }

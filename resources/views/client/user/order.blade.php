@@ -61,7 +61,7 @@
                                     <a href="#" class="user-module-item--link">Thông báo</a>
                                 </li>
                                 <li class="user-module-item">
-                                    <a href="#" class="user-module-item--link">Kho Voucher</a>
+                                    <a href="{{ URL::to('user/voucher') }}" class="user-module-item--link">Kho Voucher</a>
                                 </li>
                             </ul>
                         </nav>

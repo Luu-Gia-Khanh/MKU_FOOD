@@ -7,7 +7,7 @@
                     <nav aria-label="breadcrumb" role="navigation">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ URL::to('admin/dashboard') }}">Trang chủ</a></li>
-                            <li class="breadcrumb-item"><a href="{{ URL::to('admin/all_voucher') }}">Danh sách voucher</a></li>
+                            <li class="breadcrumb-item"><a href="{{ URL::to('admin/all_product_voucher') }}">Danh sách voucher</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Sửa voucher</li>
                         </ol>
                     </nav>
@@ -70,6 +70,12 @@
                                         <div class="alert alert-danger alert-dismissible mt-1">
                                             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                                             {{ $errors->first('voucher_code') }}
+                                        </div>
+                                    @endif
+                                    @if (session('voucher_code'))
+                                        <div class="alert alert-danger alert-dismissible mt-1">
+                                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                            {{ session('voucher_code') }}
                                         </div>
                                     @endif
                             </div>
