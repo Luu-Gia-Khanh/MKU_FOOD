@@ -16,6 +16,8 @@ use App\Comment;
 use App\Rating;
 use App\Customer;
 use App\Customer_Info;
+use App\Storage_Customer_Voucher;
+use App\Voucher;
 use Session;
 use DB;
 use Carbon\Carbon;
@@ -48,6 +50,18 @@ class HomeClientController extends Controller
         $product_storage = Storage_Product::all();
         $all_product = Product::all();
         $all_price = ProductPrice::where('status',1)->get();
+
+        $date_now = Carbon::now('Asia/Ho_Chi_Minh');
+        $all_product_voucher = Voucher::where('product_id', $product_id)
+                                        ->where('status', 1)
+                                        ->where('start_date', '<=' , $date_now)
+                                        ->where('end_date', '>=', $date_now)
+                                        ->where('voucher.voucher_quantity', '>', 0)
+                                        ->get();
+        $storage_customer_voucher = DB::table('storage_customer_voucher')
+                                    ->join('voucher', 'voucher.voucher_id', '=', 'storage_customer_voucher.voucher_id')
+                                    ->where('voucher.product_id', $product_id)
+                                    ->where('customer_id', $customer_id)->get();
 
         // able rating and comment
         $orders = DB::table('order_detail_status')
@@ -113,6 +127,8 @@ class HomeClientController extends Controller
             'rating_3' => $rating_3,
             'rating_2' => $rating_2,
             'rating_1' => $rating_1,
+            'all_product_voucher' => $all_product_voucher,
+            'storage_customer_voucher' => $storage_customer_voucher,
         ]);
     }
     public function load_detail_product(Request $request){

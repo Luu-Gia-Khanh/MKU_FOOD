@@ -251,12 +251,45 @@
                     </div>
                     <button type="button" class="btn-green btn-voucher col-2">ÁP DỤNG</button>
                 </div>
-                <div class="voucher__content-list">
-                    <div class="coupon">
-                      <div class="coupon-left"></div>
-                      <div class="coupon-con"></div>
-                    </div>
-                  </div>
+                <div class="container__voucher-list">
+                    @foreach ($arrCart_id as $cart_id)
+                        @foreach ($all_cart as $cart)
+                            @if ($cart_id == $cart->cart_id)
+                                @foreach ($storage_customer_voucher as $product_voucher)
+                                    @if ($product_voucher->product_id == $cart->product_id)
+                                        <div class="container__voucher-item" style="background-color: #f8f8f8; height: 88px;">
+                                            <div class="container__voucher-item--left">
+                                                <div class="voucher-item--left-img">
+                                                    <img src="{{ asset('public/upload/voucher_image.png') }}" alt="">
+                                                </div>
+                                                <div class="voucher__item--left-name" style="font-size: 10px;">
+                                                    MKU FOOD
+                                                </div>
+                                                <div class="_2t7jNq _3LWUvt"></div>
+                                            </div>
+                                            <div class="container__voucher-item--right">
+                                                <div class="voucher-item--right-info">
+                                                    <div class="voucher-item--right-info-name">
+                                                        {{ $product_voucher->voucher_name }}
+                                                    </div>
+                                                    <div class="voucher-item--right-info-end-date">
+                                                        HSD: {{ date("d/m/Y", strtotime($product_voucher->end_date)) }}
+                                                    </div>
+                                                </div>
+                                                <div class="voucher-item--right-btn">
+                                                    <a href="#">Dùng Ngay</a>
+                                                </div>
+                                            </div>
+                                            {{-- @else
+                                                <div class="center">Hiện không có voucher nào cho sản phẩm</div>
+                                            @endif --}}
+                                        </div>
+                                    @endif
+                                @endforeach
+                            @endif
+                        @endforeach
+                    @endforeach
+                </div>
             </div>
         </div>
     </div>

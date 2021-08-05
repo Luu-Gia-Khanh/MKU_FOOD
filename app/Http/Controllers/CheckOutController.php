@@ -12,6 +12,8 @@ use App\Order_Detail_Status;
 use App\Storage_Product;
 use DB;
 use App\Customer_Transport;
+use App\Storage_Customer_Voucher;
+use App\Voucher;
 use Session;
 use Carbon\Carbon;
 
@@ -29,6 +31,13 @@ class CheckOutController extends Controller
         $customer_id = Session::get('customer_id');
         $static_trans = Customer_Transport::where('trans_status', 1)->where('customer_id',$customer_id)->first();
         $cus_trans = Customer_Transport::where('customer_id',$customer_id)->get();
+
+        $date_now = Carbon::now('Asia/Ho_Chi_Minh');
+        $storage_customer_voucher = DB::table('storage_customer_voucher')
+                                ->join('voucher', 'voucher.voucher_id', '=', 'storage_customer_voucher.voucher_id')
+                                ->where('storage_customer_voucher.status', 1)
+                                ->where('storage_customer_voucher.customer_id', $customer_id)
+                                ->get();
         return view('client.checkout.checkout',[
             'arrCart_id' => $arrCart_id,
             'all_cart' => $all_cart,
@@ -37,6 +46,7 @@ class CheckOutController extends Controller
             'citys' => $citys,
             'static_trans' =>$static_trans,
             'cus_trans' =>$cus_trans,
+            'storage_customer_voucher' => $storage_customer_voucher,
         ]);
     }
     public function add_address_trans(Request $request){

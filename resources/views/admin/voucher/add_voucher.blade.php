@@ -7,7 +7,7 @@
                     <nav aria-label="breadcrumb" role="navigation">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ URL::to('admin/dashboard') }}">Trang chủ</a></li>
-                            <li class="breadcrumb-item"><a href="{{ URL::to('admin/all_voucher') }}">Danh sách voucher</a></li>
+                            <li class="breadcrumb-item"><a href="{{ URL::to('admin/all_product_voucher') }}">Danh sách voucher</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Thêm voucher</li>
                         </ol>
                     </nav>
@@ -41,7 +41,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Tên Sản Phẩm</label>
-                                <select name="product_id" value="{{ old('city') }}" class="custom-select2 form-control select2-hidden-accessible"
+                                <select name="product_id" value="{{ old('product_id') }}" class="custom-select2 form-control select2-hidden-accessible"
                                     style="width: 100%; height: 38px;" data-select2-id="1" tabindex="-1" aria-hidden="true">
                                     <option value="">Chọn voucher cho sản phẩm</option>
                                     @foreach ($all_product as $product)
@@ -66,6 +66,12 @@
                                         <div class="alert alert-danger alert-dismissible mt-1">
                                             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                                             {{ $errors->first('voucher_code') }}
+                                        </div>
+                                    @endif
+                                    @if (session('voucher_code'))
+                                        <div class="alert alert-danger alert-dismissible mt-1">
+                                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                            {{ session('voucher_code') }}
                                         </div>
                                     @endif
                             </div>
