@@ -172,6 +172,8 @@
                         <div class="content-voucher">
                             <img src="{{ asset('public/upload/voucher.png') }}" alt="" style="width: 30px">
                             <h4 class="titel-voucher">MKU_FOOD Voucher</h4>
+                            <div class="discount_voucher"></div>
+                            <input type="hidden" value="" class="val_hidden_discount_voucher">
                             <button type="button" id="btn-open-model-voucher" class="choose-voucher btn-green"
                                 data-toggle="modal" data-target="#modal-choose-voucher">Chọn Voucher</button>
                             {{-- <button id="myBtn" type="button">Open Modal</button> --}}
@@ -213,6 +215,8 @@
                             @endphp
                             <div class="val-total-summary">{{ number_format($summary_total_order, 0, ',', '.') }}đ</div>
                             <input type="hidden" class="summary_total_order" name="summary_total_order" value="{{ $summary_total_order }}">
+                            <input type="hidden" class="old_summary_total_order" value="{{ $summary_total_order }}">
+                            <input type="hidden" name="voucher_code" class="val_hidden_voucher_code" value="">
                         </div>
                         <div class="view-btn-buy">
                             <div class="title-rule">Nhấn "Đặt hàng" đồng nghĩa với việc bạn đồng ý tuân theo
@@ -227,6 +231,7 @@
             </form>
         </div>
     </div>
+
     <!-- The Modal Choose Voucher -->
     <div id="modal_voucher" class="modal">
         <!-- Modal content -->
@@ -239,16 +244,17 @@
                 <div class="content-enter-voucher">
                     <label class="title-code-voucher col-2">Mã Voucher: </label>
                     <div class="content-input-voucher">
-                        <input type="text" class="input-voucher col-8" placeholder="Mã MKU_FOOD Voucher">
+                        <input type="text" id="voucher_code_apply" class="input-voucher col-8" placeholder="Mã MKU_FOOD Voucher">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                     </div>
-                    <button type="button" class="btn-green btn-voucher col-2">ÁP DỤNG</button>
+                    <button type="button" class="btn-green btn-voucher col-2 cusor_none btn_apply_voucher">ÁP DỤNG</button>
                 </div>
                 <div class="container__voucher-list">
                     @foreach ($arrCart_id as $cart_id)
                         @foreach ($all_cart as $cart)
                             @if ($cart_id == $cart->cart_id)
                                 @foreach ($storage_customer_voucher as $product_voucher)
-                                    @if ($product_voucher->product_id == $cart->product_id)
+                                    @if ($product_voucher->product_id == $cart->product_id )
                                         <div class="container__voucher-item" style="background-color: #f8f8f8; height: 88px;">
                                             <div class="container__voucher-item--left">
                                                 <div class="voucher-item--left-img">
@@ -269,7 +275,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="voucher-item--right-btn">
-                                                    <a href="#">Dùng Ngay</a>
+                                                    <a href="#" class="choose_voucher choose_voucher_{{ $product_voucher->voucher_code }}" data-id="{{ $product_voucher->voucher_code }}">Dùng Ngay</a>
                                                 </div>
                                             </div>
                                             {{-- @else

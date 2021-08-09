@@ -440,7 +440,6 @@ class AccountController extends Controller
                                         ->where('voucher.status', 1)
                                         ->where('voucher.start_date', '<=' , $date_now)
                                         ->where('voucher.end_date', '>=', $date_now)
-                                        ->where('voucher.voucher_quantity', '>', 0)
                                         ->where('storage_customer_voucher.status', 1)
                                         ->where('customer_id', $customer_id)->get();
         return view('client.user.storage_customer_voucher', compact('customer', 'customer_info','storage_customer_voucher',

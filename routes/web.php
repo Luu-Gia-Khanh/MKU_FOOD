@@ -273,6 +273,7 @@ Route::post('get_val_checkbox', 'CartController@get_val_checkbox');
 //CHECK OUT
 Route::post('checkout', 'CheckOutController@show_checkout');
 Route::post('add_address_trans', 'CheckOutController@add_address_trans');
+Route::post('check_voucher_code_to_apply', 'CheckOutController@check_voucher_code_to_apply');
 
 Route::post('check_qty_to_checkout', 'CheckOutController@check_qty_to_checkout');
 Route::post('process_checkout', 'CheckOutController@process_checkout');

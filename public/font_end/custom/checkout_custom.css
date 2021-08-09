@@ -19,6 +19,12 @@ input[type=number] {
 .container {
     position: relative;
 }
+.cusor_none{
+    cursor: no-drop;
+}
+.dis-none{
+    display: none;
+}
 .content-header {
     height: 100px;
     background: #fff;
@@ -894,5 +900,15 @@ td {
     position: relative;
     width: 100%;
     margin-bottom: 10px;
+}
+
+/* txt discount voucher */
+.discount_voucher{
+    font-size: 16px;
+    align-self: center;
+    justify-content: end;
+    position: absolute;
+    right: 110px;
+    padding-right: 10px;
 }
 

@@ -36,6 +36,8 @@ class CheckOutController extends Controller
         $storage_customer_voucher = DB::table('storage_customer_voucher')
                                 ->join('voucher', 'voucher.voucher_id', '=', 'storage_customer_voucher.voucher_id')
                                 ->where('storage_customer_voucher.status', 1)
+                                ->where('voucher.start_date', '<=' , $date_now)
+                                 ->where('voucher.end_date', '>=', $date_now)
                                 ->where('storage_customer_voucher.customer_id', $customer_id)
                                 ->get();
         return view('client.checkout.checkout',[
@@ -134,16 +136,33 @@ class CheckOutController extends Controller
         $payment_method = $request->payment_method;
         $cart_id = $request->cart_id;
         $summary_total_order = $request->summary_total_order;
+        $customer_id = Session::get('customer_id');
+
+        if($request->voucher_code){
+            $voucher_code = $request->voucher_code;
+        }
+        else{
+            $voucher_code = null;
+        }
         $date = date('Ymd');
 
         $all_storage_product = Storage_Product::all();
         if($payment_method == 0){
+            //delete voucher
+            if($request->voucher_code){
+                $voucher = Voucher::where('voucher_code', $voucher_code)->first();
+                $update_status_voucher = Storage_Customer_Voucher::where('voucher_id',$voucher->voucher_id)->where('customer_id', $customer_id)->first();
+                $update_status_voucher->status = 0;
+                $update_status_voucher->save();
+            }
+
             $orders = new Orders();
             $orders->order_code = $date.''.$this->generateRandomString();
             $orders->customer_id = Session::get('customer_id');
             $orders->total_price = $summary_total_order;
             $orders->payment_id = $payment_method;
             $orders->trans_id = $trans_id;
+            $orders->voucher_code = $voucher_code;
             $orders->create_at = Carbon::now('Asia/Ho_Chi_Minh');
             $orders->save();
             //
@@ -192,12 +211,21 @@ class CheckOutController extends Controller
             ]);
         }
         else{
+            //delete voucher
+            if($request->voucher_code){
+                $voucher = Voucher::where('voucher_code', $voucher_code)->first();
+                $update_status_voucher = Storage_Customer_Voucher::where('voucher_id',$voucher->voucher_id)->where('customer_id', $customer_id)->first();
+                $update_status_voucher->status = 0;
+                $update_status_voucher->save();
+            }
+
             $orders = new Orders();
             $orders->order_code = $date.''.$this->generateRandomString();
             $orders->customer_id = Session::get('customer_id');
             $orders->total_price = $summary_total_order;
             $orders->payment_id = $payment_method;
             $orders->trans_id = $trans_id;
+            $orders->voucher_code = $voucher_code;
             $orders->status_pay = 1;
             $orders->create_at = Carbon::now('Asia/Ho_Chi_Minh');
             $orders->save();
@@ -239,6 +267,8 @@ class CheckOutController extends Controller
             $order_detail_status->status = 1;
             $order_detail_status->save();
 
+
+
             $vnd_to_usd = $summary_total_order/23022;
             return view('client.checkout.check_out_paypal',[
                 'vnd_to_usd'=>$vnd_to_usd,
@@ -247,6 +277,7 @@ class CheckOutController extends Controller
                 'payment_method' => $payment_method,
                 'summary_total_order' => $summary_total_order,
                 'status' => $orders->status_pay,
+                'voucher_code' => $voucher_code,
             ]);
         }
     }
@@ -262,6 +293,16 @@ class CheckOutController extends Controller
         ]);
     }
     public function view_checkout_paypal_fail($order_id){
+        // return voucher_code
+        $voucher = Orders::find($order_id);
+        $voucher_id = Voucher::where('voucher_code', $voucher->voucher_code)->first();
+        if($voucher_id){
+            $update_voucher = Storage_Customer_Voucher::where('voucher_id',$voucher_id->voucher_id)->where('customer_id',Session::get('customer_id'))->first();
+            $update_voucher->status = 1;
+            $update_voucher->save();
+
+        }
+
         $order_item = Order_Item::where('order_id', $order_id)->get();
         foreach($order_item as $item){
             $re_add_cart = new Cart();
@@ -279,7 +320,6 @@ class CheckOutController extends Controller
             $delete_item = Order_Item::find($item->order_item_id);
             $delete_item->delete();
         }
-
         // delete order
         $delete_order = Orders::find($order_id);
         $delete_order->delete();
@@ -289,5 +329,21 @@ class CheckOutController extends Controller
         $delete_order_status->delete();
 
         return view('client.checkout.view_checkout_paypal_fail');
+    }
+    public function check_voucher_code_to_apply(Request $request){
+        $voucher_code = $request->input_voucher_code;
+        $check_discount_voucher = Voucher::where('voucher_code',$voucher_code)->first();
+        if($check_discount_voucher){
+            $check_voucher_in_storage = Storage_Customer_Voucher::where('voucher_id', $check_discount_voucher->voucher_id)->where('status', 1)->where('customer_id', Session::get('customer_id'))->first();
+            if($check_voucher_in_storage){
+                if($check_discount_voucher){
+                    echo $check_discount_voucher->voucher_amount;
+                }
+                else{
+                    echo 0;
+                }
+            }
+        }
+
     }
 }

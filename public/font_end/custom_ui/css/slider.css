@@ -1,0 +1,40 @@
+.content-sider{
+    padding: 30px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.09);
+}
+.slider{
+    width: 100%;
+    background: #333;
+}
+.slider--box1{
+    width: 64.5%;
+    height: 300px;
+    background: #ff0;
+    float: left;
+}
+.space{
+    width: .5%;
+    height: 300px;
+    background: rgb(255, 255, 255);
+    float: left;
+}
+.slider--box2{
+    width: 35.002%;
+    height: 300px;
+    background: #ffffff;
+    float: left;
+}
+.slider--box2--kotak{
+    width: 100%;
+    height: 148px;
+    background: #0022ff;
+}
+.clear{
+    clear: both;
+}
+.mb-2{
+    margin-bottom: 4px;
+}
+
+/* slider */
+

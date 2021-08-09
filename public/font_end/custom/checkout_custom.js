@@ -1,4 +1,7 @@
 $(document).ready(function(){
+    function formatNumber (num) {
+        return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")
+    }
     $('.btn_change_address_trans').click(function(){
         $('.hidden_address').css('opacity', 0);
         $('.btn-add-new-add-trans').removeClass('op-0');
@@ -180,6 +183,81 @@ $(document).ready(function(){
                         showConfirmButton: false,
                         timer: 1500
                         });
+                }
+            }
+        });
+    });
+
+    // process voucher
+    $('.choose_voucher').click(function(){
+        var voucher_code = $(this).attr('data-id');
+        $('#voucher_code_apply').val(voucher_code);
+        var input_voucher_code = $('#voucher_code_apply').val();
+
+        if(input_voucher_code != ''){
+            $('.btn_apply_voucher').removeClass('cusor_none');
+            $('#voucher_code_apply').prop('readonly', true);
+            $('.btn_apply_voucher').prop('disabled', false);
+        }
+        else{
+            $('.btn_apply_voucher').addClass('cusor_none');
+            $('.btn_apply_voucher').prop('disabled', true);
+        }
+        $('.choose_voucher').removeClass('cusor_none');
+        $('.choose_voucher').html('Dùng Ngay');
+        $('.choose_voucher_'+voucher_code).addClass('cusor_none');
+        $('.choose_voucher_'+voucher_code).html('Đã Dùng');
+
+    });
+    $('#voucher_code_apply').keyup(function(){
+        var input_voucher_code = $('#voucher_code_apply').val();
+        if(input_voucher_code != ''){
+            $('.btn_apply_voucher').prop('disabled', false);
+            $('.btn_apply_voucher').removeClass('cusor_none');
+        }
+        else{
+            $('.btn_apply_voucher').prop('disabled', true);
+            $('.btn_apply_voucher').addClass('cusor_none');
+        }
+    });
+    $('.btn_apply_voucher').click(function (){
+        var input_voucher_code = $('#voucher_code_apply').val();
+        var _token = $('input[name="_token"]').val();
+        $.ajax({
+            url: 'check_voucher_code_to_apply',
+            method: 'POST',
+            data: {
+                _token: _token,
+                input_voucher_code: input_voucher_code,
+            },
+            success: function (data) {
+                if(data == 0){
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'error',
+                        title: 'Mã voucher không chính xác',
+                        showConfirmButton: false,
+                        timer: 1500
+                        });
+                }
+                else{
+
+                    // show discount voucher
+                    $('.discount_voucher').html('-'+formatNumber(data)+'₫');
+                    $('.val-total-voucher').html('-'+formatNumber(data)+'₫');
+
+                    //summary_total_order
+                    var summary_total_order = $('.old_summary_total_order').val();
+                    $('.val-total-summary').html(formatNumber(summary_total_order - data)+'₫');
+                    $('.summary_total_order').val(Number(summary_total_order) - data);
+
+                    $('.val_hidden_discount_voucher').val(data);
+                    $('#btn-open-model-voucher').html('Thay Đổi');
+                    $('.val_hidden_voucher_code').val(input_voucher_code);
+                    $('#modal_voucher').hide();
+
+                    //
+
                 }
             }
         });
