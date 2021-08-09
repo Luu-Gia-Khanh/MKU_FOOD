@@ -23,7 +23,18 @@
     <link rel="stylesheet" href="{{ asset('public/font_end/custom_account/event_hover_account.css') }}">
     <link rel="stylesheet" href="{{ asset('public/font_end/custom_account/user_sidebar_content.css') }}">
     <link rel="stylesheet" href="{{ asset('public/font_end/custom/custom_discount.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/font_end/custom_ui/css/custom_header.css') }}">
 </head>
+<style>
+    /* .container{
+        width: 1200px;
+    } */
+    @media (min-width: 1200px){
+        .container {
+            width: 1200px;
+        }
+    }
+</style>
 <body class="biolife-body">
     <!-- Preloader -->
     {{-- @include('client.layout.header_middle.preload') --}}
@@ -36,15 +47,16 @@
             <div class="container">
                 <div class="row">
                     {{-- LOGO --}}
-                    <div class="col-lg-3 col-md-2 col-md-6 col-xs-6">
+                    <div class="col-lg-2 col-md-2 col-md-6 col-xs-6">
                         <a href="home-03-green.html" class="biolife-logo"><img src="{{ asset('public/font_end/assets/images/organic-3-green.png') }}" alt="biolife logo" width="135" height="36"></a>
                     </div>
                     {{-- NAV PAGES --}}
-                    @include('client.layout.header_middle.nav_pages')
-                    <div class="col-lg-3 col-md-3 col-md-6 col-xs-6">
+                    {{-- @include('client.layout.header_middle.nav_pages') --}}
+                    @include('client.layout.header_bottom.search')
+                    <div class="col-lg-2 col-md-2 col-md-6 col-xs-6">
                         <div class="biolife-cart-info">
                             {{-- RESPONSIVE SEARCH MOBILE --}}
-                            @include('client.layout.header_middle.search_responsive')
+                            {{-- @include('client.layout.header_middle.search_responsive') --}}
                             {{-- WISH LISH --}}
                             @include('client.layout.header_middle.wishlish')
                             {{-- MINI CART --}}
@@ -60,19 +72,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="header-bottom hidden-sm hidden-xs">
-            <div class="container">
                 <div class="row">
-                    {{--  NAV MENU  --}}
-                    @include('client.layout.header_bottom.nav_menu')
-                    <div class="col-lg-9 col-md-8 padding-top-2px">
-                        {{-- SEARCH  --}}
-                        @include('client.layout.header_bottom.search')
-                        {{-- INFO PHONE --}}
-                        @include('client.layout.header_bottom.info_phone')
-                    </div>
+                    @include('client.layout.header_middle.nav_pages')
                 </div>
             </div>
         </div>

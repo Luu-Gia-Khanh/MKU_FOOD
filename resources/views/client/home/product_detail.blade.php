@@ -498,9 +498,8 @@
                                             <div class="biolife-panigations-block version-2">
                                                 <ul class="panigation-contain">
                                                 </ul>
-                                                <div class="result-count">
-                                                    <a class="link-to load_more_comment" style="cursor: pointer;">Xem Thêm<i class="fa fa-caret-right"
-                                                            aria-hidden="true"></i></a>
+                                                <div class="result-count" style="text-align: center">
+                                                    <a class="link-to load_more_comment" style="cursor: pointer; font-size: 17px"><u>Xem Thêm</u></a>
                                                 </div>
                                             </div>
                                         @else
