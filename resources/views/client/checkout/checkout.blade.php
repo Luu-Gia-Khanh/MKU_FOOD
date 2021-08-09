@@ -278,9 +278,6 @@
                                                     <a href="#" class="choose_voucher choose_voucher_{{ $product_voucher->voucher_code }}" data-id="{{ $product_voucher->voucher_code }}">Dùng Ngay</a>
                                                 </div>
                                             </div>
-                                            {{-- @else
-                                                <div class="center">Hiện không có voucher nào cho sản phẩm</div>
-                                            @endif --}}
                                         </div>
                                     @endif
                                 @endforeach

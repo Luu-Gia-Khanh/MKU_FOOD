@@ -23,9 +23,9 @@
     $price_discount = App\Http\Controllers\HomeClientController::check_price_discount($product->product_id);
     $info_rating_saled = App\Http\Controllers\HomeClientController::info_rating_saled($product->product_id);
 @endphp
+<link rel="stylesheet" href="{{ asset('public/font_end/custom/sweet.css') }}">
 <link rel="stylesheet" href="{{ asset('public/font_end/custom/custom.css') }}">
 <link rel="stylesheet" href="{{ asset('public/font_end/custom/custom_home_detail.css') }}">
-<link rel="stylesheet" href="{{ asset('public/font_end/custom/voucher_checkout_custom.css') }}">
 <link rel="stylesheet" href="{{ asset('public/font_end/custom/voucher_product_detail.css') }}">
 <style>
     .text {
@@ -172,9 +172,10 @@
                                                     @endif
                                                 @endforeach
                                                 @if ($count_voucher > 0)
-                                                    <button>Lưu</button>
+                                                    <a>Lưu</a>
                                                 @else
-                                                    <a href="{{ URL::to('process_save_voucher/'.$product_voucher->voucher_id) }}">Lưu</a>
+                                                    <a class="btn_saved_voucher_{{ $product_voucher->voucher_id }}" style="display: none;">Lưu</a>
+                                                    <button class="btn_save_voucher btn_save_voucher_{{ $product_voucher->voucher_id }}" data-id="{{ $product_voucher->voucher_id }}">Lưu</button>
                                                 @endif
                                             </div>
                                         </div>
@@ -721,4 +722,7 @@
             </div>
         </div>
     </div>
+    <script src="{{ asset('public/font_end/assets/js/jquery-3.4.1.min.js') }}"></script>
+    <script src="{{ asset('public/font_end/custom/sweet.js') }}"></script>
+    <script src="{{ asset('public/font_end/custom/save_voucher.js') }}"></script>
 @endsection

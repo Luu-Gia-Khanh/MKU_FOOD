@@ -5,7 +5,7 @@
     padding-right: 8px;
 }
 .voucher-text{
-
+    width: 340px;
 }
 .content__voucher-top{
     display: flex;
@@ -43,11 +43,11 @@
 .content_top--right{
     background-color: #8ae68a2e;
     border-radius: 5px;
-    width: 60%;
+    width: 65%;
 }
 .voucher_img{
     display: flex;
     align-items: flex-start;
-    height: 280px;
+    min-width: 280px;
     height: 280px;
 }

@@ -11,6 +11,15 @@
     .btn.active.focus {
         outline: none;
     }
+    .text {
+        overflow: hidden;
+        height: 35px;
+        line-height: 18px;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2; /* number of lines to show */
+        -webkit-box-orient: vertical;
+    }
 </style>
     <div class="container">
         <nav class="biolife-nav">
@@ -88,7 +97,7 @@
                                             </div>
                                             <div class="container__voucher-item--right">
                                                 <div class="voucher-item--right-info">
-                                                    <div class="voucher-item--right-info-name">
+                                                    <div class="voucher-item--right-info-name text">
                                                         {{ $voucher->voucher_name }}
                                                     </div>
                                                     <div class="voucher-item--right-info-end-date">

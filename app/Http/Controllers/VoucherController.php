@@ -34,12 +34,19 @@ class VoucherController extends Controller
 
     public function all_voucher($product_id){
         $all_voucher = Voucher::where('product_id', $product_id)->orderBy('voucher_id', 'desc')->paginate(10);
-        return view('admin.voucher.all_voucher', compact('all_voucher'));
+        $product = Product::where('product_id', $product_id)->first();
+        $product_name = $product->product_name;
+        return view('admin.voucher.all_voucher', compact('all_voucher', 'product_name'));
     }
 
     public function add_voucher(){
-        $all_product = Product::paginate(10);
+        $all_product = Product::all();
         return view('admin.voucher.add_voucher', compact('all_product'));
+    }
+
+    public function add_product_voucher($product_id){
+        $product = Product::find($product_id);
+        return view('admin.voucher.add_product_voucher', compact('product'));
     }
 
     public function process_add_voucher(Request $request){
@@ -246,7 +253,7 @@ class VoucherController extends Controller
     public function get_voucher_amount(Request $request){
         $voucher_id = $request->voucher_id;
         $voucher = DB::table('voucher')->where('voucher_id', $voucher_id)->first();
-        echo number_format($voucher->voucher_amount, 0, ',', '.').' vnđ';
+        echo number_format($voucher->voucher_amount, 0, ',', '.').' ₫';
     }
 
     public function get_voucher_quantity(Request $request){
@@ -270,7 +277,11 @@ class VoucherController extends Controller
         $val_find_product_voucher = $request->value_find;
         $all_voucher = Voucher::all();
         $all_product_voucher = Product::where('product_name', 'LIKE','%'.$val_find_product_voucher.'%')->get();
-        echo view('admin.voucher.find_result_product_voucher', compact('all_product_voucher', 'all_voucher'));
+        $count_result = DB::table('product')
+                            ->join('voucher', 'voucher.product_id', '=', 'product.product_id')
+                            ->where('product.product_name', 'LIKE','%'.$val_find_product_voucher.'%')
+                            ->get();
+        echo view('admin.voucher.find_result_product_voucher', compact('count_result', 'all_product_voucher', 'all_voucher'));
         // echo $val_find_product_voucher;
     }
 

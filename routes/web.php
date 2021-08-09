@@ -172,6 +172,7 @@ Route::prefix('admin')->group(function () {
     Route::get('all_voucher/{product_id}', 'VoucherController@all_voucher');
     Route::get('detail_voucher/{voucher_id}', 'VoucherController@detail_voucher');
     Route::get('add_voucher', 'VoucherController@add_voucher');
+    Route::get('add_product_voucher/{product_id}', 'VoucherController@add_product_voucher');
     Route::get('update_voucher/{voucher_id}', 'VoucherController@update_voucher');
     Route::post('process_add_voucher', 'VoucherController@process_add_voucher');
     Route::post('process_update_voucher/{voucher_id}', 'VoucherController@process_update_voucher');
@@ -286,7 +287,7 @@ Route::get('check_out_success', 'CheckOutController@check_out_success');
 
 //CUSTOMER VOUCHER
 Route::get('user/voucher', 'AccountController@show_voucher');
-Route::get('process_save_voucher/{voucher_id}', 'StorageVoucherController@process_save_voucher');
+Route::post('process_save_voucher', 'StorageVoucherController@process_save_voucher');
 
 //SHOP PRODUCT
 Route::get('shop_product', 'HomeClientController@shop_product');
