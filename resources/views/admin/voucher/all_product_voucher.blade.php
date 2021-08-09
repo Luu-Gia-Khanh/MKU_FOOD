@@ -101,7 +101,7 @@
         
                                                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
                                                                 <a class="dropdown-item" href="{{ URL::to('admin/all_voucher/'.$product->product_id) }}"><i class="dw dw-eye"></i>Xem danh sách voucher</a>
-                                                                <a class="dropdown-item" href="{{ URL::to('admin/add_voucher') }}"><i class="icon-copy dw dw-add"></i>Thêm voucher</a>                                                  
+                                                                <a class="dropdown-item" href="{{ URL::to('admin/add_product_voucher/'.$product->product_id) }}"><i class="icon-copy dw dw-add"></i>Thêm voucher</a>                                                  
                                                             </div>
                                                         </div>                                            
                                                     </td>

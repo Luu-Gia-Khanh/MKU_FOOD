@@ -1,6 +1,6 @@
 .container__voucher-list{
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     height: 305px;
     top: calc(100% - 1px);
     padding-left: 0;
@@ -13,14 +13,14 @@
     display: flex;
     box-shadow: 0 2px 3px #adacac4d;
     background-color: white;
-    width: 100%;
+    max-width: 97%;
     margin: 8px 8px;
 }
 .container__voucher-item--left{
     display: -webkit-flex;
     display: -moz-box;
     display: -ms-flexbox;
-    -webkit-flex-direction: column;
+    -webkit-flex-direction: column; 
     -moz-box-orient: vertical;
     -moz-box-direction: normal;
     -ms-flex-direction: column;

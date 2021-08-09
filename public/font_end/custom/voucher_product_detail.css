@@ -201,7 +201,7 @@
     display: flex;
     align-items: center;
 }
-.voucher-item--right-btn a{
+.voucher-item--right-btn button{
     background-color: #7faf51;
     border: none;
     color: white;
@@ -212,10 +212,23 @@
     display: inline-block;
     font-size: 16px;
 }
-.voucher-item--right-btn:hover a{
+.voucher-item--right-btn:hover button{
     opacity: 0.8;
 }
-.voucher-item--right-btn button{
+.voucher-item--right-btn a{
+    background-color: #7faf51;
+    border: none;
+    color: white;
+    margin-right: 8px;
+    padding: 4px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    opacity: 0.8;
+    cursor: no-drop;
+}
+.saved-voucher{
     background-color: #7faf51;
     border: none;
     color: white;

@@ -272,9 +272,6 @@
                                                     <a href="#">Dùng Ngay</a>
                                                 </div>
                                             </div>
-                                            {{-- @else
-                                                <div class="center">Hiện không có voucher nào cho sản phẩm</div>
-                                            @endif --}}
                                         </div>
                                     @endif
                                 @endforeach

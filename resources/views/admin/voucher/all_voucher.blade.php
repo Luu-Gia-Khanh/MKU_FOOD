@@ -51,7 +51,7 @@
         <div class="card-box mb-30">
             <div class="row pd-20">
                 <div class="col-10 pd-20">
-                    <h4 class="text-blue h4">Danh Sách Voucher</h4>
+                    <h4 class="text-blue h4">Danh Sách Voucher - {{ $product_name }}</h4>
                 </div>
             </div>
             <div class="pb-20">
