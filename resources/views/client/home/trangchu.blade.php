@@ -6,6 +6,7 @@
 {{-- TAB SHOW PRODUCT --}}
 @section('product_tap_view_client')
     <link rel="stylesheet" href="{{ asset('public/font_end/custom/mini_detail_product.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/font_end/custom_ui/css/custom_container_product.css') }}">
     <style>
         .btn:focus,
         .btn:active:focus,
@@ -16,29 +17,40 @@
             outline: none;
         }
     </style>
-    <div class="product-tab z-index-20 sm-margin-top-193px xs-margin-top-30px">
+    <div class="product-tab z-index-20 bg">
         <div class="container">
             <div class="biolife-title-box">
                 <span class="subtitle">All the best item for You</span>
                 <h3 class="main-title">Danh sách sản phẩm</h3>
             </div>
-            <div class="biolife-tab biolife-tab-contain sm-margin-top-34px">
-                <div class="tab-head tab-head__icon-top-layout icon-top-layout">
-                    {{-- <ul class="tabs md-margin-bottom-35-im xs-margin-bottom-40-im">
+            <div class="biolife-tab biolife-tab-contain sm-margin-top-34px container-product">
+                {{-- <div class="tab-head tab-head__icon-top-layout icon-top-layout">
+                    
+                    <ul class="tabs md-margin-bottom-35-im xs-margin-bottom-40-im">
                     <li class="tab-element active">
                         <a href="#tab01_1st" class="tab-link"><span class="biolife-icon icon-lemon"></span>Oranges</a>
                     </li>
                     <li class="tab-element" >
                         <a href="#tab01_2nd" class="tab-link"><span class="biolife-icon icon-grape2"></span>Grapes</a>
                     </li>
-                </ul> --}}
+                </ul>
+                </div> --}}
+                <div class="tab__head">
+                    <div class="tab__head-text--title">
+                        FLASH SALE
+                    </div>
+                    <div class="tab__head-text--see-all">
+                        <a href="#" class="tab__head-link">
+                            Xem tất cả <span class="icon-copy ti-angle-right"></span>
+                        </a>
+                    </div>
                 </div>
                 <div class="tab-content">
                     <ul class="products-list biolife-carousel nav-center-02 nav-none-on-mobile eq-height-contain"
                         data-slick='{"rows":1 ,"arrows":true,"dots":false,"infinite":true,"speed":400,"slidesMargin":10,"slidesToShow":4, "responsive":[{"breakpoint":1200, "settings":{ "slidesToShow": 4}},{"breakpoint":992, "settings":{ "slidesToShow": 3, "slidesMargin":20}},{"breakpoint":768, "settings":{ "slidesToShow": 2, "slidesMargin":15}}]}'>
                         @foreach ($all_product_join as $product)
                             <li class="product-item">
-                                <div class="contain-product layout-default" style="position: relative">
+                                <div class="contain-product layout-default" style="position: relative;">
                                     <div class="product-thumb">
                                         <a href="{{ URL::to('product_detail/' . $product->product_id) }}"
                                             class="link-to-product" style="height: 270px; width: 270px">
@@ -241,6 +253,7 @@
         </div>
     </div>
 
+
     <script src="{{ asset('public/font_end/assets/js/jquery-3.4.1.min.js') }}"></script>
     <script src="{{ asset('public/font_end/bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('public/font_end/custom/mini_detail_product.js') }}"></script>
@@ -248,13 +261,21 @@
 @section('content_body')
     <div class="container">
         <div class="row">
+            <div id="main-content" class="main-content col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="block-item head__title">
+                    <div class="head__title--text">
+                        Gợi ý hôm nay
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
             <!-- Main content -->
             <div id="main-content" class="main-content col-lg-12 col-md-12 col-sm-12 col-xs-12">
-
-                <div class="block-item recently-products-cat md-margin-bottom-39">
+                <div class="block-item recently-products-cat md-margin-bottom-39 custom-container-product">
                     <ul class="products-list biolife-carousel nav-center-02 nav-none-on-mobile" data-slick='{"rows":1,"arrows":true,"dots":false,"infinite":false,"speed":400,"slidesMargin":0,"slidesToShow":5, "responsive":[{"breakpoint":1200, "settings":{ "slidesToShow": 3}},{"breakpoint":992, "settings":{ "slidesToShow": 3, "slidesMargin":30}},{"breakpoint":768, "settings":{ "slidesToShow": 2, "slidesMargin":10}}]}' >
                         @foreach ($all_product as $product)
-                            <li class="product-item">
+                            <li class="product-item custom-product-item">
                                 <div class="contain-product layout-02">
                                     <div class="contain-product layout-default">
                                         <div class="product-thumb">
@@ -293,4 +314,7 @@
             </div>
         </div>
     </div>
+@endsection
+@section('top_rate_product_view_client')
+    @include('client.layout.body.top_rate_product')
 @endsection

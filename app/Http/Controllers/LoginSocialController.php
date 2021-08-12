@@ -20,8 +20,11 @@ class LoginSocialController extends Controller
         $account = Social::where('provider','facebook')->where('provider_user_id',$provider->getId())->first();
         if($account){
             $account_name = Customer::where('customer_id',$account->user)->first();
+            $customer = Customer_Info::where('customer_id', $account->user)->first();
+            $customer_avt = $customer->customer_avt;
             Session::put('username',$account_name->username);
             Session::put('customer_id',$account_name->customer_id);
+            Session::put('customer_avt', $customer_avt);
             return redirect('/');
         }else{
 
@@ -51,10 +54,13 @@ class LoginSocialController extends Controller
             $login_customer_new->login()->associate($orang);
             $login_customer_new->save();
 
-            $account_name = Customer::where('customer_id',$login_customer_new->user)->first();
+            $account_name = Customer::where('customer_id', $login_customer_new->user)->first();
+            $customer = Customer_Info::where('customer_id', $login_customer_new->user)->first();
+            $customer_avt = $customer->customer_avt;
 
             Session::put('username',$account_name->username);
             Session::put('customer_id',$account_name->customer_id);
+            Session::put('customer_avt', $customer_avt);
             return redirect('/');
         }
     }
@@ -69,13 +75,19 @@ class LoginSocialController extends Controller
         $authUser = $this->findOrCreateUser($users,'google');
         if($authUser){
             $account_name = Customer::where('customer_id',$authUser->user)->first();
+            $customer = Customer_Info::where('customer_id', $authUser->user)->first();
+            $customer_avt = $customer->customer_avt;
             Session::put('username',$account_name->username);
             Session::put('customer_id',$account_name->customer_id);
+            Session::put('customer_avt', $customer_avt);
         }
         elseif($login_customer_new){
             $account_name = Customer::where('customer_id',$authUser->user)->first();
+            $customer = Customer_Info::where('customer_id', $authUser->user)->first();
+            $customer_avt = $customer->customer_avt;
             Session::put('username',$account_name->username);
             Session::put('customer_id',$account_name->customer_id);
+            Session::put('customer_avt', $customer_avt);
         }
         return redirect('/');
 

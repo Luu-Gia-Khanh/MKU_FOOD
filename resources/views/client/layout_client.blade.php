@@ -33,6 +33,9 @@
         .container {
             width: 1200px;
         }
+        .main-content{
+            background-color: rgb(245, 245, 245);
+        }
     }
 </style>
 <body class="biolife-body">
@@ -99,9 +102,6 @@
             <!--Block 05: Banner promotion 02-->
             @yield('promotion2_view_client')
 
-            <!--Block 06: Products-->
-            @yield('top_rate_product_view_client')
-
             <!--Block 07: Brands-->
             @yield('brands_view_client')
 
@@ -109,6 +109,9 @@
             @yield('blog_view_client')
 
             @yield('content_body')
+
+            <!--Block 06: Products-->
+            @yield('top_rate_product_view_client')
 
         </div>
     </div>
@@ -153,7 +156,7 @@
     <script src="{{ asset('public/font_end/assets/js/jquery-3.4.1.min.js') }}"></script>
     <script src="{{ asset('public/font_end/assets/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('public/font_end/assets/js/jquery.countdown.min.js') }}"></script>
-    <script src="{{ asset('public/font_end/assets/js/jquery.nice-select.min.js') }}"></script>
+    {{-- <script src="{{ asset('public/font_end/assets/js/jquery.nice-select.min.js') }}"></script> --}}
     <script src="{{ asset('public/font_end/assets/js/jquery.nicescroll.min.js') }}"></script>
     <script src="{{ asset('public/font_end/assets/js/slick.min.js') }}"></script>
     <script src="{{ asset('public/font_end/assets/js/biolife.framework.js') }}"></script>
