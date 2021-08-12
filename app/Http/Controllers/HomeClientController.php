@@ -422,5 +422,45 @@ class HomeClientController extends Controller
         $update_rating->created_at = Carbon::now('Asia/Ho_Chi_Minh');
         $update_rating->save();
     }
+    public function ajax_search_auto_complete(Request $request){
+        $val_search_auto_complte = $request->val_search_auto_complte;
+        $result_search = DB::table('product')
+                        ->join('product_price', 'product_price.product_id', '=', 'product.product_id')
+                        ->where('product_price.status', 1)
+                        ->where('product_name','LIKE','%'.$val_search_auto_complte.'%')
+                        ->get();
+        echo view('client.home.view_search_auto_complete_ajax',['result_search'=>$result_search]);
+    }
+    public function search_product_form_search_auto_complete(Request $request){
+        $val_search = $request->search_product;
+
+        $customer_id = Session::get('customer_id');
+        $all_product = Product::all();
+        $all_cart = Cart::where('customer_id', $customer_id)->where('status', 1)->get();
+
+        $all_category = Category::all();
+        $result_search = DB::table('product')
+                        ->join('product_price', 'product_price.product_id', '=', 'product.product_id')
+                        ->join('category', 'category.cate_id', '=', 'product.category_id')
+                        ->where('product_price.status', 1)
+                        ->where('product_name','LIKE','%'.$val_search.'%')
+                        ->get();
+        return view('client.home.view_result_search',[
+            'all_cart'=> $all_cart,
+            'all_product'=> $all_product,
+            'result_search'=> $result_search,
+            'val_search'=> $val_search,
+            'all_category'=> $all_category,
+        ]);
+    }
+    public function contact_us(){
+        $customer_id = Session::get('customer_id');
+        $all_product = Product::all();
+        $all_cart = Cart::where('customer_id', $customer_id)->where('status', 1)->get();
+        return view('client.contact.contact_us',[
+            'all_product'=>$all_product,
+            'all_cart'=>$all_cart,
+        ]);
+    }
 
 }

@@ -63,18 +63,6 @@
 	{{-- sort table --}}
     <script src="{{ asset('public/back_end/sort_table/Scripts/bootstrap-sortable.js') }}"></script>
 
-        <!-- fancybox -->
-    {{-- <script src="{{ asset('public/back_end/src/plugins/fancybox/dist/jquery.fancybox.js') }}"></script> --}}
-    	<!-- buttons for Export datatable -->
-	{{-- <script src="{{ asset('public/back_end/src/plugins/datatables/js/dataTables.buttons.min.js') }}"></script> --}}
-	{{-- <script src="{{ asset('public/back_end/src/plugins/datatables/js/buttons.bootstrap4.min.js') }}"></script>
-	<script src="{{ asset('public/back_end/src/plugins/datatables/js/buttons.print.min.js') }}"></script>
-	<script src="{{ asset('public/back_end/src/plugins/datatables/js/buttons.html5.min.js') }}"></script>
-	<script src="{{ asset('public/back_end/src/plugins/datatables/js/buttons.flash.min.js') }}"></script>
-	<script src="{{ asset('public/back_end/src/plugins/datatables/js/vfs_fonts.js') }}"></script> --}}
-	<!-- Datatable Setting js -->
-	{{-- <script src="{{ asset('public/back_end/vendors/scripts/datatable-setting.js') }}"></script> --}}
-
     {{-- custom script --}}
     <script src="{{ asset('public/back_end/src/scripts/upload_image.js') }}"></script>
     <script src="{{ asset('public/back_end/src/scripts/custom.js') }}"></script>
@@ -92,5 +80,14 @@
 	<script src="{{ asset('public/back_end/src/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js') }}"></script>
     <script src="{{ asset('public/back_end/src/scripts/custom_order.js') }}"></script>
     <script src="{{ asset('public/back_end/src/scripts/discount_custom.js') }}"></script>
+
+    {{-- CKeditor --}}
+    <script>
+        CKEDITOR.replace('ck_admin_add_product_sort_desc');
+        CKEDITOR.replace('ck_admin_add_product_desc',{
+            filebrowserUploadUrl: "{{route('upload', ['_token' => csrf_token() ])}}",
+            filebrowserUploadMethod: 'form'
+        });
+    </script>
 </body>
 </html>

@@ -207,10 +207,17 @@ Route::prefix('admin')->group(function () {
 });
 
 // FONT END
-
-//USER
+// NAV
 Route::get('/', 'HomeClientController@index');
+Route::get('shop_product', 'HomeClientController@shop_product');
+Route::get('contact_us', 'HomeClientController@contact_us');
+//Home
 Route::get('product_detail/{product_id}', 'HomeClientController@product_detail');
+// search auto complete
+Route::post('ajax_search_auto_complete', 'HomeClientController@ajax_search_auto_complete');
+Route::post('search_product_form_search_auto_complete', 'HomeClientController@search_product_form_search_auto_complete');
+//search ajax product follow keyword search
+Route::post('ajax_search_cate_and_keyword', 'AjaxSearchProductKeyword@ajax_search_cate_and_keyword');
 
 //comment_rating
 Route::post('add_comment_rating', 'HomeClientController@add_comment_rating');
@@ -289,9 +296,6 @@ Route::get('check_out_success', 'CheckOutController@check_out_success');
 Route::get('user/voucher', 'AccountController@show_voucher');
 Route::post('process_save_voucher', 'StorageVoucherController@process_save_voucher');
 
-//SHOP PRODUCT
-Route::get('shop_product', 'HomeClientController@shop_product');
-
 // ADDRESS ADD ADDRESS ADMIN LOAD
 Route::post('admin/load_district', 'AddressController@load_district');
 Route::post('admin/load_ward', 'AddressController@load_ward');
@@ -305,3 +309,7 @@ Route::post('admin/load_ward_update_address_profile_admin', 'AddressController@l
 //ADDRESS ADD TRANS
 Route::post('load_district', 'AddressController@load_district');
 Route::post('load_ward', 'AddressController@load_ward');
+
+
+// CKDITOR
+Route::post('ckeditor/image_upload', 'CKEditorController@upload')->name('upload');

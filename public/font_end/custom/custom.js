@@ -273,11 +273,24 @@ $(document).ready(function(){
             quantity_down--;
             $('.val_quantity').val(quantity_down);
         }
-
     });
 
     //delete item cart
-    $('.delete_item_cart').click(function(){
+    var modal_delete_item_cart = $('.modal_delete_item_cart');
+    var btn_open_modal_delete_item_cart = $('.btn_open_modal_delete_item_cart');
+    var close_modal = $('.close_modal');
+    btn_open_modal_delete_item_cart.click(function () {
+        modal_delete_item_cart.show();
+    });
+    close_modal.click(function () {
+        modal_delete_item_cart.hide();
+    });
+    $(window).on('click', function (e) {
+        if ($(e.target).is('.modal_mini_detail')) {
+            modal_delete_item_cart.hide();
+        }
+    });
+    $('.btn_open_modal_delete_item_cart').click(function(){
         var cart_id = $(this).attr('data-id');
         $('.delete_item_cart').val(cart_id);
     });
@@ -287,22 +300,14 @@ $(document).ready(function(){
         Swal.fire({
             position: 'top-end',
             icon: 'success',
-            title: 'xóa thành công',
+            title: 'Xóa thành công',
             showConfirmButton: false,
-            timer: 1000
-          });
-        // $(function(){
-        //     $.ajax({
-        //         url: 'load_quantity_cart',
-        //         method: 'POST',
-        //         data: {
-        //             _token: _token
-        //         },
-        //         success: function (data) {
-        //             $('.total_quantity_cart').html(data);
-        //         }
-        //     });
-        // });
+            timer: 1500
+            });
+        setTimeout(
+            function(){
+                location.reload();
+            }, 1600);
     });
 
     // modal mini cart

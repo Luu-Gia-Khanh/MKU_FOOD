@@ -1,6 +1,7 @@
 @extends('client.layout_client')
 @section('content_body')
     <link rel="stylesheet" href="{{ asset('public/font_end/custom/custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/font_end/custom_account/modal_address.css') }}">
     <div class="container">
         <nav class="biolife-nav">
             <ul>
@@ -64,10 +65,10 @@
                                                         <div class="action">
                                                             {{-- href="{{ URL::to('remove_item_cart/'.$cart->cart_id) }} --}}
                                                             {{-- <a href="#" class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></a> --}}
-                                                            <a class="remove delete_item_cart"
-                                                                data-id="{{ $cart->cart_id }}" data-toggle="modal"
-                                                                data-target="#delete_cart_item" style="cursor: pointer;"><i
-                                                                    class="fa fa-trash-o" aria-hidden="true"></i> xóa</a>
+                                                            <a class="remove btn_open_modal_delete_item_cart"
+                                                                data-id="{{ $cart->cart_id }}"
+                                                                style="cursor: pointer;"><i
+                                                                class="fa fa-trash-o" aria-hidden="true"></i> xóa</a>
                                                         </div>
                                                     </td>
                                                     <td class="product-price" data-title="Price">
@@ -265,8 +266,6 @@
                                 </div>
                             </div>
                         @endif
-
-
                     </div>
                 @else
                     <div class="center" style="text-align: center">
@@ -281,6 +280,29 @@
                         <h3 class="main-title">Related Products</h3>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    {{-- MODAL delete cart item --}}
+    <div class="modal_delete_address modal modal_delete_item_cart" id="">
+        <!-- Modal content -->
+        <div class="modal-content_delete_address container">
+            <div class="modal-header-cus modal-header-address">
+                <span class="close_delete_address close close_modal">&times;</span>
+                <h4>Thông báo</h4>
+            </div>
+            <div class="modal-body-cus">
+                <div class="content-delete-address">
+                    Bạn có thực sự muốn xóa sản phẩm này ra khỏi giỏ hàng ?
+                    <form name="form_delete_item_cart" action="{{ URL::to('remove_item_cart') }}" method="post">
+                        @csrf
+                        <input type="hidden" name="cart_id" class="delete_item_cart" id="">
+                    </form>
+                </div>
+            </div>
+            <div class="content-modal-footer-address">
+                <button class="btn btn-secondary btn-back-modal-address close_modal" id="close_delete_address" style="margin-right: 10px">TRỞ LẠI</button>
+                <button class="btn btn-success btn_confirm_delete_item_cart">XÓA</button>
             </div>
         </div>
     </div>

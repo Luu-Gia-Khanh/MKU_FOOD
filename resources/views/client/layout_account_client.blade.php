@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="{{ asset('public/font_end/custom_account/event_hover_account.css') }}">
     <link rel="stylesheet" href="{{ asset('public/font_end/custom_account/user_sidebar_content.css') }}">
     <link rel="stylesheet" href="{{ asset('public/font_end/custom_ui/css/custom_header.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/font_end/custom_ui/css/design_search_auto.css') }}">
 </head>
 <body class="biolife-body">
     <!-- Preloader -->

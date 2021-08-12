@@ -96,11 +96,11 @@ input[type=number] {
     width: 407px;
     padding-left: 15px;
 }
-.name_product{
+.name_product_mini{
     color: #1c1f19;
     font-size:20px;
 }
-.name_product:hover{
+.name_product_mini:hover{
     color: #7faf51;
 }
 .price_prod{

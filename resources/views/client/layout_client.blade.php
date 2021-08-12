@@ -24,11 +24,9 @@
     <link rel="stylesheet" href="{{ asset('public/font_end/custom_account/user_sidebar_content.css') }}">
     <link rel="stylesheet" href="{{ asset('public/font_end/custom/custom_discount.css') }}">
     <link rel="stylesheet" href="{{ asset('public/font_end/custom_ui/css/custom_header.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/font_end/custom_ui/css/design_search_auto.css') }}">
 </head>
 <style>
-    /* .container{
-        width: 1200px;
-    } */
     @media (min-width: 1200px){
         .container {
             width: 1200px;
@@ -98,10 +96,6 @@
 
             <!--Block 05: Banner promotion 02-->
             @yield('promotion2_view_client')
-
-            <!--Block 06: Products-->
-            @yield('top_rate_product_view_client')
-
             <!--Block 07: Brands-->
             @yield('brands_view_client')
 
@@ -109,6 +103,8 @@
             @yield('blog_view_client')
 
             @yield('content_body')
+            <!--Block 06: Products-->
+            @yield('top_rate_product_view_client')
 
         </div>
     </div>
@@ -119,33 +115,6 @@
     {{-- quickview --}}
     {{-- @include('client.layout.body.quickview_popup'); --}}
 
-    {{-- Modal delete cart --}}
-    <div class="modal fade" id="delete_cart_item">
-        <div class="modal-dialog">
-            <div class="modal-content">
-
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title">Thông Báo</h4>
-                </div>
-
-                <!-- Modal body -->
-                <div class="modal-body">
-                    Bạn muốn xóa sản phẩm này ra khỏi giỏ hàng
-                    <form action="{{ URL::to('remove_item_cart') }}" method="post" name="form_delete_item_cart">
-                        @csrf
-                        <input type="hidden" name="cart_id" class="delete_item_cart">
-                    </form>
-                </div>
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button class="btn btn-success btn_confirm_delete_item_cart">Xóa</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                </div>
-
-            </div>
-        </div>
-    </div>
     <!-- Scroll Top Button -->
     <a class="btn-scroll-top"><i class="biolife-icon icon-left-arrow"></i></a>
 

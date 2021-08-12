@@ -16,7 +16,7 @@
 <div class="content_info_product">
     <h4 class="title">
         <div class="product_id"></div>
-        <a href="#" class="pr-name name_product">{{ $product->product_name }}</a>
+        <a href="#" class="pr-name name_product_mini">{{ $product->product_name }}</a>
     </h4>
     <div class="rating" style="display: flex;">
         <p class="star-rating" style="align-self: flex-start">

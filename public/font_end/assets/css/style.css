@@ -1524,7 +1524,7 @@ body.open-mobile-search .header-area.layout-02{
     font-weight: 700;
     text-transform: uppercase;
     border: none;
-    border-radius: 9999px;
+    border-radius: 5px;
     line-height: 1;
     padding: 15px 10px 16px;
 }
@@ -3397,7 +3397,7 @@ body.open-overlay #overlay{
     display: block;
     clear: both;
     border-bottom: 1px solid #e6e6e6;
-    margin-bottom: 37px;
+    margin-bottom: 15px;
 }
 .sidebar .widget:last-child{
     border-bottom: none;
@@ -4359,9 +4359,11 @@ body.open-overlay #overlay{
     font-weight: 700;
     text-transform: uppercase;
     display: block;
-    border-radius: 999px;
+    border-radius: 5px;
     border: none;
     padding: 12px 10px 11px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 .sumary-product .action-form .buttons .add-to-cart-btn:hover{
     background-color: #444444;
@@ -5797,7 +5799,7 @@ body.open-overlay #overlay{
     color: #ffffff;
     text-transform: uppercase;
     border: none;
-    border-radius: 9999px;
+    border-radius: 5px;
     text-align: center;
     font-weight: 700;
     padding: 12px;
