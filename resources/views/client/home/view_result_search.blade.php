@@ -136,8 +136,6 @@
                                                             @endif
                                                         </div>
                                                         <div class="content_qty_rating">
-                                                            {{-- <p class="shipping-day">3-Day Shipping</p>
-                                                            <p class="for-today">Pree Pickup Today</p> --}}
                                                             <div class="rating" style="display: flex;">
                                                                 <p class="star-rating" style="align-self: flex-start">
                                                                     <span class="width-80percent" style="width:{{ $info_rating_saled->avg_rating *20 }}"></span>
@@ -146,7 +144,6 @@
                                                             <div class="availeble_product">Đã bán: {{ $info_rating_saled->count_product_saled }}</div>
                                                         </div>
                                                         <div class="slide-down-box">
-                                                            {{-- <p class="message">All products are carefully selected to ensure food safety.</p> --}}
                                                             <div class="buttons">
                                                                 <a href="#" class="btn wishlist-btn"><i class="fa fa-heart" aria-hidden="true"></i></a>
                                                                 @if (Session::get('customer_id'))

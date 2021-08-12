@@ -29,8 +29,11 @@ class CustomerController extends Controller
         $check_customer_login = Customer::where('email', $request->email)->where('password', md5(md5($request->password)))->first();
 
         if($check_customer_login){
+            $customer = Customer_Info::where('customer_id', $check_customer_login->customer_id)->get();
+            $customer_avt = $customer->customer_avt;
             Session::put('customer_id', $check_customer_login->customer_id);
             Session::put('username', $check_customer_login->username);
+            Session::put('customer_avt', $customer_avt);
             return redirect('/');
         }
         else {
@@ -166,6 +169,7 @@ class CustomerController extends Controller
 
         Session::forget('customer_id');
         Session::forget('username');
+        Session::forget('customer_avt');
         Session::flush();
 
         return redirect('login_client');

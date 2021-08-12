@@ -13,7 +13,6 @@
     <link rel="stylesheet" href="{{ asset('public/font_end/assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('public/font_end/assets/css/animate.min.css') }}">
     <link rel="stylesheet" href="{{ asset('public/font_end/assets/css/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/font_end/assets/css/nice-select.css') }}">
     <link rel="stylesheet" href="{{ asset('public/font_end/assets/css/slick.min.css') }}">
     <link rel="stylesheet" href="{{ asset('public/font_end/assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('public/font_end/custom/sweet.css') }}">
@@ -143,7 +142,6 @@
     <script src="{{ asset('public/font_end/assets/js/jquery-3.4.1.min.js') }}"></script>
     <script src="{{ asset('public/font_end/assets/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('public/font_end/assets/js/jquery.countdown.min.js') }}"></script>
-    <script src="{{ asset('public/font_end/assets/js/jquery.nice-select.min.js') }}"></script>
     <script src="{{ asset('public/font_end/assets/js/jquery.nicescroll.min.js') }}"></script>
     <script src="{{ asset('public/font_end/assets/js/slick.min.js') }}"></script>
     <script src="{{ asset('public/font_end/assets/js/biolife.framework.js') }}"></script>

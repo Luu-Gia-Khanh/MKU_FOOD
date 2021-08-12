@@ -6,6 +6,9 @@
 {{-- TAB SHOW PRODUCT --}}
 @section('product_tap_view_client')
     <link rel="stylesheet" href="{{ asset('public/font_end/custom/mini_detail_product.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/font_end/custom_ui/css/custom_container_product.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/font_end/custom_ui/css/custom_cart_lg.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/font_end/custom_ui/css/custom_cart_sm.css') }}">
     <style>
         .btn:focus,
         .btn:active:focus,
@@ -16,91 +19,81 @@
             outline: none;
         }
     </style>
-    <div class="product-tab z-index-20 sm-margin-top-193px xs-margin-top-30px">
+    <div class="product-tab z-index-20 bg">
         <div class="container">
-            <div class="biolife-title-box">
-                <span class="subtitle">All the best item for You</span>
-                <h3 class="main-title">Danh sách sản phẩm</h3>
-            </div>
-            <div class="biolife-tab biolife-tab-contain sm-margin-top-34px">
-                <div class="tab-head tab-head__icon-top-layout icon-top-layout">
+            <div class="biolife-tab biolife-tab-contain sm-margin-top-34px container-product">
+                <div class="tab__head">
+                    <div class="tab__head-text--title">
+                        FLASH SALE
+                    </div>
+                    <div class="tab__head-text--see-all">
+                        <a href="#" class="tab__head-link">
+                            Xem tất cả <span class="icon-copy ti-angle-right"></span>
+                        </a>
+                    </div>
                 </div>
                 <div class="tab-content">
                     <ul class="products-list biolife-carousel nav-center-02 nav-none-on-mobile eq-height-contain"
                         data-slick='{"rows":1 ,"arrows":true,"dots":false,"infinite":true,"speed":400,"slidesMargin":10,"slidesToShow":4, "responsive":[{"breakpoint":1200, "settings":{ "slidesToShow": 4}},{"breakpoint":992, "settings":{ "slidesToShow": 3, "slidesMargin":20}},{"breakpoint":768, "settings":{ "slidesToShow": 2, "slidesMargin":15}}]}'>
                         @foreach ($all_product_join as $product)
-                            <li class="product-item">
-                                <div class="contain-product layout-default" style="position: relative">
+                            @php
+                                $price_discount = App\Http\Controllers\HomeClientController::check_price_discount($product->product_id);
+                                $info_rating_saled = App\Http\Controllers\HomeClientController::info_rating_saled($product->product_id);
+                            @endphp
+                            <li class="product-item col-lg-4 col-md-4 col-sm-4 col-xs-6">
+                                <div class="contain-product layout-default content_product">
                                     <div class="product-thumb">
-                                        <a href="{{ URL::to('product_detail/' . $product->product_id) }}"
-                                            class="link-to-product" style="height: 270px; width: 270px">
-                                            <img src="{{ asset('public/upload/' . $product->product_image) }}"
-                                                style="height: 270px; width: 270px" alt="Vegetables" width="270"
-                                                height="270" class="product-thumnail">
+                                        <a href="{{ URL::to('product_detail/' . $product->product_id) }}" class="link-to-product">
+                                            <img src="{{ asset('public/upload/'.$product->product_image) }}" alt="dd" style="width: 270px; height: 270px" class="product-thumnail">
                                         </a>
                                         <span href="#" class="lookup get_val_quickview btn_call_quickview_detail btn_open_modal"
                                             data-id="{{ $product->product_id }}"><i
                                                 class="biolife-icon icon-search"></i></span>
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                                     </div>
                                     <div class="info">
-                                        <b class="categories">
-                                            {{ $product->cate_name }}
-                                        </b>
-                                        <h4 class="product-title"><a
-                                                href="{{ URL::to('product_detail/' . $product->product_id) }}"
-                                                class="">{{ $product->product_name }}</a>
+                                        <b class="categories">{{ $product->cate_name }}</b>
+                                        <h4 class="product-title">
+                                            <a href="{{ URL::to('product_detail/' . $product->product_id) }}" class="pr-name name_product">{{ $product->product_name }}</a>
                                         </h4>
-                                        <div class="price ">
-                                            @php
-                                                $price_discount = App\Http\Controllers\HomeClientController::check_price_discount($product->product_id);
-                                            @endphp
+                                        <div class="price">
                                             @if ($price_discount->percent_discount == 0)
-                                                <ins>
-                                                    <span class="price-amount"><span class="currencySymbol">
-                                                        {{ number_format($price_discount->price_now, 0, ',', '.') }}đ
-                                                    </span>
-                                                </ins>
+                                                <ins><span class="price-amount"><span class="currencySymbol">{{ number_format($price_discount->price_now, 0, ',', '.') }}₫</span></ins>
                                             @else
-                                                <ins>
-                                                    <span class="price-amount"><span class="currencySymbol">
-                                                        {{ number_format($price_discount->price_now, 0, ',', '.') }}₫
-                                                    </span>
-                                                </ins>
-                                                <del>
-                                                    <span class="price-amount"><span class="currencySymbol">
-                                                        {{ number_format($price_discount->price_old, 0, ',', '.') }}₫
-                                                    </span>
-                                                </del>
+                                                <ins><span class="price-amount"><span class="currencySymbol">{{ number_format($price_discount->price_now, 0, ',', '.') }}₫</span></ins>
+                                                <del><span class="price-amount"><span class="currencySymbol">{{ number_format($price_discount->price_old, 0, ',', '.') }}₫</span></del>
                                             @endif
                                         </div>
-
+                                        <div class="content_qty_rating">
+                                            <div class="rating" style="display: flex;">
+                                                <p class="star-rating" style="align-self: flex-start">
+                                                    <span class="width-80percent" style="width:{{ $info_rating_saled->avg_rating *20 }}"></span>
+                                                </p>
+                                            </div>
+                                            <div class="availeble_product" style="font-size: 14px">Đã bán: {{ $info_rating_saled->count_product_saled }}</div>
+                                        </div>
                                         <div class="slide-down-box">
-                                            <p class="message">
-                                                {{ $product->total_quantity_product }} sản phẩm có sẵn
-                                            </p>
                                             <div class="buttons">
-                                                <a href="#" class="btn wishlist-btn"><i class="fa fa-heart"
-                                                        aria-hidden="true"></i></a>
+                                                <a href="#" class="btn wishlist-btn"><i class="fa fa-heart" aria-hidden="true"></i></a>
                                                 @if (Session::get('customer_id'))
                                                     <button href="#"
                                                         class="btn add-to-cart-btn btn-block btn-sm add_cart_one"
-                                                        data-id="{{ $product->product_id }}"><i
-                                                            class="fa fa-cart-arrow-down" aria-hidden="true"></i>add to
-                                                        cart</button>
+                                                        data-id="{{ $product->product_id }}" style="width: 175px;">
+                                                        <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
+                                                            thêm vào giỏ hàng
+                                                        </button>
                                                 @else
                                                     <a href="{{ URL::to('login_client') }}"
-                                                        class="btn add-to-cart-btn btn-block btn-sm"><i
-                                                            class="fa fa-cart-arrow-down" aria-hidden="true"></i>add to
-                                                        cart</a>
+                                                        class="btn add-to-cart-btn btn-block btn-sm" style="width: 175px;">
+                                                        <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
+                                                            thêm vào giỏ hàng
+                                                        </a>
                                                 @endif
                                                 {{-- add cart --}}
                                                 <input type="hidden" class="val_qty_{{ $product->product_id }}"
                                                     value="1">
                                                 <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                                                 {{-- end add cart --}}
-                                                <a href="#" class="btn compare-btn"><i class="fa fa-random"
-                                                        aria-hidden="true"></i></a>
+                                                <a href="#" class="btn compare-btn"><i class="fa fa-random" aria-hidden="true"></i></a>
                                             </div>
                                         </div>
                                     </div>
@@ -135,6 +128,7 @@
         </div>
     </div>
 
+
     <script src="{{ asset('public/font_end/assets/js/jquery-3.4.1.min.js') }}"></script>
     <script src="{{ asset('public/font_end/bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('public/font_end/custom/mini_detail_product.js') }}"></script>
@@ -142,42 +136,100 @@
 @section('content_body')
     <div class="container">
         <div class="row">
+            <div id="main-content" class="main-content col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="block-item head__title">
+                    <div class="head__title--text">
+                        Gợi ý hôm nay
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
             <!-- Main content -->
             <div id="main-content" class="main-content col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="block-item recently-products-cat md-margin-bottom-39">
+                <div class="block-item recently-products-cat md-margin-bottom-39 custom-container-product">
                     <ul class="products-list biolife-carousel nav-center-02 nav-none-on-mobile" data-slick='{"rows":1,"arrows":true,"dots":false,"infinite":false,"speed":400,"slidesMargin":0,"slidesToShow":5, "responsive":[{"breakpoint":1200, "settings":{ "slidesToShow": 3}},{"breakpoint":992, "settings":{ "slidesToShow": 3, "slidesMargin":30}},{"breakpoint":768, "settings":{ "slidesToShow": 2, "slidesMargin":10}}]}' >
-                        @foreach ($all_product as $product)
-                            <li class="product-item">
-                                <div class="contain-product layout-02">
-                                    <div class="contain-product layout-default">
-                                        <div class="product-thumb">
-                                            <a href="#" class="link-to-product">
-                                                <img src="{{ asset('public/upload/' . $product->product_image) }}"
-                                                    style="height: 158px; width: 158px" alt="Vegetables" class="product-thumnail">
+                        @foreach ($all_product_join as $product)
+                            @php
+                                $price_discount = App\Http\Controllers\HomeClientController::check_price_discount($product->product_id);
+                                $info_rating_saled = App\Http\Controllers\HomeClientController::info_rating_saled($product->product_id);
+                            @endphp
+                            <li class="product-item col-lg-4 col-md-4 col-sm-4 col-xs-6">
+                                <div class="contain-product layout-default content_product_sm">
+                                    <div class="product-thumb">
+                                        <a href="{{ URL::to('product_detail/' . $product->product_id) }}" class="link-to-product">
+                                            <img src="{{ asset('public/upload/'.$product->product_image) }}" alt="dd" style="width: 220px; height: 220px" class="product-thumnail">
+                                        </a>
+                                        <span href="#" class="lookup get_val_quickview btn_call_quickview_detail btn_open_modal"
+                                            data-id="{{ $product->product_id }}"><i
+                                                class="biolife-icon icon-search"></i></span>
+                                    </div>
+                                    <div class="info">
+                                        <b class="categories cus_cate_name_card_sm" style="font-size: 13px">{{ $product->cate_name }}</b>
+                                        <h4 class="product-title">
+                                            <a href="{{ URL::to('product_detail/' . $product->product_id) }}" class="pr-name name_product cus_prod_name_card_sm">
+                                                {{ $product->product_name }}
                                             </a>
+                                        </h4>
+                                        <div class="price">
+                                            @if ($price_discount->percent_discount == 0)
+                                                <ins><span class="price-amount cus_price_card_sm" style="font-size: 16px;">
+                                                    <span class="currencySymbol">{{ number_format($price_discount->price_now, 0, ',', '.') }}₫</span>
+                                                </ins>
+                                            @else
+                                                <ins><span class="price-amount cus_price_card_sm" style="font-size: 16px;">
+                                                    <span class="currencySymbol">{{ number_format($price_discount->price_now, 0, ',', '.') }}₫</span>
+                                                </ins>
+                                                <del><span class="price-amount"><span class="currencySymbol">{{ number_format($price_discount->price_old, 0, ',', '.') }}₫</span></del>
+                                            @endif
                                         </div>
-                                        <div class="info">
-                                            <b class="categories">
-                                                @foreach ($all_category as $cate)
-                                                    @if ($cate->cate_id == $product->category_id)
-                                                        {{ $cate->cate_name }}
-                                                    @endif
-                                                @endforeach
-                                            </b>
-                                            <h6 class="product-title" style="height: 50px; margin: 0 1px; font-size: 16px; line-height: 20px"><a href="#" class="pr-name">{{ $product->product_name }}</a></h6>
-                                            <div class="price">
-                                                <del><span class="price-amount">95.00 vnđ</span></del><br>
-                                                <ins><span class="price-amount">
-                                                    @foreach ($all_price as $price)
-                                                        @if ($price->product_id == $product->product_id)
-                                                            {{ number_format($price->price, 0, ',', '.') }}
-                                                            <sub>vnđ</sub>
-                                                        @endif
-                                                    @endforeach
-                                                </span></ins>
+                                        <div class="content_qty_rating">
+                                            {{-- <p class="shipping-day">3-Day Shipping</p>
+                                            <p class="for-today">Pree Pickup Today</p> --}}
+                                            <div class="rating" style="display: flex;">
+                                                <p class="star-rating" style="align-self: flex-start">
+                                                    <span class="width-80percent" style="width:{{ $info_rating_saled->avg_rating *20 }}"></span>
+                                                </p>
+                                            </div>
+                                            <div class="availeble_product">Đã bán: {{ $info_rating_saled->count_product_saled }}</div>
+                                        </div>
+                                        <div class="slide-down-box">
+                                            {{-- <p class="message">All products are carefully selected to ensure food safety.</p> --}}
+                                            <div class="buttons">
+                                                <a href="#" class="btn wishlist-btn"><i class="fa fa-heart" aria-hidden="true"></i></a>
+                                                @if (Session::get('customer_id'))
+                                                    <button href="#"
+                                                        class="btn add-to-cart-btn btn-block btn-sm add_cart_one"
+                                                        data-id="{{ $product->product_id }}" style="font-size: 12px;"><i
+                                                            class="fa fa-cart-arrow-down" aria-hidden="true" ></i>
+                                                            thêm vào giỏ hàng
+                                                        </button>
+                                                @else
+                                                    <a href="{{ URL::to('login_client') }}"
+                                                        class="btn add-to-cart-btn btn-block btn-sm" style="font-size: 12px;"><i
+                                                            class="fa fa-cart-arrow-down" aria-hidden="true"></i>
+                                                            thêm vào giỏ hàng
+                                                        </a>
+                                                @endif
+                                                {{-- add cart --}}
+                                                <input type="hidden" class="val_qty_{{ $product->product_id }}"
+                                                    value="1">
+                                                <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                                                {{-- end add cart --}}
+                                                <a href="#" class="btn compare-btn"><i class="fa fa-random" aria-hidden="true"></i></a>
                                             </div>
                                         </div>
                                     </div>
+                                    @if ($price_discount->percent_discount != 0)
+                                        <div class="content_discount_product">
+                                            <div class="content_sub_discount bg_discount">
+                                                <div class="content_title_discount">
+                                                    <span class="percent">{{ $price_discount->percent_discount }}%</span>
+                                                    <span class="txt_giam">giảm</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
                                 </div>
                             </li>
                         @endforeach

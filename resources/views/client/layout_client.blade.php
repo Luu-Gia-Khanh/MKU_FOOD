@@ -31,6 +31,9 @@
         .container {
             width: 1200px;
         }
+        .main-content{
+            background-color: rgb(245, 245, 245);
+        }
     }
 </style>
 <body class="biolife-body">
@@ -102,9 +105,10 @@
             <!--Block 08: Blog Posts-->
             @yield('blog_view_client')
 
-            @yield('content_body')
             <!--Block 06: Products-->
             @yield('top_rate_product_view_client')
+
+            @yield('content_body')
 
         </div>
     </div>
