@@ -129,8 +129,8 @@
 		        }
 		    },
 
-		    add_string_prefix: function(str, prefix) { 
-		    	return prefix + str; 
+		    add_string_prefix: function(str, prefix) {
+		    	return prefix + str;
 		    },
 
 		    wrap_container: function(){
@@ -295,15 +295,15 @@
             html_result     = '',
             string_format   = '';
 
-        string_format += '<span class="days"><span class="number">%-D</span><span class="text">days</span></span>';
-        string_format += '<span class="hours"><span class="number">%-H</span><span class="text">Hours</span></span>';
-        string_format += '<span class="mins"><span class="number">%-M</span><span class="text">Mins</span></span>';
-        string_format += '<span class="secs"><span class="number">%-S</span><span class="text">Secs</span></span>';
+        string_format += '<span class="days"><span class="number">%-D</span><span class="text">Ngày</span></span>';
+        string_format += '<span class="hours"><span class="number">%-H</span><span class="text">Giờ</span></span>';
+        string_format += '<span class="mins"><span class="number">%-M</span><span class="text">Phút</span></span>';
+        string_format += '<span class="secs"><span class="number">%-S</span><span class="text">Giây</span></span>';
 
-        html_result += '<span class="days"><span class="number">00</span><span class="text">days</span></span>';
-        html_result += '<span class="hours"><span class="number">00</span><span class="text">Hours</span></span>';
-        html_result += '<span class="mins"><span class="number">00</span><span class="text">Mins</span></span>';
-        html_result += '<span class="secs"><span class="number">00</span><span class="text">Secs</span></span>';
+        html_result += '<span class="days"><span class="number">00</span><span class="text">Ngày</span></span>';
+        html_result += '<span class="hours"><span class="number">00</span><span class="text">Giờ</span></span>';
+        html_result += '<span class="mins"><span class="number">00</span><span class="text">Phút</span></span>';
+        html_result += '<span class="secs"><span class="number">00</span><span class="text">Giây</span></span>';
 
         $this.on('biolife_countdown', function () {
             $this.each(function () {
@@ -406,7 +406,7 @@
     };
 
     $.fn.biolife_sidebar_handle();
-    
+
 }( jQuery ));
 
 
@@ -425,8 +425,7 @@
 
 
 
-    
 
-    
 
-   
+
+

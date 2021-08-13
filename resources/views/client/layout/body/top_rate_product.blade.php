@@ -4,7 +4,7 @@
             <div class="col-lg-4 col-md-5 col-sm-6">
                 <div class="advance-product-box">
                     <div class="biolife-title-box bold-style biolife-title-box__bold-style">
-                        <h3 class="title" style="font-size: 26px;">Khuyến Mãi Hôm Nay</h3>
+                        <h3 class="title" style="font-size: 24px;">Khuyến Mãi Hôm Nay</h3>
                     </div>
                     <ul class="products biolife-carousel nav-top-right nav-none-on-mobile" data-slick='{"arrows":true, "dots":false, "infinite":false, "speed":400, "slidesMargin":30, "slidesToShow":1}'>
                         @foreach ($all_product_join as $product)
@@ -49,7 +49,7 @@
             <div class="col-lg-8 col-md-7 col-sm-6">
                 <div class="advance-product-box">
                     <div class="biolife-title-box bold-style biolife-title-box__bold-style">
-                        <h3 class="title" style="font-size: 26px;">Sản Phẩm Được Nhiều Đánh Giá</h3>
+                        <h3 class="title" style="font-size: 24px;">Sản Phẩm Được Nhiều Đánh Giá</h3>
                     </div>
                     <ul class="products biolife-carousel nav-center-03 nav-none-on-mobile row-space-29px" data-slick='{"rows":2,"arrows":true,"dots":false,"infinite":false,"speed":400,"slidesMargin":30,"slidesToShow":2,"responsive":[{"breakpoint":1200,"settings":{ "rows":2, "slidesToShow": 2}},{"breakpoint":992, "settings":{ "rows":2, "slidesToShow": 1}},{"breakpoint":768, "settings":{ "rows":2, "slidesToShow": 2}},{"breakpoint":500, "settings":{ "rows":2, "slidesToShow": 1}}]}'>
                         <li class="product-item" style="background-color: #fff; position: relative">
