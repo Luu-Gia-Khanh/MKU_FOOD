@@ -58,7 +58,7 @@
         @endif
 
     </div>
-    <p class="sort_desc_product">{!! $product->product_sort_desc !!}</p>
+    <div class="sort_desc_product" style="font-size: 15px;">{!! $product->product_sort_desc !!}</div>
     <div class="from-cart">
         <div class="qty-input">
             <input class="qty_prod qty_mini_detail_{{ $product->product_id }}" type="number" name="qty_mini_detail" value="1" data-max_value="100" data-min_value="1" data-step="1">
@@ -78,12 +78,12 @@
     <div class="product-meta">
         <div class="product-atts">
             <div class="product-atts-item show_category">
-                <b class="meta-title">Danh mục sản phẩm:</b>
-                <label for="">{{ $cate->cate_name }}</label>
+                <b class="meta-title" style="font-size: 15px;">Danh mục sản phẩm:</b>
+                <label for="" style="font-size: 15px;">{{ $cate->cate_name }}</label>
             </div>
             <div class="show_qty_storage">
-                <b class="meta-title">Sản Phẩm Có Sẵn: </b>
-                <label for="">{{ $product_storage->total_quantity_product }}</label>
+                <b class="meta-title" style="font-size: 15px;">Sản Phẩm Có Sẵn: </b>
+                <label for="" style="font-size: 15px;">{{ $product_storage->total_quantity_product }}</label>
             </div>
         </div>
         <div class="biolife-social inline add-title">
