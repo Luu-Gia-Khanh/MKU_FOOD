@@ -38,7 +38,8 @@ class HomeClientController extends Controller
             $Ob_price = (object) [
                 'percent_discount' => 0,
                 'price_now' => $product->price,
-                'price_old' => 0
+                'price_old' => 0,
+                'date_end_discount' => null
             ];
         }
         else{
@@ -55,7 +56,8 @@ class HomeClientController extends Controller
                     $Ob_price = (object) [
                         'percent_discount' => $percent_discount,
                         'price_now' => $price_now,
-                        'price_old' => $product->price
+                        'price_old' => $product->price,
+                        'date_end_discount' => $discount->end_date_2
                     ];
                 }
                 else{
@@ -71,14 +73,16 @@ class HomeClientController extends Controller
                         $Ob_price = (object) [
                             'percent_discount' => $percent_discount,
                             'price_now' => $price_now,
-                            'price_old' => $product->price
+                            'price_old' => $product->price,
+                            'date_end_discount' => $discount->end_date_1
                         ];
                     }
                     else{
                         $Ob_price = (object) [
                             'percent_discount' => 0,
                             'price_now' => $product->price,
-                            'price_old' => 0
+                            'price_old' => 0,
+                            'date_end_discount' => null
                         ];
                     }
                 }
@@ -96,14 +100,16 @@ class HomeClientController extends Controller
                     $Ob_price = (object) [
                         'percent_discount' => $percent_discount,
                         'price_now' => $price_now,
-                        'price_old' => $product->price
+                        'price_old' => $product->price,
+                        'date_end_discount' => $discount->end_date_1
                     ];
                 }
                 else{
                     $Ob_price = (object) [
                         'percent_discount' => 0,
                         'price_now' => $product->price,
-                        'price_old' => 0
+                        'price_old' => 0,
+                        'date_end_discount' => null
                     ];
                 }
             }

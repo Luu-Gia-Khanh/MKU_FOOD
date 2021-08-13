@@ -7,64 +7,42 @@
                         <h3 class="title" style="font-size: 26px;">Khuyến Mãi Hôm Nay</h3>
                     </div>
                     <ul class="products biolife-carousel nav-top-right nav-none-on-mobile" data-slick='{"arrows":true, "dots":false, "infinite":false, "speed":400, "slidesMargin":30, "slidesToShow":1}'>
-                        <li class="product-item">
-                            <div class="contain-product deal-layout contain-product__deal-layout">
-                                <div class="product-thumb">
-                                    <a href="#" class="link-to-product">
-                                        <img src="{{ asset('public/upload/cash34.png') }}" alt="dd" style="height: 330px; width: 330px;" class="product-thumnail">
-                                    </a>
-                                    <div class="labels">
-                                        <span class="sale-label">-50%</span>
-                                    </div>
-                                </div>
-                                <div class="info">
-                                    <div class="biolife-countdown" data-datetime="2020-01-18 00:00 +00:00"></div>
-                                    <b class="categories">Fresh Fruit</b>
-                                    <h4 class="product-title"><a href="#" class="pr-name">National Fresh Fruit</a></h4>
-                                    <div class="price ">
-                                        <ins><span class="price-amount"><span class="currencySymbol">£</span>85.00</span></ins>
-                                        <del><span class="price-amount"><span class="currencySymbol">£</span>95.00</span></del>
-                                    </div>
-                                    <div class="slide-down-box">
-                                        <p class="message">All products are carefully selected to ensure food safety.</p>
-                                        <div class="buttons">
-                                            <a href="#" class="btn wishlist-btn"><i class="fa fa-heart" aria-hidden="true"></i></a>
-                                            <a href="#" class="btn add-to-cart-btn" style="padding: 15px 40px 16px;">THÊM VÀO GIỎ HÀNG</a>
-                                            <a href="#" class="btn compare-btn"><i class="fa fa-random" aria-hidden="true"></i></a>
+                        @foreach ($all_product_join as $product)
+                            @php
+                                $price_discount = App\Http\Controllers\HomeClientController::check_price_discount($product->product_id);
+                            @endphp
+                            @if ($price_discount->percent_discount != 0)
+                                <li class="product-item">
+                                    <div class="contain-product deal-layout contain-product__deal-layout">
+                                        <div class="product-thumb">
+                                            <a href="#" class="link-to-product">
+                                                <img src="assets/images/home-03/product_deal-02_330x330.jpg" alt="dd" width="330" height="330" class="product-thumnail">
+                                            </a>
+                                            <div class="labels">
+                                                <span class="sale-label">-50%</span>
+                                            </div>
+                                        </div>
+                                        <div class="info">
+                                            <div class="biolife-countdown" data-datetime="{{ $price_discount->date_end_discount }}"></div>
+                                            <b class="categories">Fresh Fruit</b>
+                                            <h4 class="product-title"><a href="#" class="pr-name">National Fresh Fruit</a></h4>
+                                            <div class="price ">
+                                                <ins><span class="price-amount"><span class="currencySymbol">£</span>85.00</span></ins>
+                                                <del><span class="price-amount"><span class="currencySymbol">£</span>95.00</span></del>
+                                            </div>
+                                            <div class="slide-down-box">
+                                                <p class="message">All products are carefully selected to ensure food safety.</p>
+                                                <div class="buttons">
+                                                    <a href="#" class="btn wishlist-btn"><i class="fa fa-heart" aria-hidden="true"></i></a>
+                                                    <a href="#" class="btn add-to-cart-btn">add to cart</a>
+                                                    <a href="#" class="btn compare-btn"><i class="fa fa-random" aria-hidden="true"></i></a>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="product-item">
-                            <div class="contain-product deal-layout contain-product__deal-layout">
-                                <div class="product-thumb">
-                                    <a href="#" class="link-to-product">
-                                        <img src="{{ asset('public/upload/cash34.png') }}" alt="dd" style="height: 330px; width: 330px;" class="product-thumnail">
-                                    </a>
-                                    <div class="labels">
-                                        <span class="sale-label">-50%</span>
-                                    </div>
-                                </div>
-                                <div class="info">
-                                    <div class="biolife-countdown" data-datetime="2020-01-18 00:00 +00:00"></div>
-                                    <b class="categories">Fresh Fruit</b>
-                                    <h4 class="product-title"><a href="#" class="pr-name">National Fresh Fruit</a></h4>
-                                    <div class="price ">
-                                        <ins><span class="price-amount"><span class="currencySymbol">£</span>85.00</span></ins>
-                                        <del><span class="price-amount"><span class="currencySymbol">£</span>95.00</span></del>
-                                    </div>
-                                    <div class="slide-down-box">
-                                        <div class="buttons">
-                                            <a href="#" class="btn wishlist-btn"><i class="fa fa-heart" aria-hidden="true"></i></a>
-                                            <a href="#" class="btn add-to-cart-btn" style="padding: 15px 40px 16px;">THÊM VÀO GIỎ HÀNG</a>
-                                            <a href="#" class="btn compare-btn"><i class="fa fa-random" aria-hidden="true"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-
+                                </li>
+                            @endif
+                        @endforeach
                     </ul>
                 </div>
             </div>
@@ -246,3 +224,22 @@
         </div>
     </div>
 </div>
+<script src="{{ asset('public/font_end/assets/js/jquery-3.4.1.min.js') }}"></script>
+<script src="{{ asset('public/font_end/custom_ui/js/count_down.js') }}"></script>
+{{-- <script type="text/javascript">
+    var product_id = " echo $product->product_id;";
+    var countDownDate = new Date(document.getElementById('val_count_down_'+product_id).value).getTime();
+    var x = setInterval(function() {
+        var now = new Date().getTime();
+        var distance = countDownDate - now;
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        document.getElementById("days_"+product_id).innerHTML = days;
+        document.getElementById("hours_"+product_id).innerHTML = hours;
+        document.getElementById("minutes_"+product_id).innerHTML = minutes;
+        document.getElementById("seconds_"+product_id).innerHTML = seconds;
+    }, 1000);
+</script> --}}
+
