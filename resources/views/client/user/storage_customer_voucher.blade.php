@@ -77,7 +77,7 @@
                     </div>
 
                     <!--content-user-->
-                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12" style="background-color: rgb(245, 245, 245);  margin-bottom: 32px;">
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12" style="background-color: #fff;  margin-bottom: 32px;">
                         <div class="content__voucher">
                             <div class="content__voucher-heading">
                                 <span class="voucher-heading-title">Voucher của bạn</span>

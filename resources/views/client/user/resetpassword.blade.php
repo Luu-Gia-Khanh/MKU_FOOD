@@ -68,7 +68,7 @@
                     </div>
 
                     <!--content-user-->
-                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12" style="background-color: rgb(245, 245, 245);  margin-bottom: 32px;">
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12" style="background-color: #fff;  margin-bottom: 32px; border-bottom: 1px solid #ddd;">
                         <div class="content__user">
                             <div class="content__user-heading">
                                 <span class="user-heading-title">Đổi mật khẩu</span>

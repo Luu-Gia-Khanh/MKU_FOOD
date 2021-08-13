@@ -27,6 +27,8 @@
 <link rel="stylesheet" href="{{ asset('public/font_end/custom/custom.css') }}">
 <link rel="stylesheet" href="{{ asset('public/font_end/custom/custom_home_detail.css') }}">
 <link rel="stylesheet" href="{{ asset('public/font_end/custom/voucher_product_detail.css') }}">
+<link rel="stylesheet" href="{{ asset('public/font_end/custom/custom_background.css') }}">
+<link rel="stylesheet" href="{{ asset('public/font_end/custom_ui/css/custom_container_product.css') }}">
 <style>
     .text {
    overflow: hidden;
@@ -52,7 +54,7 @@
             <div id="main-content" class="main-content">
 
                 <!-- summary info -->
-                <div class="sumary-product single-layout">
+                <div class="sumary-product single-layout cus_bg_product_detail" style="min-height: 570px;">
                     <div class="media">
                         <div class="row">
                             <div class="col-xs-12">
@@ -77,6 +79,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="product-attribute">
                         <h3 class="title">{{ $product->product_name }}</h3>
                         <div class="rating">
@@ -188,7 +191,7 @@
                             <p class="for-today">Đặt ngay hôm nay</p>
                         </div>
                     </div>
-                    <div class="action-form">
+                    <div class="action-form" style="border: 1px solid #0000000d;">
                         <div class="quantity-box">
                             <span class="title">Số lượng:</span>
                             <div class="qty-input">
@@ -202,9 +205,9 @@
                             <div class="buttons">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                                 @if (Session::get('customer_id'))
-                                    <a href="#" class="btn add-to-cart-btn btn-block btn-sm add_cart_many add_cart_many_detail" data-id="{{ $product->product_id }}">thêm vào giỏ hàng</a>
+                                    <a href="#" class="btn add-to-cart-btn btn-block btn-sm add_cart_many add_cart_many_detail" data-id="{{ $product->product_id }}" style="margin-left: 0px">thêm vào giỏ hàng</a>
                                 @else
-                                    <a href="{{ URL::to('login_client') }}" class="btn add-to-cart-btn btn-block btn-sm">thêm vào giỏ hàng</a>
+                                    <a href="{{ URL::to('login_client') }}" class="btn add-to-cart-btn btn-block btn-sm" style="margin-left: 0px">thêm vào giỏ hàng</a>
                                 @endif
 
                             </div>
@@ -245,17 +248,17 @@
                 </div>
 
                 <!-- Tab info -->
-                <div class="product-tabs single-layout biolife-tab-contain">
-                    <div class="tab-head">
-                        <ul class="tabs">
+                <div class="product-tabs single-layout biolife-tab-contain" style="margin-top: 20px;">
+                    <div class="tab-head" style="background-color: #fff;">
+                        <ul class="tabs" style="padding: 16px 0 16px 5px;">
                             <li class="tab-element active"><a href="#tab_1st" class="tab-link">Mô Tả Sản Phẩm</a>
                             </li>
                             <li class="tab-element"><a href="#tab_4th" class="tab-link">Đánh Giá Sản Phẩm <sup class="count_comment_tab">({{ count($all_comment_to_count) }})</sup></a>
                             </li>
                         </ul>
                     </div>
-                    <div class="tab-content">
-                        <div id="tab_1st" class="tab-contain desc-tab active">
+                    <div class="tab-content cus_bg_product_detail_tab_content">
+                        <div id="tab_1st" class="tab-contain desc-tab active" style="padding: 5px; padding-top: 0px;">
                             <p class="desc">{!! $product->product_desc !!}</p>
                         </div>
                         <div id="tab_4th" class="tab-contain review-tab">
@@ -263,7 +266,7 @@
                                 <div class="row">
                                     <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
 
-                                        <div class="rating-info">
+                                        <div class="rating-info" style="padding-left: 5px;">
                                             <p class="index" style="font-size: 18px; font-weight: bold"><strong class="rating">{{ number_format($avg_rating,1,".",".") }}</strong>trên 5</p>
                                             <div class="rating">
                                                 <p class="star-rating"><span class="width-80percent" style="width: {{ $avg_rating*20 }}%"></span></p>
@@ -511,18 +514,27 @@
                 </div>
                 {{-- realative product --}}
                 <div class="product-related-box single-layout">
-                    <div class="biolife-title-box lg-margin-bottom-26px-im">
+                    {{-- <div class="biolife-title-box lg-margin-bottom-26px-im">
                         <span class="biolife-icon icon-organic"></span>
                         <span class="subtitle">All the best item for You</span>
                         <h3 class="main-title">Related Products</h3>
+                    </div> --}}
+                    <div class="row">
+                        <div id="main-content" class="main-content col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="block-item head__title" style="margin-top: -25px;">
+                                <div class="head__title--text">
+                                    Sản Phẩm Liên Quan
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <ul class="products-list biolife-carousel nav-center-02 nav-none-on-mobile" data-slick='{"rows":1,"arrows":true,"dots":false,"infinite":false,"speed":400,"slidesMargin":0,"slidesToShow":5, "responsive":[{"breakpoint":1200, "settings":{ "slidesToShow": 4}},{"breakpoint":992, "settings":{ "slidesToShow": 3, "slidesMargin":20 }},{"breakpoint":768, "settings":{ "slidesToShow": 2, "slidesMargin":10}}]}'>
 
                         <li class="product-item">
-                            <div class="contain-product layout-default">
+                            <div class="contain-product layout-default" style="background-color: #fff; margin-left: 10px;">
                                 <div class="product-thumb">
                                     <a href="#" class="link-to-product">
-                                        <img src="assets/images/products/p-13.jpg" alt="dd" width="270" height="270" class="product-thumnail">
+                                        <img src="{{ asset('public/upload/8up-102410.jpg') }}" alt="dd" width="270" height="270" class="product-thumnail">
                                     </a>
                                 </div>
                                 <div class="info">
@@ -544,10 +556,10 @@
                             </div>
                         </li>
                         <li class="product-item">
-                            <div class="contain-product layout-default">
+                            <div class="contain-product layout-default" style="background-color: #fff; margin-left: 10px;">
                                 <div class="product-thumb">
                                     <a href="#" class="link-to-product">
-                                        <img src="assets/images/products/p-14.jpg" alt="dd" width="270" height="270" class="product-thumnail">
+                                        <img src="{{ asset('public/upload/8up-102410.jpg') }}" alt="dd" width="270" height="270" class="product-thumnail">
                                     </a>
                                 </div>
                                 <div class="info">
@@ -569,10 +581,10 @@
                             </div>
                         </li>
                         <li class="product-item">
-                            <div class="contain-product layout-default">
+                            <div class="contain-product layout-default" style="background-color: #fff; margin-left: 10px;">
                                 <div class="product-thumb">
                                     <a href="#" class="link-to-product">
-                                        <img src="assets/images/products/p-15.jpg" alt="dd" width="270" height="270" class="product-thumnail">
+                                        <img src="{{ asset('public/upload/8up-102410.jpg') }}" alt="dd" width="270" height="270" class="product-thumnail">
                                     </a>
                                 </div>
                                 <div class="info">
@@ -594,10 +606,10 @@
                             </div>
                         </li>
                         <li class="product-item">
-                            <div class="contain-product layout-default">
+                            <div class="contain-product layout-default" style="background-color: #fff; margin-left: 10px;">
                                 <div class="product-thumb">
                                     <a href="#" class="link-to-product">
-                                        <img src="assets/images/products/p-10.jpg" alt="dd" width="270" height="270" class="product-thumnail">
+                                        <img src="{{ asset('public/upload/8up-102410.jpg') }}" alt="dd" width="270" height="270" class="product-thumnail">
                                     </a>
                                 </div>
                                 <div class="info">
@@ -619,10 +631,10 @@
                             </div>
                         </li>
                         <li class="product-item">
-                            <div class="contain-product layout-default">
+                            <div class="contain-product layout-default" style="background-color: #fff; margin-left: 10px;">
                                 <div class="product-thumb">
                                     <a href="#" class="link-to-product">
-                                        <img src="assets/images/products/p-08.jpg" alt="dd" width="270" height="270" class="product-thumnail">
+                                        <img src="{{ asset('public/upload/8up-102410.jpg') }}" alt="dd" width="270" height="270" class="product-thumnail">
                                     </a>
                                 </div>
                                 <div class="info">
@@ -644,10 +656,10 @@
                             </div>
                         </li>
                         <li class="product-item">
-                            <div class="contain-product layout-default">
+                            <div class="contain-product layout-default" style="background-color: #fff; margin-left: 10px;">
                                 <div class="product-thumb">
                                     <a href="#" class="link-to-product">
-                                        <img src="assets/images/products/p-21.jpg" alt="dd" width="270" height="270" class="product-thumnail">
+                                        <img src="{{ asset('public/upload/8up-102410.jpg') }}" alt="dd" width="270" height="270" class="product-thumnail">
                                     </a>
                                 </div>
                                 <div class="info">
@@ -668,32 +680,6 @@
                                 </div>
                             </div>
                         </li>
-                        <li class="product-item">
-                            <div class="contain-product layout-default">
-                                <div class="product-thumb">
-                                    <a href="#" class="link-to-product">
-                                        <img src="assets/images/products/p-18.jpg" alt="dd" width="270" height="270" class="product-thumnail">
-                                    </a>
-                                </div>
-                                <div class="info">
-                                    <b class="categories">Fresh Fruit</b>
-                                    <h4 class="product-title"><a href="#" class="pr-name">National Fresh Fruit</a></h4>
-                                    <div class="price">
-                                        <ins><span class="price-amount"><span class="currencySymbol">£</span>85.00</span></ins>
-                                        <del><span class="price-amount"><span class="currencySymbol">£</span>95.00</span></del>
-                                    </div>
-                                    <div class="slide-down-box">
-                                        <p class="message">All products are carefully selected to ensure food safety.</p>
-                                        <div class="buttons">
-                                            <a href="#" class="btn wishlist-btn"><i class="fa fa-heart" aria-hidden="true"></i></a>
-                                            <a href="#" class="btn add-to-cart-btn"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i>add to cart</a>
-                                            <a href="#" class="btn compare-btn"><i class="fa fa-random" aria-hidden="true"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-
                     </ul>
                 </div>
             </div>

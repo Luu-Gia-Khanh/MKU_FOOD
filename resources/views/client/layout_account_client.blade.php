@@ -24,6 +24,16 @@
     <link rel="stylesheet" href="{{ asset('public/font_end/custom_ui/css/custom_header.css') }}">
     <link rel="stylesheet" href="{{ asset('public/font_end/custom_ui/css/design_search_auto.css') }}">
 </head>
+<style>
+    @media (min-width: 1200px){
+        .container {
+            width: 1200px;
+        }
+        .main-content{
+            background-color: rgb(245, 245, 245);
+        }
+    }
+</style>
 <body class="biolife-body">
     <!-- Preloader -->
     {{-- @include('client.layout.header_middle.preload') --}}
