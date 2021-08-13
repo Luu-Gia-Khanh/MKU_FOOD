@@ -43,3 +43,13 @@
 .pointer{
     cursor: pointer;
 }
+.content_val_filter_price{
+    display: flex;
+    position: relative;
+}
+.btn_filter_price{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    width: 200px;
+}

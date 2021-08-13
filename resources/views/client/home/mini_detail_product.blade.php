@@ -20,7 +20,7 @@
     </h4>
     <div class="rating" style="display: flex;">
         <p class="star-rating" style="align-self: flex-start">
-            <span class="width-80percent" style="width: {{ $info_rating_saled->avg_rating *20 }}"></span>
+            <span class="width-80percent" style="width: {{ $info_rating_saled->avg_rating *20 }}%"></span>
         </p>
         <span class="count_rating"> ({{ $info_rating_saled->count_all_rating }} Đánh Giá)</span>
         <span class="count_saled">{{ $info_rating_saled->count_product_saled }} Đã Bán</span>

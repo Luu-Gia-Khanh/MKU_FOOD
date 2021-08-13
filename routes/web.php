@@ -218,6 +218,12 @@ Route::post('ajax_search_auto_complete', 'HomeClientController@ajax_search_auto_
 Route::post('search_product_form_search_auto_complete', 'HomeClientController@search_product_form_search_auto_complete');
 //search ajax product follow keyword search
 Route::post('ajax_search_cate_and_keyword', 'AjaxSearchProductKeyword@ajax_search_cate_and_keyword');
+Route::post('ajax_search_rating_and_keyword', 'AjaxSearchProductKeyword@ajax_search_rating_and_keyword');
+Route::post('ajax_search_price_and_keyword', 'AjaxSearchProductKeyword@ajax_search_price_and_keyword');
+//sort ajax and keyword
+Route::post('ajax_sort_price_and_keyword', 'AjaxSearchProductKeyword@ajax_sort_price_and_keyword');
+Route::post('ajax_sort_rating_and_keyword', 'AjaxSearchProductKeyword@ajax_sort_rating_and_keyword');
+Route::post('ajax_sort_discount_and_keyword', 'AjaxSearchProductKeyword@ajax_sort_discount_and_keyword');
 
 //comment_rating
 Route::post('add_comment_rating', 'HomeClientController@add_comment_rating');

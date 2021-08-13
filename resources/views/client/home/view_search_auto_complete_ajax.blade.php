@@ -13,9 +13,9 @@
                     <div class="name">{{ $product->product_name }}</div>
                     <div class="content_price">
                         @if ($price_discount->percent_discount == 0)
-                            <div class="price">{{ number_format($price_discount->price_now, 0, ',', '.') }}đ</div>
+                            <div class="price" style="font-size: 15px">{{ number_format($price_discount->price_now, 0, ',', '.') }}đ</div>
                         @else
-                            <div class="price">{{ number_format($price_discount->price_now, 0, ',', '.') }}đ</div>
+                            <div class="price" style="font-size: 15px">{{ number_format($price_discount->price_now, 0, ',', '.') }}đ</div>
                             <del class="price_old">{{ number_format($price_discount->price_old, 0, ',', '.') }}₫</del>
                         @endif
                     </div>
@@ -25,5 +25,5 @@
         </a>
     @endforeach
 @else
-    <div class="search_none">Không tìm thấy sản phẩm nào </div>
+    <div class="search_none" style="font-size: 15px">Không tìm thấy sản phẩm nào </div>
 @endif

@@ -66,7 +66,7 @@
                                         <div class="content_qty_rating">
                                             <div class="rating" style="display: flex;">
                                                 <p class="star-rating" style="align-self: flex-start">
-                                                    <span class="width-80percent" style="width:{{ $info_rating_saled->avg_rating *20 }}"></span>
+                                                    <span class="width-80percent" style="width:{{ $info_rating_saled->avg_rating *20 }}%"></span>
                                                 </p>
                                             </div>
                                             <div class="availeble_product" style="font-size: 14px">Đã bán: {{ $info_rating_saled->count_product_saled }}</div>
@@ -188,7 +188,7 @@
                                             <p class="for-today">Pree Pickup Today</p> --}}
                                             <div class="rating" style="display: flex;">
                                                 <p class="star-rating" style="align-self: flex-start">
-                                                    <span class="width-80percent" style="width:{{ $info_rating_saled->avg_rating *20 }}"></span>
+                                                    <span class="width-80percent" style="width:{{ $info_rating_saled->avg_rating *20 }}%"></span>
                                                 </p>
                                             </div>
                                             <div class="availeble_product">Đã bán: {{ $info_rating_saled->count_product_saled }}</div>

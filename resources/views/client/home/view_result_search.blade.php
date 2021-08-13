@@ -40,7 +40,7 @@
                             <div class="product-category grid-style">
                                 <div id="top-functions-area" class="top-functions-area" >
                                     <div class="flt-item to-left group-on-mobile">
-                                        <span class="flt-title">Refine</span>
+                                        <span class="flt-title">Sắp xếp theo</span>
                                         <a href="#" class="icon-for-mobile">
                                             <span></span>
                                             <span></span>
@@ -48,47 +48,37 @@
                                         </a>
                                         <div class="wrap-selectors">
                                             <form action="#" name="frm-refine" method="get">
-                                                <span class="title-for-mobile">Refine Products By</span>
+                                                <span class="title-for-mobile">Sắp xếp theo</span>
                                                 <div data-title="Price:" class="selector-item">
-                                                    <select name="price" class="selector">
-                                                        <option value="all">Price</option>
-                                                        <option value="class-1st">Less than 5$</option>
-                                                        <option value="class-2nd">$5-10$</option>
-                                                        <option value="class-3rd">$10-20$</option>
-                                                        <option value="class-4th">$20-45$</option>
-                                                        <option value="class-5th">$45-100$</option>
-                                                        <option value="class-6th">$100-150$</option>
-                                                        <option value="class-7th">More than 150$</option>
+                                                    <select name="sort_price_fiter" class="sort_price_fiter">
+                                                        <option value="" disabled selected hidden>Giá</option>
+                                                        <option value="desc">Giá: Thấp đến Cao</option>
+                                                        <option value="asc">Giá: Cao đến Thấp</option>
                                                     </select>
                                                 </div>
-                                                <div data-title="Brand:" class="selector-item">
-                                                    <select name="brad" class="selector">
-                                                        <option value="all">Top brands</option>
-                                                        <option value="br2">Brand first</option>
-                                                        <option value="br3">Brand second</option>
-                                                        <option value="br4">Brand third</option>
-                                                        <option value="br5">Brand fourth</option>
-                                                        <option value="br6">Brand fiveth</option>
+                                                <div data-title="Rating:" class="selector-item content_sort_rating_fiter">
+                                                    <select name="sort_rating_fiter" class="sort_rating_fiter">
+                                                        <option value="" disabled selected hidden>Đánh Giá</option>
+                                                        <option value="desc">Đánh Giá: Thấp đến Cao</option>
+                                                        <option value="asc">Đánh Giá: Cao đến Thấp</option>
                                                     </select>
                                                 </div>
-                                                <div data-title="Avalability:" class="selector-item">
-                                                    <select name="ability" class="selector">
-                                                        <option value="all">Availability</option>
-                                                        <option value="vl2">Availability 1</option>
-                                                        <option value="vl3">Availability 2</option>
-                                                        <option value="vl4">Availability 3</option>
-                                                        <option value="vl5">Availability 4</option>
-                                                        <option value="vl6">Availability 5</option>
+                                                <div data-title="Much sell:" class="selector-item">
+                                                    <select name="sort_discount_fiter" class="sort_discount_fiter">
+                                                        <option value="" disabled selected hidden>Giảm Giá</option>
+                                                        <option value="desc">Giảm Giá: Thấp đến Cao</option>
+                                                        <option value="asc">Giảm Giá: Cao đến Thấp</option>
                                                     </select>
                                                 </div>
+
                                                 <p class="btn-for-mobile"><button type="submit" class="btn-submit">Go</button></p>
                                             </form>
                                         </div>
                                     </div>
                                     <div class="flt-item to-right">
-                                        <span class="flt-title">Sort</span>
+                                        {{-- <span class="flt-title">Sort</span> --}}
                                         <div class="wrap-selectors">
-                                            <div class="selector-item orderby-selector">
+                                            {{-- <div class="selector-item orderby-selector">
                                                 <select name="orderby" class="orderby" aria-label="Shop order">
                                                     <option value="menu_order" selected="selected">Default sorting</option>
                                                     <option value="popularity">popularity</option>
@@ -97,7 +87,7 @@
                                                     <option value="price">price: low to high</option>
                                                     <option value="price-desc">price: high to low</option>
                                                 </select>
-                                            </div>
+                                            </div> --}}
                                             <div class="selector-item viewmode-selector">
                                                 <a href="category-grid-left-sidebar.html" class="viewmode grid-mode active"><i class="biolife-icon icon-grid"></i></a>
                                                 <a href="category-list-left-sidebar.html" class="viewmode detail-mode"><i class="biolife-icon icon-list"></i></a>
@@ -138,7 +128,7 @@
                                                         <div class="content_qty_rating">
                                                             <div class="rating" style="display: flex;">
                                                                 <p class="star-rating" style="align-self: flex-start">
-                                                                    <span class="width-80percent" style="width:{{ $info_rating_saled->avg_rating *20 }}"></span>
+                                                                    <span class="width-80percent" style="width:{{ $info_rating_saled->avg_rating *20 }}%"></span>
                                                                 </p>
                                                             </div>
                                                             <div class="availeble_product">Đã bán: {{ $info_rating_saled->count_product_saled }}</div>
@@ -200,7 +190,7 @@
                             </div>
                             <div class="sidebar-contain">
                                 <div class="widget biolife-filter content_left_side_custom">
-                                    <h4 class="wgt-title">Danh mục</h4>
+                                    <h4 class="wgt-title">Theo Danh mục</h4>
                                     <div class="wgt-content">
                                         <ul class="check-list single">
                                             @foreach ($all_category as $cate)
@@ -212,25 +202,38 @@
                                     </div>
                                 </div>
                                 <div class="widget price-filter biolife-filter content_left_side_custom">
-                                    <h4 class="wgt-title">Price</h4>
+                                    <h4 class="wgt-title">Khoảng Giá</h4>
                                     <div class="wgt-content">
-                                        <div class="frm-contain">
-                                            <form action="#" name="price-filter" id="price-filter" method="get">
-                                                <p class="f-item">
-                                                    <label for="pr-from">$</label>
-                                                    <input class="input-number" type="number" id="pr-from" value="" name="price-from">
-                                                </p>
-                                                <p class="f-item">
-                                                    <label for="pr-to">to $</label>
-                                                    <input class="input-number" type="number" id="pr-to" value="" name="price-from">
-                                                </p>
-                                                <p class="f-item"><button class="btn-submit" type="submit">go</button></p>
+                                        <div class="frm-contain content_filter_price">
+                                            <form style="text-align: center">
+                                                @csrf
+                                                <div class="content_val_filter_price">
+                                                    <p class="f-item">
+                                                        <input class="input-number val_price_filter_start" type="number" id="pr-from" value="" name="price-from" placeholder="₫ Từ">
+                                                    </p>
+                                                    <p class="f-item">
+                                                        <input class="input-number val_price_filter_end" type="number" id="pr-to" value="" name="price-from" placeholder="₫ Đến">
+                                                    </p>
+                                                </div>
+                                                <p class="f-item"><button type="button" class="btn-submit btn_filter_price" type="submit" style="border-radius: 5px">ÁP DỤNG</button></p>
                                             </form>
                                         </div>
                                         <ul class="check-list bold single">
-                                            <li class="check-list-item"><a href="#" class="check-link">$0 - $5</a></li>
-                                            <li class="check-list-item"><a href="#" class="check-link">$5 - $10</a></li>
-                                            <li class="check-list-item"><a href="#" class="check-link">$15 - $20</a></li>
+                                            <li class="check-list-item">
+                                                <a href="#" class="check-link check_filter_price" data-id="1">1.000₫ - 50.000₫</a>
+                                            </li>
+                                            <li class="check-list-item">
+                                                <a href="#" class="check-link check_filter_price" data-id="2">50.000₫ - 100.000₫</a>
+                                            </li>
+                                            <li class="check-list-item">
+                                                <a href="#" class="check-link check_filter_price" data-id="3">100.000₫ - 500.000₫</a>
+                                            </li>
+                                            <li class="check-list-item">
+                                                <a href="#" class="check-link check_filter_price" data-id="4">500.000₫ - 1.000.000₫</a>
+                                            </li>
+                                            <li class="check-list-item">
+                                                <a href="#" class="check-link check_filter_price" data-id="5">Trên 1.000.000₫</a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -239,7 +242,7 @@
                                     <div class="wgt-content content_choose_rating">
                                         <ul class="cat-list">
                                             <li class="cat-list-item">
-                                                <a class="cat-link pointer">
+                                                <a class="cat-link pointer choose_rating_search" data-id="5">
                                                     <div class="rating" style="display: flex;">
                                                         <p class="star-rating" style="align-self: center">
                                                             <span class="width-80percent" style="width:100%"></span>
@@ -248,7 +251,7 @@
                                                 </a>
                                             </li>
                                             <li class="cat-list-item">
-                                                <a class="cat-link pointer">
+                                                <a class="cat-link pointer choose_rating_search" data-id="4">
                                                     <div class="rating" style="display: flex;">
                                                         <p class="star-rating" style="align-self: center">
                                                             <span class="width-80percent" style="width:80%"></span>
@@ -258,7 +261,7 @@
                                                 </a>
                                             </li>
                                             <li class="cat-list-item">
-                                                <a class="cat-link pointer">
+                                                <a class="cat-link pointer choose_rating_search" data-id="3">
                                                     <div class="rating" style="display: flex;">
                                                         <p class="star-rating" style="align-self: center">
                                                             <span class="width-80percent" style="width:60%"></span>
@@ -268,7 +271,7 @@
                                                 </a>
                                             </li>
                                             <li class="cat-list-item">
-                                                <a class="cat-link pointer">
+                                                <a class="cat-link pointer choose_rating_search" data-id="2">
                                                     <div class="rating" style="display: flex;">
                                                         <p class="star-rating" style="align-self: center">
                                                             <span class="width-80percent" style="width:40%"></span>
@@ -278,7 +281,7 @@
                                                 </a>
                                             </li>
                                             <li class="cat-list-item">
-                                                <a class="cat-link pointer">
+                                                <a class="cat-link pointer choose_rating_search" data-id="1">
                                                     <div class="rating" style="display: flex;">
                                                         <p class="star-rating" style="align-self: center">
                                                             <span class="width-80percent" style="width:20%"></span>
