@@ -177,6 +177,12 @@ $(document).ready(function(){
         });
 
     });
+    $('.btn_buy_now').click(function(){
+        var product_id = $(this).attr('data-id');
+        var _token = $('input[name="_token"]').val();
+        show_mini_cart_when_add(product_id, _token);
+        update_qty_when_change(product_id, _token);
+    });
     // $('.add_cart_many_detail').click(function(){
     //     var product_id = $(this).attr('data-id');
     //     var _token = $('input[name="_token"]').val();

@@ -11,6 +11,12 @@
     .btn.active.focus {
         outline: none;
     }
+    a h5{
+        padding-left: 10px;
+    }
+    .content-item-body .content-item-quantity{
+        padding-left: 10px;
+    }
 </style>
     <div class="container">
         <nav class="biolife-nav">
@@ -106,14 +112,14 @@
                                                             <li class="content-item">
                                                                 @foreach ($all_product as $product)
                                                                     @if ($product->product_id == $order_item->product_id)
-                                                                        <img src="{{ asset('public/upload/'.$product->product_image) }}" alt="" class="content-item-img">
+                                                                        <a href="{{ URL::to('product_detail/'.$product->product_id) }}"><img src="{{ asset('public/upload/'.$product->product_image) }}" alt="" class="content-item-img"></a>
                                                                     @endif
                                                                 @endforeach
                                                                 <div class="content-item-info">
                                                                     <div class="content-item-head">
                                                                         @foreach ($all_product as $product)
                                                                             @if ($order_item->product_id == $product->product_id)
-                                                                                <h5 class="content-item-name">{{ $product->product_name }}</h5>
+                                                                            <a href="{{ URL::to('product_detail/'.$product->product_id) }}"><h5 class="content-item-name">{{ $product->product_name }}</h5></a>
                                                                             @endif
                                                                         @endforeach
 
@@ -196,14 +202,18 @@
                                                                     <li class="content-item">
                                                                         @foreach ($all_product as $product)
                                                                             @if ($product->product_id == $order_item->product_id)
-                                                                                <img src="{{ asset('public/upload/'.$product->product_image) }}" alt="" class="content-item-img">
+                                                                                <a href="{{ URL::to('product_detail/'.$product->product_id) }}">
+                                                                                    <img src="{{ asset('public/upload/'.$product->product_image) }}" alt="" class="content-item-img">
+                                                                                </a>
                                                                             @endif
                                                                         @endforeach
                                                                         <div class="content-item-info">
                                                                             <div class="content-item-head">
                                                                                 @foreach ($all_product as $product)
                                                                                     @if ($order_item->product_id == $product->product_id)
-                                                                                        <h5 class="content-item-name">{{ $product->product_name }}</h5>
+                                                                                        <a href="{{ URL::to('product_detail/'.$product->product_id) }}">
+                                                                                            <h5 class="content-item-name">{{ $product->product_name }}</h5>
+                                                                                        </a>
                                                                                     @endif
                                                                                 @endforeach
 
@@ -273,14 +283,18 @@
                                                                     <li class="content-item">
                                                                         @foreach ($all_product as $product)
                                                                             @if ($product->product_id == $order_item->product_id)
-                                                                                <img src="{{ asset('public/upload/'.$product->product_image) }}" alt="" class="content-item-img">
+                                                                                <a href="{{ URL::to('product_detail/'.$product->product_id) }}">
+                                                                                    <img src="{{ asset('public/upload/'.$product->product_image) }}" alt="" class="content-item-img">
+                                                                                </a>
                                                                             @endif
                                                                         @endforeach
                                                                         <div class="content-item-info">
                                                                             <div class="content-item-head">
                                                                                 @foreach ($all_product as $product)
                                                                                     @if ($order_item->product_id == $product->product_id)
-                                                                                        <h5 class="content-item-name">{{ $product->product_name }}</h5>
+                                                                                        <a href="{{ URL::to('product_detail/'.$product->product_id) }}">
+                                                                                            <h5 class="content-item-name">{{ $product->product_name }}</h5>
+                                                                                        </a>
                                                                                     @endif
                                                                                 @endforeach
 
@@ -351,14 +365,18 @@
                                                                     <li class="content-item">
                                                                         @foreach ($all_product as $product)
                                                                             @if ($product->product_id == $order_item->product_id)
+                                                                            <a href="{{ URL::to('product_detail/'.$product->product_id) }}">
                                                                                 <img src="{{ asset('public/upload/'.$product->product_image) }}" alt="" class="content-item-img">
+                                                                            </a>
                                                                             @endif
                                                                         @endforeach
                                                                         <div class="content-item-info">
                                                                             <div class="content-item-head">
                                                                                 @foreach ($all_product as $product)
                                                                                     @if ($order_item->product_id == $product->product_id)
-                                                                                        <h5 class="content-item-name">{{ $product->product_name }}</h5>
+                                                                                        <a href="{{ URL::to('product_detail/'.$product->product_id) }}">
+                                                                                            <h5 class="content-item-name">{{ $product->product_name }}</h5>
+                                                                                        </a>
                                                                                     @endif
                                                                                 @endforeach
 
@@ -427,14 +445,18 @@
                                                                     <li class="content-item">
                                                                         @foreach ($all_product as $product)
                                                                             @if ($product->product_id == $order_item->product_id)
-                                                                                <img src="{{ asset('public/upload/'.$product->product_image) }}" alt="" class="content-item-img">
+                                                                                <a href="{{ URL::to('product_detail/'.$product->product_id) }}">
+                                                                                    <img src="{{ asset('public/upload/'.$product->product_image) }}" alt="" class="content-item-img">
+                                                                                </a>
                                                                             @endif
                                                                         @endforeach
                                                                         <div class="content-item-info">
                                                                             <div class="content-item-head">
                                                                                 @foreach ($all_product as $product)
                                                                                     @if ($order_item->product_id == $product->product_id)
-                                                                                        <h5 class="content-item-name">{{ $product->product_name }}</h5>
+                                                                                        <a href="{{ URL::to('product_detail/'.$product->product_id) }}">
+                                                                                            <h5 class="content-item-name">{{ $product->product_name }}</h5>
+                                                                                        </a>
                                                                                     @endif
                                                                                 @endforeach
 
@@ -503,14 +525,18 @@
                                                                     <li class="content-item">
                                                                         @foreach ($all_product as $product)
                                                                             @if ($product->product_id == $order_item->product_id)
-                                                                                <img src="{{ asset('public/upload/'.$product->product_image) }}" alt="" class="content-item-img">
+                                                                                <a href="{{ URL::to('product_detail/'.$product->product_id) }}">
+                                                                                    <img src="{{ asset('public/upload/'.$product->product_image) }}" alt="" class="content-item-img">
+                                                                                </a>
                                                                             @endif
                                                                         @endforeach
                                                                         <div class="content-item-info">
                                                                             <div class="content-item-head">
                                                                                 @foreach ($all_product as $product)
                                                                                     @if ($order_item->product_id == $product->product_id)
-                                                                                        <h5 class="content-item-name">{{ $product->product_name }}</h5>
+                                                                                        <a href="{{ URL::to('product_detail/'.$product->product_id) }}">
+                                                                                            <h5 class="content-item-name">{{ $product->product_name }}</h5>
+                                                                                        </a>
                                                                                     @endif
                                                                                 @endforeach
 

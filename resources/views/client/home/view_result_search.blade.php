@@ -76,18 +76,7 @@
                                         </div>
                                     </div>
                                     <div class="flt-item to-right">
-                                        {{-- <span class="flt-title">Sort</span> --}}
                                         <div class="wrap-selectors">
-                                            {{-- <div class="selector-item orderby-selector">
-                                                <select name="orderby" class="orderby" aria-label="Shop order">
-                                                    <option value="menu_order" selected="selected">Default sorting</option>
-                                                    <option value="popularity">popularity</option>
-                                                    <option value="rating">average rating</option>
-                                                    <option value="date">newness</option>
-                                                    <option value="price">price: low to high</option>
-                                                    <option value="price-desc">price: high to low</option>
-                                                </select>
-                                            </div> --}}
                                             <div class="selector-item viewmode-selector">
                                                 <a href="category-grid-left-sidebar.html" class="viewmode grid-mode active"><i class="biolife-icon icon-grid"></i></a>
                                                 <a href="category-list-left-sidebar.html" class="viewmode detail-mode"><i class="biolife-icon icon-list"></i></a>
@@ -101,6 +90,7 @@
                                             @php
                                                 $price_discount = App\Http\Controllers\HomeClientController::check_price_discount($product->product_id);
                                                 $info_rating_saled = App\Http\Controllers\HomeClientController::info_rating_saled($product->product_id);
+                                                $check_already_wish = App\Http\Controllers\WishListController::checkProductWishLish($product->product_id);
                                             @endphp
                                             <li class="product-item col-lg-4 col-md-4 col-sm-4 col-xs-6">
                                                 <div class="contain-product layout-default content_product">
@@ -135,7 +125,26 @@
                                                         </div>
                                                         <div class="slide-down-box">
                                                             <div class="buttons">
-                                                                <a href="#" class="btn wishlist-btn"><i class="fa fa-heart" aria-hidden="true"></i></a>
+                                                                {{-- wish list --}}
+                                                                @if (Session::get('customer_id'))
+                                                                    <a class="btn wishlist-btn btn_add_wish_lish" style="cursor: pointer;"
+                                                                        data-id="{{ $product->product_id }}">
+                                                                        @if ($check_already_wish->check_already == 1)
+                                                                            <i class="fa fa-heart" aria-hidden="true" style="color: #7faf51"></i>
+                                                                        @else
+                                                                            <i class="fa fa-heart icon_wish_list_{{ $product->product_id }}" aria-hidden="true"></i>
+                                                                        @endif
+                                                                    </a>
+                                                                @else
+                                                                    <a href="{{ URL::to('login_client') }}"class="btn wishlist-btn" >
+                                                                        @if ($check_already_wish->check_already == 1)
+                                                                            <i class="fa fa-heart" aria-hidden="true" style="color: #7faf51"></i>
+                                                                        @else
+                                                                            <i class="fa fa-heart" aria-hidden="true"></i>
+                                                                        @endif
+                                                                    </a>
+                                                                @endif
+                                                                {{-- end wishlist --}}
                                                                 @if (Session::get('customer_id'))
                                                                     <button href="#"
                                                                         class="btn add-to-cart-btn btn-block btn-sm add_cart_one"

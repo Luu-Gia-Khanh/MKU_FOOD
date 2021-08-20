@@ -209,10 +209,26 @@ Route::prefix('admin')->group(function () {
 // FONT END
 // NAV
 Route::get('/', 'HomeClientController@index');
-Route::get('shop_product', 'HomeClientController@shop_product');
+Route::get('shop_product', 'ShopController@shop_product');
 Route::get('contact_us', 'HomeClientController@contact_us');
-//Home
+
+//HOME -> SHOW
+Route::get('show_all_product_discount', 'HomeClientController@show_all_product_discount');
+Route::get('show_all_product_feature', 'HomeClientController@show_all_product_feature');
+Route::get('show_all_product_recommend', 'HomeClientController@show_all_product_recommend');
+
+// SHOP AJAX
+Route::post('ajax_sort_cate_shop', 'ShopController@ajax_sort_cate_shop');
+Route::post('ajax_sort_rating_shop', 'ShopController@ajax_sort_rating_shop');
+Route::post('ajax_sort_price_enter_shop', 'ShopController@ajax_sort_price_enter_shop');
+Route::post('sort_price_ajax_shop_select', 'ShopController@sort_price_ajax_shop_select');
+Route::post('sort_rating_ajax_shop_select', 'ShopController@sort_rating_ajax_shop_select');
+Route::post('sort_discount_ajax_shop_select', 'ShopController@sort_discount_ajax_shop_select');
+Route::post('filter_modal_shop_ajax', 'ShopController@filter_modal_shop_ajax');
+
+//detail product
 Route::get('product_detail/{product_id}', 'HomeClientController@product_detail');
+Route::get('buy_now/{product_id}', 'HomeClientController@buy_now');
 // search auto complete
 Route::post('ajax_search_auto_complete', 'HomeClientController@ajax_search_auto_complete');
 Route::post('search_product_form_search_auto_complete', 'HomeClientController@search_product_form_search_auto_complete');
@@ -283,6 +299,12 @@ Route::post('update_cart_checkbox', 'CartController@update_cart_checkbox');
 Route::post('check_quatity_blur', 'CartController@check_quatity_blur');
 Route::post('remove_item_cart', 'CartController@remove_item_cart');
 Route::post('get_val_checkbox', 'CartController@get_val_checkbox');
+
+// WISH LIST
+Route::post('add_wish_list_ajax', 'WishListController@add_wish_list_ajax');
+Route::post('load_wish_list_ajax', 'WishListController@load_wish_list_ajax');
+Route::post('count_total_wish_list_ajax', 'WishListController@count_total_wish_list_ajax');
+Route::post('remove_item_wish_list', 'WishListController@remove_item_wish_list');
 
 //CHECK OUT
 Route::post('checkout', 'CheckOutController@show_checkout');

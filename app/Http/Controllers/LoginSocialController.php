@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 class LoginSocialController extends Controller
 {
-    
+
     public function login_facebook(){
         return Socialite::driver('facebook')->redirect();
     }
@@ -76,10 +76,17 @@ class LoginSocialController extends Controller
         if($authUser){
             $account_name = Customer::where('customer_id',$authUser->user)->first();
             $customer = Customer_Info::where('customer_id', $authUser->user)->first();
-            $customer_avt = $customer->customer_avt;
+            if($customer){
+                if($customer->customer_avt != ''){
+                    $customer_avt = $customer->customer_avt;
+                }
+                else{
+                    $customer_avt = 'no_image.png';
+                }
+            }
+            Session::put('customer_avt', $customer_avt);
             Session::put('username',$account_name->username);
             Session::put('customer_id',$account_name->customer_id);
-            Session::put('customer_avt', $customer_avt);
         }
         elseif($login_customer_new){
             $account_name = Customer::where('customer_id',$authUser->user)->first();

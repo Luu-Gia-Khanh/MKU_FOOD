@@ -54,13 +54,13 @@
                                                         <td class="product-thumbnail" data-title="Product Name">
                                                             @foreach ($all_product as $product)
                                                                 @if ($product->product_id == $cart->product_id)
-                                                                    <a class="prd-thumb" href="#">
+                                                                    <a class="prd-thumb" href="{{ URL::to('product_detail/'.$product->product_id) }}">
                                                                         <figure><img style="height: 113px; width: 113px"
                                                                                 src="{{ asset('public/upload/' . $product->product_image) }}"
                                                                                 alt="shipping cart"></figure>
                                                                     </a>
                                                                     <a class="prd-name"
-                                                                        href="#">{{ $product->product_name }}</a>
+                                                                        href="{{ URL::to('product_detail/'.$product->product_id) }}">{{ $product->product_name }}</a>
                                                                 @endif
                                                             @endforeach
 
@@ -217,12 +217,10 @@
                                                                 @endforeach
 
                                                                 <div class="action">
-                                                                    {{-- href="{{ URL::to('remove_item_cart/'.$cart->cart_id) }} --}}
-                                                                    {{-- <a href="#" class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></a> --}}
-                                                                    <a class="remove delete_item_cart"
+                                                                    <a class="remove btn_open_modal_delete_item_cart"
                                                                         data-id="{{ $old_cart->cart_id }}"
-                                                                        data-toggle="modal" data-target="#delete_cart_item"><i
-                                                                            class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                                                        style="cursor: pointer;"><i
+                                                                        class="fa fa-trash-o" aria-hidden="true"></i> xóa</a>
                                                                 </div>
                                                             </td>
                                                             <td class="product-price" data-title="Price">

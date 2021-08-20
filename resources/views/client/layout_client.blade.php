@@ -121,8 +121,39 @@
 
     <!-- Scroll Top Button -->
     <a class="btn-scroll-top"><i class="biolife-icon icon-left-arrow"></i></a>
+    {{--  --}}
+    <!-- Messenger Plugin chat Code -->
+    <div id="fb-root"></div>
 
+    <!-- Your Plugin chat code -->
+    <!-- Messenger Plugin chat Code -->
+    <div id="fb-root"></div>
 
+    <!-- Your Plugin chat code -->
+    <div id="fb-customer-chat" class="fb-customerchat">
+    </div>
+
+    <script>
+      var chatbox = document.getElementById('fb-customer-chat');
+      chatbox.setAttribute("page_id", "101784998888187");
+      chatbox.setAttribute("attribution", "biz_inbox");
+
+      window.fbAsyncInit = function() {
+        FB.init({
+          xfbml            : true,
+          version          : 'v11.0'
+        });
+      };
+
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>
+    {{--  --}}
     <script src="{{ asset('public/font_end/assets/js/jquery-3.4.1.min.js') }}"></script>
     <script src="{{ asset('public/font_end/assets/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('public/font_end/assets/js/jquery.countdown.min.js') }}"></script>
@@ -138,6 +169,7 @@
     <script src="{{ asset('public/font_end/custom/custom.js') }}"></script>
     <script src="{{ asset('public/font_end/custom/rating_comment.js') }}"></script>
     <script src="{{ asset('public/font_end/custom/update_cart_ajax.js') }}"></script>
+    <script src="{{ asset('public/font_end/custom_ui/js/ajax_wish_list.js') }}"></script>
     <script src="{{ asset('public/back_end/src/scripts/upperFirstKey.js') }}"></script>
 
     {{-- check out custom

@@ -19,6 +19,7 @@ use App\Customer_Info;
 use App\Discount;
 use App\Storage_Customer_Voucher;
 use App\Voucher;
+use App\WishList;
 
 use Session;
 use DB;
@@ -146,36 +147,183 @@ class HomeClientController extends Controller
     //
     public function index(){
         $customer_id = Session::get('customer_id');
+
         $all_category = Category::all();
         $all_product = Product::all();
         $all_price = ProductPrice::where('status',1)->get();
-        $all_cart = Cart::where('customer_id', $customer_id)->where('status', 1)->get();
         $product_storage = Storage_Product::all();
         $all_discount = Discount::all();
+
+        $all_cart = Cart::where('customer_id', $customer_id)->where('status', 1)->get();
+        $wish_lish = WishList::where('customer_id', $customer_id)->get();
 
         $all_product_join = DB::table('product')
         ->join('category','category.cate_id','=','product.category_id')
         ->join('product_price','product_price.product_id','=','product.product_id')
         ->join('storage_product','storage_product.product_id','=','product.product_id')
-        ->where('product.deleted_at', null)->where('product_price.status',1)->get();
+        ->where('product.deleted_at', null)
+        ->where('product_price.status',1)
+        ->get();
+
+        $callFunction = new HomeClientController;
+
+        // ALL PRODUCT DISCOUNT
+        $arrayProductDiscount = array();
+        $get_all_product = DB::table('product')
+            ->join('product_price', 'product_price.product_id', '=', 'product.product_id')
+            ->join('category', 'category.cate_id', '=', 'product.category_id')
+            ->join('storage_product','storage_product.product_id','=','product.product_id')
+            ->where('product_price.status', 1)
+            ->where('product.deleted_at',null)
+            ->get();
+        foreach($get_all_product as $product){
+            $check_discount = $callFunction->check_price_discount($product->product_id);
+            if($check_discount->percent_discount > 0){
+                $product->percent_discount =  $check_discount->percent_discount;
+                $arrayProductDiscount[] = $product;
+            }
+        }
+        $all_product_discount = collect($arrayProductDiscount)->sortBy('percent_discount')->reverse()->toArray();
+        // END ALL PRODUCT DISCOUNT
+
+        // DISCOUNT TODAY
+        $now = Carbon::now('Asia/Ho_Chi_Minh');
+        $arrayProductDiscountToday = array();
+        foreach($get_all_product as $product){
+            $check_discount = $callFunction->check_price_discount($product->product_id);
+            if($check_discount->percent_discount > 0){
+                $date_now = strtotime($now);
+                $end_date_discount = strtotime($check_discount->date_end_discount);
+                $minus_date = abs($end_date_discount - $date_now);
+                $check_date = floor($minus_date / (60*60*24));
+                if($check_date < 1){
+                    $product->percent_discount =  $check_discount->percent_discount;
+                    $arrayProductDiscountToday[] = $product;
+                }
+            }
+        }
+        $all_product_discount_today = collect($arrayProductDiscountToday)->sortBy('percent_discount')->reverse()->toArray();
+        // END DISCOUNT TODAY
+
+        // TOP RATING
+        $arrayProductTopRating = array();
+        foreach($get_all_product as $product){
+            $check_rating = $callFunction->info_rating_saled($product->product_id);
+            if($check_rating->avg_rating > 3){
+                $product->avg_rating =  $check_rating->avg_rating;
+                $arrayProductTopRating[] = $product;
+            }
+        }
+        $all_product_top_rating = collect($arrayProductTopRating)->sortBy('avg_rating')->reverse()->toArray();
+        // END TOP RATING
+
+        // PRODUCT FEATURE
+        $all_product_feature = DB::table('product')
+            ->join('product_price', 'product_price.product_id', '=', 'product.product_id')
+            ->join('category', 'category.cate_id', '=', 'product.category_id')
+            ->join('storage_product','storage_product.product_id','=','product.product_id')
+            ->where('product_price.status', 1)
+            ->where('product.deleted_at',null)
+            ->where('product.is_featured', 1)
+            ->get();
+
         return view('client.home.trangchu',[
             'all_category'=>$all_category,
             'all_product'=>$all_product,
             'all_price' =>$all_price,
             'all_cart' => $all_cart,
+            'wish_lish' => $wish_lish,
             'product_storage' => $product_storage,
 
             'all_product_join' => $all_product_join,
             'all_discount' => $all_discount,
+
+            'all_product_discount' => $all_product_discount,
+            'all_product_discount_today' => $all_product_discount_today,
+            'all_product_top_rating' => $all_product_top_rating,
+            'all_product_feature' => $all_product_feature,
         ]);
         //dd($all_product_join);
     }
+
+    public function show_all_product_discount(){
+        $customer_id = Session::get('customer_id');
+        $wish_lish = WishList::where('customer_id', $customer_id)->get();
+        $all_cart = Cart::where('customer_id', $customer_id)->where('status', 1)->get();
+        $all_product = Product::all();
+        $callFunction = new HomeClientController;
+
+        $arrayProductDiscount = array();
+        $all_product_discount = DB::table('product')
+            ->join('product_price', 'product_price.product_id', '=', 'product.product_id')
+            ->join('category', 'category.cate_id', '=', 'product.category_id')
+            ->join('storage_product','storage_product.product_id','=','product.product_id')
+            ->where('product_price.status', 1)
+            ->where('product.deleted_at',null)
+            ->get();
+        foreach($all_product_discount as $product){
+            $check_discount = $callFunction->check_price_discount($product->product_id);
+            if($check_discount->percent_discount > 0){
+                $product->percent_discount =  $check_discount->percent_discount;
+                $arrayProductDiscount[] = $product;
+            }
+        }
+        $all_product_discount = collect($arrayProductDiscount)->sortBy('percent_discount')->reverse()->toArray();
+
+        return view('client.home.view_all_product_discount',[
+            'all_product_discount'=>$all_product_discount,
+            'all_cart'=>$all_cart,
+            'wish_lish'=>$wish_lish,
+            'all_product'=>$all_product,
+        ]);
+    }
+    public function show_all_product_feature(){
+        $customer_id = Session::get('customer_id');
+        $wish_lish = WishList::where('customer_id', $customer_id)->get();
+        $all_cart = Cart::where('customer_id', $customer_id)->where('status', 1)->get();
+        $all_product = Product::all();
+        $all_product_feature = DB::table('product')
+            ->join('product_price', 'product_price.product_id', '=', 'product.product_id')
+            ->join('category', 'category.cate_id', '=', 'product.category_id')
+            ->join('storage_product','storage_product.product_id','=','product.product_id')
+            ->where('product_price.status', 1)
+            ->where('product.deleted_at',null)
+            ->where('product.is_featured', 1)
+            ->get();
+        return view('client.home.view_all_product_feature',[
+            'all_product_feature'=>$all_product_feature,
+            'all_cart'=>$all_cart,
+            'wish_lish'=>$wish_lish,
+            'all_product'=>$all_product,
+        ]);
+    }
+    public function show_all_product_recommend(){
+        $customer_id = Session::get('customer_id');
+        $wish_lish = WishList::where('customer_id', $customer_id)->get();
+        $all_cart = Cart::where('customer_id', $customer_id)->where('status', 1)->get();
+        $all_product = Product::all();
+        $all_product_recommend = DB::table('product')
+        ->join('category','category.cate_id','=','product.category_id')
+        ->join('product_price','product_price.product_id','=','product.product_id')
+        ->join('storage_product','storage_product.product_id','=','product.product_id')
+        ->where('product.deleted_at', null)
+        ->where('product_price.status',1)
+        ->get();
+        return view('client.home.view_all_product_recommend',[
+            'all_product_recommend'=>$all_product_recommend,
+            'all_cart'=>$all_cart,
+            'wish_lish'=>$wish_lish,
+            'all_product'=>$all_product,
+        ]);
+    }
+
     public function product_detail($product_id){
         $customer_id = Session::get('customer_id');
         $product = Product::find($product_id);
         $cate = Category::where('cate_id',$product->category_id)->first();
         $price = ProductPrice::where('product_id',$product_id)->where('status', 1)->first();
         $all_image = ImageProduct::where('product_id',$product_id)->get();
+        $wish_lish = WishList::where('customer_id', $customer_id)->get();
         $all_cart = Cart::where('customer_id', $customer_id)->where('status', 1)->get();
         $product_storage = Storage_Product::all();
         $all_product = Product::all();
@@ -243,6 +391,7 @@ class HomeClientController extends Controller
             'price'=>$price,
             'all_image'=>$all_image,
             'all_cart' => $all_cart,
+            'wish_lish' => $wish_lish,
             'all_product'=>$all_product,
             'all_price' =>$all_price,
             'product_storage' => $product_storage,
@@ -390,22 +539,6 @@ class HomeClientController extends Controller
         }
         echo $count_comment_useful;
     }
-
-    public function shop_product(){
-        $customer_id = Session::get('customer_id');
-        $all_category = Category::all();
-        $all_product = Product::all();
-        $all_price = ProductPrice::where('status',1)->get();
-        $all_cart = Cart::where('customer_id', $customer_id)->where('status', 1)->get();
-        $product_storage = Storage_Product::all();
-        return view('client.home.shop_product', [
-            'all_category'=>$all_category,
-            'all_product'=>$all_product,
-            'all_price' =>$all_price,
-            'all_cart' => $all_cart,
-            'product_storage' => $product_storage,
-        ]);
-    }
     public function delete_comment(Request $request){
         $comment_id = $request->comment_id;
 
@@ -442,6 +575,7 @@ class HomeClientController extends Controller
 
         $customer_id = Session::get('customer_id');
         $all_product = Product::all();
+        $wish_lish = WishList::where('customer_id', $customer_id)->get();
         $all_cart = Cart::where('customer_id', $customer_id)->where('status', 1)->get();
 
         $all_category = Category::all();
@@ -453,6 +587,7 @@ class HomeClientController extends Controller
                         ->get();
         return view('client.home.view_result_search',[
             'all_cart'=> $all_cart,
+            'wish_lish'=> $wish_lish,
             'all_product'=> $all_product,
             'result_search'=> $result_search,
             'val_search'=> $val_search,
@@ -462,11 +597,31 @@ class HomeClientController extends Controller
     public function contact_us(){
         $customer_id = Session::get('customer_id');
         $all_product = Product::all();
+        $wish_lish = WishList::where('customer_id', $customer_id)->get();
         $all_cart = Cart::where('customer_id', $customer_id)->where('status', 1)->get();
         return view('client.contact.contact_us',[
             'all_product'=>$all_product,
             'all_cart'=>$all_cart,
+            'wish_lish'=> $wish_lish,
         ]);
     }
+    public function buy_now($product_id){
+        $customer_id = Session::get('customer_id');
 
+        $check_cart = Cart::where('customer_id', $customer_id)->where('product_id',$product_id)->first();
+        if($check_cart){
+            $update_cart = Cart::where('customer_id', $customer_id)->where('product_id',$product_id)->first();
+            $update_cart->quantity = $update_cart->quantity + 1;
+            $update_cart->save();
+        }
+        else{
+            $add_cart = new Cart();
+            $add_cart->product_id = $product_id;
+            $add_cart->customer_id = $customer_id;
+            $add_cart->quantity = 1;
+            $add_cart->save();
+        }
+        return redirect('show_cart');
+
+    }
 }

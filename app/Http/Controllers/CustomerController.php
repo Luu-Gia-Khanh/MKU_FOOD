@@ -29,8 +29,14 @@ class CustomerController extends Controller
         $check_customer_login = Customer::where('email', $request->email)->where('password', md5(md5($request->password)))->first();
 
         if($check_customer_login){
-            $customer = Customer_Info::where('customer_id', $check_customer_login->customer_id)->get();
-            $customer_avt = $customer->customer_avt;
+            $customer = Customer_Info::where('customer_id', $check_customer_login->customer_id)->first();
+            if($customer->customer_avt != ''){
+                $customer_avt = $customer->customer_avt;
+            }
+            else{
+                $customer_avt = 'no_image.png';
+            }
+
             Session::put('customer_id', $check_customer_login->customer_id);
             Session::put('username', $check_customer_login->username);
             Session::put('customer_avt', $customer_avt);

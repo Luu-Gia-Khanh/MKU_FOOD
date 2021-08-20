@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use App\Storage_Product;
 use App\Product;
 use App\ProductPrice;
+use App\WishList;
 
 Session::start();
 class CartController extends Controller
@@ -61,6 +62,7 @@ class CartController extends Controller
     public function show_cart(){
         $this->auto_update_cart();
         $customer_id = Session::get('customer_id');
+        $wish_lish = WishList::where('customer_id', $customer_id)->get();
         $all_cart = Cart::where('customer_id',$customer_id)->where('status', 1)->get();
         $old_date_cart = Cart::where('customer_id', $customer_id)->where('status', 0)->get();
         $all_product = Product::all();
@@ -85,6 +87,7 @@ class CartController extends Controller
         return view('client.cart.show_cart',[
             'all_cart' => $all_cart,
             'all_product' => $all_product,
+            'wish_lish' => $wish_lish,
             'product_storage' => $product_storage,
             'product_price' => $product_price,
             'old_date_cart' => $old_date_cart,

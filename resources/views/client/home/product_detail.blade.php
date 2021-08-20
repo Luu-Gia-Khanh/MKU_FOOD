@@ -31,14 +31,23 @@
 <link rel="stylesheet" href="{{ asset('public/font_end/custom_ui/css/custom_container_product.css') }}">
 <style>
     .text {
-   overflow: hidden;
-   height: 35px;
-   line-height: 18px;
-   text-overflow: ellipsis;
-   display: -webkit-box;
-   -webkit-line-clamp: 2; /* number of lines to show */
-   -webkit-box-orient: vertical;
-}
+        overflow: hidden;
+        height: 35px;
+        line-height: 18px;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2; /* number of lines to show */
+        -webkit-box-orient: vertical;
+    }
+    .btn_buy_now{
+        font-size: 15px;
+        border: none;
+        font-weight: 600;
+        padding: 12px 10px 11px;
+        width: 200px;
+        color: white;
+        background-image: linear-gradient(to bottom right, #7faf51, rgb(15, 121, 61));
+    }
 </style>
     <div class="container">
         <nav class="biolife-nav">
@@ -187,8 +196,30 @@
                             </div>
                         </div>
                         <div class="shipping-info">
-                            <p class="shipping-day">3-Ngày Trả Hàng</p>
-                            <p class="for-today">Đặt ngay hôm nay</p>
+                            @if ($price_discount->percent_discount > 0)
+                                <div class="biolife-countdown" data-datetime="{{ $price_discount->date_end_discount }}"></div>
+                            @endif
+                            <div class="content_btn_buy_now" style="display: flex; justify-content:space-between;">
+                                @if (Session::get('customer_id'))
+                                    @foreach ($product_storage as $prod_qty)
+                                        @if ($product->product_id == $prod_qty->product_id)
+                                            @if ($prod_qty->total_quantity_product > 0)
+                                                <div class="sub_content_btn_buy">
+                                                    <a href="{{ URL::to('buy_now/'.$product->product_id) }}" data-id="{{ $product->product_id }}" class="btn btn-block btn-success btn_buy_now">MUA NGAY</a>
+                                                </div>
+                                            @endif
+                                        @endif
+                                    @endforeach
+                                @else
+                                    <a href="{{ URL::to('login_client') }}" class="btn btn-block btn-success btn_buy_now">MUA NGAY</a>
+                                @endif
+
+                                <div class="content_txt_ads">
+                                    <p class="shipping-day">3-Ngày Trả Hàng</p>
+                                    <p class="for-today">Đặt ngay hôm nay</p>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                     <div class="action-form" style="border: 1px solid #0000000d;">
@@ -212,12 +243,12 @@
 
                             </div>
                         </div>
-                        <div class="row buttons">
+                        {{-- <div class="row buttons">
                             <p class="pull-row">
                                 <a href="#" class="btn wishlist-btn">wishlist</a>
                                 <a href="#" class="btn compare-btn">compare</a>
                             </p>
-                        </div>
+                        </div> --}}
                         <div class="social-media">
                             <ul class="social-list">
                                 <li><a href="#" class="social-link"><i class="fa fa-twitter" aria-hidden="true"></i></a>

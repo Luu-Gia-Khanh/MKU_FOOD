@@ -17,6 +17,7 @@ class AjaxSearchProductKeyword extends Controller
             ->where('product_price.status', 1)
             ->where('product_name','LIKE','%'.$keyword.'%')
             ->where('cate_id',$cate_id)
+            ->where('product.deleted_at', null)
             ->get();
         echo view('client.home.list_item_search_keyword',[
             'result_search'=>$result_search
@@ -32,6 +33,7 @@ class AjaxSearchProductKeyword extends Controller
             ->join('category', 'category.cate_id', '=', 'product.category_id')
             ->where('product_price.status', 1)
             ->where('product_name','LIKE','%'.$keyword.'%')
+            ->where('product.deleted_at', null)
             ->get();
 
         $callFunction = new HomeClientController;
@@ -67,6 +69,7 @@ class AjaxSearchProductKeyword extends Controller
             ->join('category', 'category.cate_id', '=', 'product.category_id')
             ->where('product_price.status', 1)
             ->where('product_name','LIKE','%'.$keyword.'%')
+            ->where('product.deleted_at', null)
             ->get();
 
         $callFunction = new HomeClientController;
@@ -94,6 +97,7 @@ class AjaxSearchProductKeyword extends Controller
             ->join('category', 'category.cate_id', '=', 'product.category_id')
             ->where('product_price.status', 1)
             ->where('product_name','LIKE','%'.$keyword.'%')
+            ->where('product.deleted_at', null)
             ->get();
 
         $callFunction = new HomeClientController;
@@ -124,6 +128,7 @@ class AjaxSearchProductKeyword extends Controller
             ->join('category', 'category.cate_id', '=', 'product.category_id')
             ->where('product_price.status', 1)
             ->where('product_name','LIKE','%'.$keyword.'%')
+            ->where('product.deleted_at', null)
             ->get();
 
         $callFunction = new HomeClientController;
@@ -154,13 +159,16 @@ class AjaxSearchProductKeyword extends Controller
             ->join('category', 'category.cate_id', '=', 'product.category_id')
             ->where('product_price.status', 1)
             ->where('product_name','LIKE','%'.$keyword.'%')
+            ->where('product.deleted_at', null)
             ->get();
 
         $callFunction = new HomeClientController;
         foreach($all_product as $product){
             $check_price = $callFunction->check_price_discount($product->product_id);
-            $product->percent_discount =  $check_price->percent_discount;
-            $arrayProduct[] = $product;
+            if($check_price->percent_discount > 0){
+                $product->percent_discount =  $check_price->percent_discount;
+                $arrayProduct[] = $product;
+            }
         }
         if($sort_discount_fiter == 'desc'){
             $orderByArrayProduct = collect($arrayProduct)->sortByDesc('percent_discount')->reverse()->toArray();

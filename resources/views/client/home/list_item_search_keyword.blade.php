@@ -4,6 +4,7 @@
         @php
             $price_discount = App\Http\Controllers\HomeClientController::check_price_discount($product->product_id);
             $info_rating_saled = App\Http\Controllers\HomeClientController::info_rating_saled($product->product_id);
+            $check_already_wish = App\Http\Controllers\WishListController::checkProductWishLish($product->product_id);
         @endphp
         <li class="product-item col-lg-4 col-md-4 col-sm-4 col-xs-6">
             <div class="contain-product layout-default content_product">
@@ -46,7 +47,26 @@
                     <div class="slide-down-box">
                         {{-- <p class="message">All products are carefully selected to ensure food safety.</p> --}}
                         <div class="buttons">
-                            <a href="#" class="btn wishlist-btn"><i class="fa fa-heart" aria-hidden="true"></i></a>
+                            {{-- wish list --}}
+                            @if (Session::get('customer_id'))
+                                <a class="btn wishlist-btn btn_add_wish_lish" style="cursor: pointer;"
+                                    data-id="{{ $product->product_id }}">
+                                    @if ($check_already_wish->check_already == 1)
+                                        <i class="fa fa-heart" aria-hidden="true" style="color: #7faf51"></i>
+                                    @else
+                                        <i class="fa fa-heart icon_wish_list_{{ $product->product_id }}" aria-hidden="true"></i>
+                                    @endif
+                                </a>
+                            @else
+                                <a href="{{ URL::to('login_client') }}"class="btn wishlist-btn" >
+                                    @if ($check_already_wish->check_already == 1)
+                                        <i class="fa fa-heart" aria-hidden="true" style="color: #7faf51"></i>
+                                    @else
+                                        <i class="fa fa-heart" aria-hidden="true"></i>
+                                    @endif
+                                </a>
+                            @endif
+                            {{-- end wishlist --}}
                             @if (Session::get('customer_id'))
                                 <button href="#" class="btn add-to-cart-btn btn-block btn-sm add_cart_one"
                                     data-id="{{ $product->product_id }}"><i class="fa fa-cart-arrow-down"
@@ -93,3 +113,4 @@
 <script src="{{ asset('public/font_end/custom/update_cart_ajax.js') }}"></script>
 <script src="{{ asset('public/font_end/bootstrap/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('public/font_end/custom/mini_detail_product.js') }}"></script>
+<script src="{{ asset('public/font_end/custom_ui/js/ajax_wish_list.js') }}"></script>

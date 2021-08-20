@@ -118,37 +118,38 @@
     {{-- quickview --}}
     {{-- @include('client.layout.body.quickview_popup'); --}}
 
-    {{-- Modal delete cart --}}
-    <div class="modal fade" id="delete_cart_item">
-        <div class="modal-dialog">
-            <div class="modal-content">
-
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title">Thông Báo</h4>
-                </div>
-
-                <!-- Modal body -->
-                <div class="modal-body">
-                    Bạn muốn xóa sản phẩm này ra khỏi giỏ hàng
-                    <form action="{{ URL::to('remove_item_cart') }}" method="post" name="form_delete_item_cart">
-                        @csrf
-                        <input type="hidden" name="cart_id" class="delete_item_cart">
-                    </form>
-                </div>
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button class="btn btn-success btn_confirm_delete_item_cart">Xóa</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                </div>
-
-            </div>
-        </div>
-    </div>
     <!-- Scroll Top Button -->
     <a class="btn-scroll-top"><i class="biolife-icon icon-left-arrow"></i></a>
 
+    {{--  --}}
+    <!-- Messenger Plugin chat Code -->
+    <div id="fb-root"></div>
 
+    <!-- Your Plugin chat code -->
+    <div id="fb-customer-chat" class="fb-customerchat">
+    </div>
+
+    <script>
+      var chatbox = document.getElementById('fb-customer-chat');
+      chatbox.setAttribute("page_id", "101784998888187");
+      chatbox.setAttribute("attribution", "biz_inbox");
+
+      window.fbAsyncInit = function() {
+        FB.init({
+          xfbml            : true,
+          version          : 'v11.0'
+        });
+      };
+
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>
+    {{--  --}}
     <script src="{{ asset('public/font_end/assets/js/jquery-3.4.1.min.js') }}"></script>
     <script src="{{ asset('public/font_end/assets/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('public/font_end/assets/js/jquery.countdown.min.js') }}"></script>

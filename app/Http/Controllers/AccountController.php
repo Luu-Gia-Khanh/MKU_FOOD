@@ -20,7 +20,7 @@ use App\ProductPrice;
 use App\Storage_Customer_Voucher;
 use App\Storage_Product;
 use App\Voucher;
-
+use App\WishList;
 class AccountController extends Controller
 {
     function check_login(){
@@ -35,11 +35,12 @@ class AccountController extends Controller
         $customer_id = Session::get('customer_id');
         $customer = Customer::where('customer_id', $customer_id)->first();
         $customer_info = Customer_Info::where('customer_id', $customer_id)->first();
+        $wish_lish = WishList::where('customer_id', $customer_id)->get();
         $all_cart = Cart::where('customer_id', $customer_id)->where('status', 1)->get();
         $all_product = Product::all();
         $all_price = ProductPrice::where('status',1)->get();
         return view('client.user.account',
-            compact('customer_info', 'customer', 'all_product', 'all_cart', 'all_price'));
+            compact('customer_info', 'customer', 'all_product', 'all_cart', 'all_price','wish_lish'));
     }
 
     public function update_account(Request $request){
@@ -119,11 +120,12 @@ class AccountController extends Controller
         $citys = DB::table('tinhthanhpho')->get();
         $districts = DB::table('quanhuyen')->get();
         $wards = DB::table('xaphuongthitran')->get();
+        $wish_lish = WishList::where('customer_id', $customer_id)->get();
         $all_cart = Cart::where('customer_id', $customer_id)->where('status', 1)->get();
         $all_product = Product::all();
         $all_price = ProductPrice::where('status',1)->get();
         return view('client.user.address',
-            compact('customer_info', 'customer', 'all_address', 'citys', 'districts', 'wards', 'all_product', 'all_cart', 'all_price'));
+            compact('customer_info', 'customer', 'all_address', 'citys', 'districts', 'wards', 'all_product', 'all_cart', 'all_price','wish_lish'));
     }
 
     public function process_add_address(Request $request){
@@ -297,10 +299,11 @@ class AccountController extends Controller
         $customer_id = Session::get('customer_id');
         $customer = Customer::where('customer_id', $customer_id)->first();
         $customer_info = Customer_Info::where('customer_id', $customer_id)->first();
+        $wish_lish = WishList::where('customer_id', $customer_id)->get();
         $all_cart = Cart::where('customer_id', $customer_id)->where('status', 1)->get();
         $all_product = Product::all();
         $all_price = ProductPrice::where('status',1)->get();
-        return view('client.user.resetpassword', compact('customer_info', 'customer', 'all_product', 'all_cart', 'all_price'));
+        return view('client.user.resetpassword', compact('customer_info', 'customer', 'all_product', 'all_cart', 'all_price','wish_lish'));
     }
 
     public function process_update_password(Request $request){
@@ -344,6 +347,7 @@ class AccountController extends Controller
         $customer_id = Session::get('customer_id');
         $customer = Customer::where('customer_id', $customer_id)->first();
         $customer_info = Customer_Info::where('customer_id', $customer_id)->first();
+        $wish_lish = WishList::where('customer_id', $customer_id)->get();
         $all_cart = Cart::where('customer_id', $customer_id)->where('status', 1)->get();
         $all_product = Product::all();
         $all_price = ProductPrice::where('status',1)->get();
@@ -389,11 +393,12 @@ class AccountController extends Controller
 
         return view('client.user.order', compact('customer_info', 'customer', 'all_product', 'all_cart',
          'all_price', 'all_order', 'all_order_item', 'all_order_detail_status', 'status_order',
-        'order_confirm', 'order_confirmed', 'order_delivering', 'order_delivered', 'order_cancelled'));
+        'order_confirm', 'order_confirmed', 'order_delivering', 'order_delivered', 'order_cancelled','wish_lish'));
     }
 
     public function order_detail_account($order_id){
         $customer_id = Session::get('customer_id');
+        $wish_lish = WishList::where('customer_id', $customer_id)->get();
         $all_cart = Cart::where('customer_id', $customer_id)->where('status', 1)->get();
         $all_product = Product::all();
         $all_price = ProductPrice::where('status',1)->get();
@@ -406,7 +411,7 @@ class AccountController extends Controller
         $payment_method = DB::table('payment_method')->get();
         $trans_address = Customer_Transport::all();
         return view('client.user.order_detail', compact('customer', 'customer_info', 'all_cart',
-         'all_product', 'all_price', 'order', 'all_order_item', 'all_order_detail_status', 'status_order', 'payment_method', 'trans_address'));
+         'all_product', 'all_price', 'order', 'all_order_item', 'all_order_detail_status', 'status_order', 'payment_method', 'trans_address','wish_lish'));
     }
 
     public function process_cancel_order(Request $request){
@@ -428,6 +433,7 @@ class AccountController extends Controller
 
     public function show_voucher(){
         $customer_id = Session::get('customer_id');
+        $wish_lish = WishList::where('customer_id', $customer_id)->get();
         $all_cart = Cart::where('customer_id', $customer_id)->where('status', 1)->get();
         $all_product = Product::all();
         $all_price = ProductPrice::where('status',1)->get();
@@ -443,6 +449,6 @@ class AccountController extends Controller
                                         ->where('storage_customer_voucher.status', 1)
                                         ->where('customer_id', $customer_id)->get();
         return view('client.user.storage_customer_voucher', compact('customer', 'customer_info','storage_customer_voucher',
-        'all_cart', 'all_product', 'all_price'));
+        'all_cart', 'all_product', 'all_price','wish_lish'));
     }
 }
