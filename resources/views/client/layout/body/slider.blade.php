@@ -20,10 +20,17 @@
                         <div class="loader-inner"></div>
                       </div> -->
                     <div class="slider">
+                           @php
+                              $all_slider = App\Http\Controllers\SliderController::show_slider();
+                          @endphp
                         <ul>
-                          <li><img src="{{ asset('public/upload/bg1.jpg') }}" /></li>
+                          
+                          @foreach ($all_slider as $slider)
+                              <li><img src="{{ asset('public/upload/'.$slider->slider_image) }}" /></li>
+                          @endforeach
+                          {{-- <li><img src="{{ asset('public/upload/bg1.jpg') }}" /></li>
                           <li><img src="{{ asset('public/upload/bg2.jpg') }}" /></li>
-                          <li><img src="{{ asset('public/upload/bg1.jpg') }}" /></li>
+                          <li><img src="{{ asset('public/upload/bg1.jpg') }}" /></li> --}}
                         </ul>
                     </div>
                 </div> 

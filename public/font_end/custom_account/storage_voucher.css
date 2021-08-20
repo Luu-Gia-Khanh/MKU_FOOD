@@ -1,7 +1,10 @@
 .content__voucher{
     width: 100%;
     min-height: 20px;
-    padding: 8px 0;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 2px;
+    border-bottom: 2px solid #eaeaea;
 }
 .content__voucher-heading{
     padding: 16px 0;

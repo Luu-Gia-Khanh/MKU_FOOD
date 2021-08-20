@@ -15,7 +15,7 @@
     }
 </style>
     <div class="container">
-        <nav class="biolife-nav">
+        <nav class="biolife-nav cus_breadcrumb">
             <ul>
                 <li class="nav-item"><a href="{{ URL::to('/') }}" class="permal-link">Trang chủ</a></li>
                 <li class="nav-item"><a href="{{ URL::to('user/account') }}" class="permal-link">Tài khoản</a></li>
@@ -70,7 +70,7 @@
                     </div>
 
                     <!--content-user-->
-                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12" style="background-color: #fff; min-height: 300px; margin-bottom: 32px; border-bottom: 1px solid #ddd;">
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12" style="min-height: 300px; margin-bottom: 32px; border-bottom: 1px solid #ddd;">
                         <div class="content__user-address">
                             <div class="content__user-address-heading">
                                 <span class="user-heading-address-title">Địa chỉ của tôi</span>

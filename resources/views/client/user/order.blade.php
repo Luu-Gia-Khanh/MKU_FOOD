@@ -13,7 +13,7 @@
     }
 </style>
     <div class="container">
-        <nav class="biolife-nav">
+        <nav class="biolife-nav cus_breadcrumb">
             <ul>
                 <li class="nav-item"><a href="{{ URL::to('/') }}" class="permal-link">Trang chủ</a></li>
                 <li class="nav-item"><a href="{{ URL::to('user/account') }}" class="permal-link">Tài khoản</a></li>

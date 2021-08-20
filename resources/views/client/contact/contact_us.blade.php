@@ -1,10 +1,11 @@
 @extends('client.layout_client')
 @section('content_body')
+<link rel="stylesheet" href="{{ asset('public/font_end/cus/css/custom_breadcrumb.css') }}">
 <div class="hero-section hero-background">
     <h1 class="page-title">Organic Fruits</h1>
 </div>
 <div class="container">
-    <nav class="biolife-nav nav-86px">
+    <nav class="biolife-nav cus_breadcrumb nav-86px">
         <ul>
             <li class="nav-item"><a href="/" class="permal-link">Home</a></li>
             <li class="nav-item"><span class="current-page">Liên hệ</span></li>

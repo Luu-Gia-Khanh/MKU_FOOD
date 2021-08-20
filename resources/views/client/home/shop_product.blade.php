@@ -1,5 +1,6 @@
 @extends('client.layout_client')
 @section('content_body')
+<link rel="stylesheet" href="{{ asset('public/font_end/cus/css/custom_breadcrumb.css') }}">
     <!--Hero Section-->
     <div class="hero-section hero-background">
         <h1 class="page-title">Thực Phẩm</h1>
@@ -7,7 +8,7 @@
 
     <!--Navigation section-->
     <div class="container">
-        <nav class="biolife-nav">
+        <nav class="biolife-nav cus_breadcrumb">
             <ul>
                 <li class="nav-item"><a href="{{ URL::to('/') }}" class="permal-link">Trang chủ</a></li>
                 <li class="nav-item"><span class="current-page">Cửa hàng</span></li>

@@ -63,19 +63,19 @@
                                 id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
                                     <thead>
                                         <tr role="row" class="text-center">
-                                            <th style="width: 2%;" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                                                 colspan="1">STT</th>
-                                            <th style="width: 11%;" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                                                 colspan="1" data-defaultsort="disabled">Mã Voucher</th>
-                                            <th style="width: 26%;" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                                                 colspan="1" data-defaultsign="AZ">Tên Voucher</th>
-                                            <th style="width: 17%;" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                                                 colspan="1">Ngày Bắt Đầu</th>
-                                            <th style="width: 17%;" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                                                 colspan="1">Ngày Kết Thúc</th>
-                                            <th style="width: 15%;" class="datatable-nosort sorting_disabled" rowspan="1" colspan="1"
+                                            <th class="datatable-nosort sorting_disabled" rowspan="1" colspan="1"
                                                 aria-label="Action" data-defaultsort="disabled">Tình Trạng</th>
-                                            <th style="width: 12%;" class="datatable-nosort sorting_disabled" rowspan="1" colspan="1"
+                                            <th class="datatable-nosort sorting_disabled" rowspan="1" colspan="1"
                                                 aria-label="Action" data-defaultsort="disabled">Thao Tác</th>
                                         </tr>
                                     </thead>

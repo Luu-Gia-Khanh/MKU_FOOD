@@ -188,6 +188,19 @@ Route::prefix('admin')->group(function () {
 
     Route::get('find_product_voucher', 'VoucherController@find_product_voucher');
 
+    // SLIDER
+    Route::get('all_slider', 'SliderController@all_slider');
+    Route::get('add_slider', 'SliderController@add_slider');
+    Route::get('active_slider/{slider_id}', 'SliderController@active_slider');
+    Route::get('unactive_slider/{slider_id}', 'SliderController@unactive_slider');
+    Route::post('process_add_slider', 'SliderController@process_add_slider');
+    Route::post('process_delete_slider', 'SliderController@process_delete_slider');
+
+    // CUSTOMER
+    Route::get('all_customer', 'CustomerAdminController@all_customer');
+    Route::get('detail_customer/{customer_id}', 'CustomerAdminController@detail_customer');
+    Route::get('find_customer', 'CustomerAdminController@find_customer');
+
     //DISCOUNT PRODUCT
     Route::get('all_discount', 'DiscountController@all_discount');
     Route::get('add_discount', 'DiscountController@add_discount');
