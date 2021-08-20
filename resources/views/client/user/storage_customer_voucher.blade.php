@@ -22,7 +22,7 @@
     }
 </style>
     <div class="container">
-        <nav class="biolife-nav">
+        <nav class="biolife-nav cus_breadcrumb">
             <ul>
                 <li class="nav-item"><a href="{{ URL::to('/') }}" class="permal-link">Trang chủ</a></li>
                 <li class="nav-item"><a href="{{ URL::to('user/account') }}" class="permal-link">Tài khoản</a></li>
@@ -77,7 +77,7 @@
                     </div>
 
                     <!--content-user-->
-                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12" style="background-color: #fff;  margin-bottom: 32px;">
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12" style="margin-bottom: 32px;">
                         <div class="content__voucher">
                             <div class="content__voucher-heading">
                                 <span class="voucher-heading-title">Voucher của bạn</span>

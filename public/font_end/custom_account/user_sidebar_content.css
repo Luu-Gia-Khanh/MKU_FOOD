@@ -52,8 +52,12 @@
 /* Content User Profile */
 
 .content__user{
+    background-color: #fff;
+    padding: 10px;
+    min-height: 500px;
+    border-radius: 2px;
     width: 100%;
-    padding: 8px 0;
+    border-bottom: 2px solid #eaeaea;
 }
 .content__user-heading{
     padding: 16px 0;
@@ -187,7 +191,7 @@ input[type='radio']:checked:after {
 /* content user resetpassword */
 
 .content__user-resetpassword{
-    padding: 64px 240px 82px 240px;
+    padding: 64px 220px 82px 220px;
 }
 .user-password span{
     display: flex;
@@ -204,7 +208,13 @@ input[type='radio']:checked:after {
 }
 
 
-
+.content__user-address{
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 2px;
+    width: 100%;
+    border-bottom: 2px solid #eaeaea;
+}
 /* content user address */
 .content__user-address-heading{
     display: flex;
@@ -501,4 +511,10 @@ input[type='radio']:checked:after {
 .content-item-empty-text{
     font-size: 14px;
     font-weight: 300;
+}
+.cus_breadcrumb{
+    background-color: #fff;
+    padding: 15px 10px;
+    border-radius: 2px;
+    border-bottom: 2px solid #eaeaea;
 }

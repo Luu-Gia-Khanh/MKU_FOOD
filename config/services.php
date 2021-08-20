@@ -32,12 +32,12 @@ return [
     'facebook' => [
         'client_id' => '994522391377515',
         'client_secret' => 'c2b8ad7393a8abb93833f9235d6e930a',
-        'redirect' => 'https://mkufood.com/MKU_FOOD/callback'
+        'redirect' => 'https://mkufood.abc/callback'
     ],
     'google' => [
         'client_id' => '339861231523-gg5flju7ncd78mmcd611h2ukjrn7hnii.apps.googleusercontent.com',
         'client_secret' => 'jYtwDVrWfzjDJZQWEwG-MUCj',
-        'redirect' => 'http://localhost/MKU_FOOD/google/callback'
+        'redirect' => 'http://mkufood.abc/google/callback'
     ],
 
 ];

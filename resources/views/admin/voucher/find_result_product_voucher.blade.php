@@ -5,13 +5,13 @@
         id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
             <thead>
                 <tr role="row" class="text-center">
-                    <th style="width: 5%;" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                         colspan="1">STT</th>
-                    <th style="width: 40%;" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                         colspan="1" data-defaultsign="AZ">Sản Phẩm</th>
-                    <th style="width: 30%;" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                         colspan="1">Số Lượng Voucher</th>
-                    <th style="width: 30%;" class="datatable-nosort sorting_disabled" rowspan="1" colspan="1"
+                    <th class="datatable-nosort sorting_disabled" rowspan="1" colspan="1"
                         aria-label="Action" data-defaultsort="disabled">Thao Tác</th>
                 </tr>
             </thead>

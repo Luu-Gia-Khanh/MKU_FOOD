@@ -29,6 +29,7 @@
 <link rel="stylesheet" href="{{ asset('public/font_end/custom/voucher_product_detail.css') }}">
 <link rel="stylesheet" href="{{ asset('public/font_end/custom/custom_background.css') }}">
 <link rel="stylesheet" href="{{ asset('public/font_end/custom_ui/css/custom_container_product.css') }}">
+<link rel="stylesheet" href="{{ asset('public/font_end/cus/css/custom_breadcrumb.css') }}">
 <style>
     .text {
         overflow: hidden;
@@ -50,7 +51,7 @@
     }
 </style>
     <div class="container">
-        <nav class="biolife-nav">
+        <nav class="biolife-nav cus_breadcrumb">
             <ul>
                 <li class="nav-item"><a href="{{ URL::to('/') }}" class="permal-link">Trang chủ</a></li>
                 <li class="nav-item"><span class="current-page">Chi tiết sản phẩm</span></li>

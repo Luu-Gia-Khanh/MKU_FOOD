@@ -29,10 +29,11 @@
         .container {
             width: 1200px;
         }
-        .main-content{
+
+    }
+    .main-content{
             background-color: rgb(245, 245, 245);
         }
-    }
 </style>
 <body class="biolife-body">
     <!-- Preloader -->

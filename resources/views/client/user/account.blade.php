@@ -12,7 +12,7 @@
         }
     </style>
     <div class="container">
-        <nav class="biolife-nav">
+        <nav class="biolife-nav cus_breadcrumb">
             <ul>
                 <li class="nav-item"><a href="{{ URL::to('/') }}" class="permal-link">Trang chủ</a></li>
                 <li class="nav-item"><a href="{{ URL::to('user/account') }}" class="permal-link">Tài khoản</a></li>
@@ -69,7 +69,7 @@
                     </div>
 
                     <!--content-user-->
-                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12" style="background-color: #fff; height:500px; margin-bottom: 32px; border-bottom: 1px solid #ddd;">
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12" style="height:500px; margin-bottom: 32px;">
                         <div class="content__user">
                             <div class="content__user-heading">
                                 <span class="user-heading-title">Thông tin cá nhân</span>
@@ -134,7 +134,7 @@
                                         </div>
                                         <div class="input-upload-img" style="text-align: center;">
                                             {{-- <img src="{{ asset('public/upload/upimage.png') }}" height="50px" width="50px" alt="" style="cursor: pointer;"> --}}
-                                            <label for="file_upload" class="btn btn-success">Chọn Ảnh</label>
+                                            <label for="file_upload" class="btn" style="    color: #fff; background-color: #7faf51;">Chọn Ảnh</label>
                                             <input type="file" name="customer_avt" id="file_upload"
                                                 onchange="return uploadhinh()" class="custom-file-input customer_avt file_upload" style="width: 220px; opacity: 0;">
                                         </div>

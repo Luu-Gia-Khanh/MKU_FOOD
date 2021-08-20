@@ -32,6 +32,16 @@
                     </ul>
                 </li>
 
+                {{-- CUSTOMER --}}
+                <li class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <span class="micon icon-copy ti-harddrives"></span><span class="mtext">Khách Hàng</span>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="{{ URL::to('admin/all_customer') }}">Danh Sách Khách Hàng</a></li>
+                    </ul>
+                </li>
+
                 {{-- CATEGORY --}}
 
                 <li class="dropdown">
@@ -84,6 +94,17 @@
                     <ul class="submenu">
                         <li><a href="{{ URL::to('admin/all_product_voucher') }}">DS Sản Phẩm Voucher</a></li>
                         <li><a href="{{ URL::to('admin/add_voucher') }}">Thêm Voucher</a></li>
+                    </ul>
+                </li>
+
+                {{-- SLIDER --}}
+                <li class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <span class="micon icon-copy ti-harddrives"></span><span class="mtext">Slider</span>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="{{ URL::to('admin/all_slider') }}">Danh sách slider</a></li>
+                        <li><a href="{{ URL::to('admin/add_slider') }}">Thêm slider</a></li>
                     </ul>
                 </li>
             </ul>
