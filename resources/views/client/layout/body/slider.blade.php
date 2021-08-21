@@ -24,10 +24,15 @@
                               $all_slider = App\Http\Controllers\SliderController::show_slider();
                           @endphp
                         <ul>
-                          
-                          @foreach ($all_slider as $slider)
+                          @if (count($all_slider) > 0)
+                            @foreach ($all_slider as $slider)
                               <li><img src="{{ asset('public/upload/'.$slider->slider_image) }}" /></li>
-                          @endforeach
+                            @endforeach
+                          @else
+                            <li><img src="{{ asset('public/upload/no_image.png') }}" /></li>
+                            <li><img src="{{ asset('public/upload/no_image.png') }}" /></li>
+                          @endif
+                          
                           {{-- <li><img src="{{ asset('public/upload/bg1.jpg') }}" /></li>
                           <li><img src="{{ asset('public/upload/bg2.jpg') }}" /></li>
                           <li><img src="{{ asset('public/upload/bg1.jpg') }}" /></li> --}}

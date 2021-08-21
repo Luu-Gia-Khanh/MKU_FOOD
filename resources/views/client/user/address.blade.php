@@ -70,7 +70,7 @@
                     </div>
 
                     <!--content-user-->
-                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12" style="min-height: 300px; margin-bottom: 32px; border-bottom: 1px solid #ddd;">
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12" style="min-height: 300px; margin-bottom: 32px;">
                         <div class="content__user-address">
                             <div class="content__user-address-heading">
                                 <span class="user-heading-address-title">Địa chỉ của tôi</span>

@@ -282,7 +282,7 @@
                 <!-- Tab info -->
                 <div class="product-tabs single-layout biolife-tab-contain" style="margin-top: 20px;">
                     <div class="tab-head" style="background-color: #fff;">
-                        <ul class="tabs" style="padding: 16px 0 16px 5px;">
+                        <ul class="tabs" style="padding: 16px 0 16px 5px; border-bottom: 1px solid rgba(0, 0, 0, 0.09);">
                             <li class="tab-element active"><a href="#tab_1st" class="tab-link">Mô Tả Sản Phẩm</a>
                             </li>
                             <li class="tab-element"><a href="#tab_4th" class="tab-link">Đánh Giá Sản Phẩm <sup class="count_comment_tab">({{ count($all_comment_to_count) }})</sup></a>
@@ -290,7 +290,7 @@
                         </ul>
                     </div>
                     <div class="tab-content cus_bg_product_detail_tab_content">
-                        <div id="tab_1st" class="tab-contain desc-tab active" style="padding: 5px; padding-top: 0px;">
+                        <div id="tab_1st" class="tab-contain desc-tab active" style="padding: 5px; padding-top: 0px; border-bottom: none;">
                             <p class="desc">{!! $product->product_desc !!}</p>
                         </div>
                         <div id="tab_4th" class="tab-contain review-tab">

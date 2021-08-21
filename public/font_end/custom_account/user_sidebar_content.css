@@ -57,7 +57,7 @@
     min-height: 500px;
     border-radius: 2px;
     width: 100%;
-    border-bottom: 2px solid #eaeaea;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.09);
 }
 .content__user-heading{
     padding: 16px 0;
@@ -213,7 +213,7 @@ input[type='radio']:checked:after {
     padding: 10px;
     border-radius: 2px;
     width: 100%;
-    border-bottom: 2px solid #eaeaea;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.09);
 }
 /* content user address */
 .content__user-address-heading{
@@ -268,7 +268,7 @@ input[type='radio']:checked:after {
     background-color: #fff;
     width: 16.6%;
     text-align: center;
-    border-bottom: 2px solid #eaeaea;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.09);
 }
 
 .tabs__radio {
@@ -295,7 +295,7 @@ input[type='radio']:checked:after {
 }
 .tab__content-item{
     background-color: #fff;
-    border-bottom: 2px solid #eaeaea;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.09);
     margin-bottom: 15px;
     padding: 0 8px;
 }
@@ -516,5 +516,5 @@ input[type='radio']:checked:after {
     background-color: #fff;
     padding: 15px 10px;
     border-radius: 2px;
-    border-bottom: 2px solid #eaeaea;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.09);
 }

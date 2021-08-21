@@ -42,7 +42,9 @@ class CustomerAdminController extends Controller
     public function find_customer(Request $request){
         $val_find_customer = $request->value_find;
         $all_customer_info = Customer_Info::all();
-        $find_result_customer = Customer::where('username', 'LIKE','%'.$val_find_customer.'%')->get();
+        $find_result_customer = Customer::where('username', 'LIKE','%'.$val_find_customer.'%')
+                                        ->orwhere('email','LIKE','%'.$val_find_customer.'%')
+                                        ->get();
         return view('admin.customer.find_result_customer', compact('all_customer_info','find_result_customer'));
     }
 }
