@@ -126,20 +126,20 @@ class ProductController extends Controller
         $product_price = DB::table('product_price')->where('status', 1)->get();
         //
         $now = Carbon::now('Asia/Ho_Chi_Minh');
-        $day_now = date('d', strtotime($now));
-        $month_now = date('m', strtotime($now));
-        $year_now = date('Y', strtotime($now));
+        // $day_now = date('d', strtotime($now));
+        // $month_now = date('m', strtotime($now));
+        // $year_now = date('Y', strtotime($now));
         foreach ($all_product as $prod){
             $prod_id = $prod->product_id;
-            $time_cre = $prod->create_at;
-            $day_cre = date('d', strtotime($time_cre));
-            $month_cre = date('m', strtotime($time_cre));
-            $year_cre = date('Y', strtotime($time_cre));
-            $check_time = $this->convert_day($month_now, $day_now) - $this->convert_day($month_cre, $day_cre);
-            if($check_time > 1 && $year_cre == $year_now){
-                DB::table('product')->where('product_id',$prod->product_id)->update(['is_new'=>0]);
-            }else{
+            $date_now = strtotime($now);
+            $time_cre = strtotime($prod->create_at);
+            $minus_date = abs($date_now - $time_cre);
+            $check_date = floor($minus_date / (60*60*24));
+
+            if($check_date <= 3 ){
                 DB::table('product')->where('product_id',$prod->product_id)->update(['is_new'=>1]);
+            }else{
+                DB::table('product')->where('product_id',$prod->product_id)->update(['is_new'=>0]);
             }
         }
         return view('admin.product.all_product',

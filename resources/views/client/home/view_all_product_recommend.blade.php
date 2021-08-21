@@ -3,8 +3,9 @@
 <link rel="stylesheet" href="{{ asset('public/font_end/custom/mini_detail_product.css') }}">
 <link rel="stylesheet" href="{{ asset('public/font_end/custom_ui/css/custom_container_product.css') }}">
 <link rel="stylesheet" href="{{ asset('public/font_end/custom_ui/css/custom_cart_lg.css') }}">
+<link rel="stylesheet" href="{{ asset('public/font_end/custom_ui/css/custom_breadcrumb.css') }}">
 <div class="container">
-    <nav class="biolife-nav">
+    <nav class="biolife-nav cus_breadcrumb">
         <ul>
             <li class="nav-item"><a href="{{ URL::to('/') }}" class="permal-link">Trang chủ</a></li>
             <li class="nav-item"><span class="current-page">Gợi ý hôm nay</span></li>

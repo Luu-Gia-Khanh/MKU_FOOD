@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="{{ asset('public/font_end/custom_ui/css/custom_cart_sm_shop.css') }}">
 <link rel="stylesheet" href="{{ asset('public/font_end/custom_ui/css/modal_filter_ajax_shop.css') }}">
 <link rel="stylesheet" href="{{ asset('public/font_end/custom_ui/css/change_css.css') }}">
+<link rel="stylesheet" href="{{ asset('public/font_end/custom_ui/css/custom_breadcrumb.css') }}">
 <style>
     .btn:focus,
     .btn:active:focus,
@@ -39,7 +40,7 @@
     </div>
     <div class="content_view_search">
         <div class="container">
-            <nav class="biolife-nav">
+            <nav class="biolife-nav cus_breadcrumb">
                 <ul>
                     <li class="nav-item"><a href="{{ URL::to('/') }}" class="permal-link">Trang chủ</a></li>
                     <li class="nav-item"><span class="current-page">Cửa hàng</span></li>

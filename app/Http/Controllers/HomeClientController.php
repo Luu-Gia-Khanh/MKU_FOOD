@@ -347,17 +347,13 @@ class HomeClientController extends Controller
                 ->where('status',1)->where('order_detail_status.status_id',4)
                 ->where('customer_id', Session::get('customer_id'))->get();
         $now = Carbon::now('Asia/Ho_Chi_Minh');
-        $day_now = date('d', strtotime($now));
-        $month_now = date('m', strtotime($now));
-        $year_now = date('Y', strtotime($now));
         if($orders){
             foreach ($orders as $order){
-                $order_time = $order->create_at;
-                $day_order = date('d', strtotime($order_time));
-                $month_order = date('m', strtotime($order_time));
-                $year_order = date('Y', strtotime($order_time));
-                $check_day =$this->convert_day($month_now, $day_now) - $this->convert_day($month_order, $day_order);
-                if($check_day <= 1){
+                $date_now = strtotime($now);
+                $order_time = strtotime($order->create_at);
+                $minus_date = abs($date_now - $order_time);
+                $check_date = floor($minus_date / (60*60*24));
+                if($check_date <= 7){
                     $order_item = Order_Item::where('order_id', $order->order_id)->get();
                     foreach ($order_item as $item){
                         if($item->product_id == $product_id){
@@ -373,8 +369,10 @@ class HomeClientController extends Controller
         $get = 5;
         $all_rating = Rating::where('product_id',$product_id)->orderBy('rating_id','desc')->get();
         $all_comment = Comment::where('product_id',$product_id)->orderBy('comment_id','desc')->take($get)->get();
-        $customers = Customer::all();
-        $customer_info = Customer_Info::all();
+        $customers = DB::table('customer')
+                ->join('customer_info', 'customer_info.customer_id', '=', 'customer.customer_id')
+                ->get();
+
         $all_comment_to_count = Comment::where('product_id',$product_id)->get();
         $check_show = count($all_comment_to_count) - $get;
 
@@ -398,7 +396,6 @@ class HomeClientController extends Controller
             'all_rating' => $all_rating,
             'all_comment' => $all_comment,
             'customers' => $customers,
-            'customer_info' => $customer_info,
             'check_show' => $check_show,
             'all_comment_to_count' => $all_comment_to_count,
             'rating_5' => $rating_5,
@@ -494,14 +491,14 @@ class HomeClientController extends Controller
         $product_id = $request->product_id;
         $all_rating = Rating::where('product_id',$product_id)->orderBy('rating_id','desc')->get();
         $all_comment = Comment::where('product_id',$product_id)->orderBy('comment_id','desc')->take(5)->get();
-        $customers = Customer::all();
-        $customer_info = Customer_Info::all();
-
+        $customers = DB::table('customer')
+            ->join('customer_info', 'customer_info.customer_id', '=', 'customer.customer_id')
+            ->get();
         echo view('client.home.view_load_comment_ajax',[
             'all_rating'=> $all_rating,
             'all_comment'=> $all_comment,
             'customers'=> $customers,
-            'customer_info'=> $customer_info,
+
         ]);
     }
     public function load_more_comment(Request $request){

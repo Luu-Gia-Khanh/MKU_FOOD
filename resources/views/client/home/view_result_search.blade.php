@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="{{ asset('public/font_end/custom_ui/css/view_search.css') }}">
 <link rel="stylesheet" href="{{ asset('public/font_end/custom_ui/css/custom_cart_lg.css') }}">
 <link rel="stylesheet" href="{{ asset('public/font_end/custom/mini_detail_product.css') }}">
-<link rel="stylesheet" href="{{ asset('public/font_end/cus/css/custom_breadcrumb.css') }}">
+<link rel="stylesheet" href="{{ asset('public/font_end/custom_ui/css/custom_breadcrumb.css') }}">
 <style>
     .btn:focus,
     .btn:active:focus,

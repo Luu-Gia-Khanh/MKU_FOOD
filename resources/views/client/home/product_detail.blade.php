@@ -29,7 +29,7 @@
 <link rel="stylesheet" href="{{ asset('public/font_end/custom/voucher_product_detail.css') }}">
 <link rel="stylesheet" href="{{ asset('public/font_end/custom/custom_background.css') }}">
 <link rel="stylesheet" href="{{ asset('public/font_end/custom_ui/css/custom_container_product.css') }}">
-<link rel="stylesheet" href="{{ asset('public/font_end/cus/css/custom_breadcrumb.css') }}">
+<link rel="stylesheet" href="{{ asset('public/font_end/custom_ui/css/custom_breadcrumb.css') }}">
 <style>
     .text {
         overflow: hidden;
@@ -396,7 +396,7 @@
                                                     </div>
                                                     <p class="form-row">
                                                         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-                                                        <textarea name="comment" class="comment_message" id="txt_comment" cols="30" rows="10"
+                                                        <textarea name="comment" class="comment_message" id="txt_comment" cols="30" rows="10" style="max-width: 500px;"
                                                             placeholder="Viết đánh giá của bạn về sản phẩm này..."></textarea>
                                                     </p>
                                                     <p class="form-row">
@@ -412,7 +412,7 @@
                                             @if (count($all_comment) > 0)
                                                 @foreach ($all_comment as $comment)
                                                     @foreach ($all_rating as $rating)
-                                                        @if ($comment->comment_id == $rating->rating_id && $comment->customer_id == $rating->customer_id && $comment->product_id == $rating->product_id && $comment->created_at == $rating->created_at)
+                                                        @if ($comment->comment_id == $rating->rating_id)
                                                             <li class="review">
                                                                 <div class="comment-container">
                                                                     <div class="row">
@@ -421,12 +421,7 @@
                                                                                     {{-- <p class="comment-in"><span class="post-name"> --}}
                                                                                     @foreach ($customers as $customer)
                                                                                         @if ($comment->customer_id == $customer->customer_id)
-                                                                                            @foreach ($customer_info as $info)
-                                                                                                @if ($info->customer_id == $customer->customer_id)
-                                                                                                    <img src="{{ asset('public/upload/'.$info->customer_avt) }}" style="width: 60px; height: 60px; border-radius: 50%" alt="">
-                                                                                                @endif
-                                                                                            @endforeach
-
+                                                                                            <img src="{{ asset('public/upload/'.$customer->customer_avt) }}" style="width: 60px; height: 60px; border-radius: 50%" alt="">
                                                                                             <div class="content-name-rating">
                                                                                                 <p class="comment-in"><span class="post-name" style="font-size: 17px">{{ $customer->username }}</span></p>
                                                                                                 <div class="rating">
@@ -742,4 +737,5 @@
     <script src="{{ asset('public/font_end/assets/js/jquery-3.4.1.min.js') }}"></script>
     <script src="{{ asset('public/font_end/custom/sweet.js') }}"></script>
     <script src="{{ asset('public/font_end/custom/save_voucher.js') }}"></script>
+    <script src="{{ asset('public/font_end/custom/rating_comment.js') }}"></script>
 @endsection

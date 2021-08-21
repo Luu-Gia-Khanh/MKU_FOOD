@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="{{ asset('public/font_end/custom_account/user_sidebar_content.css') }}">
     <link rel="stylesheet" href="{{ asset('public/font_end/custom_ui/css/custom_header.css') }}">
     <link rel="stylesheet" href="{{ asset('public/font_end/custom_ui/css/design_search_auto.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/font_end/custom_ui/css/custom_breadcrumb.css') }}">
 </head>
 <style>
     @media (min-width: 1200px){

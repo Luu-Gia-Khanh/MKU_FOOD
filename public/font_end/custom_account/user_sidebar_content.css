@@ -11,7 +11,7 @@
     height: 50px;
     width: 50px;
     border-radius: 50%;
-    
+
 }
 .user-name{
     font-size: 14px;
@@ -511,10 +511,4 @@ input[type='radio']:checked:after {
 .content-item-empty-text{
     font-size: 14px;
     font-weight: 300;
-}
-.cus_breadcrumb{
-    background-color: #fff;
-    padding: 15px 10px;
-    border-radius: 2px;
-    border-bottom: 2px solid #eaeaea;
 }
