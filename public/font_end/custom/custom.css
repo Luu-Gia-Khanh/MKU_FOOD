@@ -219,6 +219,9 @@ input[type=number] {
 .close_modal_delete_comment{
     padding-right: 10px;
 }
+.modal_delete_comment{
+    padding-top: 150px;
+}
 .modal-header-delete_comment{
     height: 50px;
     background-color:#ffff;

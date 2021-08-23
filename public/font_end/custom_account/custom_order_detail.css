@@ -15,7 +15,7 @@
     border-top-right-radius: 2px;
     border-bottom-left-radius: 4px;
     border-bottom-right-radius: 4px;
-    border-bottom: 2px solid #eaeaea;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.09);
 }
 .head-order-detail-back{
     display: flex;
@@ -250,5 +250,5 @@
     background-color: #fff;
     border-radius: 4px;
     width: 100%;
-    border-bottom: 2px solid rgba(0,0,0,.09);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.09);
 }

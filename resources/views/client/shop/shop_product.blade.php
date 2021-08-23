@@ -47,7 +47,7 @@
                 </ul>
             </nav>
         </div>
-        <div class="container">
+        <div class="container" style="padding-left: 0px; padding-right: 0px">
             <div class="content_product_search">
                 <div class="page-contain category-page left-sidebar">
                     <div class="container">

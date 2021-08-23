@@ -2,21 +2,22 @@
     background-color: #fff;
     padding: 5px;
     border-radius: 2px;
-    border-bottom: 2px solid #e6e6e6;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.09);
 }
 .cus_bg_show_cart_disalbe{
     background-color: #fff;
     padding: 5px;
     border-radius: 2px;
-    border-bottom: 2px solid #e6e6e6;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.09);
 }
 .cus_bg_product_detail{
     padding: 5px;
     background-color: #fff;
-    border-bottom: 2px solid #e6e6e6;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.09);
 }
 .cus_bg_product_detail_tab_content{
     margin-top: 6px;
     background-color: #fff;
     border-radius: 2px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.09);
 }

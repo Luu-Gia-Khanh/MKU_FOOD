@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="{{ asset('public/font_end/custom_ui/css/modal_delete_item_wishlist.css') }}">
 <div class="minicart-block">
     <div class="minicart-contain">
-        <a href="javascript:void(0)" class="link-to">
+        <a href="javascript:void(0)" class="link-to" data-toggle="tooltip" title="Hooray!">
             <span class="icon-qty-combine">
                 <i class="icon-heart-bold biolife-icon"></i>
                 <span class="qty total_quantity_wishlist">
@@ -14,6 +14,7 @@
         <div class="cart-content">
             <div class="cart-inner show_mini_wish_list_when_add">
                 @if (count($wish_lish) > 0)
+                    <h4 style="padding: 10px; margin-top: -10px; color: #7faf51">Sản phẩm yêu thích</h4>
                     <ul class="products">
                             @foreach ($wish_lish as $wish)
                                 <li>

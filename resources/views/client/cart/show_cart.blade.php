@@ -161,7 +161,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-                                <div class="shpcart-subtotal-block" style="background-color: #fff;">
+                                <div class="shpcart-subtotal-block" style="background-color: #fff; border-bottom: 1px solid rgba(0, 0, 0, 0.09);">
                                     <div class="subtotal-line">
                                         <b class="stt-name">Tổng sản phẩm <span
                                                 class="sub total_item_cart">({{ count($all_cart) }} sản phẩm)</span></b>
