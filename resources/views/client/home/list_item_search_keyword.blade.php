@@ -17,7 +17,6 @@
                         data-id="{{ $product->product_id }}"><i class="biolife-icon icon-search"></i></span>
                 </div>
                 <div class="info">
-                    <b class="categories">{{ $product->cate_name }}</b>
                     <h4 class="product-title">
                         <a href="{{ URL::to('product_detail/' . $product->product_id) }}"
                             class="pr-name name_product">{{ $product->product_name }}</a>

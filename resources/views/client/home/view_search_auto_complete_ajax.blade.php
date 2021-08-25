@@ -3,11 +3,16 @@
     @php
         $price_discount = App\Http\Controllers\HomeClientController::check_price_discount($product->product_id);
     @endphp
-        <a href="{{ URL::to('product_detail/'.$product->product_id) }}" id="">
+        <form>
+            @csrf
+            <input type="hidden" value="{{ $product->product_name }}" id="recently_viewed_product_name_{{ $product->product_id }}">
+            <input type="hidden" value="{{ number_format($price_discount->price_now, 0, ',', '.') }}₫" id="recently_viewed_product_price_{{ $product->product_id }}">
+        </form>
+        <a href="{{ URL::to('product_detail/'.$product->product_id) }}" class="btn_recently_viewed" data-id="{{ $product->product_id }}" id="recently_viewed_product_detail_{{ $product->product_id }}">
             <div class="items" id="items">
                 <div class="content_image_product_search">
                     <img src="{{ URL::to('public/upload/' . $product->product_image) }}" alt=""
-                        style="width: 65px; height: 65px;">
+                        style="width: 65px; height: 65px;" id="recently_viewed_product_img_{{ $product->product_id }}">
                 </div>
                 <div class="content_info_product" style="padding-left: 15px">
                     <div class="name">{{ $product->product_name }}</div>
@@ -27,3 +32,4 @@
 @else
     <div class="search_none" style="font-size: 15px">Không tìm thấy sản phẩm nào </div>
 @endif
+<script src="{{ asset('public/font_end/custom_ui/js/recently_viewed.js') }}"></script>

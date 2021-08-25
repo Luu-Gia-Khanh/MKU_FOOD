@@ -10,18 +10,22 @@
             <li class="product-item col-lg-4 col-md-4 col-sm-4 col-xs-6">
                 <div class="contain-product layout-default content_product">
                     <div class="product-thumb">
-                        <a href="{{ URL::to('product_detail/' . $product->product_id) }}" class="link-to-product">
+                        <form>
+                            @csrf
+                            <input type="hidden" value="{{ $product->product_name }}" id="recently_viewed_product_name_{{ $product->product_id }}">
+                            <input type="hidden" value="{{ number_format($price_discount->price_now, 0, ',', '.') }}₫" id="recently_viewed_product_price_{{ $product->product_id }}">
+                        </form>
+                        <a href="{{ URL::to('product_detail/' . $product->product_id) }}" class="link-to-product btn_recently_viewed" data-id="{{ $product->product_id }}" id="recently_viewed_product_detail_{{ $product->product_id }}">
                             <img src="{{ asset('public/upload/' . $product->product_image) }}" alt="dd"
-                                style="width: 270px; height: 270px" class="product-thumnail">
+                                style="width: 270px; height: 270px" class="product-thumnail" id="recently_viewed_product_img_{{ $product->product_id }}">
                         </a>
                         <span href="#" class="lookup get_val_quickview btn_call_quickview_detail btn_open_modal"
                             data-id="{{ $product->product_id }}"><i class="biolife-icon icon-search"></i></span>
                     </div>
                     <div class="info">
-                        <b class="categories">{{ $product->cate_name }}</b>
                         <h4 class="product-title">
                             <a href="{{ URL::to('product_detail/' . $product->product_id) }}"
-                                class="pr-name name_product">{{ $product->product_name }}</a>
+                                class="pr-name name_product btn_recently_viewed" data-id="{{ $product->product_id }}">{{ $product->product_name }}</a>
                         </h4>
                         <div class="price">
                             @if ($price_discount->percent_discount == 0)
@@ -116,3 +120,5 @@
 <script src="{{ asset('public/font_end/bootstrap/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('public/font_end/custom/mini_detail_product.js') }}"></script>
 <script src="{{ asset('public/font_end/custom_ui/js/ajax_wish_list.js') }}"></script>
+<script src="{{ asset('public/font_end/custom_ui/js/recently_viewed.js') }}"></script>
+

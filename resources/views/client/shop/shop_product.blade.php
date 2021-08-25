@@ -33,6 +33,35 @@
     .nice-select .current{
         color: black;
     }
+    #myList li{ 
+        display:none;
+    }
+    #loadMore {
+        display: none;
+        color:#7faf51;
+        cursor:pointer;
+        font-size: 16px;
+        font-style: italic;
+        text-align: center;
+        text-decoration: underline;
+        margin-top: 8px;
+    }
+    #loadMore:hover {
+        color:black;
+    }
+    #loadLess {
+        display: none;
+        color:#7faf51;
+        cursor:pointer;
+        font-size: 16px;
+        font-style: italic;
+        text-align: center;
+        text-decoration: underline;
+        margin-top: 8px;
+    }
+    #loadLess:hover {
+        color:black;
+    }
 </style>
     <!--Hero Section-->
     <div class="hero-section hero-background">
@@ -66,17 +95,21 @@
                                                 <li class="product-item col-lg-3 col-md-3 col-sm-3 col-xs-6" style="width: 168px">
                                                     <div class="contain-product layout-default content_product_sm_shop" style="width: 168px">
                                                         <div class="product-thumb">
-                                                            <a href="{{ URL::to('product_detail/' . $product->product_id) }}" class="link-to-product">
-                                                                <img src="{{ asset('public/upload/'.$product->product_image) }}" alt="dd" style="width: 150px; height: 150px" class="product-thumnail">
+                                                            <form>
+                                                                @csrf
+                                                                <input type="hidden" value="{{ $product->product_name }}" id="recently_viewed_product_name_{{ $product->product_id }}">
+                                                                <input type="hidden" value="{{ number_format($price_discount->price_now, 0, ',', '.') }}₫" id="recently_viewed_product_price_{{ $product->product_id }}">
+                                                            </form>
+                                                            <a href="{{ URL::to('product_detail/' . $product->product_id) }}" class="link-to-product btn_recently_viewed" data-id="{{ $product->product_id }}" id="recently_viewed_product_detail_{{ $product->product_id }}">
+                                                                <img src="{{ asset('public/upload/'.$product->product_image) }}" alt="dd" style="width: 150px; height: 150px" class="product-thumnail" id="recently_viewed_product_img_{{ $product->product_id }}">
                                                             </a>
                                                             <span href="#" class="lookup get_val_quickview btn_call_quickview_detail btn_open_modal"
                                                                 data-id="{{ $product->product_id }}"><i
                                                                     class="biolife-icon icon-search"></i></span>
                                                         </div>
                                                         <div class="info">
-                                                            <b class="categories cus_cate_name_card_sm" style="font-size: 13px">{{ $product->cate_name }}</b>
                                                             <h4 class="product-title">
-                                                                <a href="{{ URL::to('product_detail/' . $product->product_id) }}" class="pr-name name_product cus_prod_name_card_sm">
+                                                                <a href="{{ URL::to('product_detail/' . $product->product_id) }}" class="pr-name name_product cus_prod_name_card_sm btn_recently_viewed" data-id="{{ $product->product_id }}">
                                                                     {{ $product->product_name }}
                                                                 </a>
                                                             </h4>
@@ -194,17 +227,21 @@
                                                                         <li class="product-item col-lg-3 col-md-3 col-sm-3 col-xs-6">
                                                                             <div class="contain-product layout-default content_product_sm_shop" style="width: 197px">
                                                                                 <div class="product-thumb">
-                                                                                    <a href="{{ URL::to('product_detail/' . $product->product_id) }}" class="link-to-product">
-                                                                                        <img src="{{ asset('public/upload/'.$product->product_image) }}" alt="dd" style="width: 177px; height: 177px" class="product-thumnail">
+                                                                                    <form>
+                                                                                        @csrf
+                                                                                        <input type="hidden" value="{{ $product->product_name }}" id="recently_viewed_product_name_{{ $product->product_id }}">
+                                                                                        <input type="hidden" value="{{ number_format($price_discount->price_now, 0, ',', '.') }}₫" id="recently_viewed_product_price_{{ $product->product_id }}">
+                                                                                    </form>
+                                                                                    <a href="{{ URL::to('product_detail/' . $product->product_id) }}" class="link-to-product btn_recently_viewed" data-id="{{ $product->product_id }}" id="recently_viewed_product_detail_{{ $product->product_id }}">
+                                                                                        <img src="{{ asset('public/upload/'.$product->product_image) }}" alt="dd" style="width: 177px; height: 177px" class="product-thumnail" id="recently_viewed_product_img_{{ $product->product_id }}">
                                                                                     </a>
                                                                                     <span href="#" class="lookup get_val_quickview btn_call_quickview_detail btn_open_modal"
                                                                                         data-id="{{ $product->product_id }}"><i
                                                                                             class="biolife-icon icon-search"></i></span>
                                                                                 </div>
                                                                                 <div class="info">
-                                                                                    <b class="categories cus_cate_name_card_sm" style="font-size: 13px">{{ $product->cate_name }}</b>
                                                                                     <h4 class="product-title">
-                                                                                        <a href="{{ URL::to('product_detail/' . $product->product_id) }}" class="pr-name name_product cus_prod_name_card_sm">
+                                                                                        <a href="{{ URL::to('product_detail/' . $product->product_id) }}" class="pr-name name_product cus_prod_name_card_sm btn_recently_viewed" data-id="{{ $product->product_id }}">
                                                                                             {{ $product->product_name }}
                                                                                         </a>
                                                                                     </h4>
@@ -317,17 +354,21 @@
                                                             <li class="product-item col-lg-4 col-md-4 col-sm-4 col-xs-6">
                                                                 <div class="contain-product layout-default content_product">
                                                                     <div class="product-thumb">
-                                                                        <a href="{{ URL::to('product_detail/' . $product->product_id) }}" class="link-to-product">
-                                                                            <img src="{{ asset('public/upload/'.$product->product_image) }}" alt="dd" style="width: 270px; height: 270px" class="product-thumnail">
+                                                                        <form>
+                                                                            @csrf
+                                                                            <input type="hidden" value="{{ $product->product_name }}" id="recently_viewed_product_name_{{ $product->product_id }}">
+                                                                            <input type="hidden" value="{{ number_format($price_discount->price_now, 0, ',', '.') }}₫" id="recently_viewed_product_price_{{ $product->product_id }}">
+                                                                        </form>
+                                                                        <a href="{{ URL::to('product_detail/' . $product->product_id) }}" class="link-to-product btn_recently_viewed" data-id="{{ $product->product_id }}" id="recently_viewed_product_detail_{{ $product->product_id }}">
+                                                                            <img src="{{ asset('public/upload/'.$product->product_image) }}" alt="dd" style="width: 270px; height: 270px" class="product-thumnail" id="recently_viewed_product_img_{{ $product->product_id }}">
                                                                         </a>
                                                                         <span href="#" class="lookup get_val_quickview btn_call_quickview_detail btn_open_modal"
                                                                             data-id="{{ $product->product_id }}"><i
                                                                                 class="biolife-icon icon-search"></i></span>
                                                                     </div>
                                                                     <div class="info">
-                                                                        <b class="categories">{{ $product->cate_name }}</b>
                                                                         <h4 class="product-title">
-                                                                            <a href="{{ URL::to('product_detail/' . $product->product_id) }}" class="pr-name name_product">{{ $product->product_name }}</a>
+                                                                            <a href="{{ URL::to('product_detail/' . $product->product_id) }}" class="pr-name name_product btn_recently_viewed" data-id="{{ $product->product_id }}">{{ $product->product_name }}</a>
                                                                         </h4>
                                                                         <div class="price">
                                                                             @if ($price_discount->percent_discount == 0)
@@ -525,6 +566,15 @@
                                             </ul>
                                         </div>
                                     </div>
+                                    <div class="widget biolife-filter content_left_side_custom">
+                                        <h4 class="wgt-title">Sản phẩm đã xem</h4>
+                                        <div class="wgt-content">
+                                            <ul class="products content_recently_viewed" id="myList">
+                                                {{-- <div class="">
+                                                </div> --}}
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
                             </aside>
                         </div>
@@ -606,5 +656,6 @@
     <script src="{{ asset('public/font_end/custom_ui/js/modal_filter_ajax_shop.js') }}"></script>
     <script src="{{ asset('public/font_end/custom/mini_detail_product.js') }}"></script>
     <script src="{{ asset('public/font_end/custom_ui/js/sort_ajax_shop.js') }}"></script>
+    <script src="{{ asset('public/font_end/custom_ui/js/recently_viewed.js') }}"></script>
 
 @endsection
