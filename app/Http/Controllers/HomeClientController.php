@@ -353,11 +353,17 @@ class HomeClientController extends Controller
                 $order_time = strtotime($order->create_at);
                 $minus_date = abs($date_now - $order_time);
                 $check_date = floor($minus_date / (60*60*24));
-                if($check_date <= 7){
+                if($check_date <= 30){
                     $order_item = Order_Item::where('order_id', $order->order_id)->get();
                     foreach ($order_item as $item){
                         if($item->product_id == $product_id){
                             Session::put('able_rating_comment_'.$product_id, $product_id);
+
+                            $find_rating = Rating::where('product_id',$product_id)
+                                    ->where('customer_id', $customer_id)->first();
+                            if($find_rating){
+                                Session::put('rated_'.$product_id, $find_rating->rating_level);
+                            }
                             break;
                         }
                     }
@@ -367,12 +373,14 @@ class HomeClientController extends Controller
 
         //Load rating and comment
         $get = 5;
-        $all_rating = Rating::where('product_id',$product_id)->orderBy('rating_id','desc')->get();
-        $all_comment = Comment::where('product_id',$product_id)->orderBy('comment_id','desc')->take($get)->get();
+        $all_rating = Rating::where('product_id',$product_id)->get();
+        $all_comment = Comment::where('product_id',$product_id)
+            ->orderBy('comment_useful','desc')->take($get)->get();
         $customers = DB::table('customer')
                 ->join('customer_info', 'customer_info.customer_id', '=', 'customer.customer_id')
                 ->get();
 
+        $all_rating_to_count = Rating::where('product_id',$product_id)->get();
         $all_comment_to_count = Comment::where('product_id',$product_id)->get();
         $check_show = count($all_comment_to_count) - $get;
 
@@ -397,6 +405,7 @@ class HomeClientController extends Controller
             'all_comment' => $all_comment,
             'customers' => $customers,
             'check_show' => $check_show,
+            'all_rating_to_count' => $all_rating_to_count,
             'all_comment_to_count' => $all_comment_to_count,
             'rating_5' => $rating_5,
             'rating_4' => $rating_4,
@@ -471,15 +480,23 @@ class HomeClientController extends Controller
         $product_id = $request->product_id;
         $customer_id = Session::get('customer_id');
 
-        $add_rating = new Rating();
-        $add_rating->customer_id = $customer_id;
-        $add_rating->product_id = $product_id;
-        $add_rating->rating_level = $number_rate;
-        $add_rating->created_at = Carbon::now('Asia/Ho_Chi_Minh');
-        $add_rating->save();
-
+        $find_rating = Rating::where('product_id',$product_id)
+                    ->where('customer_id', $customer_id)->first();
+        if($find_rating){
+            Session::put('rated_'.$product_id, $number_rate);
+        }
+        else{
+            $add_rating = new Rating();
+            $add_rating->customer_id = $customer_id;
+            $add_rating->product_id = $product_id;
+            $add_rating->rating_level = $number_rate;
+            $add_rating->created_at = Carbon::now('Asia/Ho_Chi_Minh');
+            $result_add_rating = $add_rating->save();
+            if($result_add_rating){
+                Session::put('rated_'.$product_id, $number_rate);
+            }
+        }
         $add_comment = new Comment();
-        $add_comment->comment_id = $add_rating->rating_id;
         $add_comment->customer_id = $customer_id;
         $add_comment->product_id = $product_id;
         $add_comment->comment_message = $comment_message;
@@ -489,24 +506,29 @@ class HomeClientController extends Controller
     }
     public function load_comment(Request $request){
         $product_id = $request->product_id;
-        $all_rating = Rating::where('product_id',$product_id)->orderBy('rating_id','desc')->get();
-        $all_comment = Comment::where('product_id',$product_id)->orderBy('comment_id','desc')->take(5)->get();
+        $all_rating = Rating::where('product_id',$product_id)->get();
+        $all_comment = Comment::where('product_id',$product_id)
+            ->orderBy('comment_id','desc')->take(5)->get();
         $customers = DB::table('customer')
-            ->join('customer_info', 'customer_info.customer_id', '=', 'customer.customer_id')
-            ->get();
+                ->join('customer_info', 'customer_info.customer_id', '=', 'customer.customer_id')
+                ->get();
         echo view('client.home.view_load_comment_ajax',[
             'all_rating'=> $all_rating,
             'all_comment'=> $all_comment,
             'customers'=> $customers,
-
+            'product_id'=> $product_id,
         ]);
     }
     public function load_more_comment(Request $request){
         $val_add_more = $request->val_load_add;
         $product_id = $request->product_id;
-        $all_rating = Rating::where('product_id',$product_id)->orderBy('rating_id','desc')->get();
-        $all_comment = Comment::where('product_id',$product_id)->orderBy('comment_id','desc')->take($val_add_more)->get();
-        $customers = Customer::all();
+        $all_rating = Rating::where('product_id',$product_id)
+                ->orderBy('rating_id','desc')->get();
+        $all_comment = Comment::where('product_id',$product_id)
+                ->orderBy('comment_useful','desc')->take($val_add_more)->get();
+        $customers = DB::table('customer')
+                ->join('customer_info', 'customer_info.customer_id', '=', 'customer.customer_id')
+                ->get();
         $customer_info = Customer_Info::all();
 
         echo view('client.home.view_load_comment_ajax',[
@@ -542,8 +564,6 @@ class HomeClientController extends Controller
         $delete_comment = Comment::find($comment_id);
         $delete_comment->delete();
 
-        $delete_rating = Rating::find($comment_id);
-        $delete_rating->delete();
     }
     public function update_comment(Request $request){
         $comment_id = $request->comment_id;
@@ -553,10 +573,6 @@ class HomeClientController extends Controller
         $update_comment->comment_message = $comment_message;
         $update_comment->created_at = Carbon::now('Asia/Ho_Chi_Minh');
         $update_comment->save();
-
-        $update_rating = Rating::find($comment_id);
-        $update_rating->created_at = Carbon::now('Asia/Ho_Chi_Minh');
-        $update_rating->save();
     }
     public function ajax_search_auto_complete(Request $request){
         $val_search_auto_complte = $request->val_search_auto_complte;

@@ -35,8 +35,7 @@
                                     </div>
                                 </div>
                                 <div class="action">
-                                    <a href="#" class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                    <a href="#" class="remove"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                    <a href="#" data-id="{{ $wish->wish_list_id }}" class="btn_open_modal_delete_wishlist"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                 </div>
                             @endif
                         @endforeach
@@ -44,11 +43,30 @@
                 </li>
             @endforeach
     </ul>
-    {{-- <p class="btn-control" style="display: flex; justify-content: flex-end">
-        <a href="{{ URL::to('show_cart') }}" class="btn view-cart" style="border-radius: 2px">
-            Xem Giỏ Hàng
-        </a>
-    </p> --}}
 @else
     <p class="minicart-empty">không có sản phẩm nào</p>
 @endif
+{{-- MODAL delete cart item --}}
+<div class="modal_delete_item_wishlist" style="display: none">
+    <!-- Modal content -->
+    <div class="modal_content_delete_item_wishlist">
+        <div class="modal-header-cus">
+            <span class="close_delete_address close close_modal">&times;</span>
+            <h4>Thông báo</h4>
+        </div>
+        <div class="modal-body-cus">
+            <div class="content_form_delete_item_wishlist">
+                <form name="form_delete_item_wishlist" action="{{ URL::to('remove_item_wish_list') }}" method="post">
+                    @csrf
+                    <h5>Bạn có thực sự muốn xóa sản phẩm này ra danh sách yêu thích ?</h5>
+                    <input type="hidden" name="wish_list_id" class="val_delete_item_wishlist" id="">
+                </form>
+            </div>
+        </div>
+        <div class="content_footer_modal_delete_item_wishlist">
+            <button class="btn btn-secondary btn_cancel_modal_delete_item_cart" style="margin-right: 10px">TRỞ LẠI</button>
+            <button class="btn btn-success btn_confirm_delete_item_wish_list">XÓA</button>
+        </div>
+    </div>
+</div>
+<script src="{{ asset('public/font_end/custom_ui/js/ajax_wish_list.js') }}"></script>

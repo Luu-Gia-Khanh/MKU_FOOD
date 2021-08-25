@@ -1,15 +1,15 @@
 @extends('client.layout_client')
 @section('content_body')
 @php
-    $total_comment = count($all_comment_to_count);
-    if ($total_comment != 0){
-        $persen_rating_5 = number_format(($rating_5/$total_comment)*100,0,",",".");
-        $persen_rating_4 = number_format(($rating_4/$total_comment)*100,0,",",".");
-        $persen_rating_3 = number_format(($rating_3/$total_comment)*100,0,",",".");
-        $persen_rating_2 = number_format(($rating_2/$total_comment)*100,0,",",".");
+    $total_rating = count($all_rating_to_count);
+    if ($total_rating != 0){
+        $persen_rating_5 = number_format(($rating_5/$total_rating)*100,0,",",".");
+        $persen_rating_4 = number_format(($rating_4/$total_rating)*100,0,",",".");
+        $persen_rating_3 = number_format(($rating_3/$total_rating)*100,0,",",".");
+        $persen_rating_2 = number_format(($rating_2/$total_rating)*100,0,",",".");
         $persen_rating_1 = 100-$persen_rating_5-$persen_rating_4-$persen_rating_3-$persen_rating_2;
 
-        $avg_rating = (($rating_5*5)+($rating_4*4)+($rating_3*3)+($rating_2*2)+($rating_1*1))/$total_comment;
+        $avg_rating = (($rating_5*5)+($rating_4*4)+($rating_3*3)+($rating_2*2)+($rating_1*1))/$total_rating;
     }
     else{
         $persen_rating_5 = 0;
@@ -94,7 +94,8 @@
                         <h3 class="title">{{ $product->product_name }}</h3>
                         <div class="rating">
                             <p class="star-rating"><span class="width-80percent" style="width: {{ $avg_rating*20 }}%"></span></p>
-                            <span class="review-count count_comment_on_detail" style="font-size: 15px">({{ count($all_comment_to_count) }} Đánh Giá)</span>
+                            <span class="review-count count_rating_on_detail" style="font-size: 15px">({{ count($all_rating_to_count) }} Đánh Giá)</span>
+                            <span class="review-count count_comment_on_detail" style="font-size: 15px"> | {{ count($all_comment_to_count) }} Bình Luận</span>
                             <span class="qa-text count_product_saled">{{ $info_rating_saled->count_product_saled }} Đã Bán</span>
                         </div>
                         <span class="sku">Sản phẩm có sẵn :
@@ -285,7 +286,7 @@
                         <ul class="tabs" style="padding: 16px 0 16px 5px; border-bottom: 1px solid rgba(0, 0, 0, 0.09);">
                             <li class="tab-element active"><a href="#tab_1st" class="tab-link">Mô Tả Sản Phẩm</a>
                             </li>
-                            <li class="tab-element"><a href="#tab_4th" class="tab-link">Đánh Giá Sản Phẩm <sup class="count_comment_tab">({{ count($all_comment_to_count) }})</sup></a>
+                            <li class="tab-element"><a href="#tab_4th" class="tab-link">Đánh Giá Sản Phẩm <sup class="count_rating_tab">({{ count($all_rating_to_count) }})</sup></a>
                             </li>
                         </ul>
                     </div>
@@ -303,7 +304,11 @@
                                             <div class="rating">
                                                 <p class="star-rating"><span class="width-80percent" style="width: {{ $avg_rating*20 }}%"></span></p>
                                             </div>
-                                            <p class="see-all count_comment_rating">{{ count($all_comment_to_count) }} đánh giá</p>
+                                            <div class="content-total-rating-comment" style="display: flex;">
+                                                <p class="see-all count_rating_rating">{{ count($all_rating_to_count) }} đánh giá  </p>
+                                                <p class="see-all count_comment_rating" style="padding-left: 5px"> | {{ count($all_comment_to_count) }} bình luận</p>
+                                            </div>
+
                                             <ul class="options">
                                                 <li>
                                                     <div class="detail-for">
@@ -372,28 +377,34 @@
                                         @if (Session::get('able_rating_comment_'.$product->product_id))
                                             <div class="review-form-wrapper">
                                                 <span class="title">đánh giá sản phẩm</span>
-                                                    <div class="comment-form-rating">
-                                                        <label>1. Bạn cảm thấy sản phẩm này như thế nào ?</label>
-                                                        <p class="stars">
-                                                            <span>
-                                                                <a class="btn-rating choose_rating" data-value="1" href="#">
-                                                                    <i class="fa fa-star-o" aria-hidden="true" style="font-size: 18px"></i>
-                                                                </a>
-                                                                <a class="btn-rating choose_rating" data-value="2" href="#">
-                                                                    <i class="fa fa-star-o" aria-hidden="true" style="font-size: 18px"></i>
-                                                                </a>
-                                                                <a class="btn-rating choose_rating" data-value="3" href="#">
-                                                                    <i class="fa fa-star-o" aria-hidden="true" style="font-size: 18px"></i>
-                                                                </a>
-                                                                <a class="btn-rating choose_rating" data-value="4" href="#">
-                                                                    <i class="fa fa-star-o" aria-hidden="true" style="font-size: 18px"></i>
-                                                                </a>
-                                                                <a class="btn-rating choose_rating" data-value="5" href="#">
-                                                                    <i class="fa fa-star-o" aria-hidden="true" style="font-size: 18px"></i>
-                                                                </a>
-                                                            </span>
-                                                        </p>
-                                                    </div>
+                                                    @if(! Session::get('rated_'.$product->product_id))
+                                                        {{-- HIDDEN VAL NUM RATING --}}
+                                                        <input type="hidden" value="" class="val_hidden_number_rating">
+                                                        <div class="comment-form-rating hidden_rating">
+                                                            <label>1. Bạn cảm thấy sản phẩm này như thế nào ?</label>
+                                                            <p class="stars">
+                                                                <span>
+                                                                    <a class="btn-rating choose_rating" data-value="1" href="#">
+                                                                        <i class="fa fa-star-o" aria-hidden="true" style="font-size: 18px"></i>
+                                                                    </a>
+                                                                    <a class="btn-rating choose_rating" data-value="2" href="#">
+                                                                        <i class="fa fa-star-o" aria-hidden="true" style="font-size: 18px"></i>
+                                                                    </a>
+                                                                    <a class="btn-rating choose_rating" data-value="3" href="#">
+                                                                        <i class="fa fa-star-o" aria-hidden="true" style="font-size: 18px"></i>
+                                                                    </a>
+                                                                    <a class="btn-rating choose_rating" data-value="4" href="#">
+                                                                        <i class="fa fa-star-o" aria-hidden="true" style="font-size: 18px"></i>
+                                                                    </a>
+                                                                    <a class="btn-rating choose_rating" data-value="5" href="#">
+                                                                        <i class="fa fa-star-o" aria-hidden="true" style="font-size: 18px"></i>
+                                                                    </a>
+                                                                </span>
+                                                            </p>
+                                                        </div>
+                                                    @else
+                                                        <input type="hidden" value="{{ Session::get('rated_'.$product->product_id) }}" class="val_hidden_number_rating">
+                                                    @endif
                                                     <p class="form-row">
                                                         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                                                         <textarea name="comment" class="comment_message" id="txt_comment" cols="30" rows="10" style="max-width: 500px;"
@@ -411,111 +422,243 @@
                                         <ol class="commentlist content_comment_rating">
                                             @if (count($all_comment) > 0)
                                                 @foreach ($all_comment as $comment)
-                                                    @foreach ($all_rating as $rating)
-                                                        @if ($comment->comment_id == $rating->rating_id)
-                                                            <li class="review">
-                                                                <div class="comment-container">
-                                                                    <div class="row">
-                                                                        <div class="comment-content col-lg-8 col-md-9 col-sm-8 col-xs-12">
-                                                                            <div class="content_info_customer">
-                                                                                    {{-- <p class="comment-in"><span class="post-name"> --}}
-                                                                                    @foreach ($customers as $customer)
-                                                                                        @if ($comment->customer_id == $customer->customer_id)
-                                                                                            <img src="{{ asset('public/upload/'.$customer->customer_avt) }}" style="width: 60px; height: 60px; border-radius: 50%" alt="">
-                                                                                            <div class="content-name-rating">
-                                                                                                <p class="comment-in"><span class="post-name" style="font-size: 17px">{{ $customer->username }}</span></p>
-                                                                                                <div class="rating">
-                                                                                                    <p class="star-rating">
-                                                                                                        @php
-                                                                                                            $convert_persen = 0;
-                                                                                                        @endphp
-                                                                                                        @if ($rating->rating_level == 1)
+                                                    @if ($comment->status == 0 && $comment->customer_id == Session::get('customer_id'))
+                                                        <li class="review" style="margin-right: 16px; margin-left: -16px; opacity: .8;background-color:#f5f5f5;">
+                                                            <div class="comment-container" style="padding-left: 20px">
+                                                                <div class="row">
+                                                                    <div class="comment-content col-lg-8 col-md-9 col-sm-8 col-xs-12">
+                                                                        <div class="content_info_customer">
+                                                                                @foreach ($customers as $customer)
+                                                                                    @if ($comment->customer_id == $customer->customer_id)
+                                                                                        <img src="{{ asset('public/upload/'.$customer->customer_avt) }}" style="width: 60px; height: 60px; border-radius: 50%" alt="">
+                                                                                        <div class="content-name-rating">
+                                                                                            <p class="comment-in"><span class="post-name" style="font-size: 17px">{{ $customer->username }}</span></p>
+                                                                                            <div class="rating">
+                                                                                                <p class="star-rating">
+                                                                                                    @php
+                                                                                                        $convert_persen = 0;
+                                                                                                    @endphp
+                                                                                                    @foreach ($all_rating as $rating)
+                                                                                                        @if($rating->customer_id == $customer->customer_id)
                                                                                                             @php
-                                                                                                                $convert_persen = 20;
+                                                                                                                $rating_level = $rating->rating_level;
                                                                                                             @endphp
-                                                                                                        @elseif($rating->rating_level == 2)
+                                                                                                            @break
+                                                                                                        @else
                                                                                                             @php
-                                                                                                                $convert_persen = 40;
-                                                                                                            @endphp
-                                                                                                        @elseif($rating->rating_level == 3)
-                                                                                                            @php
-                                                                                                                $convert_persen = 60;
-                                                                                                            @endphp
-                                                                                                        @elseif($rating->rating_level == 4)
-                                                                                                            @php
-                                                                                                                $convert_persen = 80;
-                                                                                                            @endphp
-                                                                                                        @elseif($rating->rating_level == 5)
-                                                                                                            @php
-                                                                                                                $convert_persen = 100;
+                                                                                                                $rating_level = 0;
                                                                                                             @endphp
                                                                                                         @endif
-                                                                                                        <span class="width-{{ $convert_persen }}percent"></span>
-                                                                                                    </p>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        @endif
-                                                                                    @endforeach
-                                                                                    <span class="post-date date-comment">{{ date("d/m/Y H:i a", strtotime($comment->created_at)) }}</span>
-                                                                                    @if (Session::get('customer_id') == $comment->customer_id)
-                                                                                        <div class="option_comment">
-                                                                                            <div class="dropdown_option_comment">
-                                                                                                <i class="fa fa-ellipsis-h dot"></i>
-                                                                                                <div class="dropdown_content_option_comment">
-                                                                                                    <a class="btn_open_modal_delete_comment btn_delete_comment" style="cursor: pointer;" data-id="{{ $comment->comment_id }}">
-                                                                                                        <i class="fa fa-trash-o" aria-hidden="true"></i> xóa
-                                                                                                    </a>
-                                                                                                    <a style="cursor: pointer;" class="btn_update_comment" data-id="{{ $comment->comment_id }}">
-                                                                                                        <i class="fa fa-pencil" aria-hidden="true"></i> sửa
-                                                                                                    </a>
-                                                                                                </div>
+                                                                                                    @endforeach
+                                                                                                    @if ($rating_level == 1)
+                                                                                                        @php
+                                                                                                            $convert_persen = 20;
+                                                                                                        @endphp
+                                                                                                    @elseif($rating_level == 2)
+                                                                                                        @php
+                                                                                                            $convert_persen = 40;
+                                                                                                        @endphp
+                                                                                                    @elseif($rating_level == 3)
+                                                                                                        @php
+                                                                                                            $convert_persen = 60;
+                                                                                                        @endphp
+                                                                                                    @elseif($rating_level == 4)
+                                                                                                        @php
+                                                                                                            $convert_persen = 80;
+                                                                                                        @endphp
+                                                                                                    @elseif($rating_level == 5)
+                                                                                                        @php
+                                                                                                            $convert_persen = 100;
+                                                                                                        @endphp
+                                                                                                    @endif
+                                                                                                    <span class="width-{{ $convert_persen }}percent"></span>
+                                                                                                </p>
                                                                                             </div>
                                                                                         </div>
                                                                                     @endif
-                                                                                {{-- </p> --}}
-                                                                            </div>
+                                                                                @endforeach
+                                                                                <span class="post-date date-comment">{{ date("d/m/Y H:i a", strtotime($comment->created_at)) }}</span>
+                                                                                @if (Session::get('customer_id') == $comment->customer_id)
+                                                                                    <div class="option_comment">
+                                                                                        <div class="dropdown_option_comment">
+                                                                                            <i class="fa fa-ellipsis-h dot" style="cursor: pointer;"></i>
+                                                                                            <div class="dropdown_content_option_comment">
+                                                                                                <a class="btn_open_modal_delete_comment btn_delete_comment" style="cursor: pointer;" data-id="{{ $comment->comment_id }}">
+                                                                                                    <i class="fa fa-trash-o" aria-hidden="true"></i> xóa
+                                                                                                </a>
+                                                                                                @if (Session::get('customer_id') == $comment->customer_id && $comment->status == 0)
+                                                                                                    <a style="cursor: pointer;" class="btn_update_comment" data-id="{{ $comment->comment_id }}">
+                                                                                                        <i class="fa fa-pencil" aria-hidden="true"></i> sửa
+                                                                                                    </a>
+                                                                                                @endif
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                @endif
+                                                                            {{-- </p> --}}
+                                                                        </div>
 
-                                                                            <p class="author place_order" style="margin-left: 70px"><i class="fa fa-check-circle" style="color: #7faf51"></i> đã mua tại <b class="brand_mku">MKU_FOOD</b></p>
-                                                                            <p class="comment-text comment_message comment_message_{{ $comment->comment_id }}" style="font-size: 15px">{{ $comment->comment_message }}</p>
-                                                                            <div class="content_area_update_comment content_area_update_comment_{{ $comment->comment_id }}">
-
+                                                                        <p class="author place_order" style="margin-left: 70px"><i class="fa fa-check-circle" style="color: #7faf51"></i> đã mua tại <b class="brand_mku">MKU_FOOD</b></p>
+                                                                        <p class="comment-text comment_message comment_message_{{ $comment->comment_id }}" style="font-size: 15px">{{ $comment->comment_message }}</p>
+                                                                        <div class="content_area_update_comment content_area_update_comment_{{ $comment->comment_id }}">
                                                                             <textarea class="area_update_comment area_update_comment_{{ $comment->comment_id }}" style="padding: 2px 5px ">{{ $comment->comment_message }}</textarea>
                                                                             <div class="content_btn_update_comment">
                                                                                 <button class="btn btn-secondary btn_huy_update_comment" data-id="{{ $comment->comment_id }}">Hủy</button>
                                                                                 <button class="btn btn-success btn_confirm_update_comment" data-id="{{ $comment->comment_id }}">Sửa</button>
                                                                             </div>
-                                                                            </div>
-
                                                                         </div>
-                                                                        <div
-                                                                            class="comment-review-form col-lg-3 col-lg-offset-1 col-md-3 col-sm-4 col-xs-12">
-                                                                            <span class="title">Đánh giá này có hữu ích?</span>
-                                                                            <ul class="actions">
-                                                                                @php
-                                                                                    $session = Session::get('user_like_comment_'.$comment->comment_id);
-                                                                                @endphp
-                                                                                @if (isset($session))
-                                                                                    <li><a class="btn-act like btn_useful_comment btn_useful_comment_{{ $comment->comment_id }}" style="color: #7faf51; cursor: pointer;" data-id="{{ $comment->comment_id }}">
-                                                                                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-                                                                                        <span class="txt_count_comment_useful_{{ $comment->comment_id }}">Hữu ích ({{ $comment->comment_useful }})</span>
-                                                                                    </a></li>
-                                                                                    <input type="hidden" class="hidden_check_comment_like_{{ $comment->comment_id }}" name="" id="" value="{{ $session }}">
-                                                                                @else
-                                                                                    <li><a class="btn-act like btn_useful_comment btn_useful_comment_{{ $comment->comment_id }}" style="cursor: pointer;" data-id="{{ $comment->comment_id }}">
-                                                                                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-                                                                                        <span class="txt_count_comment_useful_{{ $comment->comment_id }}">Hữu ích ({{ $comment->comment_useful }})</span>
-                                                                                    </a></li>
-                                                                                    <input type="hidden" class="hidden_check_comment_like_{{ $comment->comment_id }}" name="" id="" value="{{ $session }}">
-                                                                                @endif
-
-                                                                            </ul>
-                                                                        </div>
-
                                                                     </div>
+                                                                    <div
+                                                                        class="comment-review-form col-lg-3 col-lg-offset-1 col-md-3 col-sm-4 col-xs-12">
+                                                                        <span class="title">Đánh giá này có hữu ích?</span>
+                                                                        <ul class="actions">
+                                                                            @php
+                                                                                $session = Session::get('user_like_comment_'.$comment->comment_id);
+                                                                            @endphp
+                                                                            @if (isset($session))
+                                                                                <li>
+                                                                                    <a class="btn-act like btn_useful_comment btn_useful_comment_{{ $comment->comment_id }}" style="color: #7faf51; cursor: pointer;" data-id="{{ $comment->comment_id }}">
+                                                                                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                                                                                        <span class="txt_count_comment_useful_{{ $comment->comment_id }}">Hữu ích ({{ $comment->comment_useful }})</span>
+                                                                                    </a>
+                                                                                </li>
+                                                                                <h4 class="announce_waiting_comment">
+                                                                                    Bình luận của bạn đang chờ xét duyệt
+                                                                                </h4>
+                                                                                <input type="hidden" class="hidden_check_comment_like_{{ $comment->comment_id }}" name="" id="" value="{{ $session }}">
+                                                                            @else
+                                                                                <li>
+                                                                                    <a class="btn-act like btn_useful_comment btn_useful_comment_{{ $comment->comment_id }}" style="cursor: pointer;" data-id="{{ $comment->comment_id }}">
+                                                                                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                                                                                        <span class="txt_count_comment_useful_{{ $comment->comment_id }}">Hữu ích ({{ $comment->comment_useful }})</span>
+                                                                                    </a>
+                                                                                </li>
+                                                                                <h4 class="announce_waiting_comment">
+                                                                                    Bình luận của bạn đang chờ xét duyệt
+                                                                                </h4>
+                                                                                <input type="hidden" class="hidden_check_comment_like_{{ $comment->comment_id }}" name="" id="" value="{{ $session }}">
+                                                                            @endif
+
+                                                                        </ul>
+                                                                    </div>
+
                                                                 </div>
-                                                            </li>
-                                                        @endif
-                                                    @endforeach
+                                                            </div>
+                                                        </li>
+                                                    @elseif($comment->status == 1)
+                                                        <li class="review" style="margin-right: 16px; margin-left: -16px">
+                                                            <div class="comment-container" style="padding-left: 20px">
+                                                                <div class="row">
+                                                                    <div class="comment-content col-lg-8 col-md-9 col-sm-8 col-xs-12">
+                                                                        <div class="content_info_customer">
+                                                                                @foreach ($customers as $customer)
+                                                                                    @if ($comment->customer_id == $customer->customer_id)
+                                                                                        <img src="{{ asset('public/upload/'.$customer->customer_avt) }}" style="width: 60px; height: 60px; border-radius: 50%" alt="">
+                                                                                        <div class="content-name-rating">
+                                                                                            <p class="comment-in"><span class="post-name" style="font-size: 17px">{{ $customer->username }}</span></p>
+                                                                                            <div class="rating">
+                                                                                                <p class="star-rating">
+                                                                                                    @php
+                                                                                                        $convert_persen = 0;
+                                                                                                    @endphp
+                                                                                                    @foreach ($all_rating as $rating)
+                                                                                                        @if($rating->customer_id == $customer->customer_id)
+                                                                                                            @php
+                                                                                                                $rating_level = $rating->rating_level;
+                                                                                                            @endphp
+                                                                                                            @break
+                                                                                                        @else
+                                                                                                            @php
+                                                                                                                $rating_level = 0;
+                                                                                                            @endphp
+                                                                                                        @endif
+                                                                                                    @endforeach
+                                                                                                    @if ($rating_level == 1)
+                                                                                                        @php
+                                                                                                            $convert_persen = 20;
+                                                                                                        @endphp
+                                                                                                    @elseif($rating_level == 2)
+                                                                                                        @php
+                                                                                                            $convert_persen = 40;
+                                                                                                        @endphp
+                                                                                                    @elseif($rating_level == 3)
+                                                                                                        @php
+                                                                                                            $convert_persen = 60;
+                                                                                                        @endphp
+                                                                                                    @elseif($rating_level == 4)
+                                                                                                        @php
+                                                                                                            $convert_persen = 80;
+                                                                                                        @endphp
+                                                                                                    @elseif($rating_level == 5)
+                                                                                                        @php
+                                                                                                            $convert_persen = 100;
+                                                                                                        @endphp
+                                                                                                    @endif
+                                                                                                    <span class="width-{{ $convert_persen }}percent"></span>
+                                                                                                </p>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    @endif
+                                                                                @endforeach
+                                                                                <span class="post-date date-comment">{{ date("d/m/Y H:i a", strtotime($comment->created_at)) }}</span>
+                                                                                @if (Session::get('customer_id') == $comment->customer_id)
+                                                                                    <div class="option_comment">
+                                                                                        <div class="dropdown_option_comment">
+                                                                                            <i class="fa fa-ellipsis-h dot" style="cursor: pointer;"></i>
+                                                                                            <div class="dropdown_content_option_comment">
+                                                                                                <a class="btn_open_modal_delete_comment btn_delete_comment" style="cursor: pointer;" data-id="{{ $comment->comment_id }}">
+                                                                                                    <i class="fa fa-trash-o" aria-hidden="true"></i> xóa
+                                                                                                </a>
+                                                                                                @if (Session::get('customer_id') == $comment->customer_id && $comment->status == 0)
+                                                                                                    <a style="cursor: pointer;" class="btn_update_comment" data-id="{{ $comment->comment_id }}">
+                                                                                                        <i class="fa fa-pencil" aria-hidden="true"></i> sửa
+                                                                                                    </a>
+                                                                                                @endif
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                @endif
+                                                                            {{-- </p> --}}
+                                                                        </div>
+
+                                                                        <p class="author place_order" style="margin-left: 70px"><i class="fa fa-check-circle" style="color: #7faf51"></i> đã mua tại <b class="brand_mku">MKU_FOOD</b></p>
+                                                                        <p class="comment-text comment_message comment_message_{{ $comment->comment_id }}" style="font-size: 15px">{{ $comment->comment_message }}</p>
+                                                                        <div class="content_area_update_comment content_area_update_comment_{{ $comment->comment_id }}">
+                                                                            <textarea class="area_update_comment area_update_comment_{{ $comment->comment_id }}" style="padding: 2px 5px ">{{ $comment->comment_message }}</textarea>
+                                                                            <div class="content_btn_update_comment">
+                                                                                <button class="btn btn-secondary btn_huy_update_comment" data-id="{{ $comment->comment_id }}">Hủy</button>
+                                                                                <button class="btn btn-success btn_confirm_update_comment" data-id="{{ $comment->comment_id }}">Sửa</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div
+                                                                        class="comment-review-form col-lg-3 col-lg-offset-1 col-md-3 col-sm-4 col-xs-12">
+                                                                        <span class="title">Đánh giá này có hữu ích?</span>
+                                                                        <ul class="actions">
+                                                                            @php
+                                                                                $session = Session::get('user_like_comment_'.$comment->comment_id);
+                                                                            @endphp
+                                                                            @if (isset($session))
+                                                                                <li><a class="btn-act like btn_useful_comment btn_useful_comment_{{ $comment->comment_id }}" style="color: #7faf51; cursor: pointer;" data-id="{{ $comment->comment_id }}">
+                                                                                    <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                                                                                    <span class="txt_count_comment_useful_{{ $comment->comment_id }}">Hữu ích ({{ $comment->comment_useful }})</span>
+                                                                                </a></li>
+                                                                                <input type="hidden" class="hidden_check_comment_like_{{ $comment->comment_id }}" name="" id="" value="{{ $session }}">
+                                                                            @else
+                                                                                <li><a class="btn-act like btn_useful_comment btn_useful_comment_{{ $comment->comment_id }}" style="cursor: pointer;" data-id="{{ $comment->comment_id }}">
+                                                                                    <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                                                                                    <span class="txt_count_comment_useful_{{ $comment->comment_id }}">Hữu ích ({{ $comment->comment_useful }})</span>
+                                                                                </a></li>
+                                                                                <input type="hidden" class="hidden_check_comment_like_{{ $comment->comment_id }}" name="" id="" value="{{ $session }}">
+                                                                            @endif
+
+                                                                        </ul>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    @endif
                                                 @endforeach
                                             @else
                                                 <div class="center pd-20" style="font-size: 18px;padding-top: 30px; opacity: .5;">Sản phẩm chưa có đánh giá nào</div>
@@ -523,6 +666,7 @@
                                         </ol>
                                         <input type="hidden" value="{{ $product->product_id }}" class="val_product_id">
                                         <input type="hidden" value="{{ count($all_comment_to_count) }}" class="all_comment_to_count">
+                                        <input type="hidden" value="{{ count($all_rating_to_count) }}" class="all_rating_to_count">
                                         <input type="hidden" value="5" class="val_load_add_5">
                                         @if ($check_show > 0)
                                             <div class="biolife-panigations-block version-2">
@@ -541,11 +685,6 @@
                 </div>
                 {{-- realative product --}}
                 <div class="product-related-box single-layout">
-                    {{-- <div class="biolife-title-box lg-margin-bottom-26px-im">
-                        <span class="biolife-icon icon-organic"></span>
-                        <span class="subtitle">All the best item for You</span>
-                        <h3 class="main-title">Related Products</h3>
-                    </div> --}}
                     <div class="row">
                         <div id="main-content" class="main-content col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="block-item head__title" style="margin-top: -25px;">
@@ -730,7 +869,6 @@
             <div class="content-modal-footer-address">
                 <button class="btn btn-success btn_confirm_delete_comment" style="margin-right: 10px">Xóa</button>
                 <button class="btn btn-secondary btn_back_modal_address">Hủy</button>
-
             </div>
         </div>
     </div>

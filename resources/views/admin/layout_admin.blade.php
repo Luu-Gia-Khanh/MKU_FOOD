@@ -50,8 +50,7 @@
 	</div>
 	<!-- js -->
 	<script src="{{ asset('public/back_end/vendors/scripts/core.js') }}"></script>
-	<script src="{{ asset('public/back_end/vendors/scripts/script.min.j') }}s"></script>
-	<script src="{{ asset('public/back_end/vendors/scripts/script.min.j') }}s"></script>
+	<script src="{{ asset('public/back_end/vendors/scripts/script.min.js') }}"></script>
 	<script src="{{ asset('public/back_end/vendors/scripts/process.js') }}"></script>
 	<script src="{{ asset('public/back_end/vendors/scripts/layout-settings.js') }}"></script>
 	<script src="{{ asset('public/back_end/src/plugins/apexcharts/apexcharts.min.js') }}"></script>
@@ -80,6 +79,8 @@
 	<script src="{{ asset('public/back_end/src/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js') }}"></script>
     <script src="{{ asset('public/back_end/src/scripts/custom_order.js') }}"></script>
     <script src="{{ asset('public/back_end/src/scripts/discount_custom.js') }}"></script>
+    <script src="{{ asset('public/back_end/src/scripts/find_ajax_process_comment.js') }}"></script>
+    <script src="{{ asset('public/back_end/src/scripts/modal_process_comment.js') }}"></script>
 
     {{-- CKeditor --}}
     <script>

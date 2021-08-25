@@ -1,18 +1,18 @@
 
-    function load_comment(_token,product_id){
-        $.ajax({
-                url: '../load_comment',
-                method: 'POST',
-                data: {
-                    _token: _token,
-                    product_id: product_id,
-                },
-                success: function (data) {
-                    $('.content_comment_rating').html(data);
-                    $('.comment_message').val("");
-                }
-            });
-    }
+function load_comment(_token,product_id){
+    $.ajax({
+        url: '../load_comment',
+        method: 'POST',
+        data: {
+            _token: _token,
+            product_id: product_id,
+        },
+        success: function (data) {
+            $('.content_comment_rating').html(data);
+            $('.comment_message').val("");
+        }
+    });
+}
     //
     var number_rate;
     var val_load_add = $('.val_load_add_5').val();
@@ -23,8 +23,9 @@
         var product_id = $('.val_product_id').val();
         var comment_message = $('.comment_message').val();
         var _token = $('input[name="_token"]').val();
+        var val_hidden_number_rating = $('.val_hidden_number_rating').val();
 
-        if(number_rate == null || number_rate == ""){
+        if((number_rate == null || number_rate == "") && val_hidden_number_rating == ''){
             Swal.fire({
                 position: 'top-end',
                 icon: 'error',
@@ -43,6 +44,9 @@
               });
         }
         else{
+            if(number_rate == '' && val_hidden_number_rating != ''){
+                number_rate = val_hidden_number_rating;
+            }
             $.ajax({
                 url: '../add_comment_rating',
                 method: 'POST',
@@ -54,12 +58,32 @@
                 },
                 success: function (data) {
                     load_comment(_token,product_id);
+
+                    $('.val_hidden_number_rating').val("{{ Session::get('rated_'.$product_id) }}");
+                    if($('.val_hidden_number_rating').val() == ''){
+                        $('.hidden_rating').removeClass('op-0');
+                    }
+                    else{
+                        $('.hidden_rating').addClass('op-0');
+                    }
+
                     var all_comment_to_count = $('.all_comment_to_count').val();
+                    var all_rating_to_count = $('.all_rating_to_count').val();
                     var count_comment = Number(all_comment_to_count)+1;
-                    $('.count_comment_tab').html('('+count_comment+')');
-                    $('.count_comment_rating').html(count_comment+' đánh giá');
-                    $('.count_comment_on_detail').html('('+count_comment+' đánh giá)');
+                    var count_rating = Number(all_rating_to_count)+1;
+
+                    if(val_hidden_number_rating == ''){
+                        $('.count_rating_tab').html('('+count_rating+')');
+                        $('.count_rating_rating').html(count_rating+' đánh giá');
+                        $('.count_rating_on_detail').html('('+count_rating+' đánh giá)');
+                    }
+
+                    $('.count_comment_rating').html(' | '+count_comment+' bình luận');
+                    $('.count_comment_on_detail').html(' | '+count_comment+' bình luận');
                     $('.all_comment_to_count').val(count_comment);
+
+
+
                     val_load_add = 5;
                     if(Number(all_comment_to_count) > Number(val_load_add)){
                         $('.load_more_comment').removeClass('op-0');

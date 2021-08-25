@@ -212,9 +212,14 @@ Route::prefix('admin')->group(function () {
     Route::post('check_val_discount_2', 'DiscountController@check_val_discount_2');
     Route::post('check_val_discount_update', 'DiscountController@check_val_discount_update');
     Route::post('check_val_discount_update_2', 'DiscountController@check_val_discount_update_2');
-    //Route::post('search_product_discount', 'DiscountController@search_product_discount');
     Route::post('process_update_discount/{discount_id}', 'DiscountController@process_update_discount');
     Route::post('delete_discount', 'DiscountController@delete_discount');
+
+    // PROCESS COMMENT
+    Route::get('view_comment_to_process', 'CommentController@view_comment_to_process');
+    Route::post('process_accep_comment', 'CommentController@process_accep_comment');
+    Route::post('process_unaccep_comment', 'CommentController@process_unaccep_comment');
+
 
 
 });

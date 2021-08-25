@@ -98,7 +98,10 @@ input[type=number] {
 }
 .op-0{
     opacity: 0;
+    visibility: hidden;
 }
+
+/* comment rating */
 .content_info_customer{
     display: flex;
     flex-direction: row;
@@ -179,6 +182,16 @@ input[type=number] {
 .brand_mku{
     font-size: 14px;
     color: #7faf51;
+}
+
+.announce_waiting_comment{
+    background: #7faf51;
+    padding: 10px;
+    border-radius: 5px;
+    width: 215px;
+    text-align: center;
+    color: white;
+    font-size: 16px;
 }
 
 /* modal */

@@ -1,22 +1,18 @@
 
-    function load_comment(_token,product_id){
-        $.ajax({
-                url: '../load_comment',
-                method: 'POST',
-                data: {
-                    _token: _token,
-                    product_id: product_id,
-                },
-                success: function (data) {
-                    $('.content_comment_rating').html(data);
-                    $('.comment_message').val("");
-                }
-            });
-    }
-    //
-    var number_rate;
-    var val_load_add = $('.val_load_add_5').val();
-
+function load_comment(_token,product_id){
+    $.ajax({
+            url: '../load_comment',
+            method: 'POST',
+            data: {
+                _token: _token,
+                product_id: product_id,
+            },
+            success: function (data) {
+                $('.content_comment_rating').html(data);
+                $('.comment_message').val("");
+            }
+        });
+}
     $('.load_more_comment').click(function(){
         var all_comment_to_count = $('.all_comment_to_count').val();
         //var val_load_add = $('.val_load_add_5').val(); // get biến toàn cục

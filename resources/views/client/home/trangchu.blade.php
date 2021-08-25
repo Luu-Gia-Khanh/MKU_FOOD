@@ -282,6 +282,37 @@
             </div>
         </div>
     @endif
+    {{--  --}}
+    <div class="container" style="background-color: #fff; border-bottom: 1px solid rgba(0, 0, 0, 0.09); padding: 15px">
+        <div class="biolife-service type01 biolife-service__type01 sm-margin-top-0 xs-margin-top-45px">
+            <b class="txt-show-01" >100%</b>
+            <i class="txt-show-02" >MKU FOOD</i>
+            <ul class="services-list">
+                <li>
+                    <div class="service-inner color-reverse">
+                        <span class="number">1</span>
+                        <span class="biolife-icon icon-beer"></span>
+                        <a class="srv-name" href="#">full stamped product</a>
+                    </div>
+                </li>
+                <li>
+                    <div class="service-inner color-reverse">
+                        <span class="number">2</span>
+                        <span class="biolife-icon icon-schedule"></span>
+                        <a class="srv-name" href="#">place and delivery on time</a>
+                    </div>
+                </li>
+                <li>
+                    <div class="service-inner color-reverse">
+                        <span class="number">3</span>
+                        <span class="biolife-icon icon-car"></span>
+                        <a class="srv-name" href="#">Free shipping in the city</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
 
     {{-- RECOMMENT PRODUCT --}}
     <div class="container">

@@ -49,10 +49,7 @@
                                         @endforeach
                                     </div>
                                 </div>
-                                <div class="action">
-                                    <a href="#" class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                    <a href="#" class="remove"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-                                </div>
+
                             </div>
                         @endif
                     @endforeach

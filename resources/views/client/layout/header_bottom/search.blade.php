@@ -1,5 +1,5 @@
 <div class="col-lg-8 col-md-8 hidden-sm hidden-xs">
-    <div class="header-search-bar layout-01">
+    <div class="header-search-bar layout-01" style="height: 46px;">
         <form action="{{ URL::to('search_product_form_search_auto_complete') }}" class="form-search" name="form_search_product" method="post">
             @csrf
             <input type="text" name="search_product" class="input-text input_search_auto_complete" value="" placeholder="Search here..." autocomplete="off">

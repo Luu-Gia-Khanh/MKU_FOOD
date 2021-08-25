@@ -107,6 +107,15 @@
                         <li><a href="{{ URL::to('admin/add_slider') }}">Thêm slider</a></li>
                     </ul>
                 </li>
+
+                <li class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <span class="micon icon-copy ti-harddrives"></span><span class="mtext">Duyệt Bình Luận</span>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="{{ URL::to('admin/view_comment_to_process') }}">Bình luận chờ duyệt</a></li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>

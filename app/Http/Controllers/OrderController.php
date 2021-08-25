@@ -12,6 +12,7 @@ use App\Customer_Transport;
 use App\Admin_Action_Order;
 use App\Customer;
 use App\Mail\Confirm_Order_Mail;
+use App\Voucher;
 use Session;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
@@ -224,6 +225,7 @@ class OrderController extends Controller
         $detail_status = Order_Detail_Status::where('order_id',$order_id)->where('status',1)->first();
         $transport = Customer_Transport::find($order->trans_id);
         $time_line = Order_Detail_Status::where('order_id', $order_id)->get();
+        $all_voucher = Voucher::all();
         return view('admin.order.order_detail_item',[
             'order_item' =>$order_item,
             'product' =>$product,
@@ -233,6 +235,7 @@ class OrderController extends Controller
             'detail_status' =>$detail_status,
             'trans' =>$transport,
             'time_line' =>$time_line,
+            'all_voucher' =>$all_voucher,
         ]);
     }
 }
