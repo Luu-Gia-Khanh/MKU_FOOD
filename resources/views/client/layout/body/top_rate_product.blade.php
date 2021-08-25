@@ -17,8 +17,13 @@
                                     <li class="product-item">
                                         <div class="contain-product deal-layout contain-product__deal-layout">
                                             <div class="product-thumb">
-                                                <a href="{{ URL::to('product_detail/'.$product->product_id) }}" class="link-to-product">
-                                                    <img src="{{ asset('public/upload/'.$product->product_image) }}" alt="dd" width="330" height="330" style="width: 330px; height: 330px;" class="product-thumnail">
+                                                <form>
+                                                    @csrf
+                                                    <input type="hidden" value="{{ $product->product_name }}" id="recently_viewed_product_name_{{ $product->product_id }}">
+                                                    <input type="hidden" value="{{ number_format($price_discount->price_now, 0, ',', '.') }}₫" id="recently_viewed_product_price_{{ $product->product_id }}">
+                                                </form> 
+                                                <a href="{{ URL::to('product_detail/'.$product->product_id) }}" class="link-to-product btn_recently_viewed" data-id="{{ $product->product_id }}" id="recently_viewed_product_detail_{{ $product->product_id }}">
+                                                    <img src="{{ asset('public/upload/'.$product->product_image) }}" alt="dd" width="330" height="330" style="width: 330px; height: 330px;" class="product-thumnail" id="recently_viewed_product_img_{{ $product->product_id }}">
                                                 </a>
                                                 <div class="labels" style="top:20px; left:20px;">
                                                     @if ($price_discount->percent_discount != 0)
@@ -28,8 +33,7 @@
                                             </div>
                                             <div class="info">
                                                 <div class="biolife-countdown" data-datetime="{{ $price_discount->date_end_discount }}"></div>
-                                                <b class="categories">{{ $product->cate_name }}</b>
-                                                <h4 class="product-title"><a href="{{ URL::to('product_detail/'.$product->product_id) }}" class="pr-name">{{ $product->product_name }}</a></h4>
+                                                <h4 class="product-title"><a href="{{ URL::to('product_detail/'.$product->product_id) }}" class="pr-name btn_recently_viewed" data-id="{{ $product->product_id }}">{{ $product->product_name }}</a></h4>
                                                 <div class="price ">
                                                     @if ($price_discount->percent_discount == 0)
                                                         <ins><span class="price-amount">
@@ -109,13 +113,17 @@
                                 <li class="product-item" style="background-color: #fff; position: relative">
                                     <div class="contain-product right-info-layout contain-product__right-info-layout" >
                                         <div class="product-thumb">
-                                            <a href="{{ URL::to('product_detail/'.$product->product_id) }}" class="link-to-product">
-                                                <img src="{{ asset('public/upload/'.$product->product_image) }}" alt="dd" style="width: 170px; height: 170px" width="270" height="270" class="product-thumnail">
+                                            <form>
+                                                @csrf
+                                                <input type="hidden" value="{{ $product->product_name }}" id="recently_viewed_product_name_{{ $product->product_id }}">
+                                                <input type="hidden" value="{{ number_format($price_discount->price_now, 0, ',', '.') }}₫" id="recently_viewed_product_price_{{ $product->product_id }}">
+                                            </form>   
+                                            <a href="{{ URL::to('product_detail/'.$product->product_id) }}" class="link-to-product btn_recently_viewed" data-id="{{ $product->product_id }}" id="recently_viewed_product_detail_{{ $product->product_id }}">
+                                                <img src="{{ asset('public/upload/'.$product->product_image) }}" alt="dd" style="width: 170px; height: 170px" width="270" height="270" class="product-thumnail" id="recently_viewed_product_img_{{ $product->product_id }}">
                                             </a>
                                         </div>
                                         <div class="info">
-                                            <b class="categories">{{ $product->cate_name }}</b>
-                                            <h4 class="product-title"><a href="{{ URL::to('product_detail/'.$product->product_id) }}" class="pr-name">{{ $product->product_name }}</a></h4>
+                                            <h4 class="product-title"><a href="{{ URL::to('product_detail/'.$product->product_id) }}" class="pr-name btn_recently_viewed" data-id="{{ $product->product_id }}">{{ $product->product_name }}</a></h4>
                                             <div class="price ">
                                                 @if ($price_discount->percent_discount == 0)
                                                     <ins><span class="price-amount"><span class="currencySymbol">{{ number_format($price_discount->price_now, 0, ',', '.') }}₫</span></ins>
@@ -164,6 +172,8 @@
 </div>
 <script src="{{ asset('public/font_end/assets/js/jquery-3.4.1.min.js') }}"></script>
 <script src="{{ asset('public/font_end/custom_ui/js/count_down.js') }}"></script>
+<script src="{{ asset('public/font_end/custom_ui/js/recently_viewed.js') }}"></script>
+
 {{-- <script type="text/javascript">
     var product_id = " echo $product->product_id;";
     var countDownDate = new Date(document.getElementById('val_count_down_'+product_id).value).getTime();

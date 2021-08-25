@@ -49,7 +49,7 @@
                 <div class="row">
                     {{-- LOGO --}}
                     <div class="col-lg-2 col-md-2 col-md-6 col-xs-6">
-                        <a href="home-03-green.html" class="biolife-logo"><img src="{{ asset('public/font_end/assets/images/organic-3-green.png') }}" alt="biolife logo" width="135" height="36"></a>
+                        <a href="{{ URL::to('/') }}" class="biolife-logo"><img src="{{ asset('public/font_end/assets/images/organic-3-green.png') }}" alt="biolife logo" width="135" height="36"></a>
                     </div>
                     {{-- NAV PAGES --}}
                     {{-- @include('client.layout.header_middle.nav_pages') --}}
