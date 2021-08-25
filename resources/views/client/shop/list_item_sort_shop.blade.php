@@ -120,5 +120,6 @@
 <script src="{{ asset('public/font_end/bootstrap/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('public/font_end/custom/mini_detail_product.js') }}"></script>
 <script src="{{ asset('public/font_end/custom_ui/js/ajax_wish_list.js') }}"></script>
-<script src="{{ asset('public/font_end/custom_ui/js/recently_viewed.js') }}"></script>
+{{-- <script src="{{ asset('public/font_end/custom_ui/js/recently_viewed.js') }}"></script> --}}
+
 

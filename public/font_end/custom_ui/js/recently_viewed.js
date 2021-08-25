@@ -20,8 +20,8 @@ $(document).ready(function(){
         var matches = $.grep(old_data, function(obj){
             return obj.product_id == product_id;
         });
-        if(matches.length){
-
+        if(matches.length > 0){
+            alert('haha');
         }
         else{
             old_data.push(new_item);
@@ -48,7 +48,7 @@ $(document).ready(function(){
     else{
         $('.content_recently_viewed').append('<img src="public/upload/no_product.png" alt="" style="width: 100%; height: 150px;">');
     }
-    
+
     if($('#myList li').length > 2){
         $('#loadMore').show();
     }
