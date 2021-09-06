@@ -29,15 +29,16 @@ class CommentController extends Controller
     }
     public function view_comment_to_process(){
         $all_product = Product::all();
-        $comment_join = DB::table('customer')
-            ->join('comment', 'comment.customer_id', '=', 'customer.customer_id')
-            ->join('rating', 'rating.customer_id', '=', 'customer.customer_id')
+        $all_customer = DB::table('customer')
             ->join('customer_info', 'customer_info.customer_id', '=', 'customer.customer_id')
-            ->where('comment.status', 0)
             ->get();
+        $all_comment = Comment::where('status', 0)->get();
+        $all_rating = Rating::all();
         return view('admin.comment.view_list_comment',[
             'all_product' => $all_product,
-            'comment_join' => $comment_join,
+            'all_customer' => $all_customer,
+            'all_comment' => $all_comment,
+            'all_rating' => $all_rating,
         ]);
     }
     public function process_accep_comment(Request $request){

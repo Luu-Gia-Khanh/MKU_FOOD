@@ -19,7 +19,7 @@ class AuthController extends Controller
             Session::put('admin_id', Auth::user()->admin_id);
             Session::put('admin_name', Auth::user()->admin_name);
             Session::put('admin_image', Auth::user()->avt);
-            return redirect('admin/dashboard');
+            return redirect('admin/');
         }
         else{
             return redirect('login')->withErrors('ERROR');

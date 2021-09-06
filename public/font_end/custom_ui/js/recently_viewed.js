@@ -21,7 +21,7 @@ $(document).ready(function(){
             return obj.product_id == product_id;
         });
         if(matches.length > 0){
-            alert('haha');
+            
         }
         else{
             old_data.push(new_item);

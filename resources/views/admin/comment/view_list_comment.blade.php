@@ -61,7 +61,7 @@
                         </div>
                     </div>
                 </div>
-                @if (count($comment_join) > 0)
+                @if (count($all_comment) > 0)
                     <div class="">
                         <div class="row">
                             <div class="col-12 table-responsive">
@@ -82,27 +82,39 @@
                                         </tr>
                                     </thead>
                                     <tbody id="table_content_comment_process">
-                                        @foreach ($all_product as $product)
-                                            @foreach ($comment_join as $comment)
-                                                @if ($product->product_id == $comment->product_id)
+                                            @foreach ($all_comment as $comment)
                                                     <tr>
                                                         <td class="text-center">
-                                                            <img src="{{ asset('public/upload/'.$product->product_image) }}"
-                                                                style="width: 70px; height: 70px" alt="">
+                                                            @foreach ($all_product as $product)
+                                                                @if ($product->product_id == $comment->product_id)
+                                                                    <img src="{{ asset('public/upload/'.$product->product_image) }}"
+                                                                        style="width: 70px; height: 70px" alt="">
+                                                                @endif
+                                                            @endforeach
                                                         </td>
                                                         <td>
-                                                            <div class="name-avatar d-flex align-items-center">
-                                                                <div class="avatar mr-2 flex-shrink-0">
-                                                                    <img src="{{ asset('public/upload/'. $comment->customer_avt) }}" class="border-radius-100 shadow" width="50" height="50" alt="">
-                                                                </div>
-                                                                <div class="txt">
-                                                                    <div class="weight-600">{{ $comment->username }}</div>
-                                                                </div>
-                                                            </div>
+                                                            @foreach ($all_customer as $customer)
+                                                                @if ($customer->customer_id == $comment->customer_id)
+                                                                    <div class="name-avatar d-flex align-items-center">
+                                                                        <div class="avatar mr-2 flex-shrink-0">
+                                                                            <img src="{{ asset('public/upload/'. $customer->customer_avt) }}" class="border-radius-100 shadow" width="50" height="50" alt="">
+                                                                        </div>
+                                                                        <div class="txt">
+                                                                            <div class="weight-600">{{ $customer->username }}</div>
+                                                                        </div>
+                                                                    </div>
+                                                                @endif
+                                                            @endforeach
+
                                                         </td>
                                                         <td>
-                                                            {{ $comment->rating_level }}
-                                                            <i class="icon-copy fi-star" style="color: rgb(201, 201, 35); font-size: 18px"></i>
+                                                            @foreach ($all_rating as $rating)
+                                                                @if ($rating->customer_id == $comment->customer_id && $rating->product_id == $comment->product_id)
+                                                                    {{ $comment->rating_level }}
+                                                                    <i class="icon-copy fi-star" style="color: rgb(201, 201, 35); font-size: 18px"></i>
+                                                                @endif
+                                                            @endforeach
+
                                                         </td>
                                                         <td>
                                                             {{ $comment->comment_message }}
@@ -120,8 +132,6 @@
                                                         </td>
 
                                                     </tr>
-                                                @endif
-                                            @endforeach
                                         @endforeach
                                     </tbody>
                                 </table>

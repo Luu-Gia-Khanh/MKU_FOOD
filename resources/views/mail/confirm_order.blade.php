@@ -42,13 +42,7 @@
                                                              </h1>
                                                           </td>
                                                        </tr>
-                                                       <tr>
-                                                          {{-- <td align="center" style="padding-top:12px">
-                                                             <div style="Margin:0;margin:0;font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:26px;font-weight:400;letter-spacing:0;color:#777777;max-width:524px">
-                                                                <p>VOCA vừa ra mắt thêm 2 khoá học mẫu câu mới để giúp bạn và mọi người học tiếng Anh tốt hơn. Hãy là người đầu tiên trải nghiệm khoá học ngay thôi nào!</p>
-                                                             </div>
-                                                          </td>
-                                                       </tr> --}}
+
                                                     </tbody>
                                                  </table>
                                               </td>
@@ -65,7 +59,7 @@
                                            <tbody>
                                               <tr>
                                                  <td align="center" height="43" style="border-collapse:collapse;background-color:#7faf51;border-radius:9px;white-space:nowrap">
-                                                    <a href="http://localhost/MKU_FOOD/user/order/{{ $order->order_id }}" style="display:inline-block;width:100%;font-family:Arial,Helvetica,sans-serif;font-size:16px;font-weight:bold;line-height:19px;letter-spacing:0.8px;text-transform:uppercase;color:#ffffff;text-align:center;text-decoration:none;background-color:#7faf51;border-radius:14px;border-top:12px solid #7faf51;border-bottom:12px solid #7faf51" target="_blank">
+                                                    <a href="http://mkufood.abc/user/order/{{ $order->order_id }}" style="display:inline-block;width:100%;font-family:Arial,Helvetica,sans-serif;font-size:16px;font-weight:bold;line-height:19px;letter-spacing:0.8px;text-transform:uppercase;color:#ffffff;text-align:center;text-decoration:none;background-color:#7faf51;border-radius:14px;border-top:12px solid #7faf51;border-bottom:12px solid #7faf51" target="_blank">
 
                                                        Chi Tiết Đơn Hàng
 

@@ -167,6 +167,43 @@
     <script src="{{ asset('public/font_end/custom/mini_detail_product.js') }}"></script>
 @endsection
 @section('content_body')
+    <!--Block 17: Banners-->
+    <div class="banner-block sm-margin-top-30px xs-margin-top-50px">
+        <div class="container">
+            <ul class="grid-twice-item">
+                <li>
+                    <div class="biolife-banner biolife-banner__style-11">
+                        <div class="banner-contain">
+                            <div class="media">
+                                <a href="#" class="bn-link"><img src="{{ asset('public/font_end/assets/images/home-05/media-banner-11.jpg') }}" width="281" height="358" alt=""></a>
+                            </div>
+                            <div class="text-content">
+                                <span class="text1">California</span>
+                                <b class="text2">Fresh Fruit</b>
+                                <span class="text3">Association</span>
+                                <b class="text4">Sale <span>50%</span> Off</b>
+                                <a href="#" class="btn btn-bold">Shop now</a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="biolife-banner biolife-banner__style-12">
+                        <div class="banner-contain">
+                            <div class="media">
+                                <a href="#" class="bn-link"><img src="{{ asset('public/font_end/assets/images/home-05/media-banner-12.jpg') }}" width="281" height="358" alt=""></a>
+                            </div>
+                            <div class="text-content">
+                                <i class="text1">Sumer Fruit</i>
+                                <b class="text2">100% Pure Natural Fruit Juice</b>
+                                <a href="#" class="btn btn-thin">Shop now</a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
     {{-- PRODUCT FEATURE --}}
     @if (count($all_product_feature) > 0)
         <div class="product-tab z-index-20 bg">
@@ -198,7 +235,7 @@
                                                 @csrf
                                                 <input type="hidden" value="{{ $product->product_name }}" id="recently_viewed_product_name_{{ $product->product_id }}">
                                                 <input type="hidden" value="{{ number_format($price_discount->price_now, 0, ',', '.') }}₫" id="recently_viewed_product_price_{{ $product->product_id }}">
-                                            </form>  
+                                            </form>
                                             <a href="{{ URL::to('product_detail/' . $product->product_id) }}" class="link-to-product btn_recently_viewed" data-id="{{ $product->product_id }}" id="recently_viewed_product_detail_{{ $product->product_id }}">
                                                 <img src="{{ asset('public/upload/'.$product->product_image) }}" alt="dd" style="width: 270px; height: 270px" class="product-thumnail" id="recently_viewed_product_img_{{ $product->product_id }}">
                                             </a>
@@ -356,7 +393,7 @@
                                             @csrf
                                             <input type="hidden" value="{{ $product->product_name }}" id="recently_viewed_product_name_{{ $product->product_id }}">
                                             <input type="hidden" value="{{ number_format($price_discount->price_now, 0, ',', '.') }}₫" id="recently_viewed_product_price_{{ $product->product_id }}">
-                                        </form>   
+                                        </form>
                                         <a href="{{ URL::to('product_detail/' . $product->product_id) }}" class="link-to-product btn_recently_viewed" data-id="{{ $product->product_id }}" id="recently_viewed_product_detail_{{ $product->product_id }}">
                                             <img src="{{ asset('public/upload/'.$product->product_image) }}" alt="dd" style="width: 220px; height: 220px" class="product-thumnail" id="recently_viewed_product_img_{{ $product->product_id }}">
                                         </a>

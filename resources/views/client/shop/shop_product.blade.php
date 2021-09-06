@@ -33,7 +33,7 @@
     .nice-select .current{
         color: black;
     }
-    #myList li{ 
+    #myList li{
         display:none;
     }
     #loadMore {

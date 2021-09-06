@@ -48,7 +48,7 @@ Route::get('success_process_register', 'CustomerController@success_process_regis
 // GROUP ADMIN
 Route::prefix('admin')->group(function () {
     // DASHBORD
-    Route::get('dashboard', 'AdminController@index')->middleware('roles');
+    Route::get('/', 'AdminController@index')->middleware('roles');
     // ADMIN
     Route::get('all_admin', 'AdminController@show_admin')->middleware('role_admin_manager');
     Route::get('add_admin', 'AdminController@add_admin');

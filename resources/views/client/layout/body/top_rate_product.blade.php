@@ -21,7 +21,7 @@
                                                     @csrf
                                                     <input type="hidden" value="{{ $product->product_name }}" id="recently_viewed_product_name_{{ $product->product_id }}">
                                                     <input type="hidden" value="{{ number_format($price_discount->price_now, 0, ',', '.') }}₫" id="recently_viewed_product_price_{{ $product->product_id }}">
-                                                </form> 
+                                                </form>
                                                 <a href="{{ URL::to('product_detail/'.$product->product_id) }}" class="link-to-product btn_recently_viewed" data-id="{{ $product->product_id }}" id="recently_viewed_product_detail_{{ $product->product_id }}">
                                                     <img src="{{ asset('public/upload/'.$product->product_image) }}" alt="dd" width="330" height="330" style="width: 330px; height: 330px;" class="product-thumnail" id="recently_viewed_product_img_{{ $product->product_id }}">
                                                 </a>
@@ -76,7 +76,7 @@
 
                                                         {{-- add cart --}}
                                                         @if (Session::get('customer_id'))
-                                                            <button class="btn add-to-cart-btn add_cart_one"
+                                                            <button class="btn add-to-cart-btn btn-block add_cart_one"
                                                             data-id="{{ $product->product_id }}">thêm vào giỏ hàng</button>
                                                         @else
                                                             <a href="{{ URL::to('login_client') }}"
@@ -117,7 +117,7 @@
                                                 @csrf
                                                 <input type="hidden" value="{{ $product->product_name }}" id="recently_viewed_product_name_{{ $product->product_id }}">
                                                 <input type="hidden" value="{{ number_format($price_discount->price_now, 0, ',', '.') }}₫" id="recently_viewed_product_price_{{ $product->product_id }}">
-                                            </form>   
+                                            </form>
                                             <a href="{{ URL::to('product_detail/'.$product->product_id) }}" class="link-to-product btn_recently_viewed" data-id="{{ $product->product_id }}" id="recently_viewed_product_detail_{{ $product->product_id }}">
                                                 <img src="{{ asset('public/upload/'.$product->product_image) }}" alt="dd" style="width: 170px; height: 170px" width="270" height="270" class="product-thumnail" id="recently_viewed_product_img_{{ $product->product_id }}">
                                             </a>
@@ -174,20 +174,4 @@
 <script src="{{ asset('public/font_end/custom_ui/js/count_down.js') }}"></script>
 <script src="{{ asset('public/font_end/custom_ui/js/recently_viewed.js') }}"></script>
 
-{{-- <script type="text/javascript">
-    var product_id = " echo $product->product_id;";
-    var countDownDate = new Date(document.getElementById('val_count_down_'+product_id).value).getTime();
-    var x = setInterval(function() {
-        var now = new Date().getTime();
-        var distance = countDownDate - now;
-        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        document.getElementById("days_"+product_id).innerHTML = days;
-        document.getElementById("hours_"+product_id).innerHTML = hours;
-        document.getElementById("minutes_"+product_id).innerHTML = minutes;
-        document.getElementById("seconds_"+product_id).innerHTML = seconds;
-    }, 1000);
-</script> --}}
 
