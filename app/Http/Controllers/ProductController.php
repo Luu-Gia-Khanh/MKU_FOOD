@@ -21,34 +21,6 @@ use PDF;
 
 class ProductController extends Controller
 {
-    public function test_pdf(Request $request){
-        $type_filter = $request->type_filter;
-        $level_filter = $request->level_filter;
-        //$pdf = \App::make('dompdf.wrapper');
-        // $pdf->loadHtml($this->convertHtmlhihi());
-        // $pdf->stream();
-        if($type_filter == "cate"){
-            $data = DB::table('product')
-                    ->join('product_price','product_price.product_id','=','product.product_id')
-                    ->join('storage_product','storage_product.product_id','=','product.product_id')
-                    ->where('product_price.status', 1)
-                    ->where('product.category_id', $level_filter)
-                    ->where('product.deleted_at', null)
-                    ->orderBy('product.product_id','desc')
-                    ->get();
-            $pdf = PDF::loadView('admin.product.view_test_pdf', ['data'=>$data]);
-            return $pdf->download('codingdriver.pdf');
-        }
-        else{
-            $data = Product::all();
-            $pdf = PDF::loadView('admin.product.view_test_pdf', ['data'=>$data]);
-            return $pdf->download('codingdriver.pdf');
-        }
-
-    }
-    public function convertHtmlhihi(){
-        return '<h1>hihi</h1>';
-    }
     public function add_product(){
         $category = Category::all();
         $unit_product = Unit::all();
@@ -411,6 +383,10 @@ class ProductController extends Controller
     }
     public function filter_new_product(Request $request){
         $string_title = $request->string_new_product;
+
+        $type_filter = 'new_product';
+        $level_filter = '';
+
         $all_product = DB::table('product')
                     ->join('product_price','product_price.product_id','=','product.product_id')
                     ->join('storage_product','storage_product.product_id','=','product.product_id')
@@ -422,10 +398,16 @@ class ProductController extends Controller
         echo view('admin.product.view_filter_product',[
             'all_product'=> $all_product,
             'string_title'=> $string_title,
+            'type_filter'=> $type_filter,
+            'level_filter'=> $level_filter,
         ]);
     }
     public function filter_product_feature(Request $request){
         $string_title = $request->string_feature_product;
+
+        $type_filter = 'feature_product';
+        $level_filter = '';
+
         $all_product = DB::table('product')
                     ->join('product_price','product_price.product_id','=','product.product_id')
                     ->join('storage_product','storage_product.product_id','=','product.product_id')
@@ -437,10 +419,13 @@ class ProductController extends Controller
         echo view('admin.product.view_filter_product',[
             'all_product'=> $all_product,
             'string_title'=> $string_title,
+            'type_filter'=> $type_filter,
+            'level_filter'=> $level_filter,
         ]);
     }
     public function filter_product_follow_cate(Request $request){
         $cate_id = $request->cate_id;
+
         $type_filter = 'cate';
         $level_filter = $cate_id;
 
@@ -463,6 +448,11 @@ class ProductController extends Controller
     }
     public function filter_product_follow_cate_many(Request $request){
         $arrCate = $request->arrCate;
+
+        $type_filter = 'cate_many';
+        $level_filter = '';
+        $level_array = $arrCate;
+
         $string_title = 'Sản Phẩm Theo Danh Mục';
         $arrayProduct = array();
         foreach ($arrCate as $cate_id){
@@ -481,10 +471,17 @@ class ProductController extends Controller
         echo view('admin.product.view_filter_product',[
             'all_product'=> $orderByArrayProduct,
             'string_title'=> $string_title,
+            'type_filter'=> $type_filter,
+            'level_filter'=> $level_filter,
+            'level_array'=> $level_array,
         ]);
     }
     public function filter_product_follow_storage(Request $request){
         $storage_id = $request->storage_id;
+
+        $type_filter = 'storage';
+        $level_filter = $storage_id;
+
         $storage = Storage::find($storage_id);
         $string_title = 'Sản Phẩm Theo Kho "'.$storage->storage_name.'"';
         $all_product = DB::table('product')
@@ -498,10 +495,17 @@ class ProductController extends Controller
         echo view('admin.product.view_filter_product',[
             'all_product'=> $all_product,
             'string_title'=> $string_title,
+            'type_filter'=> $type_filter,
+            'level_filter'=> $level_filter,
         ]);
     }
     public function filter_product_follow_storage_many(Request $request){
         $arrStorage = $request->arrStorage;
+
+        $type_filter = 'storage_many';
+        $level_filter = '';
+        $level_array = $arrStorage;
+
         $string_title = 'Sản Phẩm Theo Kho';
         $arrayProduct = array();
         foreach ($arrStorage as $storage_id){
@@ -520,11 +524,18 @@ class ProductController extends Controller
         echo view('admin.product.view_filter_product',[
             'all_product'=> $orderByArrayProduct,
             'string_title'=> $string_title,
+            'type_filter'=> $type_filter,
+            'level_filter'=> $level_filter,
+            'level_array'=> $level_array,
         ]);
         //dd($arrayProduct);
     }
     public function filter_product_follow_price_choose(Request $request){
         $level_filter_price = $request->radioChoosePrice;
+
+        $type_filter = 'price';
+        $level_filter = $level_filter_price;
+
         $price_start = 0;
         $price_end = 0;
         if($level_filter_price == 1){
@@ -566,11 +577,18 @@ class ProductController extends Controller
         echo view('admin.product.view_filter_product',[
             'all_product'=> $orderByArrayProduct,
             'string_title'=> $string_title,
+            'type_filter'=> $type_filter,
+            'level_filter'=> $level_filter,
         ]);
     }
     public function filter_product_follow_price_cus_option(Request $request){
         $price_start = $request->price_start;
         $price_end = $request->price_end;
+
+        $type_filter = 'price_many';
+        $level_filter = '';
+        $price_filter_start = $price_start;
+        $price_filter_end = $price_end;
 
         $string_title = 'Sản Phẩm Theo Giá " Từ '.number_format($price_start,0,',','.')
                         .'₫ Đến '.number_format($price_end,0,',','.').'₫ "';
@@ -595,6 +613,10 @@ class ProductController extends Controller
         echo view('admin.product.view_filter_product',[
             'all_product'=> $orderByArrayProduct,
             'string_title'=> $string_title,
+            'type_filter'=> $type_filter,
+            'level_filter'=> $level_filter,
+            'price_filter_start'=> $price_filter_start,
+            'price_filter_end'=> $price_filter_end,
         ]);
     }
     public function filter_product_follow_rating_choose(Request $request){
@@ -672,5 +694,218 @@ class ProductController extends Controller
             'all_product'=> $orderByArrayProduct,
             'string_title'=> $string_title,
         ]);
+    }
+    public function print_pdf_product(Request $request){
+        $type_filter = $request->type_filter;
+        $level_filter = $request->level_filter;
+
+        switch ($type_filter) {
+            case "cate":
+                    $cate = Category::find($level_filter);
+                    $string_title = 'Danh Sách Sản Phẩm Theo Danh Mục "'.$cate->cate_name.'"';
+                    $data = DB::table('product')
+                            ->join('product_price','product_price.product_id','=','product.product_id')
+                            ->join('storage_product','storage_product.product_id','=','product.product_id')
+                            ->where('product_price.status', 1)
+                            ->where('product.category_id', $level_filter)
+                            ->where('product.deleted_at', null)
+                            ->orderBy('product.create_at','desc')
+                            ->get();
+                    $pdf = PDF::loadView('admin.product.view_print_pdf_product', [
+                        'data'=>$data,
+                        'string_title'=>$string_title,
+                    ]);
+                    return $pdf->download('danhsachsanphamtheodanhmuc.pdf');
+                break;
+            case "new_product":
+                    $string_title = 'Danh Sách Sản Phẩm Mới';
+                    $data = DB::table('product')
+                            ->join('product_price','product_price.product_id','=','product.product_id')
+                            ->join('storage_product','storage_product.product_id','=','product.product_id')
+                            ->where('product_price.status', 1)
+                            ->where('product.deleted_at', null)
+                            ->where('product.is_new',1)
+                            ->orderBy('product.create_at','desc')
+                            ->get();
+                    $pdf = PDF::loadView('admin.product.view_print_pdf_product', [
+                        'data'=>$data,
+                        'string_title'=>$string_title,
+                    ]);
+                    return $pdf->download('danhsachsanphammoi.pdf');
+                break;
+            case "feature_product":
+                    $string_title = 'Danh Sách Sản Phẩm Đặc Trưng';
+                    $data = DB::table('product')
+                            ->join('product_price','product_price.product_id','=','product.product_id')
+                            ->join('storage_product','storage_product.product_id','=','product.product_id')
+                            ->where('product_price.status', 1)
+                            ->where('product.deleted_at', null)
+                            ->where('product.is_featured',1)
+                            ->orderBy('product.create_at','desc')
+                            ->get();
+                    $pdf = PDF::loadView('admin.product.view_print_pdf_product', [
+                        'data'=>$data,
+                        'string_title'=>$string_title,
+                    ]);
+                    return $pdf->download('danhsachsanphamdactrung.pdf');
+                break;
+            case "cate_many":
+                    $level_array = $request->level_array;
+                    $string_title = 'Danh Sách Sản Phẩm Theo Danh Mục';
+
+                    $arrayProduct = array();
+                    foreach ($level_array as $cate_id){
+                        $all_product = DB::table('product')
+                                ->join('product_price','product_price.product_id','=','product.product_id')
+                                ->join('storage_product','storage_product.product_id','=','product.product_id')
+                                ->where('product_price.status', 1)
+                                ->where('product.category_id', $cate_id)
+                                ->where('product.deleted_at', null)
+                                ->get();
+                        foreach ($all_product as $product){
+                            $arrayProduct[] = $product;
+                        }
+                    }
+                    $data = (object)$arrayProduct;
+                    $pdf = PDF::loadView('admin.product.view_print_pdf_product', [
+                        'data'=>$data,
+                        'string_title'=>$string_title,
+                    ]);
+                    return $pdf->download('danhsachsanphamtheonhieudanhmuc.pdf');
+                break;
+            case "storage":
+                    $storage = Storage::find($level_filter);
+                    $string_title = 'Danh Sách Sản Phẩm Thuộc Kho "'.$storage->storage_name.'"';
+                    $data = DB::table('product')
+                            ->join('product_price','product_price.product_id','=','product.product_id')
+                            ->join('storage_product','storage_product.product_id','=','product.product_id')
+                            ->where('product_price.status', 1)
+                            ->where('product.deleted_at', null)
+                            ->where('storage_product.storage_id', $level_filter)
+                            ->orderBy('product.create_at','desc')
+                            ->get();
+                    $pdf = PDF::loadView('admin.product.view_print_pdf_product', [
+                        'data'=>$data,
+                        'string_title'=>$string_title,
+                    ]);
+                    return $pdf->download('danhsachsanphamtheokho.pdf');
+                break;
+            case "storage_many":
+                    $level_array = $request->level_array;
+                    $string_title = 'Danh Sách Sản Phẩm Theo Kho';
+
+                    $arrayProduct = array();
+                    foreach ($level_array as $storage_id){
+                        $all_product = DB::table('product')
+                                ->join('product_price','product_price.product_id','=','product.product_id')
+                                ->join('storage_product','storage_product.product_id','=','product.product_id')
+                                ->where('product_price.status', 1)
+                                ->where('storage_product.storage_id', $storage_id)
+                                ->where('product.deleted_at', null)
+                                ->get();
+                        foreach ($all_product as $product){
+                            $arrayProduct[] = $product;
+                        }
+                    }
+                    $data = (object)$arrayProduct;
+                    $pdf = PDF::loadView('admin.product.view_print_pdf_product', [
+                        'data'=>$data,
+                        'string_title'=>$string_title,
+                    ]);
+                    return $pdf->download('danhsachsanphamtheonhieukho.pdf');
+                break;
+            case "price":
+                    if($level_filter == 1){
+                        $price_start = 5000;
+                        $price_end = 20000;
+                    }
+                    else if($level_filter == 2){
+                        $price_start = 20000;
+                        $price_end = 50000;
+                    }
+                    else if($level_filter == 3){
+                        $price_start = 50000;
+                        $price_end = 100000;
+                    }
+                    else if($level_filter == 4){
+                        $price_start = 100000;
+                        $price_end = 200000;
+                    }
+                    $string_title = 'Danh Sách Sản Phẩm Theo Giá " Từ '.number_format($price_start,0,',','.')
+                                    .'₫ Đến '.number_format($price_end,0,',','.').'₫ "';
+                    $all_product = DB::table('product')
+                                ->join('product_price','product_price.product_id','=','product.product_id')
+                                ->join('storage_product','storage_product.product_id','=','product.product_id')
+                                ->where('product_price.status', 1)
+                                ->where('product.deleted_at', null)
+                                ->orderBy('product.product_id','desc')
+                                ->get();
+                    $arrayProduct = array();
+                    $callFunction = new HomeClientController;
+                    foreach($all_product as $product){
+                        $check_price = $callFunction->check_price_discount($product->product_id);
+                        $price_now = number_format($check_price->price_now,0,',','');
+                        if($price_start <= $price_now && $price_now <= $price_end){
+                            $product->price_now =  $price_now;
+                            $arrayProduct[] = $product;
+                        }
+                    }
+                    $orderByArrayProduct = collect($arrayProduct)->sortByDesc('price_now')->reverse()->toArray();
+                    $data = $orderByArrayProduct;
+                    $pdf = PDF::loadView('admin.product.view_print_pdf_product', [
+                        'data'=>$data,
+                        'string_title'=>$string_title,
+                    ]);
+                    return $pdf->download('danhsachsanphamtheogia.pdf');
+                break;
+            case "price_many":
+                    $price_start = $request->price_filter_start;
+                    $price_end = $request->price_filter_end;
+                    $string_title = 'Danh Sách Sản Phẩm Theo Giá " Từ '.number_format($price_start,0,',','.')
+                                    .'₫ Đến '.number_format($price_end,0,',','.').'₫ "';
+
+                    $all_product = DB::table('product')
+                                ->join('product_price','product_price.product_id','=','product.product_id')
+                                ->join('storage_product','storage_product.product_id','=','product.product_id')
+                                ->where('product_price.status', 1)
+                                ->where('product.deleted_at', null)
+                                ->orderBy('product.product_id','desc')
+                                ->get();
+                    $arrayProduct = array();
+                    $callFunction = new HomeClientController;
+                    foreach($all_product as $product){
+                        $check_price = $callFunction->check_price_discount($product->product_id);
+                        $price_now = number_format($check_price->price_now,0,',','');
+                        if($price_start <= $price_now && $price_now <= $price_end){
+                            $product->price_now =  $price_now;
+                            $arrayProduct[] = $product;
+                        }
+
+                    }
+                    $orderByArrayProduct = collect($arrayProduct)->sortByDesc('price_now')->reverse()->toArray();
+                    $data = $orderByArrayProduct;
+                    $pdf = PDF::loadView('admin.product.view_print_pdf_product', [
+                        'data'=>$data,
+                        'string_title'=>$string_title,
+                    ]);
+                    return $pdf->download('danhsachsanphamtheogiatuchon.pdf');
+
+                break;
+            default:
+                $string_title = 'Danh Sách Sản Phẩm';
+                $data = DB::table('product')
+                        ->join('product_price','product_price.product_id','=','product.product_id')
+                        ->join('storage_product','storage_product.product_id','=','product.product_id')
+                        ->where('product_price.status', 1)
+                        ->where('product.deleted_at', null)
+                        ->orderBy('product.create_at','desc')
+                        ->get();
+                $pdf = PDF::loadView('admin.product.view_print_pdf_product', [
+                    'data'=>$data,
+                    'string_title'=>$string_title,
+                ]);
+                return $pdf->download('danhsachsanpham.pdf');
+          }
+
     }
 }

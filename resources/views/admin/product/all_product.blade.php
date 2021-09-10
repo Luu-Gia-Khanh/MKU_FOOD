@@ -148,31 +148,22 @@
                                     </div>
                                 </div>
                             </div>
-                            <form action="{{ URL::to('admin/test_pdf') }}" method="post">
-                                @csrf
-                                {{-- type filter --}}
-                                    <input type="hidden" class="type_filter" name="type_filter" value="">
-                                    <input type="hidden" class="level_filter" name="level_filter" value="">
-                                {{--  --}}
-                                <button type="submit" class="btn btn-secondary">PDF</button>
-                            </form>
-
-                            {{-- <div class="dt-buttons btn-group ">
-                                <button class="btn btn-secondary buttons-copy buttons-html5" tabindex="0"
-                                    aria-controls="DataTables_Table_2" type="button"><span>Copy</span>
-                                </button>
-                                <button class="btn btn-secondary buttons-csv buttons-html5" tabindex="0"
-                                    aria-controls="DataTables_Table_2" type="button"><span>CSV</span>
-                                </button>
-                                <button
-                                    class="btn btn-secondary buttons-pdf buttons-html5" tabindex="0"
-                                    aria-controls="DataTables_Table_2" type="button"><span>PDF</span>
-                                </button>
-                                <button
-                                    class="btn btn-secondary buttons-print" tabindex="0" aria-controls="DataTables_Table_2"
-                                    type="button"><span>Print</span>
-                                </button>
-                            </div> --}}
+                            <div class="content_print_pdf_product ml-10">
+                                <form action="{{ URL::to('admin/print_pdf_product') }}" method="post">
+                                    @csrf
+                                    {{-- type filter --}}
+                                        <input type="hidden" class="type_filter" name="type_filter" value="">
+                                        <input type="hidden" class="level_filter" name="level_filter" value="">
+                                        <input type="hidden" name="level_array" value="">
+                                        <input type="hidden" name="price_filter_start" value="">
+                                        <input type="hidden" name="price_filter_end" value="">
+                                    {{--  --}}
+                                    <button type="submit" class="btn btn-secondary">
+                                        Xuất
+                                        <img src="{{ asset('public/upload/pdf1.svg') }}" style="height: 25px" alt="">
+                                    </button>
+                                </form>
+                            </div>
                         </div>
                         <div class="col-sm-12 col-md-6">
                             <div id="DataTables_Table_0_filter" class="dataTables_filter">
@@ -225,7 +216,6 @@
                                         @php
                                             $price_discount = App\Http\Controllers\HomeClientController::check_price_discount($prod->product_id);
                                             $info_rating_saled = App\Http\Controllers\HomeClientController::info_rating_saled($prod->product_id);
-
                                         @endphp
                                         <tr role="
                                             row" class="odd">

@@ -1,21 +1,11 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('public/back_end/sort_table/Contents/bootstrap-sortable.css') }}">
 <div class="pd-20">
     <h4 class="text-blue h4">Danh Sách {{ $string_title }}</h4>
-    {{-- type filter --}}
-    @if (isset($type_filter))
-        <input type="hidden" class="type_filter" value="{{ $type_filter }}">
-        <input type="hidden" class="level_filter" value="{{ $level_filter }}">
-    @else
-        <input type="hidden" class="type_filter" value="">
-        <input type="hidden" class="level_filter" value="">
-    @endif
-
-    {{--  --}}
 </div>
 <div class="pb-20">
     <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer ">
         <div class="row">
-            <div class="col-sm-12 col-md-6">
+            <div class="col-sm-12 col-md-6 d-flex">
                 <div class="content_filter pl-20">
                     <div class="dropdown">
                         <a class="btn btn-success dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
@@ -39,17 +29,39 @@
                         </div>
                     </div>
                 </div>
-                <form action="{{ URL::to('admin/test_pdf') }}" method="post">
-                    @csrf
-                    @if (isset($type_filter))
-                        <input type="hidden" class="type_filter" name="type_filter" value="{{ $type_filter }}">
-                        <input type="hidden" class="level_filter" name="level_filter" value="{{ $level_filter }}">
-                    @else
-                        <input type="hidden" class="type_filter" name="type_filter" value="">
-                        <input type="hidden" class="level_filter" name="level_filter" value="">
-                    @endif
-                    <button type="submit" class="btn btn-secondary">PDF</button>
-                </form>
+                @if (count($all_product) > 0)
+                    <div class="content_print_pdf_product ml-10">
+                        <form action="{{ URL::to('admin/print_pdf_product') }}" method="post">
+                            @csrf
+                            @if (isset($type_filter))
+                                <input type="hidden" class="type_filter" name="type_filter" value="{{ $type_filter }}">
+                                <input type="hidden" class="level_filter" name="level_filter" value="{{ $level_filter }}">
+                                @if (isset($level_array))
+                                    @foreach ($level_array as $level)
+                                        <input type="hidden" name="level_array[]" value="{{ $level }}">
+                                    @endforeach
+                                @else
+                                    <input type="hidden" name="level_array[]" value="">
+                                @endif
+                                @if (isset($price_filter_start) && isset($price_filter_end))
+                                    <input type="hidden" name="price_filter_start" value="{{ $price_filter_start }}">
+                                    <input type="hidden" name="price_filter_end" value="{{ $price_filter_end }}">
+                                @else
+                                    <input type="hidden" name="price_filter_start" value="">
+                                    <input type="hidden" name="price_filter_end" value="">
+                                @endif
+                            @else
+                                <input type="hidden" class="type_filter" name="type_filter" value="">
+                                <input type="hidden" class="level_filter" name="level_filter" value="">
+                            @endif
+                            <button type="submit" class="btn btn-secondary">
+                                Xuất
+                                <img src="{{ asset('public/upload/pdf1.svg') }}" style="height: 25px" alt="">
+                            </button>
+                        </form>
+                    </div>
+                @endif
+
             </div>
             <div class="col-sm-12 col-md-6">
                 {{-- <div id="DataTables_Table_0_filter" class="dataTables_filter">

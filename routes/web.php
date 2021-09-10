@@ -93,7 +93,7 @@ Route::prefix('admin')->group(function () {
     Route::post('filter_product_follow_date_create_single', 'ProductController@filter_product_follow_date_create_single');
     Route::post('filter_product_follow_date_create_many', 'ProductController@filter_product_follow_date_create_many');
 
-    Route::post('test_pdf', 'ProductController@test_pdf');
+    Route::post('print_pdf_product', 'ProductController@print_pdf_product');
     // PRODUCT IMAGE
     Route::get('all_gallery_product/{prod_id}', 'ImageProductController@all_gallery_product');
     Route::get('view_recycle_image_product/{prod_id}', 'ImageProductController@view_recycle_image_product');
