@@ -814,7 +814,7 @@
             </div>
         </div>
     </div>
-    <!-- The Modal Add Address Trans -->
+    <!-- The Modal -->
     <div class="modal_delete_comment modal">
         <!-- Modal content -->
         <div class="modal-content container">
@@ -835,11 +835,31 @@
             </div>
         </div>
     </div>
+    <!-- The Modal mini detail product -->
+    <div class="modal_mini_detail modal">
+        <!-- Modal content -->
+        <div class="modal-content container">
+            <div class="modal-header-mini_prod">
+                <span class="close close_modal">&times;</span>
+            </div>
+            <div class="modal_body_mini_prod content_mini_detail">
+
+            </div>
+        </div>
+    </div>
     <script src="{{ asset('public/font_end/assets/js/jquery-3.4.1.min.js') }}"></script>
     <script src="{{ asset('public/font_end/custom/sweet.js') }}"></script>
     <script src="{{ asset('public/font_end/custom/save_voucher.js') }}"></script>
     <script src="{{ asset('public/font_end/custom/rating_comment.js') }}"></script>
     <script src="{{ asset('public/font_end/custom/mini_detail_product.js') }}"></script>
     <script src="{{ asset('public/font_end/custom_ui/js/recently_viewed.js') }}"></script>
+
+{{--
+    <script src="{{ asset('public/font_end/assets/js/jquery-3.4.1.min.js') }}"></script>
+    <script src="{{ asset('public/font_end/custom/custom.js') }}"></script>
+    <script src="{{ asset('public/font_end/custom/update_cart_ajax.js') }}"></script>
+    <script src="{{ asset('public/font_end/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('public/font_end/custom/mini_detail_product.js') }}"></script>
+    <script src="{{ asset('public/font_end/custom_ui/js/ajax_wish_list.js') }}"></script> --}}
 
 @endsection

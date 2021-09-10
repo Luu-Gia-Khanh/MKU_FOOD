@@ -1,6 +1,16 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('public/back_end/sort_table/Contents/bootstrap-sortable.css') }}">
 <div class="pd-20">
     <h4 class="text-blue h4">Danh Sách {{ $string_title }}</h4>
+    {{-- type filter --}}
+    @if (isset($type_filter))
+        <input type="hidden" class="type_filter" value="{{ $type_filter }}">
+        <input type="hidden" class="level_filter" value="{{ $level_filter }}">
+    @else
+        <input type="hidden" class="type_filter" value="">
+        <input type="hidden" class="level_filter" value="">
+    @endif
+
+    {{--  --}}
 </div>
 <div class="pb-20">
     <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer ">
@@ -29,6 +39,17 @@
                         </div>
                     </div>
                 </div>
+                <form action="{{ URL::to('admin/test_pdf') }}" method="post">
+                    @csrf
+                    @if (isset($type_filter))
+                        <input type="hidden" class="type_filter" name="type_filter" value="{{ $type_filter }}">
+                        <input type="hidden" class="level_filter" name="level_filter" value="{{ $level_filter }}">
+                    @else
+                        <input type="hidden" class="type_filter" name="type_filter" value="">
+                        <input type="hidden" class="level_filter" name="level_filter" value="">
+                    @endif
+                    <button type="submit" class="btn btn-secondary">PDF</button>
+                </form>
             </div>
             <div class="col-sm-12 col-md-6">
                 {{-- <div id="DataTables_Table_0_filter" class="dataTables_filter">

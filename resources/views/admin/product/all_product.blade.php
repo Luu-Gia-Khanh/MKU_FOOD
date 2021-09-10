@@ -148,7 +148,15 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="{{ URL::to('admin/test_pdf') }}" class="btn btn-secondary ml-10 mb-10">PDF</a>
+                            <form action="{{ URL::to('admin/test_pdf') }}" method="post">
+                                @csrf
+                                {{-- type filter --}}
+                                    <input type="hidden" class="type_filter" name="type_filter" value="">
+                                    <input type="hidden" class="level_filter" name="level_filter" value="">
+                                {{--  --}}
+                                <button type="submit" class="btn btn-secondary">PDF</button>
+                            </form>
+
                             {{-- <div class="dt-buttons btn-group ">
                                 <button class="btn btn-secondary buttons-copy buttons-html5" tabindex="0"
                                     aria-controls="DataTables_Table_2" type="button"><span>Copy</span>

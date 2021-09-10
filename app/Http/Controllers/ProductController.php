@@ -21,13 +21,30 @@ use PDF;
 
 class ProductController extends Controller
 {
-    public function test_pdf(){
+    public function test_pdf(Request $request){
+        $type_filter = $request->type_filter;
+        $level_filter = $request->level_filter;
         //$pdf = \App::make('dompdf.wrapper');
         // $pdf->loadHtml($this->convertHtmlhihi());
         // $pdf->stream();
-        $data = Product::all();
-        $pdf = PDF::loadView('admin.product.view_test_pdf', ['data'=>$data]);
-        return $pdf->download('codingdriver.pdf');
+        if($type_filter == "cate"){
+            $data = DB::table('product')
+                    ->join('product_price','product_price.product_id','=','product.product_id')
+                    ->join('storage_product','storage_product.product_id','=','product.product_id')
+                    ->where('product_price.status', 1)
+                    ->where('product.category_id', $level_filter)
+                    ->where('product.deleted_at', null)
+                    ->orderBy('product.product_id','desc')
+                    ->get();
+            $pdf = PDF::loadView('admin.product.view_test_pdf', ['data'=>$data]);
+            return $pdf->download('codingdriver.pdf');
+        }
+        else{
+            $data = Product::all();
+            $pdf = PDF::loadView('admin.product.view_test_pdf', ['data'=>$data]);
+            return $pdf->download('codingdriver.pdf');
+        }
+
     }
     public function convertHtmlhihi(){
         return '<h1>hihi</h1>';
@@ -424,6 +441,9 @@ class ProductController extends Controller
     }
     public function filter_product_follow_cate(Request $request){
         $cate_id = $request->cate_id;
+        $type_filter = 'cate';
+        $level_filter = $cate_id;
+
         $cate = Category::find($cate_id);
         $string_title = 'Sản Phẩm Theo Danh Mục "'.$cate->cate_name.'"';
         $all_product = DB::table('product')
@@ -437,6 +457,8 @@ class ProductController extends Controller
         echo view('admin.product.view_filter_product',[
             'all_product'=> $all_product,
             'string_title'=> $string_title,
+            'type_filter'=> $type_filter,
+            'level_filter'=> $level_filter,
         ]);
     }
     public function filter_product_follow_cate_many(Request $request){

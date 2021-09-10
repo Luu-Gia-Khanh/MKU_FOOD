@@ -7,51 +7,43 @@
  5/ quan lý don hang sau dat.
  -> xong co ban.(1 tháng 16/06 - 16/7) -> FINISH
 ///
-
-6/9 -> 10/9
-khanh {
-    1/ show list product ->{
-        hình ảnh,
-        tên,
-        giá,
-        số lượng tồn,
-        số lượng đã bán,
-        rating
+10/9 -> 17/9
+Khánh{
+    3/ đơn hàng{
+        lọc đơn hàng theo giá.
+        lọc đơn hàng theo trạng thái thanh toán
+        lọc đơn hàng theo hình thức thanh toán
+        lọc theo ngày
     }
-    2/ product detail ->{
-        số lượng đã bán,
-        số lượng tồn,
-        đánh giá,
-        comment,
+    4/ giảm giá{
+        những giảm giá còn thời hạn
+        ---------------hết---------
     }
-    3/ lọc ->{
-        sản phẩm mới,
-        sản phẩm đặc trưng,
-        giá{
-            - lists to chooses
-            - form to filter
-        },
-        rating{
-            -
-            -
-        },
-        category{
-
-        }
-        storage{
-
-        }
-    }
-    4/ thống kê{
-        tổng sản phẩm,
-        sản phẩm mới,
-        sản phẩm đặc trưng,
-        sản phẩm khuyến mãi,
+    6/ duyệt bình luận{
+        lọc theo sản phẩm.
+        lọc theo đánh giá
     }
 }
-kha{
-    1/ thu gọn
-    2/ chính sách
+Kha{
+    1/Khách hàng{
+        - list{
+            số lượng đơn hàng đã đăt -> theo các giá trị
+        }
+        chi tiết khách hàng-> {
+            lọc ngày mua hàng.
+            lọc giá.
+        }
+    }
+    2/ kho hàng{
+        lọc theo số lượng tồn tron kho
+    }
+
+
+    5/ voucher{
+        những voucher còn thời hạn
+        ---------------hết---------
+        ngày thêm
+    }
 }
 
 //// memory

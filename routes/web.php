@@ -93,7 +93,7 @@ Route::prefix('admin')->group(function () {
     Route::post('filter_product_follow_date_create_single', 'ProductController@filter_product_follow_date_create_single');
     Route::post('filter_product_follow_date_create_many', 'ProductController@filter_product_follow_date_create_many');
 
-    Route::get('test_pdf', 'ProductController@test_pdf');
+    Route::post('test_pdf', 'ProductController@test_pdf');
     // PRODUCT IMAGE
     Route::get('all_gallery_product/{prod_id}', 'ImageProductController@all_gallery_product');
     Route::get('view_recycle_image_product/{prod_id}', 'ImageProductController@view_recycle_image_product');
@@ -262,6 +262,11 @@ Route::post('filter_modal_shop_ajax', 'ShopController@filter_modal_shop_ajax');
 //detail product
 Route::get('product_detail/{product_id}', 'HomeClientController@product_detail');
 Route::get('buy_now/{product_id}', 'HomeClientController@buy_now');
+Route::post('load_detail_product', 'HomeClientController@load_detail_product');
+    //event card side detail
+    Route::post('product_detail/load_detail_product', 'HomeClientController@load_detail_product');
+    Route::post('product_detail/add_to_cart', 'CartController@add_cart');
+    Route::post('product_detail/add_wish_list_ajax', 'WishListController@add_wish_list_ajax');
 // search auto complete
 Route::post('ajax_search_auto_complete', 'HomeClientController@ajax_search_auto_complete');
 Route::post('search_product_form_search_auto_complete', 'HomeClientController@search_product_form_search_auto_complete');
@@ -282,7 +287,7 @@ Route::post('like_comment', 'HomeClientController@like_comment');
 Route::post('delete_comment', 'HomeClientController@delete_comment');
 Route::post('update_comment', 'HomeClientController@update_comment');
 
-Route::post('load_detail_product', 'HomeClientController@load_detail_product');
+
 Route::get('user/account', 'AccountController@show_account');
 Route::get('user/address', 'AccountController@address_account');
 Route::get('user/resetpassword', 'AccountController@reset_password_account');
