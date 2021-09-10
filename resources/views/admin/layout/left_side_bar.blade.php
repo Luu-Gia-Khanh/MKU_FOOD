@@ -1,8 +1,9 @@
 <div class="left-side-bar">
     <div class="brand-logo">
-        <a href="index.html">
-            <img src="{{ asset('public/back_end/vendors/images/deskapp-logo.svg') }}" alt="" class="dark-logo">
-            <img src="{{ asset('public/back_end/vendors/images/deskapp-logo-white.svg') }}" alt="" class="light-logo">
+        <a href="{{ URL::to("/admin") }}">
+            {{-- <img src="{{ asset('public/back_end/vendors/images/deskapp-logo.svg') }}" alt="" class="dark-logo"> --}}
+            {{-- <img src="{{ asset('public/back_end/vendors/images/deskapp-logo-white.svg') }}" alt="" class="light-logo"> --}}
+            <img src="{{ asset('public/upload/logo_mku_9.svg') }}" alt="" style="height: 46px;">
         </a>
         <div class="close-sidebar" data-toggle="left-sidebar-close">
             <i class="ion-close-round"></i>

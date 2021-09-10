@@ -329,6 +329,14 @@ class HomeClientController extends Controller
         $all_product = Product::all();
         $all_price = ProductPrice::where('status',1)->get();
 
+        $all_product_relate = DB::table('product')
+        ->join('category','category.cate_id','=','product.category_id')
+        ->join('product_price','product_price.product_id','=','product.product_id')
+        ->join('storage_product','storage_product.product_id','=','product.product_id')
+        ->where('product.deleted_at', null)
+        ->where('product_price.status',1)
+        ->get();
+
         $date_now = Carbon::now('Asia/Ho_Chi_Minh');
         $all_product_voucher = Voucher::where('product_id', $product_id)
                                         ->where('status', 1)
@@ -414,6 +422,7 @@ class HomeClientController extends Controller
             'rating_1' => $rating_1,
             'all_product_voucher' => $all_product_voucher,
             'storage_customer_voucher' => $storage_customer_voucher,
+            'all_product_relate' => $all_product_relate,
         ]);
     }
     public function load_detail_product(Request $request){
@@ -613,6 +622,17 @@ class HomeClientController extends Controller
         $wish_lish = WishList::where('customer_id', $customer_id)->get();
         $all_cart = Cart::where('customer_id', $customer_id)->where('status', 1)->get();
         return view('client.contact.contact_us',[
+            'all_product'=>$all_product,
+            'all_cart'=>$all_cart,
+            'wish_lish'=> $wish_lish,
+        ]);
+    }
+    public function terms_conditions(){
+        $customer_id = Session::get('customer_id');
+        $all_product = Product::all();
+        $wish_lish = WishList::where('customer_id', $customer_id)->get();
+        $all_cart = Cart::where('customer_id', $customer_id)->where('status', 1)->get();
+        return view('client.terms_conditions.terms_conditions',[
             'all_product'=>$all_product,
             'all_cart'=>$all_cart,
             'wish_lish'=> $wish_lish,

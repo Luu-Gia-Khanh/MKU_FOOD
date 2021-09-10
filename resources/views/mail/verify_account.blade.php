@@ -65,7 +65,7 @@
                                            <tbody>
                                               <tr>
                                                  <td align="center" height="43" style="border-collapse:collapse;background-color:#7faf51;border-radius:9px;white-space:nowrap">
-                                                    <a href="http://localhost/MKU_FOOD/process_register_client/{{ $username }}/{{ $email }}/{{ $password }}" style="display:inline-block;width:100%;font-family:Arial,Helvetica,sans-serif;font-size:16px;font-weight:bold;line-height:19px;letter-spacing:0.8px;text-transform:uppercase;color:#ffffff;text-align:center;text-decoration:none;background-color:#7faf51;border-radius:14px;border-top:12px solid #7faf51;border-bottom:12px solid #7faf51" target="_blank">
+                                                    <a href="http://mkufood.abc/process_register_client/{{ $username }}/{{ $email }}/{{ $password }}" style="display:inline-block;width:100%;font-family:Arial,Helvetica,sans-serif;font-size:16px;font-weight:bold;line-height:19px;letter-spacing:0.8px;text-transform:uppercase;color:#ffffff;text-align:center;text-decoration:none;background-color:#7faf51;border-radius:14px;border-top:12px solid #7faf51;border-bottom:12px solid #7faf51" target="_blank">
                                                    
                                                         Xác nhận tài khoản
             

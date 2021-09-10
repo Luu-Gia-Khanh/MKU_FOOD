@@ -570,8 +570,6 @@
                                         <h4 class="wgt-title">Sản phẩm đã xem</h4>
                                         <div class="wgt-content">
                                             <ul class="products content_recently_viewed" id="myList">
-                                                {{-- <div class="">
-                                                </div> --}}
                                             </ul>
                                         </div>
                                     </div>
