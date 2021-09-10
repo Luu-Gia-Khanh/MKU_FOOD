@@ -110,8 +110,8 @@
                                                         <td>
                                                             @foreach ($all_rating as $rating)
                                                                 @if ($rating->customer_id == $comment->customer_id && $rating->product_id == $comment->product_id)
-                                                                    {{ $comment->rating_level }}
-                                                                    <i class="icon-copy fi-star" style="color: rgb(201, 201, 35); font-size: 18px"></i>
+                                                                    {{ $rating->rating_level }}
+                                                                    <i class="icon-copy fa fa-star" aria-hidden="true" style="color: #fddf0a; font-size: 18px"></i>
                                                                 @endif
                                                             @endforeach
 

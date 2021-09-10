@@ -1,5 +1,9 @@
 @extends('admin.layout_admin')
 @section('container')
+@php
+    $price_discount = App\Http\Controllers\HomeClientController::check_price_discount($product->product_id);
+    $info_rating_saled = App\Http\Controllers\HomeClientController::info_rating_saled($product->product_id);
+@endphp
 <div class="min-height-200px">
     <div class="page-header">
         <div class="row">
@@ -23,7 +27,9 @@
                 <div class="col-md-8 col-sm-12">
                     <div class="blog-detail card-box overflow-hidden mb-30">
                         <div class="blog-img">
-                            <img src="{{ asset('public/upload/'.$product->product_image) }}" alt="" height="376px" width="669px">
+                            <div class="content-image-deatail-product">
+                                <img class="img_detail_product" src="{{ asset('public/upload/'.$product->product_image) }}" alt="">
+                            </div>
                         </div>
                         <div class="blog-caption">
                             <h4 class="mb-10">Mô tả ngắn sản phẩm</h4>
@@ -43,22 +49,31 @@
                                     <span>{{ $product->product_name }}</span>
                                 </li>
                                 <li>
-                                    <h4><a href="#">Loại sản phẩm</a></h4>
+                                    <h4><a href="#">Danh mục sản phẩm</a></h4>
                                     <span>
                                         @foreach ($all_cate as $cate)
                                             @if ($cate->cate_id == $product->category_id)
                                                 {{ $cate->cate_name }}
                                             @endif
                                         @endforeach
+
                                     </span>
                                 </li>
                                 <li>
                                     <h4><a href="#">Giá sản phẩm</a></h4>
-                                    <span>{{ number_format($product_price->price, 0, ',', '.') }} vnđ</span>
+                                    <span>
+                                        @if ($price_discount->percent_discount != 0)
+                                            {{ number_format($price_discount->price_now, 0, ',', '.') }}₫
+                                            <del class="ml-10">{{ number_format($price_discount->price_old, 0, ',', '.') }}₫</del>
+                                            <span class="badge badge-danger">-{{ $price_discount->percent_discount }}%</span>
+                                        @else
+                                            {{ number_format($price_discount->price_now, 0, ',', '.') }}₫
+                                        @endif
+                                    </span>
                                 </li>
                                 <li>
                                     <h4><a href="#">Số lượng trong kho</a></h4>
-                                    <span>{{ $storage_product->total_quantity_product }}</span>
+                                    <span>{{ $product->total_quantity_product }}</span>
                                 </li>
                                 <li>
                                     <h4><a href="#">Đơn vị tính</a></a></h4>
@@ -74,11 +89,35 @@
                                     <h4><a href="#">Kho</a></h4>
                                     <span>
                                         @foreach ($all_storage as $storage)
-                                            @if ($storage->storage_id == $storage_product->storage_id)
+                                            @if ($storage->storage_id == $product->storage_id)
                                                 {{ $storage->storage_name }}
                                             @endif
                                         @endforeach
                                     </span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-box mb-30">
+                        <div class="latest-post">
+                            <ul>
+                                <li>
+                                    <h4 class="d-flex">
+                                        <a href="#" class="">Đã bán</a>
+                                        <span class="ml-10">{{ $info_rating_saled->count_product_saled }}</span>
+                                    </h4>
+                                </li>
+                                <li>
+                                    <h4 class="d-flex">
+                                        <a href="#" class="">Đánh giá</a>
+                                        <span class="ml-10">{{ $info_rating_saled->avg_rating }}<i class="icon-copy fa fa-star" aria-hidden="true" style="color: #eded4e; font-size: 18px"></i></span>
+                                    </h4>
+                                </li>
+                                <li>
+                                    <h4 class="d-flex">
+                                        <a href="#" class="">Bình luận</a>
+                                        <span class="ml-10">{{ count($comment) }}</span>
+                                    </h4>
                                 </li>
                             </ul>
                         </div>

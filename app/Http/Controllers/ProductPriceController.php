@@ -15,7 +15,7 @@ class ProductPriceController extends Controller
     public function history_price_product($prod_id){
 
         $product = Product::find($prod_id);
-        $history_price = ProductPrice::where('product_id', $prod_id)->get();
+        $history_price = ProductPrice::where('product_id', $prod_id)->orderBy('price_id', 'desc')->get();
         return view('admin.product_price.view_history_price',
             ['product'=>$product, 'history_price'=>$history_price]);
     }
@@ -58,5 +58,34 @@ class ProductPriceController extends Controller
             $admin_action_product_price->save();
         }
         return redirect()->back();
+    }
+    public function filter_price_product_history(Request $request){
+        $product_id = $request->product_id;
+        $date_start = $request->date_start;
+        $date_end = $request->date_end;
+        $date_filter_start = date('Y-m-d', strtotime($date_start));
+        $date_filter_end = date('Y-m-d', strtotime($date_end));
+
+        $string_title = '('.date('d/m/Y', strtotime($date_start)).'
+                        - '.date('d/m/Y', strtotime($date_filter_end)).')';
+        $arrayProduct = array();
+        $product = PRODUCT::find($product_id);
+        $all_product = DB::table('product')
+                ->join('product_price','product_price.product_id','=','product.product_id')
+                ->where('product.deleted_at', null)
+                ->where('product.product_id', $product_id)
+                ->get();
+        foreach ($all_product as $product){
+            $date_updated = date('Y-m-d', strtotime($product->updated_at));
+            if($date_start <= $date_updated && $date_updated <= $date_end){
+                $arrayProduct[] = $product;
+            }
+        }
+        $orderByArrayProduct = collect($arrayProduct)->sortByDesc('updated_at')->reverse()->toArray();
+        echo view('admin.product_price.view_filter_price_product',[
+            'history_price'=> $orderByArrayProduct,
+            'string_title'=> $string_title,
+            'product'=> $product,
+        ]);
     }
 }

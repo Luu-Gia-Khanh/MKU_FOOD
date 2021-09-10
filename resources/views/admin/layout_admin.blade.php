@@ -27,8 +27,13 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('public/back_end/src/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css') }}">
     {{-- sort table --}}
     <link rel="stylesheet" type="text/css" href="{{ asset('public/back_end/sort_table/Contents/bootstrap-sortable.css') }}">
+    {{-- fancy box --}}
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/back_end/src/plugins/fancybox/dist/jquery.fancybox.css') }}">
+    {{-- asColorPicker --}}
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/back_end/src/plugins/jquery-asColorPicker/dist/css/asColorPicker.css') }}">
 
     <link rel="stylesheet" type="text/css" href="{{ asset('public/back_end/src/styles/custom.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/back_end/filter_product/filter_product.css') }}">
 </head>
 <body>
     {{-- HEADER --}}
@@ -79,9 +84,16 @@
 	<script src="{{ asset('public/back_end/src/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js') }}"></script>
     <script src="{{ asset('public/back_end/src/scripts/custom_order.js') }}"></script>
     <script src="{{ asset('public/back_end/src/scripts/discount_custom.js') }}"></script>
-    <script src="{{ asset('public/back_end/src/scripts/find_ajax_process_comment.js') }}"></script>
     <script src="{{ asset('public/back_end/src/scripts/modal_process_comment.js') }}"></script>
-
+    {{-- <script src="{{ asset('public/back_end/filter_product/filter_product.js') }}"></script> --}}
+    <script src="{{ asset('public/back_end/filter_price_product/filter_price_product.js') }}"></script>
+    {{-- fancy box --}}
+    <script src="{{ asset('public/back_end/src/plugins/fancybox/dist/jquery.fancybox.js') }}"></script>
+    {{-- asColorPicker --}}
+    <script src="src/plugins/jquery-asColor/dist/jquery-asColor.js"></script>
+	<script src="src/plugins/jquery-asGradient/dist/jquery-asGradient.js"></script>
+	<script src="src/plugins/jquery-asColorPicker/jquery-asColorPicker.js"></script>
+	<script src="vendors/scripts/colorpicker.js"></script>
     {{-- CKeditor --}}
     <script>
         CKEDITOR.replace('ck_admin_add_product_sort_desc');

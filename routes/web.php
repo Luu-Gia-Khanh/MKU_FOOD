@@ -81,7 +81,19 @@ Route::prefix('admin')->group(function () {
     Route::post('process_update_product/{prod_id}', 'ProductController@process_update_product');
     Route::post('soft_delete_product', 'ProductController@soft_delete_product');
     Route::post('delete_forever_product', 'ProductController@delete_forever_product');
+    Route::post('filter_new_product', 'ProductController@filter_new_product');
+    Route::post('filter_product_feature', 'ProductController@filter_product_feature');
+    Route::post('filter_product_follow_cate', 'ProductController@filter_product_follow_cate');
+    Route::post('filter_product_follow_cate_many', 'ProductController@filter_product_follow_cate_many');
+    Route::post('filter_product_follow_storage', 'ProductController@filter_product_follow_storage');
+    Route::post('filter_product_follow_storage_many', 'ProductController@filter_product_follow_storage_many');
+    Route::post('filter_product_follow_price_choose', 'ProductController@filter_product_follow_price_choose');
+    Route::post('filter_product_follow_price_cus_option', 'ProductController@filter_product_follow_price_cus_option');
+    Route::post('filter_product_follow_rating_choose', 'ProductController@filter_product_follow_rating_choose');
+    Route::post('filter_product_follow_date_create_single', 'ProductController@filter_product_follow_date_create_single');
+    Route::post('filter_product_follow_date_create_many', 'ProductController@filter_product_follow_date_create_many');
 
+    Route::get('test_pdf', 'ProductController@test_pdf');
     // PRODUCT IMAGE
     Route::get('all_gallery_product/{prod_id}', 'ImageProductController@all_gallery_product');
     Route::get('view_recycle_image_product/{prod_id}', 'ImageProductController@view_recycle_image_product');
@@ -96,6 +108,7 @@ Route::prefix('admin')->group(function () {
     Route::get('history_price_product/{prod_id}', 'ProductPriceController@history_price_product');
 
     Route::post('update_price_product', 'ProductPriceController@update_price_product');
+    Route::post('filter_price_product_history', 'ProductPriceController@filter_price_product_history');
 
     //PERMISSION
     Route::get('list_permission', 'AdminController@list_permission')->middleware('role_admin_manager');
@@ -239,6 +252,7 @@ Route::get('show_all_product_recommend', 'HomeClientController@show_all_product_
 Route::post('ajax_sort_cate_shop', 'ShopController@ajax_sort_cate_shop');
 Route::post('ajax_sort_rating_shop', 'ShopController@ajax_sort_rating_shop');
 Route::post('ajax_sort_price_enter_shop', 'ShopController@ajax_sort_price_enter_shop');
+
 Route::post('sort_price_ajax_shop_select', 'ShopController@sort_price_ajax_shop_select');
 Route::post('sort_rating_ajax_shop_select', 'ShopController@sort_rating_ajax_shop_select');
 Route::post('sort_discount_ajax_shop_select', 'ShopController@sort_discount_ajax_shop_select');

@@ -13,12 +13,25 @@ use App\ImageProduct;
 use App\Admin_Action_Storage_Product;
 use App\Admin_Action_Product;
 use App\Admin_Action_Product_Price;
+use App\Comment;
 use Session;
 use DB;
 use Carbon\Carbon;
+use PDF;
 
 class ProductController extends Controller
 {
+    public function test_pdf(){
+        //$pdf = \App::make('dompdf.wrapper');
+        // $pdf->loadHtml($this->convertHtmlhihi());
+        // $pdf->stream();
+        $data = Product::all();
+        $pdf = PDF::loadView('admin.product.view_test_pdf', ['data'=>$data]);
+        return $pdf->download('codingdriver.pdf');
+    }
+    public function convertHtmlhihi(){
+        return '<h1>hihi</h1>';
+    }
     public function add_product(){
         $category = Category::all();
         $unit_product = Unit::all();
@@ -118,17 +131,16 @@ class ProductController extends Controller
         return redirect('admin/all_product');
     }
     public function all_product(){
-        $all_product = Product::paginate(5);
-        $all_unit = Unit::all();
+        $all_product = DB::table('product')
+                    ->join('product_price','product_price.product_id','=','product.product_id')
+                    ->join('storage_product','storage_product.product_id','=','product.product_id')
+                    ->where('product_price.status', 1)
+                    ->orderBy('product.product_id','desc')
+                    ->paginate(10);
         $all_cate = Category::all();
         $all_storage = Storage::all();
-        $storage_product = Storage_Product::all();
-        $product_price = DB::table('product_price')->where('status', 1)->get();
         //
         $now = Carbon::now('Asia/Ho_Chi_Minh');
-        // $day_now = date('d', strtotime($now));
-        // $month_now = date('m', strtotime($now));
-        // $year_now = date('Y', strtotime($now));
         foreach ($all_product as $prod){
             $prod_id = $prod->product_id;
             $date_now = strtotime($now);
@@ -142,14 +154,17 @@ class ProductController extends Controller
                 DB::table('product')->where('product_id',$prod->product_id)->update(['is_new'=>0]);
             }
         }
+        $all_product_new = Product::where('is_new', 1)->get();
+        $all_product_featured = Product::where('is_featured', 1)->get();
+        $all_product_discount = Product::where('discount_id','!=', null)->get();
         return view('admin.product.all_product',
             [
                 'all_product'=> $all_product,
-                'all_unit'=> $all_unit,
+                'all_product_new'=> $all_product_new,
+                'all_product_featured'=> $all_product_featured,
+                'all_product_discount'=> $all_product_discount,
                 'all_cate'=> $all_cate,
-                'product_price'=> $product_price,
-                'all_storage' => $all_storage,
-                'storage_product' => $storage_product,
+                'all_storage'=> $all_storage,
             ]);
     }
     public function is_featured(Request $request,$prod_id){
@@ -296,56 +311,36 @@ class ProductController extends Controller
     }
     public function find_product(Request $request){
         $val_find = $request->val_find;
-        $all_product = DB::table('product')->where('deleted_at', null)
-            ->where('product_name','LIKE','%'.$val_find.'%')
-            ->get();
-        $all_unit = Unit::all();
-        $all_cate = Category::all();
-        $all_storage = Storage::all();
-        $storage_product = Storage_Product::all();
-        $product_price = DB::table('product_price')->where('status', 1)->get();
-        //
-        $now = Carbon::now('Asia/Ho_Chi_Minh');
-        $day_now = date('d', strtotime($now));
-        $month_now = date('m', strtotime($now));
-        $year_now = date('Y', strtotime($now));
-        foreach ($all_product as $prod){
-            $prod_id = $prod->product_id;
-            $time_cre = $prod->create_at;
-            $day_cre = date('d', strtotime($time_cre));
-            $month_cre = date('m', strtotime($time_cre));
-            $year_cre = date('Y', strtotime($time_cre));
-            $check_time = $day_now - $day_cre;
-            if($check_time > 1 && $month_now == $month_cre && $year_cre == $year_now){
-                DB::table('product')->where('product_id',$prod->product_id)->update(['is_new'=>0]);
-            }else{
-                DB::table('product')->where('product_id',$prod->product_id)->update(['is_new'=>1]);
-            }
-        }
+        $all_product = DB::table('product')
+                    ->join('product_price','product_price.product_id','=','product.product_id')
+                    ->join('storage_product','storage_product.product_id','=','product.product_id')
+                    ->where('product_price.status', 1)
+                    ->where('product_name','LIKE','%'.$val_find.'%')
+                    ->orderBy('product.product_id','desc')
+                    ->get();
         echo view('admin.product.view_find_product',[
             'all_product'=>$all_product,
-            'all_unit'=>$all_unit,
-            'all_cate'=>$all_cate,
-            'product_price'=>$product_price,
-            'all_storage' =>$all_storage,
-            'storage_product' =>$storage_product,
         ]);
     }
     public function view_detail_product($prod_id){
-        $product = Product::find($prod_id);
+
+        $product = DB::table('product')
+                    ->join('product_price','product_price.product_id','=','product.product_id')
+                    ->join('storage_product','storage_product.product_id','=','product.product_id')
+                    ->where('product_price.status', 1)
+                    ->where('product.product_id', $prod_id)
+                    ->first();
         $all_cate = Category::all();
         $all_unit = Unit::all();
-        $product_price = ProductPrice::where('product_id', $prod_id)->where('status',1)->first();
-        $storage_product = Storage_Product::where('product_id', $prod_id)->first();
         $all_storage = Storage::all();
+        $comment = Comment::where('product_id', $prod_id)->get();
         return view('admin.product.view_detail_product',
             [
                 'product'=>$product,
                 'all_unit'=>$all_unit,
-                'all_cate'=>$all_cate,
-                'product_price'=>$product_price,
                 'all_storage'=> $all_storage,
-                'storage_product'=>$storage_product
+                'all_cate'=> $all_cate,
+                'comment'=> $comment,
             ]);
     }
     //Validate
@@ -397,46 +392,263 @@ class ProductController extends Controller
             'product_desc.required' => 'Mô tả sản phẩm không được để trống',
         ]);
     }
-    public function convert_day($month, $date){
-        $num_day = 0;
-        switch ($month) {
-            case 1:
-                $num_day = $date + $month*31;
-                break;
-            case 2:
-                $num_day = $date + $month*28;
-                break;
-            case 3:
-                $num_day = $date + $month*31;
-                break;
-            case 4:
-                $num_day = $date + $month*30;
-                break;
-            case 5:
-                $num_day = $date + $month*31;
-                break;
-            case 6:
-                $num_day = $date + $month*30;
-                break;
-            case 7:
-                $num_day = $date + $month*31;
-                break;
-            case 8:
-                $num_day = $date + $month*31;
-                break;
-            case 9:
-                $num_day = $date + $month*30;
-                break;
-            case 10:
-                $num_day = $date + $month*31;
-                break;
-            case 11:
-                $num_day = $date + $month*30;
-                break;
-            case 12:
-                $num_day = $date + $month*31;
-                break;
+    public function filter_new_product(Request $request){
+        $string_title = $request->string_new_product;
+        $all_product = DB::table('product')
+                    ->join('product_price','product_price.product_id','=','product.product_id')
+                    ->join('storage_product','storage_product.product_id','=','product.product_id')
+                    ->where('product_price.status', 1)
+                    ->where('product.is_new', 1)
+                    ->where('product.deleted_at', null)
+                    ->orderBy('product.product_id','desc')
+                    ->get();
+        echo view('admin.product.view_filter_product',[
+            'all_product'=> $all_product,
+            'string_title'=> $string_title,
+        ]);
+    }
+    public function filter_product_feature(Request $request){
+        $string_title = $request->string_feature_product;
+        $all_product = DB::table('product')
+                    ->join('product_price','product_price.product_id','=','product.product_id')
+                    ->join('storage_product','storage_product.product_id','=','product.product_id')
+                    ->where('product_price.status', 1)
+                    ->where('product.is_featured', 1)
+                    ->where('product.deleted_at', null)
+                    ->orderBy('product.product_id','desc')
+                    ->get();
+        echo view('admin.product.view_filter_product',[
+            'all_product'=> $all_product,
+            'string_title'=> $string_title,
+        ]);
+    }
+    public function filter_product_follow_cate(Request $request){
+        $cate_id = $request->cate_id;
+        $cate = Category::find($cate_id);
+        $string_title = 'Sản Phẩm Theo Danh Mục "'.$cate->cate_name.'"';
+        $all_product = DB::table('product')
+                    ->join('product_price','product_price.product_id','=','product.product_id')
+                    ->join('storage_product','storage_product.product_id','=','product.product_id')
+                    ->where('product_price.status', 1)
+                    ->where('product.category_id', $cate_id)
+                    ->where('product.deleted_at', null)
+                    ->orderBy('product.product_id','desc')
+                    ->get();
+        echo view('admin.product.view_filter_product',[
+            'all_product'=> $all_product,
+            'string_title'=> $string_title,
+        ]);
+    }
+    public function filter_product_follow_cate_many(Request $request){
+        $arrCate = $request->arrCate;
+        $string_title = 'Sản Phẩm Theo Danh Mục';
+        $arrayProduct = array();
+        foreach ($arrCate as $cate_id){
+            $all_product = DB::table('product')
+                    ->join('product_price','product_price.product_id','=','product.product_id')
+                    ->join('storage_product','storage_product.product_id','=','product.product_id')
+                    ->where('product_price.status', 1)
+                    ->where('product.category_id', $cate_id)
+                    ->where('product.deleted_at', null)
+                    ->get();
+            foreach ($all_product as $product){
+                $arrayProduct[] = $product;
+            }
         }
-        return $num_day;
+        $orderByArrayProduct = collect($arrayProduct)->sortBy('product_id')->reverse()->toArray();
+        echo view('admin.product.view_filter_product',[
+            'all_product'=> $orderByArrayProduct,
+            'string_title'=> $string_title,
+        ]);
+    }
+    public function filter_product_follow_storage(Request $request){
+        $storage_id = $request->storage_id;
+        $storage = Storage::find($storage_id);
+        $string_title = 'Sản Phẩm Theo Kho "'.$storage->storage_name.'"';
+        $all_product = DB::table('product')
+                    ->join('product_price','product_price.product_id','=','product.product_id')
+                    ->join('storage_product','storage_product.product_id','=','product.product_id')
+                    ->where('product_price.status', 1)
+                    ->where('storage_product.storage_id', $storage_id)
+                    ->where('product.deleted_at', null)
+                    ->orderBy('product.product_id','desc')
+                    ->get();
+        echo view('admin.product.view_filter_product',[
+            'all_product'=> $all_product,
+            'string_title'=> $string_title,
+        ]);
+    }
+    public function filter_product_follow_storage_many(Request $request){
+        $arrStorage = $request->arrStorage;
+        $string_title = 'Sản Phẩm Theo Kho';
+        $arrayProduct = array();
+        foreach ($arrStorage as $storage_id){
+            $all_product = DB::table('product')
+                    ->join('product_price','product_price.product_id','=','product.product_id')
+                    ->join('storage_product','storage_product.product_id','=','product.product_id')
+                    ->where('product_price.status', 1)
+                    ->where('storage_product.storage_id', $storage_id)
+                    ->where('product.deleted_at', null)
+                    ->get();
+            foreach ($all_product as $product){
+                $arrayProduct[] = $product;
+            }
+        }
+        $orderByArrayProduct = collect($arrayProduct)->sortBy('product_id')->reverse()->toArray();
+        echo view('admin.product.view_filter_product',[
+            'all_product'=> $orderByArrayProduct,
+            'string_title'=> $string_title,
+        ]);
+        //dd($arrayProduct);
+    }
+    public function filter_product_follow_price_choose(Request $request){
+        $level_filter_price = $request->radioChoosePrice;
+        $price_start = 0;
+        $price_end = 0;
+        if($level_filter_price == 1){
+            $price_start = 5000;
+            $price_end = 20000;
+        }
+        else if($level_filter_price == 2){
+            $price_start = 20000;
+            $price_end = 50000;
+        }
+        else if($level_filter_price == 3){
+            $price_start = 50000;
+            $price_end = 100000;
+        }
+        else if($level_filter_price == 4){
+            $price_start = 100000;
+            $price_end = 200000;
+        }
+        $string_title = 'Sản Phẩm Theo Giá " Từ '.number_format($price_start,0,',','.')
+                        .'₫ Đến '.number_format($price_end,0,',','.').'₫ "';
+        $all_product = DB::table('product')
+                    ->join('product_price','product_price.product_id','=','product.product_id')
+                    ->join('storage_product','storage_product.product_id','=','product.product_id')
+                    ->where('product_price.status', 1)
+                    ->where('product.deleted_at', null)
+                    ->orderBy('product.product_id','desc')
+                    ->get();
+        $arrayProduct = array();
+        $callFunction = new HomeClientController;
+        foreach($all_product as $product){
+            $check_price = $callFunction->check_price_discount($product->product_id);
+            $price_now = number_format($check_price->price_now,0,',','');
+            if($price_start <= $price_now && $price_now <= $price_end){
+                $product->price_now =  $price_now;
+                $arrayProduct[] = $product;
+            }
+        }
+        $orderByArrayProduct = collect($arrayProduct)->sortByDesc('price_now')->reverse()->toArray();
+        echo view('admin.product.view_filter_product',[
+            'all_product'=> $orderByArrayProduct,
+            'string_title'=> $string_title,
+        ]);
+    }
+    public function filter_product_follow_price_cus_option(Request $request){
+        $price_start = $request->price_start;
+        $price_end = $request->price_end;
+
+        $string_title = 'Sản Phẩm Theo Giá " Từ '.number_format($price_start,0,',','.')
+                        .'₫ Đến '.number_format($price_end,0,',','.').'₫ "';
+        $all_product = DB::table('product')
+                    ->join('product_price','product_price.product_id','=','product.product_id')
+                    ->join('storage_product','storage_product.product_id','=','product.product_id')
+                    ->where('product_price.status', 1)
+                    ->where('product.deleted_at', null)
+                    ->orderBy('product.product_id','desc')
+                    ->get();
+        $arrayProduct = array();
+        $callFunction = new HomeClientController;
+        foreach($all_product as $product){
+            $check_price = $callFunction->check_price_discount($product->product_id);
+            $price_now = number_format($check_price->price_now,0,',','');
+            if($price_start <= $price_now && $price_now <= $price_end){
+                $product->price_now =  $price_now;
+                $arrayProduct[] = $product;
+            }
+        }
+        $orderByArrayProduct = collect($arrayProduct)->sortByDesc('price_now')->reverse()->toArray();
+        echo view('admin.product.view_filter_product',[
+            'all_product'=> $orderByArrayProduct,
+            'string_title'=> $string_title,
+        ]);
+    }
+    public function filter_product_follow_rating_choose(Request $request){
+        $rating_level = $request->radioChooseRating;
+        $string_title = 'Sản Phẩm Đánh Giá Từ '.$rating_level.' Sao';
+        $all_product = DB::table('product')
+                    ->join('product_price','product_price.product_id','=','product.product_id')
+                    ->join('storage_product','storage_product.product_id','=','product.product_id')
+                    ->where('product_price.status', 1)
+                    ->where('product.deleted_at', null)
+                    ->orderBy('product.product_id','desc')
+                    ->get();
+        $arrayProduct = array();
+        $callFunction = new HomeClientController;
+        foreach($all_product as $product){
+            $check_rating = $callFunction->info_rating_saled($product->product_id);
+            if($check_rating->avg_rating >= $rating_level){
+                $product->avg_rating =  $check_rating->avg_rating;
+                $arrayProduct[] = $product;
+            }
+        }
+        $orderByArrayProduct = collect($arrayProduct)->sortBy('avg_rating')->reverse()->toArray();
+        echo view('admin.product.view_filter_product',[
+            'all_product'=> $orderByArrayProduct,
+            'string_title'=> $string_title,
+        ]);
+    }
+    public function filter_product_follow_date_create_single(Request $request){
+        $date = $request->date;
+        $date_filter = date('Y-m-d', strtotime($date));
+
+        $string_title = 'Sản Phẩm Theo Ngày "'.date('d/m/Y', strtotime($date)).'"';
+        $arrayProduct = array();
+        $all_product = DB::table('product')
+                ->join('product_price','product_price.product_id','=','product.product_id')
+                ->join('storage_product','storage_product.product_id','=','product.product_id')
+                ->where('product_price.status', 1)
+                ->where('product.deleted_at', null)
+                ->get();
+        foreach ($all_product as $product){
+            $date_create = date('Y-m-d', strtotime($product->create_at));
+            if($date_filter == $date_create){
+                $arrayProduct[] = $product;
+            }
+        }
+        $orderByArrayProduct = collect($arrayProduct)->sortByDesc('create_at')->reverse()->toArray();
+        echo view('admin.product.view_filter_product',[
+            'all_product'=> $orderByArrayProduct,
+            'string_title'=> $string_title,
+        ]);
+    }
+    public function filter_product_follow_date_create_many(Request $request){
+        $date_start = $request->date_start;
+        $date_end = $request->date_end;
+        $date_filter_start = date('Y-m-d', strtotime($date_start));
+        $date_filter_end = date('Y-m-d', strtotime($date_end));
+
+        $string_title = 'Sản Phẩm " Từ Ngày '.date('d/m/Y', strtotime($date_start)).'
+                        Đến Ngày '.date('d/m/Y', strtotime($date_filter_end)).' "';
+        $arrayProduct = array();
+        $all_product = DB::table('product')
+                ->join('product_price','product_price.product_id','=','product.product_id')
+                ->join('storage_product','storage_product.product_id','=','product.product_id')
+                ->where('product_price.status', 1)
+                ->where('product.deleted_at', null)
+                ->get();
+        foreach ($all_product as $product){
+            $date_create = date('Y-m-d', strtotime($product->create_at));
+            if($date_start <= $date_create && $date_create <= $date_end){
+                $arrayProduct[] = $product;
+            }
+        }
+        $orderByArrayProduct = collect($arrayProduct)->sortByDesc('create_at')->reverse()->toArray();
+        echo view('admin.product.view_filter_product',[
+            'all_product'=> $orderByArrayProduct,
+            'string_title'=> $string_title,
+        ]);
     }
 }

@@ -86,6 +86,8 @@ class ShopController extends Controller
 
     public function ajax_sort_cate_shop(Request $request){
         $cate_id = $request->cate_id;
+        $type_filter = 'cate';
+        $level_filter = $cate_id;
         $result_sort = DB::table('product')
             ->join('product_price', 'product_price.product_id', '=', 'product.product_id')
             ->join('category', 'category.cate_id', '=', 'product.category_id')
@@ -95,12 +97,16 @@ class ShopController extends Controller
             ->get();
 
         echo view('client.shop.list_item_sort_shop',[
-            'result_sort'=>$result_sort
+            'result_sort'=>$result_sort,
+            'type_filter'=>$type_filter,
+            'level_filter'=>$level_filter,
         ]);
     }
 
     public function ajax_sort_rating_shop(Request $request){
         $rating = $request->rating;
+        $type_filter = 'rating';
+        $level_filter = $rating;
         $arrayProduct = array();
         $all_product = DB::table('product')
             ->join('product_price', 'product_price.product_id', '=', 'product.product_id')
@@ -121,12 +127,18 @@ class ShopController extends Controller
         //sortByDesc ->(low to height)
         $orderByArrayProduct = collect($arrayProduct)->sortBy('rating')->reverse()->toArray();
         echo view('client.shop.list_item_sort_shop',[
-            'result_sort'=>$orderByArrayProduct
+            'result_sort'=>$orderByArrayProduct,
+            'type_filter'=>$type_filter,
+            'level_filter'=>$level_filter,
         ]);
     }
     public function ajax_sort_price_enter_shop(Request $request){
         $price_start = $request->price_start;
         $price_end = $request->price_end;
+        $type_filter = 'price';
+        $level_filter = '';
+        $level_filter_price_start = $price_start;
+        $level_filter_price_end = $price_end;
 
         $arrayProduct = array();
         $all_product = DB::table('product')
@@ -147,21 +159,82 @@ class ShopController extends Controller
         }
         $orderByArrayProduct = collect($arrayProduct)->sortByDesc('price_now')->reverse()->toArray();
         echo view('client.shop.list_item_sort_shop',[
-            'result_sort'=>$orderByArrayProduct
+            'result_sort'=>$orderByArrayProduct,
+            'type_filter'=>$type_filter,
+            'level_filter'=>$level_filter,
+            'level_filter_price_start'=>$level_filter_price_start,
+            'level_filter_price_end'=>$level_filter_price_end,
         ]);
     }
     public function sort_price_ajax_shop_select(Request $request){
         $val_sort_price = $request->val_sort_price;
-
-        $arrayProduct = array();
-        $all_product = DB::table('product')
-            ->join('product_price', 'product_price.product_id', '=', 'product.product_id')
-            ->join('category', 'category.cate_id', '=', 'product.category_id')
-            ->where('product_price.status', 1)
-            ->where('product.deleted_at', null)
-            ->get();
+        $type_filter = $request->type_filter;
+        $level_filter = $request->level_filter;
+        $level_filter_price_start = $request->level_filter_price_start;
+        $level_filter_price_end = $request->level_filter_price_end;
 
         $callFunction = new HomeClientController;
+
+        if($type_filter == "cate"){
+            $all_product = DB::table('product')
+                        ->join('product_price', 'product_price.product_id', '=', 'product.product_id')
+                        ->join('category', 'category.cate_id', '=', 'product.category_id')
+                        ->where('product_price.status', 1)
+                        ->where('product.deleted_at', null)
+                        ->where('product.category_id', $level_filter)
+                        ->get();
+        }
+        else if($type_filter == 'rating'){
+            $all_product_get = DB::table('product')
+                        ->join('product_price', 'product_price.product_id', '=', 'product.product_id')
+                        ->join('category', 'category.cate_id', '=', 'product.category_id')
+                        ->where('product_price.status', 1)
+                        ->where('product.deleted_at', null)
+                        ->get();
+            $arrTemp = array();
+
+            foreach($all_product_get as $product){
+                $check_rating = $callFunction->info_rating_saled($product->product_id);
+                if($check_rating->avg_rating >= $level_filter){
+                    $product->rating = $check_rating->avg_rating;
+                    $arrTemp[] = $product;
+
+                }
+            }
+            $all_product = (object)$arrTemp;
+        }
+        else if($type_filter == 'price'){
+            $level_filter_price_start = $request->level_filter_price_start;
+            $level_filter_price_end = $request->level_filter_price_end;
+            $arrTemp = array();
+            $all_product_get = DB::table('product')
+                ->join('product_price', 'product_price.product_id', '=', 'product.product_id')
+                ->join('category', 'category.cate_id', '=', 'product.category_id')
+                ->where('product_price.status', 1)
+                ->where('product.deleted_at', null)
+                ->get();
+            foreach($all_product_get as $product){
+                $check_price = $callFunction->check_price_discount($product->product_id);
+                $price_now = number_format($check_price->price_now,0,',','');
+                if($level_filter_price_start <= $price_now && $price_now <= $level_filter_price_end){
+                    $product->price_now =  $price_now;
+                    $arrTemp[] = $product;
+                }
+            }
+            $all_product = (object)$arrTemp;
+        }
+        else{
+            $all_product = DB::table('product')
+                        ->join('product_price', 'product_price.product_id', '=', 'product.product_id')
+                        ->join('category', 'category.cate_id', '=', 'product.category_id')
+                        ->where('product_price.status', 1)
+                        ->where('product.deleted_at', null)
+                        ->get();
+
+        }
+
+        //
+        $arrayProduct = array();
         foreach($all_product as $product){
             $check_price = $callFunction->check_price_discount($product->product_id);
             $price_now = number_format($check_price->price_now,0,',','');
@@ -176,25 +249,85 @@ class ShopController extends Controller
         }
 
         echo view('client.shop.list_item_sort_shop',[
-            'result_sort'=>$orderByArrayProduct
+            'result_sort'=>$orderByArrayProduct,
+            'type_filter'=>$type_filter,
+            'level_filter'=>$level_filter,
+            'level_filter_price_start'=>$level_filter_price_start,
+            'level_filter_price_end'=>$level_filter_price_end,
         ]);
+        //echo(count($orderByArrayProduct));
     }
 
     public function sort_rating_ajax_shop_select(Request $request){
         $sort_rating_fiter = $request->sort_rating_fiter;
-
-        $arrayProduct = array();
-        $all_product = DB::table('product')
-            ->join('product_price', 'product_price.product_id', '=', 'product.product_id')
-            ->join('category', 'category.cate_id', '=', 'product.category_id')
-            ->where('product_price.status', 1)
-            ->where('product.deleted_at', null)
-            ->get();
+        $type_filter = $request->type_filter;
+        $level_filter = $request->level_filter;
+        $level_filter_price_start = $request->level_filter_price_start;
+        $level_filter_price_end = $request->level_filter_price_end;
 
         $callFunction = new HomeClientController;
+
+        if($type_filter == "cate"){
+            $all_product = DB::table('product')
+                        ->join('product_price', 'product_price.product_id', '=', 'product.product_id')
+                        ->join('category', 'category.cate_id', '=', 'product.category_id')
+                        ->where('product_price.status', 1)
+                        ->where('product.deleted_at', null)
+                        ->where('product.category_id', $level_filter)
+                        ->get();
+
+        }
+        else if($type_filter == 'rating'){
+            $all_product_get = DB::table('product')
+                        ->join('product_price', 'product_price.product_id', '=', 'product.product_id')
+                        ->join('category', 'category.cate_id', '=', 'product.category_id')
+                        ->where('product_price.status', 1)
+                        ->where('product.deleted_at', null)
+                        ->get();
+            $arrTemp = array();
+
+            foreach($all_product_get as $product){
+                $check_rating = $callFunction->info_rating_saled($product->product_id);
+                if($check_rating->avg_rating >= $level_filter){
+                    $product->rating = $check_rating->avg_rating;
+                    $arrTemp[] = $product;
+
+                }
+            }
+            $all_product = (object)$arrTemp;
+        }
+        else if($type_filter == 'price'){
+            $level_filter_price_start = $request->level_filter_price_start;
+            $level_filter_price_end = $request->level_filter_price_end;
+            $arrTemp = array();
+            $all_product_get = DB::table('product')
+                ->join('product_price', 'product_price.product_id', '=', 'product.product_id')
+                ->join('category', 'category.cate_id', '=', 'product.category_id')
+                ->where('product_price.status', 1)
+                ->where('product.deleted_at', null)
+                ->get();
+            foreach($all_product_get as $product){
+                $check_price = $callFunction->check_price_discount($product->product_id);
+                $price_now = number_format($check_price->price_now,0,',','');
+                if($level_filter_price_start <= $price_now && $price_now <= $level_filter_price_end){
+                    $product->price_now =  $price_now;
+                    $arrTemp[] = $product;
+                }
+            }
+            $all_product = (object)$arrTemp;
+        }
+        else{
+            $all_product = DB::table('product')
+                        ->join('product_price', 'product_price.product_id', '=', 'product.product_id')
+                        ->join('category', 'category.cate_id', '=', 'product.category_id')
+                        ->where('product_price.status', 1)
+                        ->where('product.deleted_at', null)
+                        ->get();
+
+        }
+        $arrayProduct = array();
         foreach($all_product as $product){
             $check_rating = $callFunction->info_rating_saled($product->product_id);
-
             $product->rating = $check_rating->avg_rating;
             $arrayProduct[] = $product;
         }
@@ -206,22 +339,82 @@ class ShopController extends Controller
         }
 
         echo view('client.shop.list_item_sort_shop',[
-            'result_sort'=>$orderByArrayProduct
+            'result_sort'=>$orderByArrayProduct,
+            'type_filter'=>$type_filter,
+            'level_filter'=>$level_filter,
+            'level_filter_price_start'=>$level_filter_price_start,
+            'level_filter_price_end'=>$level_filter_price_end,
         ]);
     }
 
     public function sort_discount_ajax_shop_select(Request $request){
         $sort_discount_fiter = $request->sort_discount_fiter;
-
-        $arrayProduct = array();
-        $all_product = DB::table('product')
-            ->join('product_price', 'product_price.product_id', '=', 'product.product_id')
-            ->join('category', 'category.cate_id', '=', 'product.category_id')
-            ->where('product_price.status', 1)
-            ->where('product.deleted_at', null)
-            ->get();
+        $type_filter = $request->type_filter;
+        $level_filter = $request->level_filter;
+        $level_filter_price_start = $request->level_filter_price_start;
+        $level_filter_price_end = $request->level_filter_price_end;
 
         $callFunction = new HomeClientController;
+
+        if($type_filter == "cate"){
+            $all_product = DB::table('product')
+                        ->join('product_price', 'product_price.product_id', '=', 'product.product_id')
+                        ->join('category', 'category.cate_id', '=', 'product.category_id')
+                        ->where('product_price.status', 1)
+                        ->where('product.deleted_at', null)
+                        ->where('product.category_id', $level_filter)
+                        ->get();
+
+        }
+        else if($type_filter == 'rating'){
+            $all_product_get = DB::table('product')
+                        ->join('product_price', 'product_price.product_id', '=', 'product.product_id')
+                        ->join('category', 'category.cate_id', '=', 'product.category_id')
+                        ->where('product_price.status', 1)
+                        ->where('product.deleted_at', null)
+                        ->get();
+            $arrTemp = array();
+
+            foreach($all_product_get as $product){
+                $check_rating = $callFunction->info_rating_saled($product->product_id);
+                if($check_rating->avg_rating >= $level_filter){
+                    $product->rating = $check_rating->avg_rating;
+                    $arrTemp[] = $product;
+
+                }
+            }
+            $all_product = (object)$arrTemp;
+        }
+        else if($type_filter == 'price'){
+            $level_filter_price_start = $request->level_filter_price_start;
+            $level_filter_price_end = $request->level_filter_price_end;
+            $arrTemp = array();
+            $all_product_get = DB::table('product')
+                ->join('product_price', 'product_price.product_id', '=', 'product.product_id')
+                ->join('category', 'category.cate_id', '=', 'product.category_id')
+                ->where('product_price.status', 1)
+                ->where('product.deleted_at', null)
+                ->get();
+            foreach($all_product_get as $product){
+                $check_price = $callFunction->check_price_discount($product->product_id);
+                $price_now = number_format($check_price->price_now,0,',','');
+                if($level_filter_price_start <= $price_now && $price_now <= $level_filter_price_end){
+                    $product->price_now =  $price_now;
+                    $arrTemp[] = $product;
+                }
+            }
+            $all_product = (object)$arrTemp;
+        }
+        else{
+            $all_product = DB::table('product')
+                        ->join('product_price', 'product_price.product_id', '=', 'product.product_id')
+                        ->join('category', 'category.cate_id', '=', 'product.category_id')
+                        ->where('product_price.status', 1)
+                        ->where('product.deleted_at', null)
+                        ->get();
+
+        }
+        $arrayProduct = array();
         foreach($all_product as $product){
             $check_price = $callFunction->check_price_discount($product->product_id);
             if($check_price->percent_discount > 0){
@@ -237,7 +430,11 @@ class ShopController extends Controller
         }
 
         echo view('client.shop.list_item_sort_shop',[
-            'result_sort'=>$orderByArrayProduct
+            'result_sort'=>$orderByArrayProduct,
+            'type_filter'=>$type_filter,
+            'level_filter'=>$level_filter,
+            'level_filter_price_start'=>$level_filter_price_start,
+            'level_filter_price_end'=>$level_filter_price_end,
         ]);
     }
     public function filter_modal_shop_ajax(Request $request){

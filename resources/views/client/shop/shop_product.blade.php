@@ -63,6 +63,7 @@
         color:black;
     }
 </style>
+
     <!--Hero Section-->
     <div class="hero-section hero-background">
         <h1 class="page-title">Thực Phẩm</h1>
@@ -200,6 +201,12 @@
                                     </div>
                                     {{-- content_list_product_sort_ajax_shop --}}
                                     <div class="row content_list_product_sort_ajax_shop">
+                                        {{-- check type filter --}}
+                                            <input type="hidden" class="type_filter" value="">
+                                            <input type="hidden" class="level_filter" value="">
+                                            <input type="hidden" class="level_filter_price_start" value="">
+                                            <input type="hidden" class="level_filter_price_end" value="">
+                                        {{--  --}}
                                         {{-- all product discount --}}
                                         @if (count($all_product_discount) > 0)
                                             <div class="row">

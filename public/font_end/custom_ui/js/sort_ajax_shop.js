@@ -149,13 +149,20 @@ $(document).ready(function(){
     // sort_price_ajax_shop_select
     $('.sort_price_ajax_shop_select').change(function(){
         var val_sort_price = $('.sort_price_ajax_shop_select option:selected').val();
-
+        var type_filter = $('.type_filter').val();
+        var level_filter = $('.level_filter').val();
+        var level_filter_price_start = $('.level_filter_price_start').val();
+        var level_filter_price_end = $('.level_filter_price_end').val();
         $.ajax({
             url: 'sort_price_ajax_shop_select',
             method: 'POST',
             data: {
                 _token: _token,
                 val_sort_price: val_sort_price,
+                type_filter: type_filter,
+                level_filter: level_filter,
+                level_filter_price_start: level_filter_price_start,
+                level_filter_price_end: level_filter_price_end,
             },
             success: function (data) {
                 $('.content_list_product_sort_ajax_shop').html(data);
@@ -165,12 +172,20 @@ $(document).ready(function(){
     // sort_rating_ajax_shop_select
     $('.sort_rating_ajax_shop_select').change(function(){
         var sort_rating_fiter = $('.sort_rating_ajax_shop_select option:selected').val();
+        var type_filter = $('.type_filter').val();
+        var level_filter = $('.level_filter').val();
+        var level_filter_price_start = $('.level_filter_price_start').val();
+        var level_filter_price_end = $('.level_filter_price_end').val();
         $.ajax({
             url: 'sort_rating_ajax_shop_select',
             method: 'POST',
             data: {
                 _token: _token,
                 sort_rating_fiter: sort_rating_fiter,
+                type_filter: type_filter,
+                level_filter: level_filter,
+                level_filter_price_start: level_filter_price_start,
+                level_filter_price_end: level_filter_price_end,
             },
             success: function (data) {
                 $('.content_list_product_sort_ajax_shop').html(data);
@@ -181,12 +196,20 @@ $(document).ready(function(){
     // sort_discount_ajax_shop_select
     $('.sort_discount_ajax_shop_select').change(function(){
         var sort_discount_fiter = $('.sort_discount_ajax_shop_select option:selected').val();
+        var type_filter = $('.type_filter').val();
+        var level_filter = $('.level_filter').val();
+        var level_filter_price_start = $('.level_filter_price_start').val();
+        var level_filter_price_end = $('.level_filter_price_end').val();
         $.ajax({
             url: 'sort_discount_ajax_shop_select',
             method: 'POST',
             data: {
                 _token: _token,
                 sort_discount_fiter: sort_discount_fiter,
+                type_filter: type_filter,
+                level_filter: level_filter,
+                level_filter_price_start: level_filter_price_start,
+                level_filter_price_end: level_filter_price_end,
             },
             success: function (data) {
                 $('.content_list_product_sort_ajax_shop').html(data);

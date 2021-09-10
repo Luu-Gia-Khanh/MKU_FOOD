@@ -56,6 +56,7 @@
                                         @if (Session::get('admin_id') != $ad->admin_id)
                                             <a href="{{ URL::to('admin/delete_when_find/'.$ad->admin_id) }}" class="dropdown-item test"
                                                 ><i class="dw dw-delete-3"></i>Xóa</a>
+
                                         @endif
                                     </div>
                                 </div>
@@ -74,7 +75,7 @@
         <div class="col-sm-12 col-md-7">
         </div>
     </div>
-    <!-- The Modal -->
+    {{-- <!-- The Modal -->
     <div class="modal fade" id="Modal_delete">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -101,10 +102,8 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 @else
     <div class="center">Không tìm thấy kết quả nào</div>
 @endif
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script>
-</script>
+

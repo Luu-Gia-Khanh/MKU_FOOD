@@ -13,7 +13,7 @@
     .btn.active.focus {
         outline: none;
     }
-    #myList li{ 
+    #myList li{
         display:none;
     }
     #loadMore {
@@ -105,14 +105,14 @@
                                             </form>
                                         </div>
                                     </div>
-                                    <div class="flt-item to-right">
+                                    {{-- <div class="flt-item to-right">
                                         <div class="wrap-selectors">
                                             <div class="selector-item viewmode-selector">
                                                 <a href="category-grid-left-sidebar.html" class="viewmode grid-mode active"><i class="biolife-icon icon-grid"></i></a>
                                                 <a href="category-list-left-sidebar.html" class="viewmode detail-mode"><i class="biolife-icon icon-list"></i></a>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <div class="row">
                                     <ul class="products-list content_list_product_search" style="list-style-type: none;">
@@ -122,6 +122,12 @@
                                                 $info_rating_saled = App\Http\Controllers\HomeClientController::info_rating_saled($product->product_id);
                                                 $check_already_wish = App\Http\Controllers\WishListController::checkProductWishLish($product->product_id);
                                             @endphp
+                                            {{-- check type filter --}}
+                                                <input type="hidden" class="type_filter" value="">
+                                                <input type="hidden" class="level_filter" value="">
+                                                <input type="hidden" class="level_filter_price_start" value="">
+                                                <input type="hidden" class="level_filter_price_end" value="">
+                                            {{--  --}}
                                             <li class="product-item col-lg-4 col-md-4 col-sm-4 col-xs-6">
                                                 <div class="contain-product layout-default content_product">
                                                     <div class="product-thumb">

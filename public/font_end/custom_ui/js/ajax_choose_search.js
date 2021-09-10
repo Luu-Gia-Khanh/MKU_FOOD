@@ -159,7 +159,10 @@ $(document).ready(function(){
     // sort price
     $('.sort_price_fiter').change(function(){
         var val_sort_price = $('.sort_price_fiter option:selected').val();
-
+        var type_filter = $('.type_filter').val();
+        var level_filter = $('.level_filter').val();
+        var level_filter_price_start = $('.level_filter_price_start').val();
+        var level_filter_price_end = $('.level_filter_price_end').val();
         // set default another select
 
         //$('.sort_rating_fiter').selectmenu("refresh", true);
@@ -173,15 +176,24 @@ $(document).ready(function(){
                 _token: _token,
                 keyword_search: keyword_search,
                 val_sort_price: val_sort_price,
+                type_filter: type_filter,
+                level_filter: level_filter,
+                level_filter_price_start: level_filter_price_start,
+                level_filter_price_end: level_filter_price_end,
             },
             success: function (data) {
                 $('.content_list_product_search').html(data);
             }
         });
+        //alert(type_filter);
     });
     // sort rating
     $('.sort_rating_fiter').change(function(){
         var sort_rating_fiter = $('.sort_rating_fiter option:selected').val();
+        var type_filter = $('.type_filter').val();
+        var level_filter = $('.level_filter').val();
+        var level_filter_price_start = $('.level_filter_price_start').val();
+        var level_filter_price_end = $('.level_filter_price_end').val();
         $.ajax({
             url: 'ajax_sort_rating_and_keyword',
             method: 'POST',
@@ -189,6 +201,10 @@ $(document).ready(function(){
                 _token: _token,
                 keyword_search: keyword_search,
                 sort_rating_fiter: sort_rating_fiter,
+                type_filter: type_filter,
+                level_filter: level_filter,
+                level_filter_price_start: level_filter_price_start,
+                level_filter_price_end: level_filter_price_end,
             },
             success: function (data) {
                 $('.content_list_product_search').html(data);
@@ -198,6 +214,10 @@ $(document).ready(function(){
     // sort discount
     $('.sort_discount_fiter').change(function(){
         var sort_discount_fiter = $('.sort_discount_fiter option:selected').val();
+        var type_filter = $('.type_filter').val();
+        var level_filter = $('.level_filter').val();
+        var level_filter_price_start = $('.level_filter_price_start').val();
+        var level_filter_price_end = $('.level_filter_price_end').val();
         $.ajax({
             url: 'ajax_sort_discount_and_keyword',
             method: 'POST',
@@ -205,6 +225,10 @@ $(document).ready(function(){
                 _token: _token,
                 keyword_search: keyword_search,
                 sort_discount_fiter: sort_discount_fiter,
+                type_filter: type_filter,
+                level_filter: level_filter,
+                level_filter_price_start: level_filter_price_start,
+                level_filter_price_end: level_filter_price_end,
             },
             success: function (data) {
                 $('.content_list_product_search').html(data);

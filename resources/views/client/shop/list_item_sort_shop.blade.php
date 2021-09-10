@@ -1,5 +1,21 @@
-<link rel="stylesheet" href="{{ asset('public/font_end/custom/mini_detail_product.css') }}">
+{{-- <link rel="stylesheet" href="{{ asset('public/font_end/custom/mini_detail_product.css') }}"> --}}
 @if (count($result_sort) > 0)
+    {{-- check type filter --}}
+    @if (isset($type_filter))
+        <input type="hidden" class="type_filter" value="{{ $type_filter }}">
+        <input type="hidden" class="level_filter" value="{{ $level_filter }}">
+        @if (isset($level_filter_price_start))
+            <input type="hidden" class="level_filter_price_start" value="{{ $level_filter_price_start }}">
+            <input type="hidden" class="level_filter_price_end" value="{{ $level_filter_price_end }}">
+        @else
+            <input type="hidden" class="level_filter_price_start" value="">
+            <input type="hidden" class="level_filter_price_end" value="">
+        @endif
+    @else
+        <input type="hidden" class="type_filter" value="">
+        <input type="hidden" class="level_filter" value="">
+    @endif
+    {{--  --}}
     <ul class="products-list" style="list-style-type: none;">
         @foreach ($result_sort as $product)
             @php
@@ -107,6 +123,22 @@
         @endforeach
     </ul>
 @else
+    {{-- check type filter --}}
+    @if (isset($type_filter))
+        <input type="hidden" class="type_filter" value="{{ $type_filter }}">
+        <input type="hidden" class="level_filter" value="{{ $level_filter }}">
+        @if (isset($level_filter_price_start))
+            <input type="hidden" class="level_filter_price_start" value="{{ $level_filter_price_start }}">
+            <input type="hidden" class="level_filter_price_end" value="{{ $level_filter_price_end }}">
+        @else
+            <input type="hidden" class="level_filter_price_start" value="">
+            <input type="hidden" class="level_filter_price_end" value="">
+        @endif
+    @else
+        <input type="hidden" class="type_filter" value="">
+        <input type="hidden" class="level_filter" value="">
+    @endif
+    {{--  --}}
     <div class="content_anount_search_not_found">
         <div class="anounce_search_none">
             Không tìm thấy kết quả nào

@@ -1,5 +1,21 @@
 <link rel="stylesheet" href="{{ asset('public/font_end/custom/mini_detail_product.css') }}">
 @if (count($result_search) > 0)
+    {{-- check type filter --}}
+    @if (isset($type_filter))
+        <input type="hidden" class="type_filter" value="{{ $type_filter }}">
+        <input type="hidden" class="level_filter" value="{{ $level_filter }}">
+        @if (isset($level_filter_price_start))
+            <input type="hidden" class="level_filter_price_start" value="{{ $level_filter_price_start }}">
+            <input type="hidden" class="level_filter_price_end" value="{{ $level_filter_price_end }}">
+        @else
+            <input type="hidden" class="level_filter_price_start" value="">
+            <input type="hidden" class="level_filter_price_end" value="">
+        @endif
+    @else
+        <input type="hidden" class="type_filter" value="">
+        <input type="hidden" class="level_filter" value="">
+    @endif
+    {{--  --}}
     @foreach ($result_search as $product)
         @php
             $price_discount = App\Http\Controllers\HomeClientController::check_price_discount($product->product_id);
@@ -100,6 +116,22 @@
         </li>
     @endforeach
 @else
+    {{-- check type filter --}}
+    @if (isset($type_filter))
+        <input type="hidden" class="type_filter" value="{{ $type_filter }}">
+        <input type="hidden" class="level_filter" value="{{ $level_filter }}">
+        @if (isset($level_filter_price_start))
+            <input type="hidden" class="level_filter_price_start" value="{{ $level_filter_price_start }}">
+            <input type="hidden" class="level_filter_price_end" value="{{ $level_filter_price_end }}">
+        @else
+            <input type="hidden" class="level_filter_price_start" value="">
+            <input type="hidden" class="level_filter_price_end" value="">
+        @endif
+    @else
+        <input type="hidden" class="type_filter" value="">
+        <input type="hidden" class="level_filter" value="">
+    @endif
+    {{--  --}}
     <div class="content_anount_search_not_found">
         <div class="anounce_search_none">
             Không tìm thấy kết quả nào
