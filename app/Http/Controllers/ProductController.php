@@ -621,6 +621,10 @@ class ProductController extends Controller
     }
     public function filter_product_follow_rating_choose(Request $request){
         $rating_level = $request->radioChooseRating;
+
+        $type_filter = 'rating';
+        $level_filter = $rating_level;
+
         $string_title = 'Sản Phẩm Đánh Giá Từ '.$rating_level.' Sao';
         $all_product = DB::table('product')
                     ->join('product_price','product_price.product_id','=','product.product_id')
@@ -642,11 +646,16 @@ class ProductController extends Controller
         echo view('admin.product.view_filter_product',[
             'all_product'=> $orderByArrayProduct,
             'string_title'=> $string_title,
+            'type_filter'=> $type_filter,
+            'level_filter'=> $level_filter,
         ]);
     }
     public function filter_product_follow_date_create_single(Request $request){
         $date = $request->date;
         $date_filter = date('Y-m-d', strtotime($date));
+
+        $type_filter = 'date';
+        $level_filter = $date_filter;
 
         $string_title = 'Sản Phẩm Theo Ngày "'.date('d/m/Y', strtotime($date)).'"';
         $arrayProduct = array();
@@ -666,6 +675,8 @@ class ProductController extends Controller
         echo view('admin.product.view_filter_product',[
             'all_product'=> $orderByArrayProduct,
             'string_title'=> $string_title,
+            'type_filter'=> $type_filter,
+            'level_filter'=> $level_filter,
         ]);
     }
     public function filter_product_follow_date_create_many(Request $request){
@@ -673,6 +684,11 @@ class ProductController extends Controller
         $date_end = $request->date_end;
         $date_filter_start = date('Y-m-d', strtotime($date_start));
         $date_filter_end = date('Y-m-d', strtotime($date_end));
+
+        $type_filter = 'date_many';
+        $level_filter = '';
+        $start_date = $date_filter_start;
+        $end_date = $date_filter_end;
 
         $string_title = 'Sản Phẩm " Từ Ngày '.date('d/m/Y', strtotime($date_start)).'
                         Đến Ngày '.date('d/m/Y', strtotime($date_filter_end)).' "';
@@ -693,6 +709,10 @@ class ProductController extends Controller
         echo view('admin.product.view_filter_product',[
             'all_product'=> $orderByArrayProduct,
             'string_title'=> $string_title,
+            'type_filter'=> $type_filter,
+            'level_filter'=> $level_filter,
+            'start_date'=> $start_date,
+            'end_date'=> $end_date,
         ]);
     }
     public function print_pdf_product(Request $request){
@@ -890,6 +910,82 @@ class ProductController extends Controller
                     ]);
                     return $pdf->download('danhsachsanphamtheogiatuchon.pdf');
 
+                break;
+            case "rating":
+                    $string_title = 'Danh Sách Sản Phẩm Theo Đánh Giá "'.$level_filter.' Sao"';
+                    $all_product = DB::table('product')
+                        ->join('product_price','product_price.product_id','=','product.product_id')
+                        ->join('storage_product','storage_product.product_id','=','product.product_id')
+                        ->where('product_price.status', 1)
+                        ->where('product.deleted_at', null)
+                        ->orderBy('product.product_id','desc')
+                        ->get();
+                    $arrayProduct = array();
+                    $callFunction = new HomeClientController;
+                    foreach($all_product as $product){
+                        $check_rating = $callFunction->info_rating_saled($product->product_id);
+                        if($check_rating->avg_rating >= $level_filter){
+                            $product->avg_rating =  $check_rating->avg_rating;
+                            $arrayProduct[] = $product;
+                        }
+                    }
+                    $orderByArrayProduct = collect($arrayProduct)->sortBy('avg_rating')->reverse()->toArray();
+                    $data = $orderByArrayProduct;
+                    $pdf = PDF::loadView('admin.product.view_print_pdf_product', [
+                        'data'=>$data,
+                        'string_title'=>$string_title,
+                    ]);
+                    return $pdf->download('danhsachsanphamtheodanhgia.pdf');
+                break;
+            case "date":
+                    $string_title = 'Danh Sách Sản Phẩm Theo Ngày "'.date('d/m/Y', strtotime($level_filter)).'"';
+                    $arrayProduct = array();
+                    $all_product = DB::table('product')
+                            ->join('product_price','product_price.product_id','=','product.product_id')
+                            ->join('storage_product','storage_product.product_id','=','product.product_id')
+                            ->where('product_price.status', 1)
+                            ->where('product.deleted_at', null)
+                            ->get();
+                    foreach ($all_product as $product){
+                        $date_create = date('Y-m-d', strtotime($product->create_at));
+                        if($level_filter == $date_create){
+                            $arrayProduct[] = $product;
+                        }
+                    }
+                    $orderByArrayProduct = collect($arrayProduct)->sortByDesc('create_at')->reverse()->toArray();
+                    $data = $orderByArrayProduct;
+                    $pdf = PDF::loadView('admin.product.view_print_pdf_product', [
+                        'data'=>$data,
+                        'string_title'=>$string_title,
+                    ]);
+                    return $pdf->download('danhsachsanphamtheongay.pdf');
+                break;
+            case "date_many":
+                    $start_date = $request->start_date;
+                    $end_date = $request->end_date;
+
+                    $string_title = 'Danh Sách Sản Phẩm " Từ Ngày '.date('d/m/Y', strtotime($start_date)).'
+                        Đến Ngày '.date('d/m/Y', strtotime($end_date)).' "';
+                    $arrayProduct = array();
+                    $all_product = DB::table('product')
+                            ->join('product_price','product_price.product_id','=','product.product_id')
+                            ->join('storage_product','storage_product.product_id','=','product.product_id')
+                            ->where('product_price.status', 1)
+                            ->where('product.deleted_at', null)
+                            ->get();
+                    foreach ($all_product as $product){
+                        $date_create = date('Y-m-d', strtotime($product->create_at));
+                        if($start_date <= $date_create && $date_create <= $end_date){
+                            $arrayProduct[] = $product;
+                        }
+                    }
+                    $orderByArrayProduct = collect($arrayProduct)->sortByDesc('create_at')->reverse()->toArray();
+                    $data = $orderByArrayProduct;
+                    $pdf = PDF::loadView('admin.product.view_print_pdf_product', [
+                        'data'=>$data,
+                        'string_title'=>$string_title,
+                    ]);
+                    return $pdf->download('danhsachsanphamtheonhieungay.pdf');
                 break;
             default:
                 $string_title = 'Danh Sách Sản Phẩm';

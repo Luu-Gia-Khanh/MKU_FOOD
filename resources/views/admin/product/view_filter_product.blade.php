@@ -50,6 +50,13 @@
                                     <input type="hidden" name="price_filter_start" value="">
                                     <input type="hidden" name="price_filter_end" value="">
                                 @endif
+                                @if (isset($start_date) && isset($end_date))
+                                    <input type="hidden" name="start_date" value="{{ $start_date }}">
+                                    <input type="hidden" name="end_date" value="{{ $end_date }}">
+                                @else
+                                    <input type="hidden" name="start_date" value="">
+                                    <input type="hidden" name="end_date" value="">
+                                @endif
                             @else
                                 <input type="hidden" class="type_filter" name="type_filter" value="">
                                 <input type="hidden" class="level_filter" name="level_filter" value="">
@@ -182,10 +189,20 @@
                             @endforeach
                         </tbody>
                     </table>
+                    <div class="center">
+                        <a href="" class="btn btn-outline-dark">
+                            <i class="icon-copy fa fa-history" aria-hidden="true"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
         @else
-            <div class="center">Không tìm thấy kết quả nào</div>
+            <div class="center">
+                Không tìm thấy kết quả nào
+                <a href="" class="btn btn-outline-dark">
+                    <i class="icon-copy fa fa-history" aria-hidden="true"></i>
+                </a>
+            </div>
         @endif
 
             {{-- <div class="row">
