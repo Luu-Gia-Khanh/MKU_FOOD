@@ -54,7 +54,7 @@
     </div>
 </div>
 <script src="{{ asset('public/font_end/assets/js/jquery-3.4.1.min.js') }}"></script>
-<script src="{{ asset('public/font_end/custom_ui/css/slider_js.js') }}"></script>
+<script src="{{ asset('public/font_end/custom_ui/js/slider_js.js') }}"></script>
 
 
 

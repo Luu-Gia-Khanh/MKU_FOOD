@@ -4,6 +4,7 @@
 	<!-- Basic Page Info -->
 	<meta charset="utf-8">
 	<title>ADMIN</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('public/upload/logo_mku_shortcut_icon.svg') }}" />
 
 	<!-- Site favicon -->
 	<link rel="apple-touch-icon" sizes="180x180" href="{{ asset('public/back_end/vendors/images/apple-touch-icon.png') }}">

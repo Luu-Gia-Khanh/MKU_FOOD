@@ -4,7 +4,7 @@
         <div class="container">
             <div class="content-both">
                 <div class="content-logo">
-                    <img class="logo-page-checkout" src="{{ asset('public/font_end/assets/images/favicon.png') }}" alt="">
+                    <a href="{{ URL::to('/') }}" class="biolife-logo"><img src="{{ asset('public/upload/logo_mku_shortcut_icon.svg') }}" alt="biolife logo" style="height: 55px;"></a>
                 </div>
                 <div class="col-spacing"></div>
                 <div class="content-title-page">

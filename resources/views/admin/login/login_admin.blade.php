@@ -4,6 +4,8 @@
 	<!-- Basic Page Info -->
 	<meta charset="utf-8">
 	<title>Login</title>
+	<link rel="shortcut icon" type="image/x-icon" href="{{ asset('public/upload/logo_mku_shortcut_icon.svg') }}" />
+
 
 	<!-- Site favicon -->
 	<link rel="apple-touch-icon" sizes="180x180" href="{{ asset('public/back_end/vendors/images/apple-touch-icon.png') }}">
@@ -34,8 +36,8 @@
 	<div class="login-header box-shadow">
 		<div class="container-fluid d-flex justify-content-between align-items-center">
 			<div class="brand-logo">
-				<a href="login.html">
-					<img src="{{ asset('public/back_end/vendors/images/deskapp-logo.svg') }}" alt="">
+				<a href="{{ URL::to("/admin") }}">
+					<img src="{{ asset('public/upload/logo_mku_10.svg') }}" alt="" style="height: 46px;">
 				</a>
 			</div>
 			<div class="login-menu">

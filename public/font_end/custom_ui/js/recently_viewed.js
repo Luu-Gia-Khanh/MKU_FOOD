@@ -49,28 +49,45 @@ $(document).ready(function(){
         $('.content_recently_viewed').append('<img src="public/upload/no_product.png" alt="" style="width: 100%; height: 150px;">');
     }
 
+    $('#myList li').slice(0, 2).show();
     if($('#myList li').length > 2){
         $('#loadMore').show();
     }
-    x=0;
-    $('#myList li').slice(0, 2).show();
-    $('#loadMore').on('click', function (e) {
-        e.preventDefault();
-        x = x+2;
+
+    var x = 2;
+    // $('#loadMore').on('click', function (e) {
+    //     e.preventDefault();
+    //     x = x+2;
+    //     $('#myList li').slice(0, x).slideDown();
+    //     if($('#myList li').length == x || $('#myList li').length == (x - 1)){
+    //         $('#loadMore').hide();
+    //         $('#loadLess').show();
+    //     }
+    // });
+
+    $('#loadMore').click(function () {
+        x = x + 2;
         $('#myList li').slice(0, x).slideDown();
         if($('#myList li').length == x || $('#myList li').length == (x - 1)){
             $('#loadMore').hide();
             $('#loadLess').show();
         }
     });
-    // $('#loadLess').click(function () {
-    //     x=($('#myList li').length-5<0) ? 3 : $('#myList li').length-5;
-    //     $('#myList li').not(':lt('+x+')').hide();
-    //     $('#loadMore').show();
+
+    // $('#loadMore').click(function () {
+    //     x = $('#myList li').length;
+    //     $('#myList li').slice(0, x).slideDown();
+    //     $('#loadMore').hide();
     //     $('#loadLess').show();
-    //     if($('#myList li').length > 2){
-    //         $('#loadMore').show();
-    //         $('#loadLess').hide();
-    //     }
-    // });
+    // });  
+
+    $('#loadLess').click(function () {
+        x = 2 - $('#myList li').length;
+        $('#myList li').slice(x).slideUp();
+        if($('#myList li').length > 2){
+            $('#loadMore').show();
+            $('#loadLess').hide();
+        }
+        x = 2;
+    });
 });

@@ -11,7 +11,7 @@
                     <a href="{{ URL::to('contact_us') }}" class="menu-name" data-title="Shop" >Liên hệ</a>
                 </li>
                 <li class="menu-item">
-                    <a href="{{ URL::to('shop_product') }}" class="menu-name" data-title="Shop" >Chính sách và điều khoản</a>
+                    <a href="{{ URL::to('terms_conditions') }}" class="menu-name" data-title="Shop" >Chính sách và điều khoản</a>
                 </li>
 
             </ul>

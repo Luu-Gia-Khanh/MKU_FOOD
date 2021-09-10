@@ -242,6 +242,7 @@ Route::prefix('admin')->group(function () {
 Route::get('/', 'HomeClientController@index');
 Route::get('shop_product', 'ShopController@shop_product');
 Route::get('contact_us', 'HomeClientController@contact_us');
+Route::get('terms_conditions', 'HomeClientController@terms_conditions');
 
 //HOME -> SHOW
 Route::get('show_all_product_discount', 'HomeClientController@show_all_product_discount');

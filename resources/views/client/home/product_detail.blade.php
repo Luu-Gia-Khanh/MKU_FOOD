@@ -30,6 +30,9 @@
 <link rel="stylesheet" href="{{ asset('public/font_end/custom/custom_background.css') }}">
 <link rel="stylesheet" href="{{ asset('public/font_end/custom_ui/css/custom_container_product.css') }}">
 <link rel="stylesheet" href="{{ asset('public/font_end/custom_ui/css/custom_breadcrumb.css') }}">
+<link rel="stylesheet" href="{{ asset('public/font_end/custom_ui/css/custom_cart_sm.css') }}">
+<link rel="stylesheet" href="{{ asset('public/font_end/custom/mini_detail_product.css') }}">
+
 <style>
     .text {
         overflow: hidden;
@@ -694,159 +697,119 @@
                             </div>
                         </div>
                     </div>
-                    <ul class="products-list biolife-carousel nav-center-02 nav-none-on-mobile" data-slick='{"rows":1,"arrows":true,"dots":false,"infinite":false,"speed":400,"slidesMargin":0,"slidesToShow":5, "responsive":[{"breakpoint":1200, "settings":{ "slidesToShow": 4}},{"breakpoint":992, "settings":{ "slidesToShow": 3, "slidesMargin":20 }},{"breakpoint":768, "settings":{ "slidesToShow": 2, "slidesMargin":10}}]}'>
-
-                        <li class="product-item">
-                            <div class="contain-product layout-default" style="background-color: #fff; margin-left: 10px;">
-                                <div class="product-thumb">
-                                    <a href="#" class="link-to-product">
-                                        <img src="{{ asset('public/upload/8up-102410.jpg') }}" alt="dd" width="270" height="270" class="product-thumnail">
-                                    </a>
-                                </div>
-                                <div class="info">
-                                    <b class="categories">Fresh Fruit</b>
-                                    <h4 class="product-title"><a href="#" class="pr-name">National Fresh Fruit</a></h4>
-                                    <div class="price">
-                                        <ins><span class="price-amount"><span class="currencySymbol">£</span>85.00</span></ins>
-                                        <del><span class="price-amount"><span class="currencySymbol">£</span>95.00</span></del>
-                                    </div>
-                                    <div class="slide-down-box">
-                                        <p class="message">All products are carefully selected to ensure food safety.</p>
-                                        <div class="buttons">
-                                            <a href="#" class="btn wishlist-btn"><i class="fa fa-heart" aria-hidden="true"></i></a>
-                                            <a href="#" class="btn add-to-cart-btn"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i>add to cart</a>
-                                            <a href="#" class="btn compare-btn"><i class="fa fa-random" aria-hidden="true"></i></a>
+                    <div id="main-content" class="main-content col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <ul class="products-list biolife-carousel nav-center-02 nav-none-on-mobile" data-slick='{"rows":1,"arrows":true,"dots":false,"infinite":false,"speed":400,"slidesMargin":0,"slidesToShow":5, "responsive":[{"breakpoint":1200, "settings":{ "slidesToShow": 3}},{"breakpoint":992, "settings":{ "slidesToShow": 3, "slidesMargin":30}},{"breakpoint":768, "settings":{ "slidesToShow": 2, "slidesMargin":10}}]}' >
+                            @foreach ($all_product_relate as $product_relate)
+                                @php
+                                    $price_discount = App\Http\Controllers\HomeClientController::check_price_discount($product_relate->product_id);
+                                    $info_rating_saled = App\Http\Controllers\HomeClientController::info_rating_saled($product_relate->product_id);
+                                    $check_already_wish = App\Http\Controllers\WishListController::checkProductWishLish($product_relate->product_id);
+                                @endphp
+                                @if ($product_relate->category_id == $product->category_id && $product_relate->product_id != $product->product_id)
+                                    <li class="product-item col-lg-4 col-md-4 col-sm-4 col-xs-6">
+                                        <div class="contain-product layout-default content_product_sm">
+                                            <div class="product-thumb">
+                                                <form>
+                                                    @csrf
+                                                    <input type="hidden" value="{{ $product_relate->product_name }}" id="recently_viewed_product_name_{{ $product_relate->product_id }}">
+                                                    <input type="hidden" value="{{ number_format($price_discount->price_now, 0, ',', '.') }}₫" id="recently_viewed_product_price_{{ $product_relate->product_id }}">
+                                                </form>
+                                                <a href="{{ URL::to('product_detail/' . $product_relate->product_id) }}" class="link-to-product btn_recently_viewed" data-id="{{ $product_relate->product_id }}" id="recently_viewed_product_detail_{{ $product_relate->product_id }}">
+                                                    <img src="{{ asset('public/upload/'.$product_relate->product_image) }}" alt="dd" style="width: 220px; height: 220px" class="product-thumnail" id="recently_viewed_product_img_{{ $product_relate->product_id }}">
+                                                </a>
+                                                <span href="#" class="lookup get_val_quickview btn_call_quickview_detail btn_open_modal"
+                                                    data-id="{{ $product_relate->product_id }}"><i
+                                                        class="biolife-icon icon-search"></i></span>
+                                            </div>
+                                            <div class="info">
+                                                <h4 class="product-title">
+                                                    <a href="{{ URL::to('product_detail/' . $product_relate->product_id) }}" class="pr-name name_product cus_prod_name_card_sm btn_recently_viewed" data-id="{{ $product_relate->product_id }}">
+                                                        {{ $product_relate->product_name }}
+                                                    </a>
+                                                </h4>
+                                                <div class="price">
+                                                    @if ($price_discount->percent_discount == 0)
+                                                        <ins><span class="price-amount cus_price_card_sm" style="font-size: 16px;">
+                                                            <span class="currencySymbol">{{ number_format($price_discount->price_now, 0, ',', '.') }}₫</span>
+                                                        </ins>
+                                                    @else
+                                                        <ins><span class="price-amount cus_price_card_sm" style="font-size: 16px;">
+                                                            <span class="currencySymbol">{{ number_format($price_discount->price_now, 0, ',', '.') }}₫</span>
+                                                        </ins>
+                                                        <del><span class="price-amount"><span class="currencySymbol">{{ number_format($price_discount->price_old, 0, ',', '.') }}₫</span></del>
+                                                    @endif
+                                                </div>
+                                                <div class="content_qty_rating">
+                                                    {{-- <p class="shipping-day">3-Day Shipping</p>
+                                                    <p class="for-today">Pree Pickup Today</p> --}}
+                                                    <div class="rating" style="display: flex;">
+                                                        <p class="star-rating" style="align-self: flex-start">
+                                                            <span class="width-80percent" style="width:{{ $info_rating_saled->avg_rating *20 }}%"></span>
+                                                        </p>
+                                                    </div>
+                                                    <div class="availeble_product">Đã bán: {{ $info_rating_saled->count_product_saled }}</div>
+                                                </div>
+                                                <div class="slide-down-box">
+                                                    <div class="buttons" style="padding: 0px;">
+                                                        {{-- wish list --}}
+                                                        @if (Session::get('customer_id'))
+                                                            <a class="btn wishlist-btn btn_add_wish_lish" style="cursor: pointer;"
+                                                                data-id="{{ $product_relate->product_id }}">
+                                                                @if ($check_already_wish->check_already == 1)
+                                                                    <i class="fa fa-heart" aria-hidden="true" style="color: #7faf51"></i>
+                                                                @else
+                                                                    <i class="fa fa-heart icon_wish_list_{{ $product_relate->product_id }}" aria-hidden="true"></i>
+                                                                @endif
+                                                            </a>
+                                                        @else
+                                                            <a href="{{ URL::to('login_client') }}"class="btn wishlist-btn" >
+                                                                @if ($check_already_wish->check_already == 1)
+                                                                    <i class="fa fa-heart" aria-hidden="true" style="color: #7faf51"></i>
+                                                                @else
+                                                                    <i class="fa fa-heart" aria-hidden="true"></i>
+                                                                @endif
+                                                            </a>
+                                                        @endif
+                                                        {{-- end wish list --}}
+                                                        @if (Session::get('customer_id'))
+                                                            <button href="#"
+                                                                class="btn add-to-cart-btn btn-block btn-sm add_cart_one"
+                                                                data-id="{{ $product_relate->product_id }}" style="font-size: 12px;"><i
+                                                                    class="fa fa-cart-arrow-down" aria-hidden="true" ></i>
+                                                                    thêm vào giỏ hàng
+                                                                </button>
+                                                        @else
+                                                            <a href="{{ URL::to('login_client') }}"
+                                                                class="btn add-to-cart-btn btn-block btn-sm" style="font-size: 12px;"><i
+                                                                    class="fa fa-cart-arrow-down" aria-hidden="true"></i>
+                                                                    thêm vào giỏ hàng
+                                                                </a>
+                                                        @endif
+                                                        {{-- add cart --}}
+                                                        <input type="hidden" class="val_qty_{{ $product_relate->product_id }}"
+                                                            value="1">
+                                                        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                                                        {{-- end add cart --}}
+                                                        <a href="#" class="btn compare-btn"><i class="fa fa-random" aria-hidden="true"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @if ($price_discount->percent_discount != 0)
+                                                <div class="content_discount_product">
+                                                    <div class="content_sub_discount bg_discount">
+                                                        <div class="content_title_discount">
+                                                            <span class="percent">{{ $price_discount->percent_discount }}%</span>
+                                                            <span class="txt_giam">giảm</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endif
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="product-item">
-                            <div class="contain-product layout-default" style="background-color: #fff; margin-left: 10px;">
-                                <div class="product-thumb">
-                                    <a href="#" class="link-to-product">
-                                        <img src="{{ asset('public/upload/8up-102410.jpg') }}" alt="dd" width="270" height="270" class="product-thumnail">
-                                    </a>
-                                </div>
-                                <div class="info">
-                                    <b class="categories">Fresh Fruit</b>
-                                    <h4 class="product-title"><a href="#" class="pr-name">National Fresh Fruit</a></h4>
-                                    <div class="price">
-                                        <ins><span class="price-amount"><span class="currencySymbol">£</span>85.00</span></ins>
-                                        <del><span class="price-amount"><span class="currencySymbol">£</span>95.00</span></del>
-                                    </div>
-                                    <div class="slide-down-box">
-                                        <p class="message">All products are carefully selected to ensure food safety.</p>
-                                        <div class="buttons">
-                                            <a href="#" class="btn wishlist-btn"><i class="fa fa-heart" aria-hidden="true"></i></a>
-                                            <a href="#" class="btn add-to-cart-btn"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i>add to cart</a>
-                                            <a href="#" class="btn compare-btn"><i class="fa fa-random" aria-hidden="true"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="product-item">
-                            <div class="contain-product layout-default" style="background-color: #fff; margin-left: 10px;">
-                                <div class="product-thumb">
-                                    <a href="#" class="link-to-product">
-                                        <img src="{{ asset('public/upload/8up-102410.jpg') }}" alt="dd" width="270" height="270" class="product-thumnail">
-                                    </a>
-                                </div>
-                                <div class="info">
-                                    <b class="categories">Fresh Fruit</b>
-                                    <h4 class="product-title"><a href="#" class="pr-name">National Fresh Fruit</a></h4>
-                                    <div class="price">
-                                        <ins><span class="price-amount"><span class="currencySymbol">£</span>85.00</span></ins>
-                                        <del><span class="price-amount"><span class="currencySymbol">£</span>95.00</span></del>
-                                    </div>
-                                    <div class="slide-down-box">
-                                        <p class="message">All products are carefully selected to ensure food safety.</p>
-                                        <div class="buttons">
-                                            <a href="#" class="btn wishlist-btn"><i class="fa fa-heart" aria-hidden="true"></i></a>
-                                            <a href="#" class="btn add-to-cart-btn"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i>add to cart</a>
-                                            <a href="#" class="btn compare-btn"><i class="fa fa-random" aria-hidden="true"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="product-item">
-                            <div class="contain-product layout-default" style="background-color: #fff; margin-left: 10px;">
-                                <div class="product-thumb">
-                                    <a href="#" class="link-to-product">
-                                        <img src="{{ asset('public/upload/8up-102410.jpg') }}" alt="dd" width="270" height="270" class="product-thumnail">
-                                    </a>
-                                </div>
-                                <div class="info">
-                                    <b class="categories">Fresh Fruit</b>
-                                    <h4 class="product-title"><a href="#" class="pr-name">National Fresh Fruit</a></h4>
-                                    <div class="price">
-                                        <ins><span class="price-amount"><span class="currencySymbol">£</span>85.00</span></ins>
-                                        <del><span class="price-amount"><span class="currencySymbol">£</span>95.00</span></del>
-                                    </div>
-                                    <div class="slide-down-box">
-                                        <p class="message">All products are carefully selected to ensure food safety.</p>
-                                        <div class="buttons">
-                                            <a href="#" class="btn wishlist-btn"><i class="fa fa-heart" aria-hidden="true"></i></a>
-                                            <a href="#" class="btn add-to-cart-btn"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i>add to cart</a>
-                                            <a href="#" class="btn compare-btn"><i class="fa fa-random" aria-hidden="true"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="product-item">
-                            <div class="contain-product layout-default" style="background-color: #fff; margin-left: 10px;">
-                                <div class="product-thumb">
-                                    <a href="#" class="link-to-product">
-                                        <img src="{{ asset('public/upload/8up-102410.jpg') }}" alt="dd" width="270" height="270" class="product-thumnail">
-                                    </a>
-                                </div>
-                                <div class="info">
-                                    <b class="categories">Fresh Fruit</b>
-                                    <h4 class="product-title"><a href="#" class="pr-name">National Fresh Fruit</a></h4>
-                                    <div class="price">
-                                        <ins><span class="price-amount"><span class="currencySymbol">£</span>85.00</span></ins>
-                                        <del><span class="price-amount"><span class="currencySymbol">£</span>95.00</span></del>
-                                    </div>
-                                    <div class="slide-down-box">
-                                        <p class="message">All products are carefully selected to ensure food safety.</p>
-                                        <div class="buttons">
-                                            <a href="#" class="btn wishlist-btn"><i class="fa fa-heart" aria-hidden="true"></i></a>
-                                            <a href="#" class="btn add-to-cart-btn"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i>add to cart</a>
-                                            <a href="#" class="btn compare-btn"><i class="fa fa-random" aria-hidden="true"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="product-item">
-                            <div class="contain-product layout-default" style="background-color: #fff; margin-left: 10px;">
-                                <div class="product-thumb">
-                                    <a href="#" class="link-to-product">
-                                        <img src="{{ asset('public/upload/8up-102410.jpg') }}" alt="dd" width="270" height="270" class="product-thumnail">
-                                    </a>
-                                </div>
-                                <div class="info">
-                                    <b class="categories">Fresh Fruit</b>
-                                    <h4 class="product-title"><a href="#" class="pr-name">National Fresh Fruit</a></h4>
-                                    <div class="price">
-                                        <ins><span class="price-amount"><span class="currencySymbol">£</span>85.00</span></ins>
-                                        <del><span class="price-amount"><span class="currencySymbol">£</span>95.00</span></del>
-                                    </div>
-                                    <div class="slide-down-box">
-                                        <p class="message">All products are carefully selected to ensure food safety.</p>
-                                        <div class="buttons">
-                                            <a href="#" class="btn wishlist-btn"><i class="fa fa-heart" aria-hidden="true"></i></a>
-                                            <a href="#" class="btn add-to-cart-btn"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i>add to cart</a>
-                                            <a href="#" class="btn compare-btn"><i class="fa fa-random" aria-hidden="true"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
+                                    </li>
+                                @endif
+                            @endforeach
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -876,4 +839,7 @@
     <script src="{{ asset('public/font_end/custom/sweet.js') }}"></script>
     <script src="{{ asset('public/font_end/custom/save_voucher.js') }}"></script>
     <script src="{{ asset('public/font_end/custom/rating_comment.js') }}"></script>
+    <script src="{{ asset('public/font_end/custom/mini_detail_product.js') }}"></script>
+    <script src="{{ asset('public/font_end/custom_ui/js/recently_viewed.js') }}"></script>
+
 @endsection

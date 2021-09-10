@@ -71,6 +71,7 @@ CREATE TABLE `admin` (
 
 INSERT INTO `admin` (`admin_id`, `admin_name`, `admin_birthday`, `admin_email`, `password`, `admin_phone`, `admin_gender`, `admin_address`, `avt`, `deleted_at`, `created_at`, `updated_at`) VALUES
 (1, 'Khanh Admin', '2000-08-07', 'khanhadmin@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '0368038738', 'Nu', 'Tỉnh Sóc Trăng, Huyện Mỹ Tú, Thị trấn Huỳnh Hữu Nghĩa', 'avatar767.png', NULL, '2021-06-18 16:00:20', '2021-08-04 10:08:30'),
+(2, 'Admin', '2000-01-01', 'admin123@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '0911635153', 'Nam', 'Tỉnh Sóc Trăng, Huyện Mỹ Tú, Thị trấn Huỳnh Hữu Nghĩa', 'avatar767.png', NULL, '2021-06-18 16:00:20', '2021-08-04 10:08:30'),
 (3, 'Khanh User', '2000-08-07', 'khanhuser@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '0368038732', 'Nam', 'Tỉnh Sóc Trăng, Huyện Mỹ Tú, Thị trấn Huỳnh Hữu Nghĩa', '8up-10249.jpg', NULL, '2021-06-18 16:00:20', '2021-06-19 15:49:16'),
 (9, 'Kailee Dooley', '2000-08-07', 'hoeger.kiana@example.net', 'e10adc3949ba59abbe56e057f20f883e', '0123456789', 'Nam', 'Thành phố Hà Nội, Quận Ba Đình, Phường Phúc Xá', NULL, '2021-08-20 04:29:21', '2021-06-18 16:00:20', NULL),
 (10, 'Creola Hyatt', '2000-08-07', 'grady.laurence@example.org', 'e10adc3949ba59abbe56e057f20f883e', '0123456789', 'Nam', 'Thành phố Hà Nội, Quận Ba Đình, Phường Phúc Xá', NULL, NULL, '2021-06-18 16:00:20', NULL),

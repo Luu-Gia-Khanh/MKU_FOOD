@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:600&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400i,700i" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Ubuntu&amp;display=swap" rel="stylesheet">
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('public/font_end/assets/images/favicon.png') }}" />
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('public/upload/logo_mku_shortcut_icon.svg') }}" />
     <link rel="stylesheet" href="{{ asset('public/font_end/assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('public/font_end/assets/css/animate.min.css') }}">
     <link rel="stylesheet" href="{{ asset('public/font_end/assets/css/font-awesome.min.css') }}">

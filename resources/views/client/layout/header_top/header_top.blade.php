@@ -3,7 +3,7 @@
         <div class="top-bar left">
             <ul class="horizontal-menu">
                 <li><a href="mailto: mkufood@mku.edu.vn"><i class="fa fa-envelope" aria-hidden="true"></i>mkufood@mku.edu.vn</a></li>
-                <li><a href="tel:091163513"><i class="fa fa-phone" aria-hidden="true"></i>Liên hệ hotline: 0911635153</a></li>
+                <li><a href="tel:091163513"><i class="fa fa-phone" aria-hidden="true"></i>Liên hệ hotline: 0270 3831 155</a></li>
             </ul>
         </div>
         <div class="top-bar right" style="display: flex;">
