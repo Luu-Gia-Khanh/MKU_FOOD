@@ -12,6 +12,7 @@ use App\Admin_Action_Discount;
 use DB;
 use Session;
 use Carbon\Carbon;
+use PDF;
 class DiscountController extends Controller
 {
     public function all_discount(){
@@ -315,18 +316,6 @@ class DiscountController extends Controller
             return redirect('admin/all_discount');
         }
     }
-    // public function search_product_discount(Request $request){
-    //     $val_find = $request->value_find;
-    //     // $result_find = Product::where('product_name','LIKE','%'.$val_find.'%')->get();
-    //     $all_product = DB::table('product')
-    //     ->join('product_price','product_price.product_id','=','product.product_id')
-    //     ->join('storage_product','storage_product.product_id','=','product.product_id')
-    //     ->where('product_price.status',1)
-    //     ->where('product.deleted_at', null)
-    //     ->where('product_name','LIKE','%'.$val_find.'%')
-    //     ->where('product.discount_id', null)->get();
-    //     echo view('admin.discount.view_search_discount',['products'=>$all_product]);
-    // }
     public function update_discount($discount_id){
         $discount = Discount::find($discount_id);
         $products = Product::where('discount_id',$discount_id)->get();
@@ -335,10 +324,6 @@ class DiscountController extends Controller
         ->join('storage_product','storage_product.product_id','=','product.product_id')
         ->where('product.deleted_at', null)
         ->where('product_price.status',1)->get();
-        // $all_product = DB::table('product')
-        // ->join('product_price','product_price.product_id','=','product.product_id')
-        // ->join('storage_product','storage_product.product_id','=','product.product_id')
-        // ->where('product_price.status',1)->where('product.discount_id', null)->get();
         return view('admin.discount.update_discount',[
             'discount'=> $discount,
             'products'=> $products,
@@ -502,5 +487,104 @@ class DiscountController extends Controller
         return redirect('admin/all_discount');
     }
 
+    public function filter_discount_status_time_discount(Request $request){
+        $status_time = $request->status_time;
+
+        $type_filter = 'time_discount';
+        $level_filter = $status_time;
+
+        $now = Carbon::now('Asia/Ho_Chi_Minh');
+
+        $all_discount_get = Discount::all();
+        $all_product = Product::all();
+
+        if($status_time == 1){
+            $arrDiscount = array();
+            $string_title = 'Danh Sách Giảm Giá Còn Thời Hạn';
+
+            foreach($all_discount_get as $discount){
+                if($now <= $discount->end_date_2 || $now <= $discount->end_date_1){
+                    $arrDiscount[] = $discount;
+                }
+            }
+            $all_discount = $arrDiscount;
+        }
+        else{
+            $arrDiscount = array();
+            $string_title = 'Danh Sách Giảm Giá Hết Thời Hạn';
+
+            foreach($all_discount_get as $discount){
+                if($now > $discount->end_date_2 &&  $now > $discount->end_date_1){
+                    $arrDiscount[] = $discount;
+                }
+            }
+            $all_discount = $arrDiscount;
+        }
+
+        echo view('admin.discount.view_filter_discount',[
+            'all_product'=> $all_product,
+            'all_discount'=> $all_discount,
+            'string_title'=> $string_title,
+            'type_filter'=> $type_filter,
+            'level_filter'=> $level_filter,
+        ]);
+    }
+
+    public function print_pdf_discount(Request $request){
+        $type_filter = $request->type_filter;
+        $level_filter = $request->level_filter;
+
+        $now = Carbon::now('Asia/Ho_Chi_Minh');
+        $all_discount_get = Discount::all();
+        $all_product = Product::all();
+
+        switch ($type_filter) {
+            case 'time_discount':
+                if($level_filter == 1){
+                    $arrDiscount = array();
+                    $string_title = 'Danh Sách Giảm Giá Còn Thời Hạn';
+
+                    foreach($all_discount_get as $discount){
+                        if($now <= $discount->end_date_2 || $now <= $discount->end_date_1){
+                            $arrDiscount[] = $discount;
+                        }
+                    }
+                    $all_discount = $arrDiscount;
+
+                    $pdf = PDF::loadView('admin.discount.view_print_pdf_discount', [
+                        'all_discount'=>$all_discount,
+                        'string_title'=>$string_title,
+                        'all_product'=>$all_product,
+                    ]);
+                    return $pdf->download('list_discount_still_time.pdf');
+                }
+                else{
+                    $arrDiscount = array();
+                    $string_title = 'Danh Sách Giảm Giá Hết Thời Hạn';
+
+                    foreach($all_discount_get as $discount){
+                        if($now > $discount->end_date_2 &&  $now > $discount->end_date_1){
+                            $arrDiscount[] = $discount;
+                        }
+                    }
+                    $all_discount = $arrDiscount;
+                    $pdf = PDF::loadView('admin.discount.view_print_pdf_discount', [
+                        'all_discount'=>$all_discount,
+                        'string_title'=>$string_title,
+                        'all_product'=>$all_product,
+                    ]);
+                    return $pdf->download('list_discount_out_of_time.pdf');
+                }
+                break;
+            default:
+                $string_title = 'Danh Sách Giảm Giá';
+                $pdf = PDF::loadView('admin.discount.view_print_pdf_discount', [
+                    'all_discount'=>$all_discount_get,
+                    'string_title'=>$string_title,
+                    'all_product'=>$all_product,
+                ]);
+                return $pdf->download('list_discount.pdf');
+        }
+    }
 
 }

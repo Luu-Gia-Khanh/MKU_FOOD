@@ -71,13 +71,6 @@
 
             </div>
             <div class="col-sm-12 col-md-6">
-                {{-- <div id="DataTables_Table_0_filter" class="dataTables_filter">
-                    <form action="">
-                        @csrf
-                        <label>Tìm Kiếm:<input type="search" class="form-control form-control-sm" id="find_product" placeholder="Tìm Kiếm"
-                            aria-controls="DataTables_Table_0"></label>
-                    </form>
-                </div> --}}
             </div>
         </div>
         <div class="content_find_product">

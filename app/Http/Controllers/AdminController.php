@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 use App\Admin;
 use App\Roles;
-use App\User;
+use App\Admin_Roles;
 use App\Admin_Action_Admin;
 use Auth;
 use DB;
 use Session;
 use Carbon\Carbon;
+use PDF;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -18,8 +19,17 @@ class AdminController extends Controller
         return view('admin.dashboard.dashbord');
     }
     public function show_admin(){
+        $roles = DB::table('roles')
+                ->join('admin_roles','admin_roles.roles_roles_id','=','roles.roles_id')
+                ->get();
+        //$roles = Roles::all();
+        //$admin_roles = Admin_Roles::all();
         $all_admin = Admin::paginate(10);
-        return view('admin.admin.all_admin',['all_admin'=>$all_admin]);
+        return view('admin.admin.all_admin',[
+            'all_admin'=>$all_admin,
+            //'admin_roles'=>$admin_roles,
+            'roles'=>$roles,
+        ]);
     }
     public function add_admin(){
         $citys = DB::table('tinhthanhpho')->get();
@@ -362,15 +372,21 @@ class AdminController extends Controller
         return redirect()->back();
     }
     public function view_profile($admin_id){
-        //$view_profile = Admin::find($admin_id);
-        $view_profile = DB::table('admin_roles')
-        ->join('admin','admin.admin_id','=','admin_roles.admin_admin_id')
-        ->join('roles','roles.roles_id','=','admin_roles.roles_roles_id')
-        ->where('admin_admin_id',$admin_id)->first();
+        $view_profile = Admin::find($admin_id);
+        //$view_profile = DB::table('admin_roles')
+        // ->join('admin','admin.admin_id','=','admin_roles.admin_admin_id')
+        // ->join('roles','roles.roles_id','=','admin_roles.roles_roles_id')
+        //->where('admin_admin_id',$admin_id)->first();
+
         $citys = DB::table('tinhthanhpho')->get();
         $districts = DB::table('quanhuyen')->get();
         $wards = DB::table('xaphuongthitran')->get();
-        return view('admin.admin.view_profile_admin',['view_profile'=>$view_profile,'citys'=>$citys,'districts'=>$districts,'wards'=>$wards]);
+        return view('admin.admin.view_profile_admin',[
+            'view_profile'=>$view_profile,
+            'citys'=>$citys,
+            'districts'=>$districts,
+            'wards'=>$wards
+        ]);
     }
     public function find_admin(Request $request){
         $val_find = $request->value_find;
@@ -414,9 +430,13 @@ class AdminController extends Controller
         if($request['manager']){
            $user->roles()->attach(Roles::where('name','manager')->first());
         }
-        if($request['user']){
-            $user->roles()->attach(Roles::where('name','user')->first());
-         }
+        if($request['delivery']){
+           $user->roles()->attach(Roles::where('name','delivery')->first());
+        }
+        if($request['employee']){
+            $user->roles()->attach(Roles::where('name','employee')->first());
+        }
+        $request->session()->flash('permission_success', 'Phân quyền thành công');
         return redirect()->back();
     }
     // Validate
@@ -464,5 +484,81 @@ class AdminController extends Controller
             'new_password.min' => 'Password phải chứa ít nhất 5 ký tự',
             'confirm_password.required' => 'Bạn không được để trống',
         ]);
+    }
+
+    public function filter_admin_role(Request $request){
+        $role_id = $request->role_id;
+
+        $type_filter = 'role';
+        $level_filter = $role_id;
+
+        if($role_id == 1){
+            $role_name = 'manager';
+            $string_title = 'Danh Sách Nhân Viên Quản Lý';
+        }
+        else if($role_id == 2){
+            $role_name = 'employee';
+            $string_title = 'Danh Sách Nhân Viên';
+        }
+        else{
+            $role_name = 'delivery';
+            $string_title = 'Danh Sách Nhân Viên Giao Hàng';
+        }
+        $all_admin = DB::table('admin')
+                ->join('admin_roles','admin_roles.admin_admin_id','=','admin.admin_id')
+                ->join('roles','roles.roles_id','=','admin_roles.roles_roles_id')
+                ->where('roles.name',$role_name)
+                ->where('admin.deleted_at', null)
+                ->get();
+        echo view('admin.admin.view_filter_admin',[
+            'all_admin'=>$all_admin,
+            'string_title'=>$string_title,
+            'type_filter'=>$type_filter,
+            'level_filter'=>$level_filter,
+        ]);
+    }
+    public function print_pdf_admin(Request $request){
+        $type_filter = $request->type_filter;
+        $level_filter = $request->level_filter;
+
+        if($type_filter == 'role'){
+            $role_id = $level_filter;
+            if($role_id == 1){
+                $role_name = 'manager';
+                $string_title = 'Danh Sách Nhân Viên Quản Lý';
+            }
+            else if($role_id == 2){
+                $role_name = 'employee';
+                $string_title = 'Danh Sách Nhân Viên';
+            }
+            else{
+                $role_name = 'delivery';
+                $string_title = 'Danh Sách Nhân Viên Giao Hàng';
+            }
+            $all_admin = DB::table('admin')
+                    ->join('admin_roles','admin_roles.admin_admin_id','=','admin.admin_id')
+                    ->join('roles','roles.roles_id','=','admin_roles.roles_roles_id')
+                    ->where('roles.name',$role_name)
+                    ->where('admin.deleted_at', null)
+                    ->get();
+            $pdf = PDF::loadView('admin.admin.view_print_pdf_admin_role', [
+                'all_admin'=>$all_admin,
+                'string_title'=>$string_title,
+            ]);
+            return $pdf->download('list_admin_role.pdf');
+        }
+        else{
+            $string_title = 'Danh Sách Quản Trị Viên';
+            $roles = DB::table('roles')
+                ->join('admin_roles','admin_roles.roles_roles_id','=','roles.roles_id')
+                ->get();
+            $all_admin = Admin::all();
+            $pdf = PDF::loadView('admin.admin.view_print_pdf_admin', [
+                'all_admin'=>$all_admin,
+                'roles'=>$roles,
+                'string_title'=>$string_title,
+            ]);
+            return $pdf->download('list_all_admin.pdf');
+        }
     }
 }

@@ -42,14 +42,48 @@
     @endif
 
     <!-- Simple Datatable start -->
-    <div class="card-box mb-30">
+    <div class="card-box mb-30 content_filter_comment">
         <div class="pd-20">
             <h4 class="text-blue h4">Danh Sách Bình Luận Chờ Duyệt</h4>
         </div>
         <div class="pb-20">
             <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer ">
                 <div class="row">
-                    <div class="col-sm-12 col-md-6">
+                    <div class="col-sm-12 col-md-6 d-flex">
+                        <div class="content_filter pl-20">
+                            <div class="dropdown">
+                                <a class="btn btn-success dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+                                    aria-expanded="false">
+                                    <i class="icon-copy dw dw-filter"></i> Lọc
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-left" style="">
+                                    <a class="dropdown-item" href="#" data-toggle="modal"
+                                        data-target="#Modal_filter_comment_follow_product">
+                                        Theo sản phẩm
+                                    </a>
+                                    <a class="dropdown-item" href="#" data-toggle="modal"
+                                        data-target="#Modal_filter_comment_follow_rating">
+                                        Theo đánh giá
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content_print_pdf_product ml-10">
+                            <form action="{{ URL::to('admin/print_pdf_comment') }}" method="post">
+                                @csrf
+                                {{-- type filter --}}
+                                    <input type="hidden" class="type_filter" name="type_filter" value="">
+                                    <input type="hidden" class="level_filter" name="level_filter" value="">
+                                    <input type="hidden" name="level_array" value="">
+                                    <input type="hidden" name="price_filter_start" value="">
+                                    <input type="hidden" name="price_filter_end" value="">
+                                {{--  --}}
+                                <button type="submit" class="btn btn-secondary">
+                                    Xuất
+                                    <img src="{{ asset('public/upload/pdf1.svg') }}" style="height: 25px" alt="">
+                                </button>
+                            </form>
+                        </div>
                     </div>
                     <div class="col-sm-12 col-md-6">
                         <div id="DataTables_Table_0_filter" class="dataTables_filter">
@@ -144,6 +178,7 @@
             </div>
         </div>
     </div>
+    @include('admin.comment.modal_filter_comment')
     <!-- The Modal accep comment -->
     <div class="modal fade" id="Modal_accep_comment">
         <div class="modal-dialog modal-dialog-centered">

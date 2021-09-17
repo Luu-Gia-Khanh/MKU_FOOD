@@ -9,23 +9,14 @@
                         </div>
                         <nav aria-label="breadcrumb" role="navigation">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{ URL::to('admin/dashboard') }}">Trang chủ</a></li>
+                                <li class="breadcrumb-item"><a href="{{ URL::to('admin/') }}">Trang chủ</a></li>
                                 <li class="breadcrumb-item"><a href="{{ URL::to('admin/all_discount') }}">Danh sách giảm giá</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">Chi tiết giảm giá</li>
                             </ol>
                         </nav>
                     </div>
                     <div class="col-md-6 col-sm-12 text-right">
-                        {{-- <div class="dropdown">
-                        <a class="btn btn-primary dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-                            January 2018
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="#">Export List</a>
-                            <a class="dropdown-item" href="#">Policies</a>
-                            <a class="dropdown-item" href="#">View Assets</a>
-                        </div>
-                    </div> --}}
+
                     </div>
                 </div>
         </div>
@@ -33,6 +24,11 @@
         <div class="card-box pd-20 mb-30">
             <div class="pd-10 d-flex flex-row">
                 <h4 class="h4">#Giảm Giá 1</h4>
+                <div class="h5 ml-10">
+                    ({{ date("d/m/Y H:i a", strtotime($discount->start_date_1)) }}
+                    -
+                    {{ date("d/m/Y H:i a", strtotime($discount->end_date_1)) }})
+                </div>
                 @php
                     $now = Carbon\Carbon::now();
                 @endphp
@@ -55,10 +51,6 @@
                                             <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                                                 colspan="1" data-defaultsign="AZ">Sản Phẩm</th>
                                             <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                                colspan="1">Ngày Bắt Đầu Giảm Giá 1</th>
-                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                                colspan="1" data-defaultsign="AZ">Ngày Kết Thúc Giảm Giá 1</th>
-                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                                                 colspan="1" data-defaultsign="AZ">Giảm</th>
                                             <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                                                 colspan="1" data-defaultsign="AZ">Giá Sau Khi Giảm</th>
@@ -80,12 +72,12 @@
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td>
+                                                {{-- <td>
                                                     {{ date("d/m/Y H:i a", strtotime($discount->start_date_1)) }}
                                                 </td>
                                                 <td>
                                                     {{ date("d/m/Y H:i a", strtotime($discount->end_date_1)) }}
-                                                </td>
+                                                </td> --}}
                                                 <td>
                                                     @if ($discount->condition_discount_1 == 1)
                                                         {{ $discount->amount_discount_1 }}%
@@ -118,6 +110,11 @@
             {{-- Giảm Giá 2 --}}
             <div class="pd-10 d-flex flex-row">
                 <h4 class="h4">#Giảm Giá 2</h4>
+                <div class="h5 ml-10">
+                    ({{ date("d/m/Y H:i a", strtotime($discount->start_date_2)) }}
+                    -
+                    {{ date("d/m/Y H:i a", strtotime($discount->end_date_2)) }})
+                </div>
                 @if ($discount->start_date_2 != '')
                     @if ($discount->start_date_2 <= $now && $now <= $discount->end_date_2)
                         <span class="badge badge-success align-self-start ml-10">Còn Thời Hạn</span>
@@ -142,10 +139,6 @@
                                                 <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                                                     colspan="1" data-defaultsign="AZ">Sản Phẩm</th>
                                                 <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                                    colspan="1">Ngày Bắt Đầu Giảm Giá 2</th>
-                                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                                    colspan="1" data-defaultsign="AZ">Ngày Kết Thúc Giảm Giá 2</th>
-                                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                                                     colspan="1" data-defaultsign="AZ">Giảm</th>
                                                 <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                                                     colspan="1" data-defaultsign="AZ">Giá Sau Khi Giảm</th>
@@ -166,12 +159,6 @@
                                                                 <div class="weight-600 ml-10">{{ $product->product_name }}</div>
                                                             </div>
                                                         </div>
-                                                    </td>
-                                                    <td>
-                                                        {{ date("d/m/Y H:i a", strtotime($discount->start_date_2)) }}
-                                                    </td>
-                                                    <td>
-                                                        {{ date("d/m/Y H:i a", strtotime($discount->end_date_2)) }}
                                                     </td>
                                                     <td>
                                                         @if ($discount->condition_discount_2 == 1)

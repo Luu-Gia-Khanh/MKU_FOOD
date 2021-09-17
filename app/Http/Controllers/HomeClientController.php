@@ -425,6 +425,115 @@ class HomeClientController extends Controller
             'all_product_relate' => $all_product_relate,
         ]);
     }
+    public function product_detail_slug($slug){
+        $customer_id = Session::get('customer_id');
+        $product = Product::where('slug',$slug)->first();
+        $product_id = $product->product_id;
+        $cate = Category::where('cate_id',$product->category_id)->first();
+        $price = ProductPrice::where('product_id',$product_id)->where('status', 1)->first();
+        $all_image = ImageProduct::where('product_id',$product_id)->get();
+        $wish_lish = WishList::where('customer_id', $customer_id)->get();
+        $all_cart = Cart::where('customer_id', $customer_id)->where('status', 1)->get();
+        $product_storage = Storage_Product::all();
+        $all_product = Product::all();
+        $all_price = ProductPrice::where('status',1)->get();
+
+        $all_product_relate = DB::table('product')
+        ->join('category','category.cate_id','=','product.category_id')
+        ->join('product_price','product_price.product_id','=','product.product_id')
+        ->join('storage_product','storage_product.product_id','=','product.product_id')
+        ->where('product.deleted_at', null)
+        ->where('product_price.status',1)
+        ->get();
+
+        $date_now = Carbon::now('Asia/Ho_Chi_Minh');
+        $all_product_voucher = Voucher::where('product_id', $product_id)
+                                        ->where('status', 1)
+                                        ->where('start_date', '<=' , $date_now)
+                                        ->where('end_date', '>=', $date_now)
+                                        ->where('voucher.voucher_quantity', '>', 0)
+                                        ->get();
+        $storage_customer_voucher = DB::table('storage_customer_voucher')
+                                    ->join('voucher', 'voucher.voucher_id', '=', 'storage_customer_voucher.voucher_id')
+                                    ->where('voucher.product_id', $product_id)
+                                    ->where('customer_id', $customer_id)->get();
+
+        // able rating and comment
+        $orders = DB::table('order_detail_status')
+                ->join('orders','orders.order_id','=','order_detail_status.order_id')
+                ->where('status',1)->where('order_detail_status.status_id',4)
+                ->where('customer_id', Session::get('customer_id'))->get();
+        $now = Carbon::now('Asia/Ho_Chi_Minh');
+        if($orders){
+            foreach ($orders as $order){
+                $date_now = strtotime($now);
+                $order_time = strtotime($order->create_at);
+                $minus_date = abs($date_now - $order_time);
+                $check_date = floor($minus_date / (60*60*24));
+                if($check_date <= 30){
+                    $order_item = Order_Item::where('order_id', $order->order_id)->get();
+                    foreach ($order_item as $item){
+                        if($item->product_id == $product_id){
+                            Session::put('able_rating_comment_'.$product_id, $product_id);
+
+                            $find_rating = Rating::where('product_id',$product_id)
+                                    ->where('customer_id', $customer_id)->first();
+                            if($find_rating){
+                                Session::put('rated_'.$product_id, $find_rating->rating_level);
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        //Load rating and comment
+        $get = 5;
+        $all_rating = Rating::where('product_id',$product_id)->get();
+        $all_comment = Comment::where('product_id',$product_id)
+            ->orderBy('comment_useful','desc')->take($get)->get();
+        $customers = DB::table('customer')
+                ->join('customer_info', 'customer_info.customer_id', '=', 'customer.customer_id')
+                ->get();
+
+        $all_rating_to_count = Rating::where('product_id',$product_id)->get();
+        $all_comment_to_count = Comment::where('product_id',$product_id)->get();
+        $check_show = count($all_comment_to_count) - $get;
+
+        //Count rating
+        $rating_5 = count(Rating::where('product_id',$product_id)->where('rating_level', 5)->get());
+        $rating_4 = count(Rating::where('product_id',$product_id)->where('rating_level', 4)->get());
+        $rating_3 = count(Rating::where('product_id',$product_id)->where('rating_level', 3)->get());
+        $rating_2 = count(Rating::where('product_id',$product_id)->where('rating_level', 2)->get());
+        $rating_1 = count(Rating::where('product_id',$product_id)->where('rating_level', 1)->get());
+
+        return view('client.home.product_detail',[
+            'product'=>$product,
+            'cate'=>$cate,
+            'price'=>$price,
+            'all_image'=>$all_image,
+            'all_cart' => $all_cart,
+            'wish_lish' => $wish_lish,
+            'all_product'=>$all_product,
+            'all_price' =>$all_price,
+            'product_storage' => $product_storage,
+            'all_rating' => $all_rating,
+            'all_comment' => $all_comment,
+            'customers' => $customers,
+            'check_show' => $check_show,
+            'all_rating_to_count' => $all_rating_to_count,
+            'all_comment_to_count' => $all_comment_to_count,
+            'rating_5' => $rating_5,
+            'rating_4' => $rating_4,
+            'rating_3' => $rating_3,
+            'rating_2' => $rating_2,
+            'rating_1' => $rating_1,
+            'all_product_voucher' => $all_product_voucher,
+            'storage_customer_voucher' => $storage_customer_voucher,
+            'all_product_relate' => $all_product_relate,
+        ]);
+    }
     public function load_detail_product(Request $request){
         $product_id = $request->product_id;
 

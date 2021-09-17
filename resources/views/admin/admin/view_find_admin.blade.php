@@ -54,7 +54,8 @@
                                                 class="dw dw-edit2"></i>Chỉnh Sửa</a>
 
                                         @if (Session::get('admin_id') != $ad->admin_id)
-                                            <a href="{{ URL::to('admin/delete_when_find/'.$ad->admin_id) }}" class="dropdown-item test"
+                                            <a href="{{ URL::to('admin/delete_when_find/'.$ad->admin_id) }}"
+                                                class="dropdown-item test"
                                                 ><i class="dw dw-delete-3"></i>Xóa</a>
 
                                         @endif
@@ -103,6 +104,7 @@
             </div>
         </div>
     </div> --}}
+
 @else
     <div class="center">Không tìm thấy kết quả nào</div>
 @endif

@@ -714,7 +714,7 @@
                                                     <input type="hidden" value="{{ $product_relate->product_name }}" id="recently_viewed_product_name_{{ $product_relate->product_id }}">
                                                     <input type="hidden" value="{{ number_format($price_discount->price_now, 0, ',', '.') }}₫" id="recently_viewed_product_price_{{ $product_relate->product_id }}">
                                                 </form>
-                                                <a href="{{ URL::to('product_detail/' . $product_relate->product_id) }}" class="link-to-product btn_recently_viewed" data-id="{{ $product_relate->product_id }}" id="recently_viewed_product_detail_{{ $product_relate->product_id }}">
+                                                <a href="{{ URL::to('product_detail_slug/' . $product_relate->slug) }}" class="link-to-product btn_recently_viewed" data-id="{{ $product_relate->product_id }}" id="recently_viewed_product_detail_{{ $product_relate->product_id }}">
                                                     <img src="{{ asset('public/upload/'.$product_relate->product_image) }}" alt="dd" style="width: 220px; height: 220px" class="product-thumnail" id="recently_viewed_product_img_{{ $product_relate->product_id }}">
                                                 </a>
                                                 <span href="#" class="lookup get_val_quickview btn_call_quickview_detail btn_open_modal"
@@ -723,7 +723,7 @@
                                             </div>
                                             <div class="info">
                                                 <h4 class="product-title">
-                                                    <a href="{{ URL::to('product_detail/' . $product_relate->product_id) }}" class="pr-name name_product cus_prod_name_card_sm btn_recently_viewed" data-id="{{ $product_relate->product_id }}">
+                                                    <a href="{{ URL::to('product_detail_slug/' . $product_relate->slug) }}" class="pr-name name_product cus_prod_name_card_sm btn_recently_viewed" data-id="{{ $product_relate->product_id }}">
                                                         {{ $product_relate->product_name }}
                                                     </a>
                                                 </h4>

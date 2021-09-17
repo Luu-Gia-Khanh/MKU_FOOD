@@ -7,7 +7,7 @@
             <div class="col-md-6 col-sm-12">
                 <nav aria-label="breadcrumb" role="navigation">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ URL::to('admin/dashboard') }}">Trang chủ</a></li>
+                        <li class="breadcrumb-item"><a href="{{ URL::to('admin/') }}">Trang chủ</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Danh sách đơn hàng</li>
                     </ol>
                 </nav>
@@ -113,7 +113,7 @@
         </div>
     </div>
 
-    <div class="card-box mb-30">
+    <div class="card-box mb-30 content_filter_order">
         <div class="row pd-20">
             <div class="pd-20">
                 <h4 class="text-blue h4">Danh Sách Đơn Hàng</h4>
@@ -122,7 +122,47 @@
         <div class="pb-20">
             <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer ">
                 <div class="row">
-                    <div class="col-sm-12 col-md-6">
+                    <div class="col-sm-12 col-md-6 d-flex">
+                        <div class="content_filter pl-20">
+                            <div class="dropdown">
+                                <a class="btn btn-success dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+                                    aria-expanded="false">
+                                    <i class="icon-copy dw dw-filter"></i> Lọc
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-left" style="">
+                                    <a class="dropdown-item" href="#" data-toggle="modal"
+                                        data-target="#Modal_filter_order_follow_price">Theo giá</a>
+                                    <a class="dropdown-item" href="#" data-toggle="modal"
+                                        data-target="#Modal_filter_order_follow_payment_status">
+                                        Trạng thái thanh toán
+                                    </a>
+                                    <a class="dropdown-item" href="#" data-toggle="modal"
+                                        data-target="#Modal_filter_order_follow_method_pay">
+                                        Hình thức thanh toán
+                                    </a>
+                                    <a class="dropdown-item" href="#" data-toggle="modal"
+                                        data-target="#Modal_filter_order_follow_date">
+                                        Theo ngày
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content_print_pdf_product ml-10">
+                            <form action="{{ URL::to('admin/print_pdf_order') }}" method="post">
+                                @csrf
+                                {{-- type filter --}}
+                                    <input type="hidden" class="type_filter" name="type_filter" value="">
+                                    <input type="hidden" class="level_filter" name="level_filter" value="">
+                                    <input type="hidden" name="level_array" value="">
+                                    <input type="hidden" name="price_filter_start" value="">
+                                    <input type="hidden" name="price_filter_end" value="">
+                                {{--  --}}
+                                <button type="submit" class="btn btn-secondary">
+                                    Xuất
+                                    <img src="{{ asset('public/upload/pdf1.svg') }}" style="height: 25px" alt="">
+                                </button>
+                            </form>
+                        </div>
                     </div>
                     <div class="col-sm-12 col-md-6">
                         <div id="DataTables_Table_0_filter" class="dataTables_filter">
@@ -141,17 +181,17 @@
                                 id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
                                 <thead>
                                     <tr role="row">
-                                        <th style="width: 2%;" class="sorting text-center" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                                        <th  class="sorting text-center" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                                             colspan="1">STT</th>
-                                        <th style="width: 13%;" class="sorting text-center" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                                        <th  class="sorting text-center" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                                             colspan="1" data-defaultsort="disabled">Mã Đơn Hàng</th>
-                                        <th style="width: 20%;" class="sorting" text-center tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                                        <th  class="sorting" text-center tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                                             colspan="1">Tổng Giá Đơn Hàng</th>
-                                        <th style="width: 30%;" class="sorting" text-center tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                                        <th  class="sorting" text-center tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                                             colspan="1" data-defaultsort="disabled">Phương Thức Thanh Toán</th>
-                                        <th style="width: 20%;" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                                        <th  class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                                             colspan="1" data-defaultsort="disabled">Tình Trạng Đơn Hàng</th>
-                                        <th style="width: 15%;" class="datatable-nosort sorting_disabled" rowspan="1" colspan="1"
+                                        <th  class="datatable-nosort sorting_disabled" rowspan="1" colspan="1"
                                             aria-label="Action" data-defaultsort="disabled">Trạng Thái</th>
                                     </tr>
                                 </thead>
@@ -165,7 +205,7 @@
                                                     <td class="text-center">
                                                         <a href="{{ URL::to('admin/detail_order_item/'.$order->order_id) }}"><b>{{ $order->order_code }}</b></a>
                                                     </td>
-                                                    <td class="">{{ number_format($order->total_price, 0, ',', '.') }} vnđ</td>
+                                                    <td class="">{{ number_format($order->total_price, 0, ',', '.') }}₫</td>
                                                     <td class="">
                                                         @foreach ($payment_method as $method_pay)
                                                             @if ($order->payment_id == $method_pay->payment_id)
@@ -230,4 +270,6 @@
         </div>
     </div>
 </div>
+{{-- include modal filter order --}}
+@include('admin.order.modal_filter_order')
 @endsection

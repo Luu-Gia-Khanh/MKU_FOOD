@@ -8,7 +8,7 @@
             <input type="hidden" value="{{ $product->product_name }}" id="recently_viewed_product_name_{{ $product->product_id }}">
             <input type="hidden" value="{{ number_format($price_discount->price_now, 0, ',', '.') }}₫" id="recently_viewed_product_price_{{ $product->product_id }}">
         </form>
-        <a href="{{ URL::to('product_detail/'.$product->product_id) }}" class="btn_recently_viewed" data-id="{{ $product->product_id }}" id="recently_viewed_product_detail_{{ $product->product_id }}">
+        <a href="{{ URL::to('product_detail_slug/' . $product->slug) }}" class="btn_recently_viewed" data-id="{{ $product->product_id }}" id="recently_viewed_product_detail_{{ $product->product_id }}">
             <div class="items" id="items">
                 <div class="content_image_product_search">
                     <img src="{{ URL::to('public/upload/' . $product->product_image) }}" alt=""

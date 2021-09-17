@@ -6,7 +6,7 @@
                 <div class="col-md-6 col-sm-12">
                     <nav aria-label="breadcrumb" role="navigation">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ URL::to('admin/dashboard') }}">Trang chủ</a></li>
+                            <li class="breadcrumb-item"><a href="{{ URL::to('admin/') }}">Trang chủ</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Thêm sản phẩm</li>
                         </ol>
                     </nav>
@@ -15,6 +15,20 @@
                 </div>
             </div>
         </div>
+        {{-- MESSAGE --}}
+        @if (session('add_product_error_name'))
+            <div class="alert alert-danger alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                {{ session('add_product_error_name') }}
+            </div>
+        @endif
+        @if (session('add_product_error'))
+            <div class="alert alert-danger alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                {{ session('add_product_error') }}
+            </div>
+        @endif
+        {{--  --}}
         <div class="pd-20 card-box mb-30">
             <div class="pd-20">
                 <h4 class="text-blue h4">Thêm Quản Sản Phẩm</h4>

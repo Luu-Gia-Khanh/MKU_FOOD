@@ -199,8 +199,8 @@ $(document).ready(function(){
             });
         }
         else{
-            let price_start = $('.price_start_cus_option').val();
-            let price_end = $('.price_end_cus_option').val();
+            let price_start = Number($('.price_start_cus_option').val());
+            let price_end = Number($('.price_end_cus_option').val());
             if(price_start == '' || price_end == ''){
                 Swal.fire({
                     position: 'top-end',

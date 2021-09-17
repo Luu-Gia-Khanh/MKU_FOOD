@@ -9,7 +9,7 @@
                 </div>
                 <nav aria-label="breadcrumb" role="navigation">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ URL::to('admin/dashboard') }}">Trang chủ</a></li>
+                        <li class="breadcrumb-item"><a href="{{ URL::to('admin/') }}">Trang chủ</a></li>
                         <li class="breadcrumb-item"><a href="{{ URL::to('admin/all_product') }}">Danh sách sản phẩm</a></li>
                         <li class="breadcrumb-item"><a href="{{ URL::to('admin/all_gallery_product/'.$prod_id) }}">Danh sách hình ảnh</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Thùng rác</li>

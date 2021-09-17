@@ -9,7 +9,7 @@
                     </div>
                     <nav aria-label="breadcrumb" role="navigation">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ URL::to('admin/dashboard') }}">Trang chủ</a></li>
+                            <li class="breadcrumb-item"><a href="{{ URL::to('admin/') }}">Trang chủ</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Thông tin cá nhân</li>
                         </ol>
                     </nav>
@@ -50,7 +50,6 @@
                         </div>
                     </div>
                     <h5 class="text-center h5 mb-0 following_name">{{ $view_profile->admin_name }}</h5>
-                    <p class="text-center text-muted font-14">{{ $view_profile->name }}</p>
                     <div class="profile-info">
                         <h5 class="mb-20 h5 text-blue">Thông Tin Cá Nhân</h5>
                         <ul>

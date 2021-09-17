@@ -1,18 +1,32 @@
 @extends('admin.layout_admin')
 @section('container')
+<style>
+    .dis_ble{
+        pointer-events: none;
+        cursor: no-drop;
+        opacity: 0.7;
+    }
+</style>
     <div class="min-height-200px">
         <div class="page-header">
             <div class="row">
                 <div class="col-md-6 col-sm-12">
                     <nav aria-label="breadcrumb" role="navigation">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ URL::to('admin/dashboard') }}">Trang chủ</a></li>
+                            <li class="breadcrumb-item"><a href="{{ URL::to('admin/') }}">Trang chủ</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Phân quyền</li>
                         </ol>
                     </nav>
                 </div>
             </div>
         </div>
+        {{-- Message  --}}
+        @if (session('permission_success'))
+            <div class="alert alert-success alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                {{ session('permission_success') }}
+            </div>
+        @endif
         {{--  --}}
         <div class="pd-20 card-box mb-30">
             <div class="pd-20">
@@ -30,10 +44,13 @@
                                         <th colspan="4">Quyền</th>
                                     </tr>
                                     <tr>
-                                        <th>Người Dùng</th>
-                                        <th>Quản Lý</th>
+                                        <th>Nhân Viên</th>
+                                        <th>Nhân Viên Giao Hàng</th>
+                                        <th>Nhân Viên Quản Lý</th>
                                         <th>Quản Trị Hệ Thống</th>
+                                        @hasrole(['admin'])
                                         <th></th>
+                                        @endhasrole
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -54,35 +71,48 @@
                                                         value="{{ $ad->admin_email }}">
                                                 </td>
                                                 <td style="text-align: center">
-                                                    <input type="checkbox" name="user"
-                                                        {{ $ad->hasRole('user') ? 'checked' : '' }}
-                                                        style="width: 20px; height: 20px;">
+                                                    <input type="checkbox" name="employee"
+                                                        {{ $ad->hasRole('employee') ? 'checked' : '' }}
+                                                        style="width: 20px; height: 20px;"
+                                                        class="checkbox employee employee_{{ $ad->admin_id }}"
+                                                        data-id = "{{ $ad->admin_id }}"
+                                                        >
+                                                </td>
+                                                <td style="text-align: center">
+                                                    <input type="checkbox" name="delivery"
+                                                        {{ $ad->hasRole('delivery') ? 'checked' : '' }}
+                                                        style="width: 20px; height: 20px;"
+                                                        class="checkbox"  data-id = "{{ $ad->admin_id }}"
+                                                        >
                                                 </td>
                                                 <td style="text-align: center">
                                                     <input type="checkbox" name="manager"
                                                         {{ $ad->hasRole('manager') ? 'checked' : '' }}
-                                                        style="width: 20px; height: 20px;">
+                                                        style="width: 20px; height: 20px;"
+                                                        class="checkbox manager manager_{{ $ad->admin_id }}"
+                                                        data-id = "{{ $ad->admin_id }}"
+                                                        >
                                                 </td>
                                                 <td style="text-align: center">
                                                     <input type="checkbox" name="admin"
-                                                        {{ $ad->hasRole('admin') ? 'checked' : '' }}
-                                                        style="width: 20px; height: 20px;">
+                                                        {{ $ad->hasRole('admin') ? 'checked' : 'disabled="disabled"' }}
+                                                        style="width: 20px; height: 20px;pointer-events: none;cursor: no-drop;">
                                                 </td>
+                                                @hasrole(['admin'])
                                                 <td style="text-align: center">
-                                                    @hasrole(['admin'])
                                                     @if(Auth::user()->admin_id == 1)
                                                         @if(Auth::user()->admin_id == $ad->admin_id)
                                                             <button type="submit" class="btn disabled" disabled data-bgcolor="#1da1f2"
                                                             data-color="#ffffff"
                                                             style="color: rgb(255, 255, 255); background-color: rgb(29, 161, 242);cursor: no-drop;"><i class="fa fa-dropbox"></i> Phân Quyền</button>
                                                         @else
-                                                            <button type="submit" class="btn" data-bgcolor="#1da1f2"
+                                                            <button type="submit" class="btn dis_ble btn_permission_{{ $ad->admin_id }}" data-bgcolor="#1da1f2"
                                                             data-color="#ffffff"
                                                             style="color: rgb(255, 255, 255); background-color: rgb(29, 161, 242);"><i class="fa fa-dropbox"></i> Phân Quyền</button>
                                                         @endif
                                                     @endif
-                                                    @endhasrole
                                                 </td>
+                                                @endhasrole
                                             </tr>
                                         </form>
                                     @endforeach
@@ -106,4 +136,21 @@
             </div>
         </div>
     </div>
+    <script src="{{ asset('public/font_end/assets/js/jquery-3.4.1.min.js') }}"></script>
+    <script>
+        $(document).ready(function(){
+            $('.employee').click(function() {
+                let admin_id = $(this).attr('data-id');
+                $('.manager_'+admin_id).prop('checked', false);
+            })
+            $('.manager').click(function() {
+                let admin_id = $(this).attr('data-id');
+                $('.employee_'+admin_id).prop('checked', false);
+            });
+            $('.checkbox').change(function(){
+                let admin_id = $(this).attr('data-id');
+                $('.btn_permission_'+admin_id).removeClass('dis_ble');
+            })
+        });
+    </script>
 @endsection

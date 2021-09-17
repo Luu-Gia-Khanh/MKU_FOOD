@@ -24,13 +24,6 @@
 
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
-	<script>
-		window.dataLayer = window.dataLayer || [];
-		function gtag(){dataLayer.push(arguments);}
-		gtag('js', new Date());
-
-		gtag('config', 'UA-119386393-1');
-	</script>
 </head>
 <body class="login-page">
 	<div class="login-header box-shadow">
@@ -39,11 +32,6 @@
 				<a href="{{ URL::to("/admin") }}">
 					<img src="{{ asset('public/upload/logo_mku_10.svg') }}" alt="" style="height: 46px;">
 				</a>
-			</div>
-			<div class="login-menu">
-				<ul>
-					<li><a href="register.html">Register</a></li>
-				</ul>
 			</div>
 		</div>
 	</div>
@@ -56,21 +44,31 @@
 				<div class="col-md-6 col-lg-5">
 					<div class="login-box bg-white box-shadow border-radius-10">
                         @if($errors->any())
-                            <div class="alert alert-danger alert-blog">{{ $errors->first() }}</div>
+                            <div class="alert alert-danger alert-blog" style="text-align: center">{{ $errors->first() }}</div>
                         @endif
 						<div class="login-title">
-							<h2 class="text-center text-primary">Login</h2>
+							<h2 class="text-center text-primary">Đăng Nhập</h2>
 						</div>
                         {{-- FORM --}}
 						<form action="{{ URL::to('process_login') }}" method="post" style="text-align: center" >
 							@csrf
                             <div class="select-role">
-								<div class="btn-group-toggle btn-group d-inline-flex justify-content-center" data-toggle="buttons">
-									<label class="btn active">
+								<div class="btn-group btn-group-toggle" data-toggle="buttons">
+									<label class="btn">
 										<input type="radio" name="options" id="admin">
-										<div class="icon"><img src="{{ asset('public/back_end/vendors/images/briefcase.svg') }}" class="svg" alt=""></div>
-										<span>I'm</span>
-										Manager
+										<div class="icon">
+                                            <img src="{{ asset('public/back_end/vendors/images/briefcase.svg') }}" class="svg" alt="">
+                                        </div>
+										<span>Hi !</span>
+										Quản Lý
+									</label>
+									<label class="btn">
+										<input type="radio" name="options" id="user">
+										<div class="icon">
+                                            <img src="{{ asset('public/back_end/vendors/images/person.svg') }}" class="svg" alt="">
+                                        </div>
+										<span>Hi !</span>
+										Nhân Viên
 									</label>
 								</div>
 							</div>
@@ -86,29 +84,10 @@
 									<span class="input-group-text"><i class="dw dw-padlock1"></i></span>
 								</div>
 							</div>
-							{{-- <div class="row pb-30">
-								<div class="col-6">
-									<div class="custom-control custom-checkbox">
-										<input type="checkbox" class="custom-control-input" id="customCheck1">
-										<label class="custom-control-label" for="customCheck1">Remember</label>
-									</div>
-								</div>
-								<div class="col-6">
-									<div class="forgot-password"><a href="forgot-password.html">Forgot Password</a></div>
-								</div>
-							</div> --}}
 							<div class="row">
 								<div class="col-sm-12">
 									<div class="input-group mb-0">
-										<!--
-											use code for form submit
-											<input class="btn btn-primary btn-lg btn-block" type="submit" value="Sign In">
-										-->
-										<input type="submit" class="btn btn-primary btn-lg btn-block" value="Sign In" />
-									</div>
-									<div class="font-16 weight-600 pt-10 pb-10 text-center" data-color="#707373">OR</div>
-									<div class="input-group mb-0">
-										<a class="btn btn-outline-primary btn-lg btn-block" href="register.html">Register To Create Account</a>
+										<input type="submit" class="btn btn-primary btn-lg btn-block" value="Đăng Nhập" />
 									</div>
 								</div>
 							</div>

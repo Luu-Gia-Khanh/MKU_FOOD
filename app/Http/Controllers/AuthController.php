@@ -22,7 +22,7 @@ class AuthController extends Controller
             return redirect('admin/');
         }
         else{
-            return redirect('login')->withErrors('ERROR');
+            return redirect('login')->withErrors('Đăng Nhập Thất Bại');
         }
     }
     public function logout_admin(){

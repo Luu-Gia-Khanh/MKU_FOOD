@@ -22,7 +22,8 @@ class PermissionManager
                 return $next($request);
             }
             else{
-                return redirect('admin/dashboard');
+                $request->session()->flash('no_permission', 'Bạn không có quyền truy cập trang này');
+                return redirect('admin/');
             }
         }
         else{

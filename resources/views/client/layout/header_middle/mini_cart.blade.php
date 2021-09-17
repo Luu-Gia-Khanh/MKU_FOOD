@@ -25,10 +25,10 @@
                                                     $price_discount = App\Http\Controllers\HomeClientController::check_price_discount($product->product_id);
                                                 @endphp
                                                 <div class="thumb">
-                                                    <a href="{{ URL::to('product_detail/'.$product->product_id) }}"><img src="{{ asset('public/upload/'.$product->product_image) }}" style="width: 90px; height: 90px;" alt="National Fresh"></a>
+                                                    <a href="{{ URL::to('product_detail_slug/' . $product->slug) }}"><img src="{{ asset('public/upload/'.$product->product_image) }}" style="width: 90px; height: 90px;" alt="National Fresh"></a>
                                                 </div>
                                                 <div class="left-info">
-                                                    <div class="product-title"><a href="{{ URL::to('product_detail/'.$product->product_id) }}" class="product-name">{{ $product->product_name }}</a></div>
+                                                    <div class="product-title"><a href="{{ URL::to('product_detail_slug/' . $product->slug) }}" class="product-name">{{ $product->product_name }}</a></div>
                                                     <div class="price">
                                                         @if ($price_discount->percent_discount == 0)
                                                             <ins><span class="price-amount">

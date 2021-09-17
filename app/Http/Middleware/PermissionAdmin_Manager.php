@@ -2,10 +2,8 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Support\Facades\Route;
-use Auth;
 use Closure;
-
+use Auth;
 class PermissionAdmin_Manager
 {
     /**
@@ -22,7 +20,8 @@ class PermissionAdmin_Manager
                 return $next($request);
             }
             else{
-                return redirect('admin/dashboard');
+                $request->session()->flash('no_permission', 'Bạn không có quyền truy cập trang này');
+                return redirect('admin/');
             }
         }
         else{

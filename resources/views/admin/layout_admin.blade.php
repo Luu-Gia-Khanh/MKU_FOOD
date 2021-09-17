@@ -65,7 +65,10 @@
 	<script src="{{ asset('public/back_end/src/plugins/datatables/js/dataTables.responsive.min.js') }}"></script>
 	<script src="{{ asset('public/back_end/src/plugins/datatables/js/responsive.bootstrap4.min.js') }}"></script>
 	<script src="{{ asset('public/back_end/vendors/scripts/dashboard.js') }}"></script>
-	{{-- sort table --}}
+    {{-- <script src="{{ asset('public/back_end/src/plugins/apexcharts/apexcharts.min.js') }}"></script>
+	<script src="{{ asset('public/back_end/vendors/scripts/apexcharts-setting.js') }}"></script> --}}
+
+    {{-- sort table --}}
     <script src="{{ asset('public/back_end/sort_table/Scripts/bootstrap-sortable.js') }}"></script>
 
     {{-- custom script --}}
@@ -81,20 +84,23 @@
     <script src="{{ asset('public/font_end/custom/sweet.js') }}"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     <!-- bootstrap-tagsinput js -->
 	<script src="{{ asset('public/back_end/src/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js') }}"></script>
     <script src="{{ asset('public/back_end/src/scripts/custom_order.js') }}"></script>
     <script src="{{ asset('public/back_end/src/scripts/discount_custom.js') }}"></script>
     <script src="{{ asset('public/back_end/src/scripts/modal_process_comment.js') }}"></script>
+
     {{-- <script src="{{ asset('public/back_end/filter_product/filter_product.js') }}"></script> --}}
     <script src="{{ asset('public/back_end/filter_price_product/filter_price_product.js') }}"></script>
+    <script src="{{ asset('public/back_end/filter_order/filter_order.js') }}"></script>
+    <script src="{{ asset('public/back_end/filter_discount/filter_discount.js') }}"></script>
+    <script src="{{ asset('public/back_end/filter_comment/filter_comment.js') }}"></script>
+    <script src="{{ asset('public/back_end/filter_admin/filter_admin.js') }}"></script>
+
     {{-- fancy box --}}
     <script src="{{ asset('public/back_end/src/plugins/fancybox/dist/jquery.fancybox.js') }}"></script>
-    {{-- asColorPicker --}}
-    <script src="src/plugins/jquery-asColor/dist/jquery-asColor.js"></script>
-	<script src="src/plugins/jquery-asGradient/dist/jquery-asGradient.js"></script>
-	<script src="src/plugins/jquery-asColorPicker/jquery-asColorPicker.js"></script>
-	<script src="vendors/scripts/colorpicker.js"></script>
+
     {{-- CKeditor --}}
     <script>
         CKEDITOR.replace('ck_admin_add_product_sort_desc');

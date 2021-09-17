@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Seeder;
 use App\Roles;
-
 class RolesTableSeeder extends Seeder
 {
     /**
@@ -12,10 +11,13 @@ class RolesTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         Roles::truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         Roles::create(['name'=>'admin']);
         Roles::create(['name'=>'manager']);
-        Roles::create(['name'=>'user']);
+        Roles::create(['name'=>'employee']);
+        Roles::create(['name'=>'delivery']);
     }
 }

@@ -29,7 +29,7 @@
                         <tr role="row" class="odd">
                             <td class="text-center">{{ $stt++ }}</td>
                             <td class="text-center">
-                                <b>{{ $order->order_code }}</b>
+                                <a href="{{ URL::to('admin/detail_order_item/'.$order->order_id) }}"><b>{{ $order->order_code }}</b></a>
                             </td>
                             <td class="">{{ number_format($order->total_price, 0, ',', '.') }} vnđ</td>
                             <td class="">

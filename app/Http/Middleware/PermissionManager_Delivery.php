@@ -2,11 +2,9 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Support\Facades\Route;
-use Auth;
 use Closure;
-
-class PermissionUser
+use Auth;
+class PermissionManager_Delivery
 {
     /**
      * Handle an incoming request.
@@ -18,11 +16,12 @@ class PermissionUser
     public function handle($request, Closure $next)
     {
         if(Auth::check()){
-            if(Auth::user()->hasRole('user')){
+            if(Auth::user()->hasAnyRoles(['manager','delivery'])){
                 return $next($request);
             }
             else{
-                return redirect('admin/dashboard');
+                $request->session()->flash('no_permission', 'Bạn không có quyền truy cập trang này');
+                return redirect('admin/');
             }
         }
         else{

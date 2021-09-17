@@ -64,11 +64,14 @@ class Kernel extends HttpKernel
 
         //MIDDLE WARE ROLE
         'roles' => \App\Http\Middleware\AccessPermission::class,
-        'role_admin' => \App\Http\Middleware\PermissionAdmin::class,
-        'role_admin_manager' => \App\Http\Middleware\PermissionAdmin_Manager::class,
-        'role_manager' => \App\Http\Middleware\PermissionManager::class,
-        'role_manager_user' => \App\Http\Middleware\PermissionManager_User::class,
-        'role_user' => \App\Http\Middleware\PermissionUser::class,
+        'admin' => \App\Http\Middleware\PermissionAdmin::class,
+        'manager' => \App\Http\Middleware\PermissionManager::class,
+        'employee' => \App\Http\Middleware\PermissionEmployee::class,
+        'delivery' => \App\Http\Middleware\PermissionDelivery::class,
+        'admin_manager_employee' => \App\Http\Middleware\PermissionAdmin_Manager_Employee::class,
+        'admin_manager' => \App\Http\Middleware\PermissionAdmin_Manager::class,
+        'employee_delivery' => \App\Http\Middleware\PermissionEmployee_Delivery::class,
+        'manager_delivery' => \App\Http\Middleware\PermissionManager_Delivery::class,
     ];
 
     /**

@@ -6,22 +6,12 @@
                     <div class="col-md-6 col-sm-12">
                         <nav aria-label="breadcrumb" role="navigation">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{ URL::to('admin/dashboard') }}">Trang chủ</a></li>
+                                <li class="breadcrumb-item"><a href="{{ URL::to('admin/') }}">Trang chủ</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">Danh sách quản trị viên</li>
                             </ol>
                         </nav>
                     </div>
                     <div class="col-md-6 col-sm-12 text-right">
-                        {{-- <div class="dropdown">
-                        <a class="btn btn-primary dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-                            January 2018
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="#">Export List</a>
-                            <a class="dropdown-item" href="#">Policies</a>
-                            <a class="dropdown-item" href="#">View Assets</a>
-                        </div>
-                    </div> --}}
                     </div>
                 </div>
         </div>
@@ -46,14 +36,44 @@
         @endif
 
         <!-- Simple Datatable start -->
-        <div class="card-box mb-30">
+        <div class="card-box mb-30 content_filter_admin">
             <div class="pd-20">
                 <h4 class="text-blue h4">Danh Sách Quản Trị Viên</h4>
             </div>
             <div class="pb-20">
                 <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer ">
                     <div class="row">
-                        <div class="col-sm-12 col-md-6">
+                        <div class="col-sm-12 col-md-6 d-flex">
+                            <div class="content_filter pl-20">
+                                <div class="dropdown">
+                                    <a class="btn btn-success dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+                                        aria-expanded="false">
+                                        <i class="icon-copy dw dw-filter"></i> Lọc
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-left" style="">
+                                        <a class="dropdown-item" href="#" data-toggle="modal"
+                                            data-target="#Modal_filter_admin_roles">
+                                                Chức vụ
+                                            </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="content_print_pdf_product ml-10">
+                                <form action="{{ URL::to('admin/print_pdf_admin') }}" method="post">
+                                    @csrf
+                                    {{-- type filter --}}
+                                        <input type="hidden" class="type_filter" name="type_filter" value="">
+                                        <input type="hidden" class="level_filter" name="level_filter" value="">
+                                        <input type="hidden" name="level_array" value="">
+                                        <input type="hidden" name="price_filter_start" value="">
+                                        <input type="hidden" name="price_filter_end" value="">
+                                    {{--  --}}
+                                    <button type="submit" class="btn btn-secondary">
+                                        Xuất
+                                        <img src="{{ asset('public/upload/pdf1.svg') }}" style="height: 25px" alt="">
+                                    </button>
+                                </form>
+                            </div>
                         </div>
                         <div class="col-sm-12 col-md-6">
                             <div id="DataTables_Table_0_filter" class="dataTables_filter">
@@ -76,6 +96,10 @@
                                                 colspan="1">STT</th>
                                             <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                                                 colspan="1" data-defaultsign="AZ">Họ Và Tên</th>
+                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                                                colspan="1">Chức Vụ</th>
+                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                                                colspan="1">Ngày Sinh</th>
                                             <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                                                 colspan="1">Số Điện Thoại</th>
                                             <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
@@ -103,6 +127,28 @@
                                                             <div class="weight-600">{{ $ad->admin_name }}</div>
                                                         </div>
                                                     </div>
+                                                </td>
+                                                <td>
+                                                    @foreach ($roles as $role)
+                                                        @if ($role->admin_admin_id == $ad->admin_id)
+                                                            <p>
+                                                                <i class="icon-copy fa fa-hand-o-right" aria-hidden="true"></i>
+                                                                @if ($role->name == 'admin')
+                                                                    Quản trị viên
+                                                                @elseif($role->name == 'manager')
+                                                                    Nhân viên quản lý
+                                                                @elseif($role->name == 'employee')
+                                                                    Nhân viên
+                                                                @elseif($role->name == 'delivery')
+                                                                    Nhân viên giao hàng
+                                                                @endif
+                                                            </p>
+
+                                                        @endif
+                                                    @endforeach
+                                                </td>
+                                                <td>
+                                                    {{ date('d/m/Y', strtotime($ad->admin_birthday)) }}
                                                 </td>
                                                 <td>{{ $ad->admin_phone }}</td>
                                                 <td>{{ $ad->admin_email }}</td>
@@ -180,4 +226,6 @@
                 </div>
             </div>
         </div>
+        {{-- include modal filter --}}
+        @include('admin.admin.modal_filter_admin')
     @endsection

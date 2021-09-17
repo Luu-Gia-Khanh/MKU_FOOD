@@ -31,7 +31,7 @@
                                 <th scope="col">Tên Sản Phẩm</th>
                                 <th scope="col">Giá</th>
                                 <th scope="col">Ngày Cập Nhật</th>
-                                <th scope="col" class="center">Trạng Thái</th
+                                <th scope="col" class="center">Trạng Thái</th>
                             </tr>
                             </thead>
                             <tbody>

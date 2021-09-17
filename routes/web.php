@@ -49,22 +49,32 @@ Route::get('success_process_register', 'CustomerController@success_process_regis
 Route::prefix('admin')->group(function () {
     // DASHBORD
     Route::get('/', 'AdminController@index')->middleware('roles');
-    // ADMIN
-    Route::get('all_admin', 'AdminController@show_admin')->middleware('role_admin_manager');
-    Route::get('add_admin', 'AdminController@add_admin');
-    Route::get('update_admin/{admin_id}', 'AdminController@update_admin');
-    Route::get('view_recycle', 'AdminController@view_recycle');
-    Route::get('re_delete/{admin_id}', 'AdminController@re_delete');
-    Route::get('delete_when_find/{admin_id}', 'AdminController@delete_when_find');
-    Route::get('view_profile/{admin_id}', 'AdminController@view_profile');
 
-    Route::post('find_admin', 'AdminController@find_admin');
-    Route::post('delete_forever', 'AdminController@delete_forever');
-    Route::post('soft_delete', 'AdminController@soft_delete');
-    Route::post('process_add_admin', 'AdminController@process_add_admin');
-    Route::post('process_update_admin/{admin_id}', 'AdminController@process_update_admin');
-    Route::post('process_update_profile_admin/{admin_id}', 'AdminController@process_update_profile_admin');
-    Route::post('update_password_admin/{admin_id}', 'AdminController@update_password_admin');
+    // ADMIN
+    Route::group(['middleware'=>'admin_manager'], function(){
+        Route::get('all_admin', 'AdminController@show_admin');
+        Route::get('add_admin', 'AdminController@add_admin');
+        Route::get('update_admin/{admin_id}', 'AdminController@update_admin');
+        Route::get('view_recycle', 'AdminController@view_recycle');
+        Route::get('re_delete/{admin_id}', 'AdminController@re_delete');
+        Route::get('delete_when_find/{admin_id}', 'AdminController@delete_when_find');
+        Route::get('view_profile/{admin_id}', 'AdminController@view_profile');
+
+        Route::post('find_admin', 'AdminController@find_admin');
+        Route::post('delete_forever', 'AdminController@delete_forever');
+        Route::post('soft_delete', 'AdminController@soft_delete');
+        Route::post('process_add_admin', 'AdminController@process_add_admin');
+        Route::post('process_update_admin/{admin_id}', 'AdminController@process_update_admin');
+        Route::post('process_update_profile_admin/{admin_id}', 'AdminController@process_update_profile_admin');
+        Route::post('update_password_admin/{admin_id}', 'AdminController@update_password_admin');
+
+        Route::post('filter_admin_role', 'AdminController@filter_admin_role');
+        Route::post('print_pdf_admin', 'AdminController@print_pdf_admin');
+    });
+
+    //PERMISSION
+    Route::get('list_permission', 'AdminController@list_permission');//->middleware('role_admin_manager');
+    Route::post('assign_roles', 'AdminController@assign_roles');//->middleware('role_admin_manager');
 
     //PRODUCT
     Route::get('add_product', 'ProductController@add_product');
@@ -110,9 +120,7 @@ Route::prefix('admin')->group(function () {
     Route::post('update_price_product', 'ProductPriceController@update_price_product');
     Route::post('filter_price_product_history', 'ProductPriceController@filter_price_product_history');
 
-    //PERMISSION
-    Route::get('list_permission', 'AdminController@list_permission')->middleware('role_admin_manager');
-    Route::post('assign_roles', 'AdminController@assign_roles')->middleware('role_admin_manager');
+
     //CATEGORY
     Route::get('all_category', 'CategoryController@show_category');
     Route::get('add_category', 'CategoryController@add_category');
@@ -181,6 +189,16 @@ Route::prefix('admin')->group(function () {
     Route::post('confirm_delivery_success_order', 'OrderController@confirm_delivery_success_order');
     Route::post('search_order', 'OrderController@search_order');
 
+    Route::post('filter_order_fol_price', 'OrderController@filter_order_fol_price');
+    Route::post('filter_order_fol_payment_status', 'OrderController@filter_order_fol_payment_status');
+    Route::post('filter_order_fol_payment_method', 'OrderController@filter_order_fol_payment_method');
+    Route::post('filter_order_fol_date', 'OrderController@filter_order_fol_date');
+    Route::post('filter_order_fol_date_many', 'OrderController@filter_order_fol_date_many');
+
+    Route::post('print_pdf_order', 'OrderController@print_pdf_order');
+
+
+
     // VOUCHER PRODUCT
     Route::get('all_voucher/{product_id}', 'VoucherController@all_voucher');
     Route::get('detail_voucher/{voucher_id}', 'VoucherController@detail_voucher');
@@ -228,12 +246,18 @@ Route::prefix('admin')->group(function () {
     Route::post('process_update_discount/{discount_id}', 'DiscountController@process_update_discount');
     Route::post('delete_discount', 'DiscountController@delete_discount');
 
+    Route::post('filter_discount_status_time_discount', 'DiscountController@filter_discount_status_time_discount');
+    Route::post('print_pdf_discount', 'DiscountController@print_pdf_discount');
+
     // PROCESS COMMENT
     Route::get('view_comment_to_process', 'CommentController@view_comment_to_process');
     Route::post('process_accep_comment', 'CommentController@process_accep_comment');
     Route::post('process_unaccep_comment', 'CommentController@process_unaccep_comment');
 
+    Route::post('filter_comment_fol_product', 'CommentController@filter_comment_fol_product');
+    Route::post('filter_comment_fol_rating', 'CommentController@filter_comment_fol_rating');
 
+    Route::post('print_pdf_comment', 'CommentController@print_pdf_comment');
 
 });
 
@@ -261,12 +285,23 @@ Route::post('filter_modal_shop_ajax', 'ShopController@filter_modal_shop_ajax');
 
 //detail product
 Route::get('product_detail/{product_id}', 'HomeClientController@product_detail');
+Route::get('product_detail_slug/{slug}', 'HomeClientController@product_detail_slug');
 Route::get('buy_now/{product_id}', 'HomeClientController@buy_now');
 Route::post('load_detail_product', 'HomeClientController@load_detail_product');
     //event card side detail
     Route::post('product_detail/load_detail_product', 'HomeClientController@load_detail_product');
     Route::post('product_detail/add_to_cart', 'CartController@add_cart');
     Route::post('product_detail/add_wish_list_ajax', 'WishListController@add_wish_list_ajax');
+    Route::post('product_detail/load_quantity_cart', 'CartController@load_quantity_cart');
+    Route::post('product_detail/show_mini_cart_when_add', 'CartController@show_mini_cart_when_add');
+    Route::post('product_detail/update_qty_when_change', 'CartController@update_qty_when_change');
+    //event card side detail slug
+    Route::post('product_detail_slug/load_detail_product', 'HomeClientController@load_detail_product');
+    Route::post('product_detail_slug/add_to_cart', 'CartController@add_cart');
+    Route::post('product_detail_slug/add_wish_list_ajax', 'WishListController@add_wish_list_ajax');
+    Route::post('product_detail_slug/load_quantity_cart', 'CartController@load_quantity_cart');
+    Route::post('product_detail_slug/show_mini_cart_when_add', 'CartController@show_mini_cart_when_add');
+    Route::post('product_detail_slug/update_qty_when_change', 'CartController@update_qty_when_change');
 // search auto complete
 Route::post('ajax_search_auto_complete', 'HomeClientController@ajax_search_auto_complete');
 Route::post('search_product_form_search_auto_complete', 'HomeClientController@search_product_form_search_auto_complete');

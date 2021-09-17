@@ -9,6 +9,7 @@ use App\Comment;
 use App\Product;
 use DB;
 use Session;
+use PDF;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -75,5 +76,150 @@ class CommentController extends Controller
             $request->session()->flash('unaccept_comment_error', 'Xóa bình luận thất bại');
         }
         return redirect()->back();
+    }
+    public function filter_comment_fol_product(Request $request){
+        $product_id = $request->product_id;
+
+        $type_filter = 'product';
+        $level_filter = $product_id;
+
+        $product = Product::find($product_id);
+        $string_title = 'Danh Sách Bình Luận Theo Sản Phẩm - "'.$product->product_name.'"';
+
+        $all_customer = DB::table('customer')
+            ->join('customer_info', 'customer_info.customer_id', '=', 'customer.customer_id')
+            ->get();
+        $all_rating = Rating::all();
+
+        $all_comment = DB::table('comment')
+            ->join('product', 'product.product_id', '=', 'comment.product_id')
+            ->where('comment.product_id', $product_id)
+            ->where('comment.status', 0)
+            ->get();
+
+        echo view('admin.comment.view_filter_comment',[
+            'all_comment' => $all_comment,
+
+            'all_rating' => $all_rating,
+            'all_customer' => $all_customer,
+            'string_title' => $string_title,
+            'type_filter' => $type_filter,
+            'level_filter' => $level_filter,
+        ]);
+    }
+    public function filter_comment_fol_rating(Request $request){
+        $rating = $request->rating;
+        $string_title = 'Danh Sách Bình Luận Theo Đánh Giá '.$rating.' Sao Trở Lên';
+
+        $type_filter = 'rating';
+        $level_filter = $rating;
+
+        $all_rating = Rating::all();
+        $products = Product::all();
+        $all_customer = DB::table('customer')
+            ->join('customer_info', 'customer_info.customer_id', '=', 'customer.customer_id')
+            ->get();
+
+        $all_comment_get = DB::table('comment')
+            ->join('product', 'product.product_id', '=', 'comment.product_id')
+            ->where('comment.status', 0)
+            ->get();
+
+        $arrComment = array();
+        foreach($all_rating as $rate){
+            foreach ($all_comment_get as $comment){
+                if($rate->customer_id == $comment->customer_id
+                    && $rate->product_id == $comment->product_id
+                    && $rate->rating_level >= $rating){
+                        $arrComment[] = $comment;
+                }
+            }
+        }
+        $all_comment = $arrComment;
+
+        echo view('admin.comment.view_filter_comment',[
+            'all_comment' => $all_comment,
+
+            'all_rating' => $all_rating,
+            'all_customer' => $all_customer,
+            'string_title' => $string_title,
+            'type_filter' => $type_filter,
+            'level_filter' => $level_filter,
+        ]);
+    }
+    public function print_pdf_comment(Request $request){
+        $type_filter = $request->type_filter;
+        $level_filter = $request->level_filter;
+
+        $all_customer = DB::table('customer')
+                        ->join('customer_info', 'customer_info.customer_id', '=', 'customer.customer_id')
+                        ->get();
+        $all_rating = Rating::all();
+
+        switch ($type_filter) {
+            case "product":
+
+                    $product = Product::find($level_filter);
+                    $string_title = 'Danh Sách Bình Luận Theo Sản Phẩm - "'.$product->product_name.'"';
+
+                    $all_comment = DB::table('comment')
+                        ->join('product', 'product.product_id', '=', 'comment.product_id')
+                        ->where('comment.product_id', $level_filter)
+                        ->where('comment.status', 0)
+                        ->get();
+
+                    $pdf = PDF::loadView('admin.comment.view_print_pdf_comment', [
+                        'all_comment'=>$all_comment,
+                        'string_title'=>$string_title,
+                        'all_rating' => $all_rating,
+                        'all_customer' => $all_customer,
+                        'string_title' => $string_title,
+                    ]);
+                    return $pdf->download('list_comment_fol_product.pdf');
+                break;
+            case "rating":
+                    $string_title = 'Danh Sách Bình Luận Theo Đánh Giá '.$level_filter.' Sao Trở Lên';
+
+                    $all_comment_get = DB::table('comment')
+                        ->join('product', 'product.product_id', '=', 'comment.product_id')
+                        ->where('comment.status', 0)
+                        ->get();
+
+                    $arrComment = array();
+                    foreach($all_rating as $rate){
+                        foreach ($all_comment_get as $comment){
+                            if($rate->customer_id == $comment->customer_id
+                                && $rate->product_id == $comment->product_id
+                                && $rate->rating_level >= $level_filter){
+                                    $arrComment[] = $comment;
+                            }
+                        }
+                    }
+                    $all_comment = $arrComment;
+                    $pdf = PDF::loadView('admin.comment.view_print_pdf_comment', [
+                        'all_comment'=>$all_comment,
+                        'string_title'=>$string_title,
+                        'all_rating' => $all_rating,
+                        'all_customer' => $all_customer,
+                        'string_title' => $string_title,
+                    ]);
+                    return $pdf->download('list_comment_fol_rating.pdf');
+                break;
+            default :
+                $string_title = 'Danh Sách Bình Luận';
+                $all_comment = DB::table('comment')
+                            ->join('product', 'product.product_id', '=', 'comment.product_id')
+                            ->where('comment.status', 0)
+                            ->get();
+                $pdf = PDF::loadView('admin.comment.view_print_pdf_comment', [
+                    'all_comment'=>$all_comment,
+                    'string_title'=>$string_title,
+                    'all_rating' => $all_rating,
+                    'all_customer' => $all_customer,
+                    'string_title' => $string_title,
+                ]);
+                return $pdf->download('list_comment.pdf');
+
+        }
     }
 }

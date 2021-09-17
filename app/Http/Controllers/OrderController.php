@@ -17,6 +17,7 @@ use Session;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\DB;
+use PDF;
 
 class OrderController extends Controller
 {
@@ -237,5 +238,311 @@ class OrderController extends Controller
             'time_line' =>$time_line,
             'all_voucher' =>$all_voucher,
         ]);
+    }
+    public function filter_order_fol_price(Request $request){
+        $price_start = $request->price_start_order;
+        $price_end = $request->price_end_order;
+        $string_title = 'Danh Sách Đơn Hàng Giá Từ '.number_format($price_start, 0, ',', '.').'₫
+                        đến '.number_format($price_end, 0, ',', '.').'₫';
+        $payment_method = DB::table('payment_method')->get();
+        $order_detail_status = Order_Detail_Status::where('status',1)->get();
+        $status_order = DB::table('status_order')->get();
+
+        $type_filter = 'price';
+        $level_filter = '';
+        $price_filter_start = $price_start;
+        $price_filter_end = $price_end;
+
+        $all_order = Orders::whereBetween('total_price', [$price_start, $price_end])->get();
+        echo view('admin.order.view_filter_order',[
+            'orders'=>$all_order,
+            'string_title'=>$string_title,
+            'payment_method'=>$payment_method,
+            'order_detail_status'=>$order_detail_status,
+            'status_order'=>$status_order,
+
+            'type_filter'=>$type_filter,
+            'level_filter'=>$level_filter,
+            'price_filter_start'=>$price_filter_start,
+            'price_filter_end'=>$price_filter_end,
+        ]);
+
+    }
+    public function filter_order_fol_payment_status(Request $request){
+        $payment_status = $request->status_pay;
+
+        $type_filter = 'payment_status';
+        $level_filter = $payment_status;
+
+
+        $payment_method = DB::table('payment_method')->get();
+        $order_detail_status = Order_Detail_Status::where('status',1)->get();
+        $status_order = DB::table('status_order')->get();
+
+        if($payment_status == 1){
+            $string_title = 'Danh Sách Đơn Hàng Đã Thanh Toán';
+            $all_order = Orders::where('status_pay', 1)->get();
+        }
+        else{
+            $string_title = 'Danh Sách Đơn Hàng Chưa Thanh Toán';
+            $all_order = Orders::where('status_pay', 0)->get();
+        }
+
+        echo view('admin.order.view_filter_order',[
+            'orders'=>$all_order,
+            'string_title'=>$string_title,
+            'payment_method'=>$payment_method,
+            'order_detail_status'=>$order_detail_status,
+            'status_order'=>$status_order,
+
+            'type_filter'=>$type_filter,
+            'level_filter'=>$level_filter,
+        ]);
+
+    }
+    public function filter_order_fol_payment_method(Request $request){
+        $payment_method_pay = $request->payment_method;
+
+        $type_filter = 'payment_method';
+        $level_filter = $payment_method_pay;
+
+
+        $payment_method = DB::table('payment_method')->get();
+        $order_detail_status = Order_Detail_Status::where('status',1)->get();
+        $status_order = DB::table('status_order')->get();
+
+        if($payment_method_pay == 0){
+            $string_title = 'Danh Sách Đơn Hàng Thanh Toán Khi Nhận Hàng';
+            $all_order = Orders::where('payment_id', 0)->get();
+        }
+        else{
+            $string_title = 'Danh Sách Đơn Hàng Thanh Toán Bằng Paypal';
+            $all_order = Orders::where('payment_id', 1)->get();
+        }
+
+        echo view('admin.order.view_filter_order',[
+            'orders'=>$all_order,
+            'string_title'=>$string_title,
+            'payment_method'=>$payment_method,
+            'order_detail_status'=>$order_detail_status,
+            'status_order'=>$status_order,
+
+            'type_filter'=>$type_filter,
+            'level_filter'=>$level_filter,
+        ]);
+    }
+    public function filter_order_fol_date(Request $request){
+        $date = $request->date;
+
+        $type_filter = 'date';
+        $level_filter = date('Y-m-d', strtotime($date));
+        $string_title = 'Danh Sách Đơn Hàng ngày '.date('d/m/Y', strtotime($date));
+
+        $payment_method = DB::table('payment_method')->get();
+        $order_detail_status = Order_Detail_Status::where('status',1)->get();
+        $status_order = DB::table('status_order')->get();
+
+        $all_order_get_date = Orders::all();
+        $arrayProduct = array();
+        foreach ($all_order_get_date as $getOrder){
+            $date_create = date('Y-m-d', strtotime($getOrder->create_at));
+            if($level_filter == $date_create){
+                $arrayProduct[] = $getOrder;
+            }
+        }
+        $all_order = $arrayProduct;
+
+        echo view('admin.order.view_filter_order',[
+            'orders'=>$all_order,
+            'string_title'=>$string_title,
+            'payment_method'=>$payment_method,
+            'order_detail_status'=>$order_detail_status,
+            'status_order'=>$status_order,
+
+            'type_filter'=>$type_filter,
+            'level_filter'=>$level_filter,
+        ]);
+    }
+    public function filter_order_fol_date_many(Request $request){
+        $date_start = $request->date_start;
+        $date_end = $request->date_end;
+        $date_filter_start = date('Y-m-d', strtotime($date_start));
+        $date_filter_end = date('Y-m-d', strtotime($date_end));
+
+        $type_filter = 'date_many';
+        $level_filter = '';
+        $start_date = $date_filter_start;
+        $end_date = $date_filter_end;
+
+        $payment_method = DB::table('payment_method')->get();
+        $order_detail_status = Order_Detail_Status::where('status',1)->get();
+        $status_order = DB::table('status_order')->get();
+
+        $string_title = 'Danh Sách Đơn Hàng Từ Ngày '.date('d/m/Y', strtotime($date_start)).'
+                        Đến Ngày '.date('d/m/Y', strtotime($date_filter_end)).'';
+        $arrayProduct = array();
+        $all_order_get_date = Orders::all();
+        foreach ($all_order_get_date as $getOrder){
+            $date_create = date('Y-m-d', strtotime($getOrder->create_at));
+            if($start_date <= $date_create && $date_create <= $end_date){
+                $arrayProduct[] = $getOrder;
+            }
+        }
+        $all_order = $arrayProduct;
+
+        echo view('admin.order.view_filter_order',[
+            'orders'=>$all_order,
+            'string_title'=>$string_title,
+            'payment_method'=>$payment_method,
+            'order_detail_status'=>$order_detail_status,
+            'status_order'=>$status_order,
+
+            'type_filter'=>$type_filter,
+            'level_filter'=>$level_filter,
+            'start_date'=>$start_date,
+            'end_date'=>$end_date,
+        ]);
+    }
+
+    public function print_pdf_order(Request $request){
+        $type_filter = $request->type_filter;
+        $level_filter = $request->level_filter;
+
+        $order_detail_status = Order_Detail_Status::where('status',1)->get();
+        $status_order = DB::table('status_order')->get();
+
+        switch ($type_filter) {
+            case "price":
+                    $price_start = $request->price_filter_start;
+                    $price_end = $request->price_filter_end;
+                    $string_title = 'Danh Sách Đơn Hàng Theo Giá " Từ '.number_format($price_start,0,',','.')
+                                    .'₫ Đến '.number_format($price_end,0,',','.').'₫ "';
+
+                    $all_order = DB::table('orders')
+                                ->join('customer_transport','customer_transport.trans_id','=','orders.trans_id')
+                                ->join('payment_method','payment_method.payment_id','=','orders.payment_id')
+                                ->whereBetween('total_price',[$price_start, $price_end])->get();
+
+                    $pdf = PDF::loadView('admin.order.view_print_pdf_order', [
+                        'all_order'=>$all_order,
+                        'string_title'=>$string_title,
+                        'order_detail_status'=>$order_detail_status,
+                        'status_order'=>$status_order,
+                    ]);
+                    return $pdf->download('List_order_filter_price.pdf');
+                break;
+            case "payment_status":
+                    if($level_filter == 1){
+                        $string_title = 'Danh Sách Đơn Hàng Đã Thanh Toán';
+                        $all_order = DB::table('orders')
+                                ->join('customer_transport','customer_transport.trans_id','=','orders.trans_id')
+                                ->join('payment_method','payment_method.payment_id','=','orders.payment_id')
+                                ->where('status_pay', 1)->get();
+
+                    }
+                    else{
+                        $string_title = 'Danh Sách Đơn Hàng Chưa Thanh Toán';
+                        $all_order = DB::table('orders')
+                                ->join('customer_transport','customer_transport.trans_id','=','orders.trans_id')
+                                ->join('payment_method','payment_method.payment_id','=','orders.payment_id')
+                                ->where('status_pay', 0)->get();
+                    }
+                    $pdf = PDF::loadView('admin.order.view_print_pdf_order', [
+                        'all_order'=>$all_order,
+                        'string_title'=>$string_title,
+                        'order_detail_status'=>$order_detail_status,
+                        'status_order'=>$status_order,
+                    ]);
+                    return $pdf->download('List_order_filter_payment_status.pdf');
+                break;
+            case "payment_method":
+                    if($level_filter == 0){
+                        $string_title = 'Danh Sách Đơn Hàng Thanh Toán Khi Nhận Hàng';
+                        $all_order = DB::table('orders')
+                                ->join('customer_transport','customer_transport.trans_id','=','orders.trans_id')
+                                ->join('payment_method','payment_method.payment_id','=','orders.payment_id')
+                                ->where('orders.payment_id', 0)->get();
+                    }
+                    else{
+                        $string_title = 'Danh Sách Đơn Hàng Thanh Toán Bằng Paypal';
+                        $all_order = DB::table('orders')
+                                ->join('customer_transport','customer_transport.trans_id','=','orders.trans_id')
+                                ->join('payment_method','payment_method.payment_id','=','orders.payment_id')
+                                ->where('orders.payment_id', 1)->get();
+                    }
+                    $pdf = PDF::loadView('admin.order.view_print_pdf_order', [
+                        'all_order'=>$all_order,
+                        'string_title'=>$string_title,
+                        'order_detail_status'=>$order_detail_status,
+                        'status_order'=>$status_order,
+                    ]);
+                    return $pdf->download('List_order_filter_payment_method.pdf');
+                break;
+            case "date":
+                    $string_title = 'Danh Sách Đơn Hàng ngày '.date('d/m/Y', strtotime($level_filter));
+
+                    $all_order_get_date = DB::table('orders')
+                                ->join('customer_transport','customer_transport.trans_id','=','orders.trans_id')
+                                ->join('payment_method','payment_method.payment_id','=','orders.payment_id')
+                                ->get();
+                    $arrayProduct = array();
+                    foreach ($all_order_get_date as $getOrder){
+                        $date_create = date('Y-m-d', strtotime($getOrder->create_at));
+                        if($level_filter == $date_create){
+                            $arrayProduct[] = $getOrder;
+                        }
+                    }
+                    $all_order = $arrayProduct;
+                    $pdf = PDF::loadView('admin.order.view_print_pdf_order', [
+                        'all_order'=>$all_order,
+                        'string_title'=>$string_title,
+                        'order_detail_status'=>$order_detail_status,
+                        'status_order'=>$status_order,
+                    ]);
+                    return $pdf->download('List_order_filter_date.pdf');
+                break;
+            case "date_many":
+                    $start_date = $request->start_date;
+                    $end_date = $request->end_date;
+
+                    $string_title = 'Danh Sách Đơn Hàng Từ Ngày '.date('d/m/Y', strtotime($start_date)).'
+                                Đến Ngày '.date('d/m/Y', strtotime($end_date)).'';
+                    $all_order_get_date = DB::table('orders')
+                                ->join('customer_transport','customer_transport.trans_id','=','orders.trans_id')
+                                ->join('payment_method','payment_method.payment_id','=','orders.payment_id')
+                                ->get();
+                    $arrayProduct = array();
+                    foreach ($all_order_get_date as $getOrder){
+                        $date_create = date('Y-m-d', strtotime($getOrder->create_at));
+                        if($start_date <= $date_create && $date_create <= $end_date){
+                            $arrayProduct[] = $getOrder;
+                        }
+                    }
+                    $all_order = $arrayProduct;
+                    $pdf = PDF::loadView('admin.order.view_print_pdf_order', [
+                        'all_order'=>$all_order,
+                        'string_title'=>$string_title,
+                        'order_detail_status'=>$order_detail_status,
+                        'status_order'=>$status_order,
+                    ]);
+                    return $pdf->download('List_order_filter_date_many.pdf');
+                break;
+            default:
+                $string_title = 'Danh Sách Đơn Hàng';
+                $all_order = DB::table('orders')
+                        ->join('customer_transport','customer_transport.trans_id','=','orders.trans_id')
+                        ->join('payment_method','payment_method.payment_id','=','orders.payment_id')
+                        ->get();
+                $order_detail_status = Order_Detail_Status::where('status',1)->get();
+                $status_order = DB::table('status_order')->get();
+
+                $pdf = PDF::loadView('admin.order.view_print_pdf_order', [
+                    'all_order'=>$all_order,
+                    'string_title'=>$string_title,
+                    'order_detail_status'=>$order_detail_status,
+                    'status_order'=>$status_order,
+                ]);
+                return $pdf->download('danhsachdonhang.pdf');
+        }
     }
 }

@@ -1,8 +1,6 @@
 <div class="left-side-bar">
     <div class="brand-logo">
         <a href="{{ URL::to("/admin") }}">
-            {{-- <img src="{{ asset('public/back_end/vendors/images/deskapp-logo.svg') }}" alt="" class="dark-logo"> --}}
-            {{-- <img src="{{ asset('public/back_end/vendors/images/deskapp-logo-white.svg') }}" alt="" class="light-logo"> --}}
             <img src="{{ asset('public/upload/logo_mku_9.svg') }}" alt="" style="height: 46px;">
         </a>
         <div class="close-sidebar" data-toggle="left-sidebar-close">
@@ -13,6 +11,7 @@
         <div class="sidebar-menu">
 
             <ul id="accordion-menu">
+                @hasrole(['admin','manager'])
                 <li class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle">
                         <span class="micon dw dw-house-1"></span><span class="mtext">Quản Trị</span>
@@ -23,6 +22,7 @@
                         <li><a href="{{ URL::to('admin/list_permission') }}">Phân Quyền</a></li>
                     </ul>
                 </li>
+                @endhasrole
                 <li class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle">
                         <span class="micon dw dw-house-1"></span><span class="mtext">Sản Phẩm</span>
@@ -32,7 +32,6 @@
                         <li><a href="{{ URL::to('admin/all_product') }}">Danh Sách Sản Phẩm</a></li>
                     </ul>
                 </li>
-
                 {{-- CUSTOMER --}}
                 <li class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle">
@@ -69,13 +68,31 @@
                 {{-- ORDER --}}
                 <li class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle">
-                        <span class="micon icon-copy ti-harddrives"></span><span class="mtext">Đơn Hàng</span>
+                        <span class="micon icon-copy ti-harddrives"></span>
+                        <span class="mtext">Đơn Hàng</span>
                     </a>
                     <ul class="submenu">
                         <li><a href="{{ URL::to('admin/all_order') }}">Danh Sách Đơn Hàng</a></li>
                     </ul>
                 </li>
 
+                {{-- COMMENT --}}
+                <li class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <span class="micon icon-copy ti-harddrives"></span><span class="mtext">Duyệt Bình Luận</span>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="{{ URL::to('admin/view_comment_to_process') }}">Bình luận chờ duyệt</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <div class="dropdown-divider"></div>
+                </li>
+
+            {{-- EVENT DISCOUNT --}}
+                <li>
+                    <div class="sidebar-small-cap">Sự Kiện</div>
+                </li>
                 {{-- DISCOUNT --}}
                 <li class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle">
@@ -98,6 +115,14 @@
                     </ul>
                 </li>
 
+
+                <li>
+                    <div class="dropdown-divider"></div>
+                </li>
+            {{-- FONT-END --}}
+                <li>
+                    <div class="sidebar-small-cap">Giao Diện</div>
+                </li>
                 {{-- SLIDER --}}
                 <li class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle">
@@ -109,14 +134,7 @@
                     </ul>
                 </li>
 
-                <li class="dropdown">
-                    <a href="javascript:;" class="dropdown-toggle">
-                        <span class="micon icon-copy ti-harddrives"></span><span class="mtext">Duyệt Bình Luận</span>
-                    </a>
-                    <ul class="submenu">
-                        <li><a href="{{ URL::to('admin/view_comment_to_process') }}">Bình luận chờ duyệt</a></li>
-                    </ul>
-                </li>
+
             </ul>
         </div>
     </div>

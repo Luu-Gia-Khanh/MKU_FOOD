@@ -18,6 +18,7 @@ use Session;
 use DB;
 use Carbon\Carbon;
 use PDF;
+use Str;
 
 class ProductController extends Controller
 {
@@ -31,8 +32,15 @@ class ProductController extends Controller
     public function process_add_product(Request $request){
         $this->Validate_Product($request);
 
+        $name_product = $request->product_name;
+        $check_name = Product::where('product_name', $name_product)->first();
+        if($check_name){
+            $request->session()->flash('add_product_error_name', 'Thêm sản phẩm thất bại, sản phẩm đã tồn tại');
+            return redirect()->back();
+        }
         $product = new Product();
         $product->product_name = $request->product_name;
+        $product->slug = Str::slug($request->product_name);
         $product->category_id = $request->cate_id;
         $product->unit_id = $request->unit_id;
         $product->product_sort_desc = $request->product_sort_desc;
@@ -184,8 +192,17 @@ class ProductController extends Controller
     public function process_update_product(Request $request, $prod_id){
         $this->Validate_Product_Update($request);
 
+        $name_product = $request->product_name;
+        $check_name = Product::where('product_name', $name_product)
+                    ->where('product_id', '!=' , $prod_id)->get();
+        if($check_name){
+            $request->session()->flash('update_product_error_name', 'Cập nhật sản phẩm thất bại, tên sản phẩm đã tồn tại');
+            return redirect()->back();
+        }
+
         $update_product = Product::find($prod_id);
         $update_product->product_name = $request->product_name;
+        $update_product->slug = Str::slug($request->product_name);
         $update_product->category_id = $request->cate_id;
         $update_product->unit_id = $request->unit_id;
         $update_product->product_sort_desc = $request->product_sort_desc;
@@ -341,7 +358,7 @@ class ProductController extends Controller
             'unit_id' => 'required',
             'storage_id' => 'required',
             'product_quantity' => 'nullable|alpha_num|min:0|max:10000',
-            'product_sort_desc' => 'required|max:255',
+            'product_sort_desc' => 'required|max:500',
             'product_desc' => 'required',
         ],[
             'product_name.required' => 'Tên sản phẩm không được để trống',
@@ -701,7 +718,7 @@ class ProductController extends Controller
                 ->get();
         foreach ($all_product as $product){
             $date_create = date('Y-m-d', strtotime($product->create_at));
-            if($date_start <= $date_create && $date_create <= $date_end){
+            if($start_date <= $date_create && $date_create <= $end_date){
                 $arrayProduct[] = $product;
             }
         }
@@ -851,7 +868,7 @@ class ProductController extends Controller
                         $price_start = 100000;
                         $price_end = 200000;
                     }
-                    $string_title = 'Danh Sách Sản Phẩm Theo Giá " Từ '.number_format($price_start,0,',','.')
+                    $string_title = 'Danh Sách Đơn Hàng Theo Giá " Từ '.number_format($price_start,0,',','.')
                                     .'₫ Đến '.number_format($price_end,0,',','.').'₫ "';
                     $all_product = DB::table('product')
                                 ->join('product_price','product_price.product_id','=','product.product_id')
@@ -879,6 +896,7 @@ class ProductController extends Controller
                     return $pdf->download('danhsachsanphamtheogia.pdf');
                 break;
             case "price_many":
+
                     $price_start = $request->price_filter_start;
                     $price_end = $request->price_filter_end;
                     $string_title = 'Danh Sách Sản Phẩm Theo Giá " Từ '.number_format($price_start,0,',','.')

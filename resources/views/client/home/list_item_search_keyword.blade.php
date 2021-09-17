@@ -25,7 +25,7 @@
         <li class="product-item col-lg-4 col-md-4 col-sm-4 col-xs-6">
             <div class="contain-product layout-default content_product">
                 <div class="product-thumb">
-                    <a href="{{ URL::to('product_detail/' . $product->product_id) }}" class="link-to-product">
+                    <a href="{{ URL::to('product_detail_slug/' . $product->slug) }}" class="link-to-product">
                         <img src="{{ asset('public/upload/' . $product->product_image) }}" alt="dd"
                             style="width: 270px; height: 270px" class="product-thumnail">
                     </a>
@@ -34,7 +34,7 @@
                 </div>
                 <div class="info">
                     <h4 class="product-title">
-                        <a href="{{ URL::to('product_detail/' . $product->product_id) }}"
+                        <a href="{{ URL::to('product_detail_slug/' . $product->slug) }}"
                             class="pr-name name_product">{{ $product->product_name }}</a>
                     </h4>
                     <div class="price">
