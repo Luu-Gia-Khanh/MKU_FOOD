@@ -68,7 +68,7 @@
 						<form action="{{ URL::to('mail_register_client') }}" method="post" style="text-align: center" >
 							@csrf
 							<div class="input-group custom">
-								<input type="text" name="username" class="form-control form-control-lg" placeholder="Tên người dùng">
+								<input type="text" name="username" class="form-control form-control-lg upper_val" placeholder="Tên người dùng" onblur="return upberFirstKey()">
 								<div class="input-group-append custom">
 									<span class="input-group-text"><i class="icon-copy dw dw-user"></i></span>
 								</div>
@@ -152,5 +152,6 @@
 	<script src="{{ asset('public/back_end/vendors/scripts/script.min.js') }}"></script>
 	<script src="{{ asset('public/back_end/vendors/scripts/process.js') }}"></script>
 	<script src="{{ asset('public/back_end/vendors/scripts/layout-settings.js') }}"></script>
+	<script src="{{ asset('public/back_end/src/scripts/upperFirstKey.js') }}"></script>
 </body>
 </html>

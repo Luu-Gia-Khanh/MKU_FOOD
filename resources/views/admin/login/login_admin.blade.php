@@ -33,13 +33,20 @@
 					<img src="{{ asset('public/upload/logo_mku_10.svg') }}" alt="" style="height: 46px;">
 				</a>
 			</div>
+			{{-- <div class="login-menu">
+				<ul>
+					<li><a href="register.html">Register</a></li>
+				</ul>
+			</div> --}}
 		</div>
 	</div>
-	<div class="login-wrap d-flex align-items-center flex-wrap justify-content-center">
+	<div class="login-wrap d-flex align-items-center flex-wrap justify-content-center" style="background-color: #1b3133;">
 		<div class="container">
 			<div class="row align-items-center">
 				<div class="col-md-6 col-lg-7">
-					<img src="{{ asset('public/back_end/vendors/images/login-page-img.png') }}" alt="">
+					<img src="{{ asset('public/upload/logo_mku_large_login_admin.svg') }}" alt="" style="height: 468px;
+					margin-left: 140px;
+					margin-top: 8px;">
 				</div>
 				<div class="col-md-6 col-lg-5">
 					<div class="login-box bg-white box-shadow border-radius-10">
@@ -47,14 +54,14 @@
                             <div class="alert alert-danger alert-blog" style="text-align: center">{{ $errors->first() }}</div>
                         @endif
 						<div class="login-title">
-							<h2 class="text-center text-primary">Đăng Nhập</h2>
+							<h2 class="text-center" style="color: #1b3133">Đăng nhập vào hệ thống</h2>
 						</div>
                         {{-- FORM --}}
 						<form action="{{ URL::to('process_login') }}" method="post" style="text-align: center" >
 							@csrf
                             <div class="select-role">
-								<div class="btn-group btn-group-toggle" data-toggle="buttons">
-									<label class="btn">
+								{{-- <div class="btn-group-toggle btn-group d-inline-flex justify-content-center" data-toggle="buttons">
+									<label class="btn active">
 										<input type="radio" name="options" id="admin">
 										<div class="icon">
                                             <img src="{{ asset('public/back_end/vendors/images/briefcase.svg') }}" class="svg" alt="">
@@ -70,10 +77,10 @@
 										<span>Hi !</span>
 										Nhân Viên
 									</label>
-								</div>
+								</div> --}}
 							</div>
 							<div class="input-group custom">
-								<input type="email" name="email" class="form-control form-control-lg" placeholder="Email">
+								<input type="email" name="email" class="form-control form-control-lg" placeholder="Email" style="">
 								<div class="input-group-append custom">
 									<span class="input-group-text"><i class="icon-copy dw dw-user1"></i></span>
 								</div>
@@ -87,8 +94,16 @@
 							<div class="row">
 								<div class="col-sm-12">
 									<div class="input-group mb-0">
-										<input type="submit" class="btn btn-primary btn-lg btn-block" value="Đăng Nhập" />
+										<!--
+											use code for form submit
+											<input class="btn btn-primary btn-lg btn-block" type="submit" value="Sign In">
+										-->
+										<input type="submit" class="btn btn-primary btn-lg btn-block" style="background-color: #1b3133; border: none" value="Đăng nhập" />
 									</div>
+									{{-- <div class="font-16 weight-600 pt-10 pb-10 text-center" data-color="#707373">OR</div>
+									<div class="input-group mb-0">
+										<a class="btn btn-outline-primary btn-lg btn-block" href="register.html">Register To Create Account</a>
+									</div> --}}
 								</div>
 							</div>
 						</form>

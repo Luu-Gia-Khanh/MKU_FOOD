@@ -63,6 +63,16 @@
                 @endif
         </div>
 
+        <div class="card-box mb-30">
+            @if (session('error_delete_category'))
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    {{ session('error_delete_category') }}
+                </div>
+            @endif
+        </div>
+
+
         <!-- Simple Datatable start -->
         <div class="card-box mb-30">
             <div class="row pd-20">

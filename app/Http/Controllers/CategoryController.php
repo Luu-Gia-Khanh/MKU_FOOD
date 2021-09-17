@@ -6,6 +6,7 @@ use App\Admin;
 use App\Admin_Action_Category;
 use App\Category;
 use App\Http\Controllers\Controller;
+use App\Product;
 use Carbon\Carbon;
 use Illuminate\Auth\Events\Validated;
 use Session;
@@ -193,19 +194,26 @@ class CategoryController extends Controller
     }
 
     public function process_delete_category(Request $request, $cate_id) {
-        Category::destroy($cate_id);
+        $cate_product = Product::where('category_id', $cate_id)->get();
+        if(isset($cate_product)){
+            $request->session()->flash('error_delete_category', 'Loại sản phẩm này đang còn hàng, không thể xóa!');
+            return redirect()->back();
+        } else{
+            $result_delete = Category::destroy($cate_id);
+            if($result_delete){
+                // Action delete category
+                $Action_Category = new Admin_Action_Category();
+                $Action_Category->admin_id = Session::get('admin_id');
+                $Action_Category->cate_id = $cate_id;
+                $Action_Category->action_id = 2;
+                $Action_Category->action_message = "Xóa loại sản phẩm";
+                $Action_Category->action_time = Carbon::now('Asia/Ho_Chi_Minh');
+                $Action_Category->save();
 
-        // Action delete category
-        $Action_Category = new Admin_Action_Category();
-        $Action_Category->admin_id = Session::get('admin_id');
-        $Action_Category->cate_id = $cate_id;
-        $Action_Category->action_id = 2;
-        $Action_Category->action_message = "Xóa loại sản phẩm";
-        $Action_Category->action_time = Carbon::now('Asia/Ho_Chi_Minh');
-        $Action_Category->save();
-
-        $request->session()->flash('success_delete_category', 'Xóa thành công');
-        return redirect()->back();
+                $request->session()->flash('success_delete_category', 'Xóa thành công');
+                return redirect()->back();
+            }
+        }
     }
 
     public function view_recycle(){
@@ -263,19 +271,26 @@ class CategoryController extends Controller
 
     public function soft_delete(Request $request){
         $cate_id = $request->cate_id;
-        Category::where('cate_id', $cate_id)->delete();
+        $cate_product = Product::where('category_id', $cate_id)->get();
+        if(isset($cate_product)){
+            $request->session()->flash('error_delete_category', 'Loại sản phẩm này đang còn hàng, không thể xóa!');
+            return redirect()->back();
+        } else{
+            $result_delete = Category::destroy($cate_id);
+            if($result_delete){
+                // Action delete category
+                $Action_Category = new Admin_Action_Category();
+                $Action_Category->admin_id = Session::get('admin_id');
+                $Action_Category->cate_id = $cate_id;
+                $Action_Category->action_id = 2;
+                $Action_Category->action_message = "Xóa loại sản phẩm";
+                $Action_Category->action_time = Carbon::now('Asia/Ho_Chi_Minh');
+                $Action_Category->save();
 
-        // Action delete category
-        $Action_Category = new Admin_Action_Category();
-        $Action_Category->admin_id = Session::get('admin_id');
-        $Action_Category->cate_id = $cate_id;
-        $Action_Category->action_id = 2;
-        $Action_Category->action_message = "Xóa loại sản phẩm";
-        $Action_Category->action_time = Carbon::now('Asia/Ho_Chi_Minh');
-        $Action_Category->save();
-
-        $request->session()->flash('success_delete_soft_category', 'Xóa thành công');
-        return redirect()->back();
+                $request->session()->flash('success_delete_category', 'Xóa thành công');
+                return redirect()->back();
+            }
+        }
     }
 
     public function validation_category(Request $request){
