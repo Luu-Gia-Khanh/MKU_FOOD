@@ -27,7 +27,11 @@
                     @if ($unique_product_id == 1)
                         <tr role="row" class="odd text-center">
                             <td>{{ $stt }}</td>
-                            <td>{{ $product_voucher->product_name }}</td>
+                            <td>
+                                <a href="{{ URL::to('admin/all_voucher/'.$product->product_id) }}">
+                                    {{ $product->product_name }}
+                                </a>
+                            </td>
                             <td>
                                 @php
                                     $count_voucher = 0;

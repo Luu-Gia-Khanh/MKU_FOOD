@@ -143,7 +143,11 @@
                                         
                                             <tr role="row" class="odd">
                                                 <td>{{ $stt }}</td>
-                                                <td>{{ $storage->storage_name }}</td>
+                                                <td>
+                                                    <a href="{{ URL::to('admin/all_storage_product/'.$storage->storage_id) }}">
+                                                        {{ $storage->storage_name }}
+                                                    </a>
+                                                </td>
                                                 <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $storage->created_at)->format('d-m-Y') }}</td>
                                                 <td>
                                                     <div class="dropdown">

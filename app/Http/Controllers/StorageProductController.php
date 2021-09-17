@@ -13,6 +13,7 @@ use App\Storage;
 use App\Storage_Product;
 use Carbon\Carbon;
 use Session;
+use PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -236,4 +237,109 @@ class StorageProductController extends Controller
         return redirect()->back();
     }
 
+    public function filter_storage_product_quantity_choose(Request $request){
+        $storage_id = $request->storageId;
+        $all_product = Product::all();
+        $storage_product_quantity_choose = $request->radioProductQuantity;
+        $type_filter = 'choose_quantity';
+        $level_filter = $storage_product_quantity_choose;
+        $quantity_start = 0;
+        $quantity_end = 0;
+        if($storage_product_quantity_choose == 1){
+            $quantity_start = 0;
+            $quantity_end = 50;
+        }
+        else if($storage_product_quantity_choose == 2){
+            $quantity_start = 51;
+            $quantity_end = 100;
+        }
+        else if($storage_product_quantity_choose == 3){
+            $quantity_start = 101;
+            $quantity_end = 150;
+        }
+        else if($storage_product_quantity_choose == 4){
+            $quantity_start = 151;
+            $quantity_end = 200;
+        }
+        $string_title = 'Theo Số Lượng Sản Phẩm " Từ '.$quantity_start.' Đến ' .$quantity_end.'"';
+        $all_storage_product = Storage_Product::where('storage_id', $storage_id)
+                                                ->where('total_quantity_product', '>=', $quantity_start)
+                                                ->where('total_quantity_product', '<=', $quantity_end)
+                                                ->get();
+        echo view('admin.storage_product.view_filter_storage_product', compact('type_filter', 'level_filter', 'storage_id',
+                                                                                'all_product', 'all_storage_product', 'string_title'));
+    }
+
+    public function filter_storage_product_quantity_cus_option(Request $request){
+        $storage_id = $request->storageId;
+        $all_product = Product::all();
+        $type_filter = 'cus_quantity';
+        $level_filter = '';
+        $quantity_start = $request->quantityStart;
+        $quantity_end = $request->quantityEnd;
+        $string_title = 'Theo Số Lượng Sản Phẩm " Từ '.$quantity_start.' Đến ' .$quantity_end.'"';
+        $all_storage_product = Storage_Product::where('storage_id', $storage_id)
+                                                ->where('total_quantity_product', '>=', $quantity_start)
+                                                ->where('total_quantity_product', '<=', $quantity_end)
+                                                ->get();
+        echo view('admin.storage_product.view_filter_storage_product', compact('type_filter', 'level_filter', 'storage_id',
+                                                                                'all_product', 'all_storage_product', 'string_title'));
+    }
+
+    public function print_pdf_storage_product(Request $request){
+        $all_product = Product::all();
+        $storage_id = $request->storage_id;
+        $type_filter = $request->type_filter;
+        $level_filter = $request->level_filter;
+
+        switch ($type_filter) {
+            case "choose_quantity":
+                    $quantity_start = 0;
+                    $quantity_end = 0;
+                    if($level_filter == 1){
+                        $quantity_start = 0;
+                        $quantity_end = 50;
+                    }
+                    else if($level_filter == 2){
+                        $quantity_start = 51;
+                        $quantity_end = 100;
+                    }
+                    else if($level_filter == 3){
+                        $quantity_start = 101;
+                        $quantity_end = 150;
+                    }
+                    else if($level_filter == 4){
+                        $quantity_start = 151;
+                        $quantity_end = 200;
+                    }
+                    $string_title = 'Danh Sách Kho Sản Phẩm Theo Số Lượng Sản Phẩm " Từ '.$quantity_start.' Đến ' .$quantity_end.'"';
+                    $all_storage_product = Storage_Product::where('storage_id', $storage_id)
+                                                            ->where('total_quantity_product', '>=', $quantity_start)
+                                                            ->where('total_quantity_product', '<=', $quantity_end)
+                                                            ->get();
+                    $pdf = PDF::loadView('admin.storage_product.view_print_pdf_storage_product', compact('all_product', 'all_storage_product', 'string_title'));
+                    return $pdf->download('danhsachkhosanphamtheosoluong.pdf');
+                break;
+            case "cus_quantity":
+                $storage_id = $request->storageId;
+                $all_product = Product::all();
+                $type_filter = 'cus_quantity';
+                $level_filter = '';
+                $quantity_start = $request->quantityStart;
+                $quantity_end = $request->quantityEnd;
+                $string_title = 'Theo Số Lượng Sản Phẩm " Từ '.$quantity_start.' Đến ' .$quantity_end.'"';
+                $all_storage_product = Storage_Product::where('storage_id', $storage_id)
+                                                        ->where('total_quantity_product', '>=', $quantity_start)
+                                                        ->where('total_quantity_product', '<=', $quantity_end)
+                                                        ->get();
+                $pdf = PDF::loadView('admin.storage_product.view_print_pdf_order_customer', compact('type_filter', 'level_filter', 'storage_id',
+                                    'all_product', 'all_storage_product', 'string_title'));
+                return $pdf->download('danhsachkhohangtheosoluongtuchon.pdf');
+            default:
+                $string_title = 'Danh Sách Kho Sản Phẩm';
+                $all_storage_product = Storage_Product::where('storage_id', $storage_id)->get();
+                $pdf = PDF::loadView('admin.storage_product.view_print_pdf_storage_product', compact('all_product', 'all_storage_product', 'string_title'));
+                return $pdf->download('danhsachkhosanpham.pdf');
+        }
+    }
 }

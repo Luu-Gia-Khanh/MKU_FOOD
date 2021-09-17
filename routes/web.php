@@ -166,6 +166,11 @@ Route::prefix('admin')->group(function () {
 
     Route::post('find_storage_product', 'StorageProductController@find_storage_product');
 
+    Route::post('filter_storage_product_quantity_choose', 'StorageProductController@filter_storage_product_quantity_choose');
+    Route::post('filter_storage_product_quantity_cus_option', 'StorageProductController@filter_storage_product_quantity_cus_option');
+
+    Route::post('print_pdf_storage_product', 'StorageProductController@print_pdf_storage_product');
+
 
     //ORDER
     Route::get('all_order', 'OrderController@all_order');
@@ -181,7 +186,7 @@ Route::prefix('admin')->group(function () {
     Route::post('confirm_delivery_success_order', 'OrderController@confirm_delivery_success_order');
     Route::post('search_order', 'OrderController@search_order');
 
-    // VOUCHER PRODUCT
+    // VOUCHER
     Route::get('all_voucher/{product_id}', 'VoucherController@all_voucher');
     Route::get('detail_voucher/{voucher_id}', 'VoucherController@detail_voucher');
     Route::get('add_voucher', 'VoucherController@add_voucher');
@@ -191,15 +196,20 @@ Route::prefix('admin')->group(function () {
     Route::post('process_update_voucher/{voucher_id}', 'VoucherController@process_update_voucher');
     Route::get('all_product_voucher', 'VoucherController@all_product_voucher');
     Route::post('get_voucher_id', 'VoucherController@get_voucher_id');
-    Route::post('get_voucher_name', 'VoucherController@get_voucher_name');
-    Route::post('get_voucher_product', 'VoucherController@get_voucher_product');
-    Route::post('get_voucher_start_date', 'VoucherController@get_voucher_start_date');
-    Route::post('get_voucher_end_date', 'VoucherController@get_voucher_end_date');
-    Route::post('get_voucher_quantity', 'VoucherController@get_voucher_quantity');
-    Route::post('get_voucher_amount', 'VoucherController@get_voucher_amount');
-    Route::post('get_voucher_status', 'VoucherController@get_voucher_status');
 
     Route::get('find_product_voucher', 'VoucherController@find_product_voucher');
+    Route::post('find_voucher', 'VoucherController@find_voucher');
+    Route::post('soft_delete_voucher', 'VoucherController@soft_delete_voucher');
+
+    Route::get('view_recycle_product_voucher/{product_id}', 'VoucherController@all_recycle');
+    Route::post('delete_forever_voucher', 'VoucherController@delete_forever');
+    Route::get('re_delete_voucher/{voucher_id}', 'VoucherController@re_delete');
+
+    Route::post('print_pdf_voucher', 'VoucherController@print_pdf_voucher');
+    Route::post('filter_voucher_follow_status_apply', 'VoucherController@filter_voucher_follow_status_apply');
+    Route::post('filter_voucher_follow_status_unapply', 'VoucherController@filter_voucher_follow_status_unapply');
+    Route::post('filter_voucher_follow_date_single', 'VoucherController@filter_voucher_follow_date_single');
+    Route::post('filter_voucher_follow_date_many', 'VoucherController@filter_voucher_follow_date_many');
 
     // SLIDER
     Route::get('all_slider', 'SliderController@all_slider');
@@ -213,6 +223,16 @@ Route::prefix('admin')->group(function () {
     Route::get('all_customer', 'CustomerAdminController@all_customer');
     Route::get('detail_customer/{customer_id}', 'CustomerAdminController@detail_customer');
     Route::get('find_customer', 'CustomerAdminController@find_customer');
+
+    Route::post('filter_customer_follow_order_quantity_choose', 'CustomerAdminController@filter_customer_follow_order_quantity_choose');
+    Route::post('filter_customer_follow_order_quantity_cus_option', 'CustomerAdminController@filter_customer_follow_order_quantity_cus_option');
+    Route::post('filter_order_customer_follow_price_choose', 'CustomerAdminController@filter_order_customer_follow_price_choose');
+    Route::post('filter_order_customer_follow_price_cus_option', 'CustomerAdminController@filter_order_customer_follow_price_cus_option');
+    Route::post('filter_order_customer_follow_date_single', 'CustomerAdminController@filter_order_customer_follow_date_single');
+    Route::post('filter_order_customer_follow_date_many', 'CustomerAdminController@filter_order_customer_follow_date_many');
+
+    Route::post('print_pdf_customer', 'CustomerAdminController@print_pdf_customer');
+    Route::post('print_pdf_order_customer/{customer_id}', 'CustomerAdminController@print_pdf_order_customer');
 
     //DISCOUNT PRODUCT
     Route::get('all_discount', 'DiscountController@all_discount');
