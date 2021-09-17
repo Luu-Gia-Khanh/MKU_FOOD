@@ -109,7 +109,7 @@
                                                                     class="biolife-icon icon-search"></i></span>
                                                         </div>
                                                         <div class="info">
-                                                            <h4 class="product-title">
+                                                            <h4 class="product-title" style="height: 70px">
                                                                 <a href="{{ URL::to('product_detail_slug/' . $product->slug) }}" class="pr-name name_product cus_prod_name_card_sm btn_recently_viewed" data-id="{{ $product->product_id }}">
                                                                     {{ $product->product_name }}
                                                                 </a>

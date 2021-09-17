@@ -123,7 +123,7 @@
                                                         @if ($product->product_id == $cart->product_id)
 
                                                             <td class="info-product">
-                                                                <div class="content-info-product">
+                                                                <div class="content-info-product" style="display: flex;">
                                                                     <img src="{{ asset('public/upload/' . $product->product_image) }}"
                                                                         alt="" style="width:45px; height:45px">
                                                                     <label

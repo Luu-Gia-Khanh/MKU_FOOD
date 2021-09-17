@@ -10,15 +10,16 @@
     <div class="pre-loader">
 		<div class="pre-loader-box">
 			<div class="loader-logo">
-                <img src="{{ asset('public/upload/logo_mku_large_login_client.svg') }}"
-                style="height: 468px; width: 468px" alt="">
+                <img src="{{ asset('public/upload/logo_mku_large_login_admin.svg') }}"
+                style="height: 350px; width: 350px" alt="">
             </div>
 			<div class='loader-progress' id="progress_div">
-				<div class='bar' id='bar1'></div>
+				<div class='bar' id='bar1'>
+                </div>
 			</div>
 			<div class='percent' id='percent1'>0%</div>
 			<div class="loading-text">
-				Loading...
+				Đang Tải...
 			</div>
 		</div>
 	</div>

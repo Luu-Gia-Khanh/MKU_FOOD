@@ -32,15 +32,6 @@
                         <li><a href="{{ URL::to('admin/all_product') }}">Danh Sách Sản Phẩm</a></li>
                     </ul>
                 </li>
-                {{-- CUSTOMER --}}
-                <li class="dropdown">
-                    <a href="javascript:;" class="dropdown-toggle">
-                        <span class="micon icon-copy ti-harddrives"></span><span class="mtext">Khách Hàng</span>
-                    </a>
-                    <ul class="submenu">
-                        <li><a href="{{ URL::to('admin/all_customer') }}">Danh Sách Khách Hàng</a></li>
-                    </ul>
-                </li>
 
                 {{-- CATEGORY --}}
 
@@ -83,6 +74,18 @@
                     </a>
                     <ul class="submenu">
                         <li><a href="{{ URL::to('admin/view_comment_to_process') }}">Bình luận chờ duyệt</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <div class="dropdown-divider"></div>
+                </li>
+                {{-- CUSTOMER --}}
+                <li class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <span class="micon icon-copy ti-harddrives"></span><span class="mtext">Khách Hàng</span>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="{{ URL::to('admin/all_customer') }}">Danh Sách Khách Hàng</a></li>
                     </ul>
                 </li>
                 <li>

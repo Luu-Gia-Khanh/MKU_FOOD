@@ -194,7 +194,7 @@ class ProductController extends Controller
 
         $name_product = $request->product_name;
         $check_name = Product::where('product_name', $name_product)
-                    ->where('product_id', '!=' , $prod_id)->get();
+                    ->where('product_id', '!=' , $prod_id)->first();
         if($check_name){
             $request->session()->flash('update_product_error_name', 'Cập nhật sản phẩm thất bại, tên sản phẩm đã tồn tại');
             return redirect()->back();

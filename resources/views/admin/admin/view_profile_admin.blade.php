@@ -99,94 +99,180 @@
                         <div class="tab height-100-p">
                             <ul class="nav nav-tabs customtab" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active tab_timeline" data-toggle="tab" href="#timeline" role="tab" aria-selected="true">Timeline</a>
+                                    <a class="nav-link active tab_timeline" data-toggle="tab"
+                                    href="#timeline" role="tab" aria-selected="true">Cập Nhật Thông Tin</a>
                                 </li>
                                 @if (Session::get('admin_id') == 1 || $view_profile->admin_id == Session::get('admin_id'))
                                     <li class="nav-item">
-                                        <a class="nav-link tab_change_info" data-toggle="tab" href="#setting" role="tab" aria-selected="false">Cập Nhật Thông Tin</a>
+                                        <a class="nav-link tab_change_info" data-toggle="tab"
+                                        href="#setting" role="tab" aria-selected="false">Đổi Mật Khẩu</a>
                                     </li>
                                 @endif
-
                             </ul>
                             <div class="tab-content">
                                 <!-- Timeline Tab start -->
-                                <div class="tab-pane fade active show content_tab_time_line" id="timeline" role="tabpanel">
+                                <div class="tab-pane fade active show content_tab_time_line"
+                                        id="timeline" role="tabpanel">
                                     <div class="pd-20">
-                                        <div class="profile-timeline">
-                                            <div class="timeline-month">
-                                                <h5>August, 2020</h5>
-                                            </div>
-                                            <div class="profile-timeline-list">
-                                                <ul>
-                                                    <li>
-                                                        <div class="date">12 Aug</div>
-                                                        <div class="task-name"><i class="ion-android-alarm-clock"></i> Task Added</div>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                                                        <div class="task-time">09:30 am</div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="date">10 Aug</div>
-                                                        <div class="task-name"><i class="ion-ios-chatboxes"></i> Task Added</div>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                                                        <div class="task-time">09:30 am</div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="date">10 Aug</div>
-                                                        <div class="task-name"><i class="ion-ios-clock"></i> Event Added</div>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                                                        <div class="task-time">09:30 am</div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="date">10 Aug</div>
-                                                        <div class="task-name"><i class="ion-ios-clock"></i> Event Added</div>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                                                        <div class="task-time">09:30 am</div>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="timeline-month">
-                                                <h5>July, 2020</h5>
-                                            </div>
-                                            <div class="profile-timeline-list">
-                                                <ul>
-                                                    <li>
-                                                        <div class="date">12 July</div>
-                                                        <div class="task-name"><i class="ion-android-alarm-clock"></i> Task Added</div>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                                                        <div class="task-time">09:30 am</div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="date">10 July</div>
-                                                        <div class="task-name"><i class="ion-ios-chatboxes"></i> Task Added</div>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                                                        <div class="task-time">09:30 am</div>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="timeline-month">
-                                                <h5>June, 2020</h5>
-                                            </div>
-                                            <div class="profile-timeline-list">
-                                                <ul>
-                                                    <li>
-                                                        <div class="date">12 June</div>
-                                                        <div class="task-name"><i class="ion-android-alarm-clock"></i> Task Added</div>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                                                        <div class="task-time">09:30 am</div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="date">10 June</div>
-                                                        <div class="task-name"><i class="ion-ios-chatboxes"></i> Task Added</div>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                                                        <div class="task-time">09:30 am</div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="date">10 June</div>
-                                                        <div class="task-name"><i class="ion-ios-clock"></i> Event Added</div>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                                                        <div class="task-time">09:30 am</div>
-                                                    </li>
-                                                </ul>
+                                        <div class="card-body">
+                                            <div class="profile-setting">
+                                                <form action="{{ URL::to('admin/process_update_profile_admin/'.$view_profile->admin_id) }}" method="post" enctype="multipart/form-data">
+                                                    @csrf
+                                                    <ul class="profile-edit-list row">
+                                                        <li class="weight-500 col-md-6">
+                                                            <div class="form-group">
+                                                                <label>Họ Và Tên</label>
+                                                                <input class="form-control upper_val form-control-lg change_name" type="text" name="admin_name"
+                                                                    value="{{ $view_profile->admin_name }}" onblur="return upberFirstKey()"
+                                                                    placeholder="Nhập Họ Và Tên">
+                                                                @if ($errors->has('admin_name'))
+                                                                    <div class="alert alert-danger alert-dismissible mt-1">
+                                                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                                        {{ $errors->first('admin_name') }}
+                                                                    </div>
+                                                                @endif
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Giới Tính</label>
+                                                                <div class="dropdown bootstrap-select form-control dropup">
+                                                                    <select name="admin_gender" class="selectpicker form-control form-control-lg change_gender" id="change_gender" data-size="5">
+                                                                        @if ($view_profile->admin_gender == 'Nam')
+                                                                            <option value="Nam" selected>Nam</option>
+                                                                            <option value="Nu">Nữ</option>
+                                                                        @else
+                                                                            <option value="Nam">Nam</option>
+                                                                            <option value="Nu" selected>Nữ</option>
+                                                                        @endif
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Số Điện Thoại</label>
+                                                                <input class="form-control form-control-lg change_phone" type="number" name="admin_phone"
+                                                                    value="{{ $view_profile->admin_phone }}" placeholder="Nhập Số Điện Thoại">
+                                                                @if ($errors->has('admin_phone'))
+                                                                    <div class="alert alert-danger alert-dismissible mt-1">
+                                                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                                        {{ $errors->first('admin_phone') }}
+                                                                    </div>
+                                                                @endif
+                                                                @if (session('check_phone'))
+                                                                    <div class="alert alert-danger alert-dismissible mt-1">
+                                                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                                        {{ session('check_phone') }}
+                                                                    </div>
+                                                                @endif
+                                                            </div>
+                                                            @php
+                                                                $address = explode(', ', $view_profile->admin_address);
+                                                            @endphp
+                                                            <div class="form-group">
+                                                                <label>Quận/Huyện</label>
+                                                                <select name="district" id="district_update_profile_admin"
+                                                                    class="custom-select2 form-control select2-hidden-accessible form-control-lg"
+                                                                    style="width: 100%; height: 38px;" data-select2-id="5" tabindex="-1" aria-hidden="true">
+                                                                    @foreach ($districts as $dis)
+                                                                        @if ($dis->name_qh == $address[1])
+                                                                            <option value="{{ $dis->maqh }}">{{ $address[1] }}</option>
+                                                                        @endif
+                                                                    @endforeach
+                                                                </select>
+                                                                @if ($errors->has('district'))
+                                                                    <div class="alert alert-danger alert-dismissible mt-1">
+                                                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                                        {{ $errors->first('district') }}
+                                                                    </div>
+                                                                @endif
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Hình Ảnh</label>
+                                                                <input class="form-control" type="file" name="avt" id="file_upload"
+                                                                    onchange="return uploadhinh()" placeholder="">
+                                                            </div>
+                                                        </li>
+                                                        {{--  --}}
+                                                        <li class="weight-500 col-md-6">
+                                                            <div class="form-group">
+                                                                <label>Ngày Sinh</label>
+                                                                <input class="form-control form-control-lg change_birthday" type="date" name="admin_birthday"
+                                                                    value="{{ $view_profile->admin_birthday }}" placeholder="Nhập Ngày Sinh">
+                                                                @if ($errors->has('admin_birthday'))
+                                                                    <div class="alert alert-danger alert-dismissible mt-1">
+                                                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                                        {{ $errors->first('admin_birthday') }}
+                                                                    </div>
+                                                                @endif
+                                                                @if (session('check_age'))
+                                                                    <div class="alert alert-danger alert-dismissible mt-1">
+                                                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                                        {{ session('check_age') }}
+                                                                    </div>
+                                                                @endif
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Thư Điện Tử(Email)</label>
+                                                                <input class="form-control form-control-lg change_email" type="text" name="admin_email"
+                                                                    value="{{ $view_profile->admin_email }}"
+                                                                    placeholder="Nhập Địa Chỉ Mail(........@.....)">
+                                                                @if ($errors->has('admin_email'))
+                                                                    <div class="alert alert-danger alert-dismissible mt-1">
+                                                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                                        {{ $errors->first('admin_email') }}
+                                                                    </div>
+                                                                @endif
+                                                                @if (session('check_email'))
+                                                                    <div class="alert alert-danger alert-dismissible mt-1">
+                                                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                                        {{ session('check_email') }}
+                                                                    </div>
+                                                                @endif
+                                                            </div>
+                                                            <div class="form-group" data-select2-id="7">
+                                                                <label>Tỉnh/Thành Phố</label>
+                                                                <select name="city" id="city_update_profile"
+                                                                    class="custom-select2 form-control select2-hidden-accessible form-control-lg"
+                                                                    style="width: 100%; height: 38px;" data-select2-id="4" tabindex="-1" aria-hidden="true">
+                                                                    @foreach ($citys as $city)
+                                                                        @if ($address[0] == $city->name_tp)
+                                                                            <option value="{{ $city->matp }}" selected>{{ $city->name_tp }}</option>
+                                                                        @else
+                                                                            <option value="{{ $city->matp }}">{{ $city->name_tp }}</option>
+                                                                        @endif
+                                                                    @endforeach
+                                                                </select>
+                                                                @if ($errors->has('city'))
+                                                                    <div class="alert alert-danger alert-dismissible mt-1">
+                                                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                                        {{ $errors->first('city') }}
+                                                                    </div>
+                                                                @endif
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Xã/Phường/Thị Trấn</label>
+                                                                <select name="ward" id="ward_update_profile_admin"
+                                                                    class="custom-select2 form-control select2-hidden-accessible form-control-lg"
+                                                                    style="width: 100%; height: 38px;" data-select2-id="6" tabindex="-1" aria-hidden="true">
+                                                                    @foreach ($wards as $ward)
+                                                                        @if ($ward->name_xa == $address[2])
+                                                                            <option value="{{ $ward->xaid }}">{{ $address[2] }}</option>
+                                                                        @endif
+                                                                    @endforeach
+                                                                </select>
+                                                                @if ($errors->has('ward'))
+                                                                    <div class="alert alert-danger alert-dismissible mt-1">
+                                                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                                        {{ $errors->first('ward') }}
+                                                                    </div>
+                                                                @endif
+                                                            </div>
+                                                        </li>
+                                                        <div class="col-4"></div>
+                                                        <div class="center mr-t">
+                                                            <input type="submit" class="btn color-btn-them" value="Cập Nhật">
+                                                            <button type="button" class="btn btn-danger btn_close_change_info" data-toggle="modal" data-target="#modal_close_change_info">Hủy Thay Đổi</button>
+                                                        </div>
+                                                    </ul>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
@@ -195,227 +281,49 @@
                                 <!-- Setting Tab start -->
                                 <div class="tab-pane fade height-100-p content_tab_change_info" id="setting" role="tabpanel">
                                     <div class="card">
-                                        <div class="card-header">
-                                            <button class="btn btn-block collapsed" data-toggle="collapse" data-target="#edit-profile-info" aria-expanded="false">
-                                                Cập Nhật Thông Tin Cá Nhân
-                                            </button>
-                                        </div>
-                                        <div id="edit-profile-info" class="collapse" style="">
-                                            <div class="card-body">
-                                                <div class="profile-setting">
-                                                    <form action="{{ URL::to('admin/process_update_profile_admin/'.$view_profile->admin_id) }}" method="post" enctype="multipart/form-data">
-                                                        @csrf
-                                                        <ul class="profile-edit-list row">
-                                                            <li class="weight-500 col-md-6">
-                                                                <div class="form-group">
-                                                                    <label>Họ Và Tên</label>
-                                                                    <input class="form-control upper_val form-control-lg change_name" type="text" name="admin_name"
-                                                                        value="{{ $view_profile->admin_name }}" onblur="return upberFirstKey()"
-                                                                        placeholder="Nhập Họ Và Tên">
-                                                                    @if ($errors->has('admin_name'))
-                                                                        <div class="alert alert-danger alert-dismissible mt-1">
-                                                                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                                                            {{ $errors->first('admin_name') }}
-                                                                        </div>
-                                                                    @endif
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>Giới Tính</label>
-                                                                    <div class="dropdown bootstrap-select form-control dropup">
-                                                                        <select name="admin_gender" class="selectpicker form-control form-control-lg change_gender" id="change_gender" data-size="5">
-                                                                            @if ($view_profile->admin_gender == 'Nam')
-                                                                                <option value="Nam" selected>Nam</option>
-                                                                                <option value="Nu">Nữ</option>
-                                                                            @else
-                                                                                <option value="Nam">Nam</option>
-                                                                                <option value="Nu" selected>Nữ</option>
-                                                                            @endif
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>Số Điện Thoại</label>
-                                                                    <input class="form-control form-control-lg change_phone" type="number" name="admin_phone"
-                                                                        value="{{ $view_profile->admin_phone }}" placeholder="Nhập Số Điện Thoại">
-                                                                    @if ($errors->has('admin_phone'))
-                                                                        <div class="alert alert-danger alert-dismissible mt-1">
-                                                                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                                                            {{ $errors->first('admin_phone') }}
-                                                                        </div>
-                                                                    @endif
-                                                                    @if (session('check_phone'))
-                                                                        <div class="alert alert-danger alert-dismissible mt-1">
-                                                                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                                                            {{ session('check_phone') }}
-                                                                        </div>
-                                                                    @endif
-                                                                </div>
-                                                                @php
-                                                                    $address = explode(', ', $view_profile->admin_address);
-                                                                @endphp
-                                                                <div class="form-group">
-                                                                    <label>Quận/Huyện</label>
-                                                                    <select name="district" id="district_update_profile_admin"
-                                                                        class="custom-select2 form-control select2-hidden-accessible form-control-lg"
-                                                                        style="width: 100%; height: 38px;" data-select2-id="5" tabindex="-1" aria-hidden="true">
-                                                                        @foreach ($districts as $dis)
-                                                                            @if ($dis->name_qh == $address[1])
-                                                                                <option value="{{ $dis->maqh }}">{{ $address[1] }}</option>
-                                                                            @endif
-                                                                        @endforeach
-                                                                    </select>
-                                                                    @if ($errors->has('district'))
-                                                                        <div class="alert alert-danger alert-dismissible mt-1">
-                                                                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                                                            {{ $errors->first('district') }}
-                                                                        </div>
-                                                                    @endif
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>Hình Ảnh</label>
-                                                                    <input class="form-control" type="file" name="avt" id="file_upload"
-                                                                        onchange="return uploadhinh()" placeholder="">
-                                                                </div>
-                                                            </li>
-                                                            {{--  --}}
-                                                            <li class="weight-500 col-md-6">
-                                                                <div class="form-group">
-                                                                    <label>Ngày Sinh</label>
-                                                                    <input class="form-control form-control-lg change_birthday" type="date" name="admin_birthday"
-                                                                        value="{{ $view_profile->admin_birthday }}" placeholder="Nhập Ngày Sinh">
-                                                                    @if ($errors->has('admin_birthday'))
-                                                                        <div class="alert alert-danger alert-dismissible mt-1">
-                                                                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                                                            {{ $errors->first('admin_birthday') }}
-                                                                        </div>
-                                                                    @endif
-                                                                    @if (session('check_age'))
-                                                                        <div class="alert alert-danger alert-dismissible mt-1">
-                                                                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                                                            {{ session('check_age') }}
-                                                                        </div>
-                                                                    @endif
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>Thư Điện Tử(Email)</label>
-                                                                    <input class="form-control form-control-lg change_email" type="text" name="admin_email"
-                                                                        value="{{ $view_profile->admin_email }}"
-                                                                        placeholder="Nhập Địa Chỉ Mail(........@.....)">
-                                                                    @if ($errors->has('admin_email'))
-                                                                        <div class="alert alert-danger alert-dismissible mt-1">
-                                                                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                                                            {{ $errors->first('admin_email') }}
-                                                                        </div>
-                                                                    @endif
-                                                                    @if (session('check_email'))
-                                                                        <div class="alert alert-danger alert-dismissible mt-1">
-                                                                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                                                            {{ session('check_email') }}
-                                                                        </div>
-                                                                    @endif
-                                                                </div>
-                                                                <div class="form-group" data-select2-id="7">
-                                                                    <label>Tỉnh/Thành Phố</label>
-                                                                    <select name="city" id="city_update_profile"
-                                                                        class="custom-select2 form-control select2-hidden-accessible form-control-lg"
-                                                                        style="width: 100%; height: 38px;" data-select2-id="4" tabindex="-1" aria-hidden="true">
-                                                                        @foreach ($citys as $city)
-                                                                            @if ($address[0] == $city->name_tp)
-                                                                                <option value="{{ $city->matp }}" selected>{{ $city->name_tp }}</option>
-                                                                            @else
-                                                                                <option value="{{ $city->matp }}">{{ $city->name_tp }}</option>
-                                                                            @endif
-                                                                        @endforeach
-                                                                    </select>
-                                                                    @if ($errors->has('city'))
-                                                                        <div class="alert alert-danger alert-dismissible mt-1">
-                                                                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                                                            {{ $errors->first('city') }}
-                                                                        </div>
-                                                                    @endif
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>Xã/Phường/Thị Trấn</label>
-                                                                    <select name="ward" id="ward_update_profile_admin"
-                                                                        class="custom-select2 form-control select2-hidden-accessible form-control-lg"
-                                                                        style="width: 100%; height: 38px;" data-select2-id="6" tabindex="-1" aria-hidden="true">
-                                                                        @foreach ($wards as $ward)
-                                                                            @if ($ward->name_xa == $address[2])
-                                                                                <option value="{{ $ward->xaid }}">{{ $address[2] }}</option>
-                                                                            @endif
-                                                                        @endforeach
-                                                                    </select>
-                                                                    @if ($errors->has('ward'))
-                                                                        <div class="alert alert-danger alert-dismissible mt-1">
-                                                                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                                                            {{ $errors->first('ward') }}
-                                                                        </div>
-                                                                    @endif
-                                                                </div>
-                                                            </li>
-                                                            <div class="col-4"></div>
-                                                            <div class="center mr-t">
-                                                                <input type="submit" class="btn color-btn-them" value="Cập Nhật">
-                                                                <button type="button" class="btn btn-danger btn_close_change_info" data-toggle="modal" data-target="#modal_close_change_info">Hủy Thay Đổi</button>
-                                                            </div>
-                                                        </ul>
-                                                    </form>
+                                        <div class="card-body">
+                                            <form action="{{ URL::to('admin/update_password_admin/'.$view_profile->admin_id) }}" method="post">
+                                                @csrf
+                                                <div class="form-group">
+                                                    <label>Mật Khẩu Củ</label>
+                                                    <input class="form-control form-control-lg" type="password" name="old_password"
+                                                        value="{{ old('old_password') }}" placeholder="Nhập mật khẩu củ">
+                                                    @if ($errors->has('old_password'))
+                                                        <div class="alert alert-danger alert-dismissible mt-1">
+                                                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                            {{ $errors->first('old_password') }}
+                                                        </div>
+                                                    @endif
                                                 </div>
-                                            </div>
+                                                <div class="form-group">
+                                                    <label>Nhập Mật Khẩu Mới</label>
+                                                    <input class="form-control form-control-lg" type="password" name="new_password"
+                                                        value="{{ old('new_password') }}" placeholder="Nhập mật khẩu mới">
+                                                    @if ($errors->has('new_password'))
+                                                        <div class="alert alert-danger alert-dismissible mt-1">
+                                                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                            {{ $errors->first('new_password') }}
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Nhập Lại Mật Khẩu</label>
+                                                    <input class="form-control form-control-lg" type="password" name="confirm_password"
+                                                        value="{{ old('confirm_password') }}" placeholder="Nhập lại mật khẩu mới">
+                                                    @if ($errors->has('confirm_password'))
+                                                        <div class="alert alert-danger alert-dismissible mt-1">
+                                                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                            {{ $errors->first('confirm_password') }}
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                                <div class="center">
+                                                    <input type="submit" class="btn color-btn-them" value="Thay Đổi">
+                                                    <button type="button" class="btn btn-danger btn_close_change_info" data-toggle="modal" data-target="#modal_close_change_info">Hủy Thay Đổi</button>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <button class="btn btn-block collapsed" data-toggle="collapse" data-target="#faq1-1" aria-expanded="false">
-                                                Thay đổi mật khẩu
-                                            </button>
-                                        </div>
-                                        <div id="faq1-1" class="collapse" style="">
-                                            <div class="card-body">
-                                                <form action="{{ URL::to('admin/update_password_admin/'.$view_profile->admin_id) }}" method="post">
-                                                    @csrf
-                                                    <div class="form-group">
-                                                        <label>Mật Khẩu Củ</label>
-                                                        <input class="form-control form-control-lg" type="password" name="old_password"
-                                                            value="{{ old('old_password') }}" placeholder="Nhập mật khẩu củ">
-                                                        @if ($errors->has('old_password'))
-                                                            <div class="alert alert-danger alert-dismissible mt-1">
-                                                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                                                {{ $errors->first('old_password') }}
-                                                            </div>
-                                                        @endif
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Nhập Mật Khẩu Mới</label>
-                                                        <input class="form-control form-control-lg" type="password" name="new_password"
-                                                            value="{{ old('new_password') }}" placeholder="Nhập mật khẩu mới">
-                                                        @if ($errors->has('new_password'))
-                                                            <div class="alert alert-danger alert-dismissible mt-1">
-                                                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                                                {{ $errors->first('new_password') }}
-                                                            </div>
-                                                        @endif
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Nhập Lại Mật Khẩu</label>
-                                                        <input class="form-control form-control-lg" type="password" name="confirm_password"
-                                                            value="{{ old('confirm_password') }}" placeholder="Nhập lại mật khẩu mới">
-                                                        @if ($errors->has('confirm_password'))
-                                                            <div class="alert alert-danger alert-dismissible mt-1">
-                                                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                                                {{ $errors->first('confirm_password') }}
-                                                            </div>
-                                                        @endif
-                                                    </div>
-                                                    <div class="center">
-                                                        <input type="submit" class="btn color-btn-them" value="Thay Đổi">
-                                                        <button type="button" class="btn btn-danger btn_close_change_info" data-toggle="modal" data-target="#modal_close_change_info">Hủy Thay Đổi</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-
                                 </div>
                                 <!-- Setting Tab End -->
                             </div>

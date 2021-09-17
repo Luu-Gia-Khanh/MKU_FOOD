@@ -389,7 +389,8 @@ class HomeClientController extends Controller
                 ->get();
 
         $all_rating_to_count = Rating::where('product_id',$product_id)->get();
-        $all_comment_to_count = Comment::where('product_id',$product_id)->get();
+        $all_comment_to_count = Comment::where('product_id',$product_id)
+                            ->where('status',1)->get();
         $check_show = count($all_comment_to_count) - $get;
 
         //Count rating
@@ -498,7 +499,8 @@ class HomeClientController extends Controller
                 ->get();
 
         $all_rating_to_count = Rating::where('product_id',$product_id)->get();
-        $all_comment_to_count = Comment::where('product_id',$product_id)->get();
+        $all_comment_to_count = Comment::where('product_id',$product_id)
+                        ->where('status',1)->get();
         $check_show = count($all_comment_to_count) - $get;
 
         //Count rating

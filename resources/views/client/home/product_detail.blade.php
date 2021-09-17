@@ -67,7 +67,7 @@
             <div id="main-content" class="main-content">
 
                 <!-- summary info -->
-                <div class="sumary-product single-layout cus_bg_product_detail" style="min-height: 570px;">
+                <div class="sumary-product single-layout cus_bg_product_detail" style="min-height: 700px;">
                     <div class="media">
                         <div class="row">
                             <div class="col-xs-12">
@@ -109,7 +109,7 @@
                             @endforeach
                         </span>
                         <p class="">danh mục: {{ $cate->cate_name }}</p>
-                        <p class="excerpt">{!! $product->product_sort_desc !!}</p>
+                        <div class="excerpt" style="padding-right: 20px">{!! $product->product_sort_desc !!}</div>
                         <div class="price">
                             @if ($price_discount->percent_discount == 0)
                                 <ins><span class="price-amount">
@@ -233,8 +233,12 @@
                             <div class="qty-input">
                                 <input type="number" class="val_quantity val_qty_{{ $product->product_id }}" value="1" data-max_value="20" data-min_value="1"
                                     data-step="1">
-                                <a href="#" class="qty-btn btn-up btn_up_add_cart"><i class="fa fa-caret-up" aria-hidden="true"></i></a>
-                                <a href="#" class="qty-btn btn-down btn_down_add_cart"><i class="fa fa-caret-down" aria-hidden="true"></i></a>
+                                <a href="#" class="qty-btn btn-up btn_up_add_cart" style="right: 45px">
+                                    <i class="fa fa-caret-up" aria-hidden="true"></i>
+                                </a>
+                                <a href="#" class="qty-btn btn-down btn_down_add_cart" style="right: 45px">
+                                    <i class="fa fa-caret-down" aria-hidden="true"></i>
+                                </a>
                             </div>
                         </div>
                         <div class="row">
