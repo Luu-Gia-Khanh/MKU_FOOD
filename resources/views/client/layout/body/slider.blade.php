@@ -43,10 +43,10 @@
             <div class="space"></div>
             <div class="slider--box2">
                 <div class="slider--box2--kotak mb-2">
-                  <img src="{{ asset('public/upload/right-top.jpg') }}" alt="">
+                  <img src="{{ asset('public/upload/banner_right1.png') }}" alt="">
                 </div>
                 <div class="slider--box2--kotak">
-                  <img src="{{ asset('public/upload/right-bottom.jpg') }}" alt="">
+                  <img src="{{ asset('public/upload/banner-right2.png') }}" alt="">
                 </div>
             </div>
             <div class="clear"></div>

@@ -6,8 +6,8 @@
                 <div class="col-md-6 col-sm-12">
                     <nav aria-label="breadcrumb" role="navigation">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ URL::to('admin/dashboard') }}">Trang chủ</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Danh sách loại sản phẩm</li>
+                            <li class="breadcrumb-item"><a href="{{ URL::to('admin/') }}">Trang chủ</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Danh mục sản phẩm</li>
                         </ol>
                     </nav>
                 </div>
@@ -77,7 +77,7 @@
         <div class="card-box mb-30">
             <div class="row pd-20">
                 <div class="pd-20">
-                    <h4 class="text-blue h4">Danh Sách Loại Sản Phẩm</h4>
+                    <h4 class="text-blue h4">Danh Mục Sản Phẩm</h4>
                 </div>
             </div>
             <div class="pb-20">

@@ -6,9 +6,9 @@
                 <div class="col-md-8 col-sm-12">
                     <nav aria-label="breadcrumb" role="navigation">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ URL::to('admin/dashboard') }}">Trang chủ</a></li>
-                            <li class="breadcrumb-item"><a href="{{ URL::to('admin/all_storage') }}">Danh sách kho hàng</a></li>
-                            <li class="breadcrumb-item"><a href="{{ URL::to('admin/all_storage_product/') }}">Danh sách kho sản phẩm</a></li>
+                            <li class="breadcrumb-item"><a href="{{ URL::to('admin/') }}">Trang chủ</a></li>
+                            <li class="breadcrumb-item"><a href="{{ URL::to('admin/all_product_voucher') }}">Danh sách sản phẩm voucher</a></li>
+                            <li class="breadcrumb-item"><a href="{{ URL::to('admin/all_voucher/'.$product_id) }}">Danh sách voucher</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Thùng rác</li>
                         </ol>
                     </nav>

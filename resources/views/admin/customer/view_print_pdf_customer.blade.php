@@ -10,10 +10,19 @@
     <style>
         .title{
             text-align: center;
+            font-size: 20px;
+            font-weight: bold
+
+        }
+        body {
+            font-family: DejaVu Sans, sans-serif;
+        }
+        .table td, .table th {
+            font-size: 10px;
         }
     </style>
 </head>
-<body style="font-family: 'examplefont', sans-serif;">
+<body>
     <h2 class="title">{{ $string_title }}</h2>
     <table class="table table-bordered mt-20" style="font-size: 15px">
         <tr role="row">
@@ -64,8 +73,6 @@
                 @foreach ($all_transport as $trans)
                     @if ($trans->customer_id == $customer->customer_id)
                         <td>{{ $trans->trans_address }}</td>
-                    @else
-                        <td>Chưa cập nhật</td>
                     @endif
                 @endforeach
             </tr>

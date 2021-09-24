@@ -243,15 +243,22 @@ class VoucherController extends Controller
     public function find_voucher(Request $request) {
         $val_find_voucher = $request->value_find;
         $product_id = $request->product_id;
-        $all_voucher = Voucher::where('voucher_name', 'LIKE','%'.$val_find_voucher.'%')
+        $all_voucher_find = Voucher::where('voucher_name', 'LIKE','%'.$val_find_voucher.'%')
                             ->orWhere('voucher_code', 'LIKE','%'.$val_find_voucher.'%')
                             ->get();
+        $arrayVoucher = [];
+        foreach($all_voucher_find as $voucher){
+            if($voucher->product_id == $product_id){
+                $arrayVoucher[] = $voucher;
+            }
+        }
+        $all_voucher = array_reverse($arrayVoucher);
         echo view('admin.voucher.find_result_voucher', compact('all_voucher'));
     }
 
     public function all_recycle($product_id){
         $recycle_item = Voucher::onlyTrashed()->where('product_id', $product_id)->get();
-        return view('admin.voucher.all_recycle', compact('recycle_item'));
+        return view('admin.voucher.all_recycle', compact('recycle_item', 'product_id'));
     }
 
     public function soft_delete_voucher(Request $request){

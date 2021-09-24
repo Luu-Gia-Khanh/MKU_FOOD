@@ -50,8 +50,8 @@
             });
         }
         else{
-            let quantityStart = $('.quantity_start_cus_option').val();
-            let quantityEnd = $('.quantity_end_cus_option').val();
+            let quantityStart = Number($('.quantity_start_cus_option').val());
+            let quantityEnd = Number($('.quantity_end_cus_option').val());
 
             if(quantityStart == '' || quantityEnd == ''){
                 Swal.fire({
@@ -148,8 +148,8 @@
             });
         }
         else{
-            let totalPriceStart = $('.total_start_price').val();
-            let totalPriceEnd = $('.total_end_price').val();
+            let totalPriceStart = Number($('.total_start_price').val());
+            let totalPriceEnd = Number($('.total_end_price').val());
 
             if(totalPriceStart == '' || totalPriceEnd == ''){
                 Swal.fire({

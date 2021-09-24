@@ -55,8 +55,8 @@ $(document).ready(function(){
             });
         }
         else{
-            let quantityStart = $('.quantity_start_cus_option').val();
-            let quantityEnd = $('.quantity_end_cus_option').val();
+            let quantityStart = Number($('.quantity_start_cus_option').val());
+            let quantityEnd = Number($('.quantity_end_cus_option').val());
             const storageId = $('.storage_id').val();
 
             if(quantityStart == '' || quantityEnd == ''){

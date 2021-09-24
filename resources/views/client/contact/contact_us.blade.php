@@ -1,9 +1,9 @@
 @extends('client.layout_client')
 @section('content_body')
 <link rel="stylesheet" href="{{ asset('public/font_end/custom_ui/css/custom_breadcrumb.css') }}">
-<div class="hero-section hero-background">
+{{-- <div class="hero-section hero-background">
     <h1 class="page-title">Organic Fruits</h1>
-</div>
+</div> --}}
 <div class="container">
     <nav class="biolife-nav cus_breadcrumb nav-86px">
         <ul>

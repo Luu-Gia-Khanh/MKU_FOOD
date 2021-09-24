@@ -6,7 +6,7 @@
                 <div class="col-md-6 col-sm-12">
                     <nav aria-label="breadcrumb" role="navigation">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ URL::to('admin/dashboard') }}">Trang chủ</a></li>
+                            <li class="breadcrumb-item"><a href="{{ URL::to('admin/') }}">Trang chủ</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Danh sách sản phẩm voucher</li>
                         </ol>
                     </nav>
@@ -43,8 +43,9 @@
                             <div id="DataTables_Table_0_filter" class="dataTables_filter">
                                 <form action="">
                                     @csrf
-                                    <label>Tìm Kiếm:<input type="search" class="form-control form-control-sm" id="find_product_voucher" placeholder="Tìm Kiếm"
-                                        aria-controls="DataTables_Table_0"></label>
+                                    <label>Tìm Kiếm:<input type="search" class="form-control form-control-sm"
+                                            id="find_product_voucher" placeholder="Tìm Kiếm"
+                                            aria-controls="DataTables_Table_0"></label>
                                 </form>
                             </div>
                         </div>
@@ -52,18 +53,21 @@
                     <div class="content_find_product_voucher">
                         <div class="row">
                             <div class="col-12 table-responsive">
-                                <table class="data-table table table-hover multiple-select-row nowrap no-footer dtr-inline sortable"
-                                id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                                <table
+                                    class="data-table table table-hover multiple-select-row nowrap no-footer dtr-inline sortable"
+                                    id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
                                     <thead>
                                         <tr role="row" class="text-center">
-                                            <th style="width: 5%;" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                                colspan="1">STT</th>
-                                            <th style="width: 40%;" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                                colspan="1" data-defaultsign="AZ">Sản Phẩm</th>
-                                            <th style="width: 30%;" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                                colspan="1">Số Lượng Voucher</th>
-                                            <th style="width: 30%;" class="datatable-nosort sorting_disabled" rowspan="1" colspan="1"
-                                                aria-label="Action" data-defaultsort="disabled">Thao Tác</th>
+                                            <th class="sorting" tabindex="0"
+                                                aria-controls="DataTables_Table_0" rowspan="1" colspan="1">STT</th>
+                                            <th class="sorting" tabindex="0"
+                                                aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                                                data-defaultsign="AZ">Sản Phẩm</th>
+                                            <th class="sorting" tabindex="0"
+                                                aria-controls="DataTables_Table_0" rowspan="1" colspan="1">Số Lượng Voucher
+                                            </th>
+                                            <th class="datatable-nosort sorting_disabled" rowspan="1"
+                                                colspan="1" aria-label="Action" data-defaultsort="disabled">Thao Tác</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -73,13 +77,16 @@
                                         @foreach ($all_product as $product)
                                             @php
                                                 $unique_product_id = App\Http\Controllers\VoucherController::unique_product($product->product_id);
-                                                $stt++;
                                             @endphp
                                             @if ($unique_product_id == 1)
+                                                @php
+                                                    $stt++;
+                                                @endphp
                                                 <tr role="row" class="odd text-center">
                                                     <td>{{ $stt }}</td>
                                                     <td>
-                                                        <a href="{{ URL::to('admin/all_voucher/'.$product->product_id) }}">
+                                                        <a
+                                                            href="{{ URL::to('admin/all_voucher/' . $product->product_id) }}">
                                                             {{ $product->product_name }}
                                                         </a>
                                                     </td>
@@ -91,7 +98,7 @@
                                                             @if ($voucher->product_id == $product->product_id)
                                                                 @php
                                                                     $count_voucher++;
-                                                                @endphp                                                       
+                                                                @endphp
                                                             @endif
                                                         @endforeach
                                                         {{ $count_voucher }}
@@ -102,12 +109,17 @@
                                                                 href="#" role="button" data-toggle="dropdown">
                                                                 <i class="dw dw-more"></i>
                                                             </a>
-        
-                                                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                                                <a class="dropdown-item" href="{{ URL::to('admin/all_voucher/'.$product->product_id) }}"><i class="dw dw-eye"></i>Xem danh sách voucher</a>
-                                                                <a class="dropdown-item" href="{{ URL::to('admin/add_product_voucher/'.$product->product_id) }}"><i class="icon-copy dw dw-add"></i>Thêm voucher</a>                                                  
+
+                                                            <div
+                                                                class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                                                                <a class="dropdown-item"
+                                                                    href="{{ URL::to('admin/all_voucher/' . $product->product_id) }}"><i
+                                                                        class="dw dw-eye"></i>Xem danh sách voucher</a>
+                                                                <a class="dropdown-item"
+                                                                    href="{{ URL::to('admin/add_product_voucher/' . $product->product_id) }}"><i
+                                                                        class="icon-copy dw dw-add"></i>Thêm voucher</a>
                                                             </div>
-                                                        </div>                                            
+                                                        </div>
                                                     </td>
                                                 </tr>
                                             @endif

@@ -22,14 +22,16 @@
                 @foreach ($all_product_voucher as $product_voucher)
                     @php
                         $unique_product_id = App\Http\Controllers\VoucherController::unique_product($product_voucher->product_id);
-                        $stt++;
                     @endphp
                     @if ($unique_product_id == 1)
+                        @php
+                            $stt++;
+                        @endphp
                         <tr role="row" class="odd text-center">
                             <td>{{ $stt }}</td>
                             <td>
-                                <a href="{{ URL::to('admin/all_voucher/'.$product->product_id) }}">
-                                    {{ $product->product_name }}
+                                <a href="{{ URL::to('admin/all_voucher/'.$product_voucher->product_id) }}">
+                                    {{ $product_voucher->product_name }}
                                 </a>
                             </td>
                             <td>

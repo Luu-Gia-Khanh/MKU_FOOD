@@ -41,7 +41,7 @@ class CustomerAdminController extends Controller
         $all_voucher = Voucher::all();
         return view('admin.customer.detail_customer', compact('customer', 'customer_info', 'customer_trans',
                                                                 'all_order', 'all_order_item', 'all_product',
-                                                                'all_order_detail_status', 'status_order', 
+                                                                'all_order_detail_status', 'status_order',
                                                                 'payment_method', 'trans', 'all_voucher'));
     }
     public function find_customer(Request $request){
@@ -96,8 +96,8 @@ class CustomerAdminController extends Controller
                                     ->orderBy('create_at', 'desc')
                                     ->get();
         echo view('admin.customer.view_filter_order_customer', compact('string_title', 'all_order', 'all_order_item',
-                                                                'all_product','all_order_detail_status', 
-                                                                'status_order', 'payment_method', 
+                                                                'all_product','all_order_detail_status',
+                                                                'status_order', 'payment_method',
                                                                 'trans', 'all_voucher', 'type_filter',
                                                                 'level_filter', 'customer_id'));
     }
@@ -127,13 +127,13 @@ class CustomerAdminController extends Controller
                                     ->orderBy('create_at', 'desc')
                                     ->get();
         echo view('admin.customer.view_filter_order_customer', compact('string_title', 'all_order', 'all_order_item',
-                                                                'all_product','all_order_detail_status', 
-                                                                'status_order', 'payment_method', 
+                                                                'all_product','all_order_detail_status',
+                                                                'status_order', 'payment_method',
                                                                 'trans', 'all_voucher', 'type_filter',
-                                                                'level_filter', 'customer_id', 
+                                                                'level_filter', 'customer_id',
                                                                 'price_filter_start', 'price_filter_end'));
     }
-    
+
     public function filter_order_customer_follow_date_single(Request $request){
         $customer_id = $request->customerId;
         $all_order_item = Order_Item::all();
@@ -161,12 +161,12 @@ class CustomerAdminController extends Controller
         $all_order = array_reverse($arrayOrder);
 
         echo view('admin.customer.view_filter_order_customer', compact('string_title', 'all_order', 'all_order_item',
-                                                                        'all_product','all_order_detail_status', 
-                                                                        'status_order', 'payment_method', 
+                                                                        'all_product','all_order_detail_status',
+                                                                        'status_order', 'payment_method',
                                                                         'trans', 'all_voucher', 'type_filter',
                                                                         'level_filter', 'customer_id'));
     }
-    
+
     public function filter_order_customer_follow_date_many(Request $request){
         $customer_id = $request->customerId;
         $all_order_item = Order_Item::all();
@@ -200,8 +200,8 @@ class CustomerAdminController extends Controller
         $all_order = array_reverse($arrayOrder);
 
         echo view('admin.customer.view_filter_order_customer', compact('string_title', 'all_order', 'all_order_item',
-                                                                        'all_product','all_order_detail_status', 
-                                                                        'status_order', 'payment_method', 
+                                                                        'all_product','all_order_detail_status',
+                                                                        'status_order', 'payment_method',
                                                                         'trans', 'all_voucher', 'type_filter',
                                                                         'level_filter', 'customer_id',
                                                                         'start_date', 'end_date'));
@@ -252,8 +252,8 @@ class CustomerAdminController extends Controller
                                                 ->orderBy('create_at', 'desc')
                                                 ->get();
                     $pdf = PDF::loadView('admin.customer.view_print_pdf_order_customer', compact('string_title', 'all_order', 'all_order_item',
-                                        'all_product','all_order_detail_status', 
-                                        'status_order', 'payment_method', 
+                                        'all_product','all_order_detail_status',
+                                        'status_order', 'payment_method',
                                         'trans', 'all_voucher'));
                     return $pdf->download('danhsachdonhangtheogia.pdf');
                 break;
@@ -268,15 +268,15 @@ class CustomerAdminController extends Controller
                                                 ->orderBy('create_at', 'desc')
                                                 ->get();
                     $pdf = PDF::loadView('admin.customer.view_print_pdf_order_customer', compact('string_title', 'all_order', 'all_order_item',
-                                        'all_product','all_order_detail_status', 
-                                        'status_order', 'payment_method', 
+                                        'all_product','all_order_detail_status',
+                                        'status_order', 'payment_method',
                                         'trans', 'all_voucher'));
                     return $pdf->download('danhsachdonhangtheogiatuchon.pdf');
 
                 break;
             case "date":
                 $date_filter = date('Y-m-d', strtotime($level_filter));
-                
+
                 $string_title = 'Đơn Hàng Theo Ngày "'.date('d/m/Y', strtotime($level_filter)).'"';
                 $all_order_customer = Orders::where('customer_id', $customer_id)->get();
                 $arrayOrder = [];
@@ -288,8 +288,8 @@ class CustomerAdminController extends Controller
                 }
                 $all_order = array_reverse($arrayOrder);
                     $pdf = PDF::loadView('admin.customer.view_print_pdf_order_customer', compact('string_title', 'all_order', 'all_order_item',
-                                        'all_product','all_order_detail_status', 
-                                        'status_order', 'payment_method', 
+                                        'all_product','all_order_detail_status',
+                                        'status_order', 'payment_method',
                                         'trans', 'all_voucher'));
                     return $pdf->download('danhsachdonhangtheongay.pdf');
                 break;
@@ -309,17 +309,17 @@ class CustomerAdminController extends Controller
                     }
                     $all_order = array_reverse($arrayOrder);
                     $pdf = PDF::loadView('admin.customer.view_print_pdf_order_customer', compact('string_title', 'all_order', 'all_order_item',
-                                        'all_product','all_order_detail_status', 
-                                        'status_order', 'payment_method', 
+                                        'all_product','all_order_detail_status',
+                                        'status_order', 'payment_method',
                                         'trans', 'all_voucher'));
                     return $pdf->download('danhsachdonhangtheonhieungay.pdf');
                 break;
             default:
                 $string_title = 'Danh Sách Đơn Hàng Của Khách Hàng '.$customer->username;
-                $pdf = PDF::loadView('admin.customer.view_print_pdf_order_customer', 
+                $pdf = PDF::loadView('admin.customer.view_print_pdf_order_customer',
                             compact('string_title', 'all_order', 'all_order_item',
-                                    'all_product','all_order_detail_status', 
-                                    'status_order', 'payment_method', 
+                                    'all_product','all_order_detail_status',
+                                    'status_order', 'payment_method',
                                     'trans', 'all_voucher'));
                 return $pdf->download('danhsachdonhang.pdf')->header('Content-Type','utf-8');
         }
@@ -368,7 +368,7 @@ class CustomerAdminController extends Controller
         echo view('admin.customer.view_filter_customer', compact('type_filter', 'level_filter',
                                                                 'all_order', 'all_customer', 'string_title'));
     }
-    
+
     public function filter_customer_follow_order_quantity_cus_option(Request $request){
         $all_customer_db = DB::table('customer')
                             ->join('customer_info', 'customer_info.customer_id', '=', 'customer.customer_id')
@@ -402,7 +402,7 @@ class CustomerAdminController extends Controller
                             ->join('customer_info', 'customer_info.customer_id', '=', 'customer.customer_id')
                             ->get();
         $all_order = Orders::all();
-        $all_transport = DB::table('customer_transport')->where('trans_status', 1)->get();
+        $all_transport = Customer_Transport::where('trans_status', 1)->get();
         $type_filter = $request->type_filter;
         $level_filter = $request->level_filter;
 
@@ -444,7 +444,7 @@ class CustomerAdminController extends Controller
                     }
                     $all_customer = array_reverse($arrayCustomer);
                     $string_title = 'Theo Số Lượng " Từ '.$quantity_start.' Đơn Hàng Đến ' .$quantity_end.' Đơn Hàng"';
-                    $pdf = PDF::loadView('admin.customer.view_print_pdf_customer', 
+                    $pdf = PDF::loadView('admin.customer.view_print_pdf_customer',
                                         compact('all_order', 'all_customer', 'string_title', 'all_transport'));
                     return $pdf->download('danhsachkhachhang.pdf');
                 break;
@@ -466,7 +466,7 @@ class CustomerAdminController extends Controller
                     }
                     $all_customer = array_reverse($arrayCustomer);
                     $string_title = 'Theo Số Lượng " Từ '.$quantity_start.' Đơn Hàng Đến ' .$quantity_end.' Đơn Hàng"';
-                    $pdf = PDF::loadView('admin.customer.view_print_pdf_customer', 
+                    $pdf = PDF::loadView('admin.customer.view_print_pdf_customer',
                                         compact('all_order', 'all_customer', 'string_title', 'all_transport'));
                     return $pdf->download('danhsachkhachhang.pdf');
                     echo $quantity_end.$quantity_start;
@@ -475,7 +475,7 @@ class CustomerAdminController extends Controller
             default:
                 $all_customer = Customer::all();
                 $string_title = 'Danh Sách Khách Hàng';
-                $pdf = PDF::loadView('admin.customer.view_print_pdf_customer', 
+                $pdf = PDF::loadView('admin.customer.view_print_pdf_customer',
                                         compact('all_order', 'all_customer', 'string_title', 'all_transport'));
                 return $pdf->download('danhsachkhachhang.pdf');
         }

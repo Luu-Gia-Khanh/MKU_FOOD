@@ -21,11 +21,11 @@ class PermissionDelivery
             }
             else{
                 $request->session()->flash('no_permission', 'Bạn không có quyền truy cập trang này');
-                return redirect('admin/');
+                return redirect('all_order_delivering/');
             }
         }
         else{
-            return redirect('login');
+            return redirect('login_shipper');
         }
     }
 }

@@ -6,7 +6,7 @@
                 <div class="col-md-6 col-sm-12">
                     <nav aria-label="breadcrumb" role="navigation">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ URL::to('admin') }}">Trang chủ</a></li>
+                            <li class="breadcrumb-item"><a href="{{ URL::to('admin/') }}">Trang chủ</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Danh sách khách hàng</li>
                         </ol>
                     </nav>
@@ -101,9 +101,9 @@
                                                 rowspan="1" colspan="1">Số Điện Thoại</th>
                                             <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
                                                 rowspan="1" colspan="1" data-defaultsign="AZ">Email</th>
-                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
+                                            <th class="sorting text-center" tabindex="0" aria-controls="DataTables_Table_0"
                                                 rowspan="1" colspan="1">Đơn Hàng Đã Mua</th>
-                                            <th class="datatable-nosort sorting_disabled" rowspan="1" colspan="1"
+                                            <th class="datatable-nosort sorting_disabled text-center" rowspan="1" colspan="1"
                                                 aria-label="Action" data-defaultsort="disabled">Thao Tác</th>
                                         </tr>
                                     </thead>
@@ -140,7 +140,7 @@
                                                     <td>Chưa cập nhật</td>
                                                 @endif
                                                 <td>{{ $customer->email }}</td>
-                                                <td>
+                                                <td class="text-center">
                                                     @php
                                                         $count_order = 0;
                                                     @endphp
@@ -153,7 +153,7 @@
                                                     @endforeach
                                                     {{ $count_order }}
                                                 </td>
-                                                <td>
+                                                <td class="text-center">
                                                     <a
                                                         href="{{ URL::to('admin/detail_customer/' . $customer->customer_id) }}"><i
                                                             class="dw dw-eye"></i> Xem chi tiết</a>
