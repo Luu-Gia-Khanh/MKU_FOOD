@@ -62,6 +62,8 @@
                                 <div class="following_gender">
                                     @if($view_profile->admin_gender == 'Nu')
                                         Nữ
+                                    @else
+                                        Nam
                                     @endif
                                 </div>
                             </li>

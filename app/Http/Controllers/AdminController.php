@@ -98,6 +98,12 @@ class AdminController extends Controller
         }
         $result = $admin->save();
         if($result){
+
+            //add permission
+            $admin_roles = new Admin_Roles();
+            $admin_roles->admin_admin_id = $admin->admin_id;
+            $admin_roles->roles_roles_id = 3;
+            $admin_roles->save();
             // insert table admin_action_admin
             $action_admin = new Admin_Action_Admin();
             $action_admin->admin_id = Session::get('admin_id');
@@ -147,14 +153,14 @@ class AdminController extends Controller
         }
 
         //check phone
-        $check_phone = DB::table('admin')->where('admin_phone', $request->admin_phone)->get();
-        if (count($check_phone)>1){
+        $check_phone = DB::table('admin')->where('admin_phone', $request->admin_phone)->first();
+        if ($check_phone && $check_phone->admin_id != $admin_id){
             $request->session()->flash('check_phone', 'Số điện thoại đã tồn tại');
             return redirect()->back();
         }
 
-        $check_email = DB::table('admin')->where('admin_email', $request->admin_email)->get();
-        if(count($check_email)>1){
+        $check_email = DB::table('admin')->where('admin_email', $request->admin_email)->first();
+        if($check_email && $check_email->admin_id != $admin_id){
             $request->session()->flash('check_email', 'Email đã tồn tại');
             return redirect()>back();
         }
@@ -234,17 +240,18 @@ class AdminController extends Controller
             return redirect()->back();
         }
         //check phone
-        $check_phone = DB::table('admin')->where('admin_phone', $request->admin_phone)->get();
-        if (count($check_phone)>1){
+        $check_phone = DB::table('admin')->where('admin_phone', $request->admin_phone)->first();
+        if ($check_phone && $check_phone->admin_id != $admin_id){
             $request->session()->flash('check_phone', 'Số điện thoại đã tồn tại');
             return redirect()->back();
         }
 
-        $check_email = DB::table('admin')->where('admin_email', $request->admin_email)->get();
-        if(count($check_email)>1){
+        $check_email = DB::table('admin')->where('admin_email', $request->admin_email)->first();
+        if($check_email && $check_email->admin_id != $admin_id){
             $request->session()->flash('check_email', 'Email đã tồn tại');
             return redirect()>back();
         }
+        //
         $admin = Admin::find($admin_id);
         $admin->admin_name = $request->admin_name;
         $admin->admin_email = $request->admin_email;

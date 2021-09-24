@@ -5,10 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>MKU FOOD</title>
-    <link href="https://fonts.googleapis.com/css?family=Rancho:400,600,700&amp;display=swap" rel="stylesheet">
+    {{-- <link href="https://fonts.googleapis.com/css?family=Rancho:400,600,700&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins:600&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400i,700i" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Ubuntu&amp;display=swap" rel="stylesheet">
+     --}}
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('public/upload/logo_mku_shortcut_icon.svg') }}" />
     <link rel="stylesheet" href="{{ asset('public/font_end/assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('public/font_end/assets/css/animate.min.css') }}">
@@ -25,6 +26,7 @@
     <link rel="stylesheet" href="{{ asset('public/font_end/custom/custom_discount.css') }}">
     <link rel="stylesheet" href="{{ asset('public/font_end/custom_ui/css/custom_header.css') }}">
     <link rel="stylesheet" href="{{ asset('public/font_end/custom_ui/css/design_search_auto.css') }}">
+
 </head>
 <style>
     @media (min-width: 1200px){
@@ -35,6 +37,7 @@
             background-color: rgb(245, 245, 245);
         }
     }
+
 </style>
 <body class="biolife-body">
     <!-- Preloader -->

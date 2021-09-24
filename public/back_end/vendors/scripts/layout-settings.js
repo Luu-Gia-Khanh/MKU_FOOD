@@ -71,6 +71,8 @@
 		header_dark.click(function() {
 			'use strict';
 			jQuery(this).addClass('active');
+            $('#MyClockDisplay').css('color','#b2e7f7');
+            $('#icon_lock').css('color','#b2e7f7');
 			header_light.removeClass('active');
 			body.removeClass('header-white').addClass('header-dark');
 
@@ -86,6 +88,8 @@
 		header_light.click(function() {
 			'use strict';
 			jQuery(this).addClass('active');
+            $('#MyClockDisplay').css('color','#040f0f');
+            $('#icon_lock').css('color','#040f0f');
 			header_dark.removeClass('active');
 			body.removeClass('header-dark').addClass('header-white');
 

@@ -134,7 +134,7 @@
                                                                 @endif
                                                             @endif
                                                         @else
-                                                            Null
+
                                                         @endif
 
                                                     </td>
@@ -154,7 +154,7 @@
                                                                 @endif
                                                             @endif
                                                         @else
-                                                            Null
+
                                                         @endif
                                                     </td>
                                                     <td>

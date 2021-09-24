@@ -20,7 +20,7 @@
     </div>
 
     <div class="row pb-10">
-        <div class="col-xl-3 col-lg-3 col-md-6 mb-20">
+        <div class="col-xl-4 col-lg-4 col-md-6 mb-20">
             <div class="card-box height-100-p widget-style3">
                 <a href="{{ URL::to('admin/await_confirm_order') }}">
                     <div class="d-flex flex-wrap">
@@ -29,13 +29,15 @@
                             <div class="font-14 text-secondary weight-500">Chờ Xác Nhận</div>
                         </div>
                         <div class="widget-icon">
-                            <div class="icon" data-color="#ffc107"><i class="icon-copy dw dw-warning-1"></i></div>
+                            <div class="icon" data-color="#f68589">
+                                <i class="icon-copy dw dw-wall-clock1"></i>
+                            </div>
                         </div>
                     </div>
                 </a>
             </div>
         </div>
-        <div class="col-xl-3 col-lg-3 col-md-6 mb-20">
+        <div class="col-xl-4 col-lg-4 col-md-6 mb-20">
             <div class="card-box height-100-p widget-style3">
                 <a href="{{ URL::to('admin/confirmed') }}">
                     <div class="d-flex flex-wrap">
@@ -45,13 +47,15 @@
                         </div>
                         <div class="widget-icon">
                             {{-- <i class="icon-copy dw dw-down-chevron"></i> --}}
-                            <div class="icon" data-color="#17a2b8"><i class="icon-copy dw dw-check"></i></div>
+                            <div class="icon" data-color="#f27d81">
+                                <i class="icon-copy dw dw-compass-1"></i>
+                            </div>
                         </div>
                     </div>
                 </a>
             </div>
         </div>
-        <div class="col-xl-3 col-lg-3 col-md-6 mb-20">
+        <div class="col-xl-4 col-lg-4 col-md-6 mb-20">
             <div class="card-box height-100-p widget-style3">
                 <a href="{{ URL::to('admin/delivering') }}">
                     <div class="d-flex flex-wrap">
@@ -60,13 +64,15 @@
                             <div class="font-14 text-secondary weight-500">Đang Giao</div>
                         </div>
                         <div class="widget-icon">
-                            <div class="icon" data-color="rgb(0, 180, 137)"><i class="icon-copy dw dw-truck" aria-hidden="true"></i></div>
+                            <div class="icon" data-color="#f67b88">
+                                <i class="icon-copy dw dw-delivery-truck-2"></i>
+                            </div>
                         </div>
                     </div>
                 </a>
             </div>
         </div>
-        <div class="col-xl-3 col-lg-3 col-md-6 mb-20">
+        <div class="col-xl-4 col-lg-4 col-md-6 mb-20">
             <div class="card-box height-100-p widget-style3">
                 <a href="{{ URL::to('admin/delivery_success') }}">
                     <div class="d-flex flex-wrap">
@@ -75,13 +81,15 @@
                             <div class="font-14 text-secondary weight-500">Đã Giao</div>
                         </div>
                         <div class="widget-icon">
-                            <div class="icon" data-color="#28a745"><i class="icon-copy dw dw-checked" aria-hidden="true"></i></div>
+                            <div class="icon" data-color="#98ddf5">
+                                <i class="icon-copy dw dw-delivery-truck-1"></i>
+                            </div>
                         </div>
                     </div>
                 </a>
             </div>
         </div>
-        <div class="col-xl-6 col-lg-6 col-md-6 mb-20">
+        <div class="col-xl-4 col-lg-4 col-md-6 mb-20">
             <div class="card-box height-100-p widget-style3">
                 <a href="{{ URL::to('admin/cancelled') }}">
                     <div class="d-flex flex-wrap">
@@ -90,13 +98,15 @@
                             <div class="font-14 text-secondary weight-500">Đã Hủy</div>
                         </div>
                         <div class="widget-icon">
-                            <div class="icon" data-color="#dc3545"><i class="icon-copy dw dw-cancel" aria-hidden="true"></i></div>
+                            <div class="icon" data-color="#fc9f9f">
+                                <i class="icon-copy dw dw-cancel" aria-hidden="true"></i>
+                            </div>
                         </div>
                     </div>
                 </a>
             </div>
         </div>
-        <div class="col-xl-6 col-lg-6 col-md-6 mb-20">
+        <div class="col-xl-4 col-lg-4 col-md-6 mb-20">
             <div class="card-box height-100-p widget-style3">
                 <a href="#">
                     <div class="d-flex flex-wrap">
@@ -105,7 +115,9 @@
                             <div class="font-14 text-secondary weight-500">Tổng Đơn Hàng</div>
                         </div>
                         <div class="widget-icon">
-                            <div class="icon" data-color="#09cc06"><i class="icon-copy fa fa-money" aria-hidden="true"></i></div>
+                            <div class="icon" data-color="#91f5e9">
+                                <i class="icon-copy dw dw-inbox-1"></i>
+                            </div>
                         </div>
                     </div>
                 </a>

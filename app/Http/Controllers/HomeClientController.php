@@ -30,8 +30,8 @@ class HomeClientController extends Controller
 {
     public static function check_price_discount($product_id){
         $product = DB::table('product')
-        ->join('product_price','product_price.product_id','=','product.product_id')
-        ->where('product_price.status',1)->where('product.product_id',$product_id)->first();
+                ->join('product_price','product_price.product_id','=','product.product_id')
+                ->where('product_price.status',1)->where('product.product_id',$product_id)->first();
         $discount = Discount::find($product->discount_id);
         $now = Carbon::now('Asia/Ho_Chi_Minh');
         $Ob_price = (object)[];
@@ -134,8 +134,12 @@ class HomeClientController extends Controller
         }
 
         // count product saled
-        $count_product_saled = Order_Item::where('product_id',$product_id)->sum('quantity_product');
-
+        $count_product_saled = DB::table('order_item')
+                            ->join('orders', 'orders.order_id', '=', 'order_item.order_id')
+                            ->join('order_detail_status', 'order_detail_status.order_id', '=', 'order_item.order_id')
+                            ->where('order_item.product_id',$product_id)
+                            ->where('order_detail_status.status_id', 4)
+                            ->sum('quantity_product');
         $Ob_rating = (object) [
             'count_all_rating' => $all_rating,
             'avg_rating' => $avg_rating,

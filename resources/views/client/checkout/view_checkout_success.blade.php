@@ -54,11 +54,12 @@
                     <div class="" style="font-weight: bold; padding-top: 15px">Ban quản trị MKU_FOOD</div>
                     <div class="content-btn" style="display: flex; justify-content: center">
                         <a href="{{ URL::to('/') }}" class="btn btn-success" style="margin: 5px">Tiếp tục mua sắm</a>
-                        <button class="btn btn-secondary" style="margin: 5px">Chi tiết đơn hàng</button>
+                        <a href="{{ URL::to('user/order/'.$orders->order_id) }}"
+                             class="btn btn-default" style="margin: 5px">Chi tiết đơn hàng
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 @endsection

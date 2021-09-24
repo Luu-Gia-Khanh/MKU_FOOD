@@ -463,13 +463,12 @@ td {
 }
 .btn-outline-payment {
     margin-left: 5px;
-    border: 1px solid rgb(218, 216, 216);
     padding: 10px;
     font-weight: 500;
     border-radius: 2px;
     box-sizing: border-box;
     color: rgba(0, 0, 0, 0.8);
-    border: 1px solid rgba(0, 0, 0, 0.09);
+    border: 1px solid rgba(171, 235, 210, 0.712);
 }
 .active {
     border: 1px solid rgb(5, 175, 34);
@@ -484,6 +483,7 @@ td {
     justify-content: end;
     position: absolute;
     right: 110px;
+    top: 10px;
 }
 .content-total-summary {
     display: grid;

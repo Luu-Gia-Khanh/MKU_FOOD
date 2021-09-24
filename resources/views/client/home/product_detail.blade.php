@@ -821,7 +821,7 @@
     <!-- The Modal -->
     <div class="modal_delete_comment modal">
         <!-- Modal content -->
-        <div class="modal-content container">
+        <div class="modal-content container" style="width: 40%">
             <div class="modal-header-cus modal-header-delete_comment">
                 <span class="close close_modal_delete_comment">&times;</span>
                 <h4 style="font-size: 20px">Thông Báo</h4>

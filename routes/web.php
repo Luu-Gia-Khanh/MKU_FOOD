@@ -48,10 +48,13 @@ Route::get('success_process_register', 'CustomerController@success_process_regis
 // GROUP ADMIN
 Route::prefix('admin')->group(function () {
     // DASHBORD
-    Route::get('/', 'AdminController@index')->middleware('roles');
+    Route::get('/', 'DashboardController@index')->middleware('roles');
+    Route::post('auto_load_data_dashboard', 'DashboardController@auto_load_data_dashboard');
+    Route::post('filer_year_order_dashboard', 'DashboardController@filer_year_order_dashboard');
+    Route::post('filer_year_revenue_dashboard', 'DashboardController@filer_year_revenue_dashboard');
 
     // ADMIN
-    Route::group(['middleware'=>'admin_manager'], function(){
+    //Route::group(['middleware'=>'admin_manager'], function(){
         Route::get('all_admin', 'AdminController@show_admin');
         Route::get('add_admin', 'AdminController@add_admin');
         Route::get('update_admin/{admin_id}', 'AdminController@update_admin');
@@ -70,7 +73,7 @@ Route::prefix('admin')->group(function () {
 
         Route::post('filter_admin_role', 'AdminController@filter_admin_role');
         Route::post('print_pdf_admin', 'AdminController@print_pdf_admin');
-    });
+    //});
 
     //PERMISSION
     Route::get('list_permission', 'AdminController@list_permission');//->middleware('role_admin_manager');
@@ -406,7 +409,6 @@ Route::post('check_voucher_code_to_apply', 'CheckOutController@check_voucher_cod
 
 Route::post('check_qty_to_checkout', 'CheckOutController@check_qty_to_checkout');
 Route::post('process_checkout', 'CheckOutController@process_checkout');
-//Route::post('paypal_check_out', 'CheckOutController@paypal_check_out');
 Route::get('view_checkout_paypal_success/{payment_method}/{summary_total_order}/{status}/{order_code}',
         'CheckOutController@view_checkout_paypal_success');
 Route::get('view_checkout_paypal_fail/{order_id}', 'CheckOutController@view_checkout_paypal_fail');

@@ -18,7 +18,7 @@
     {{-- checkout custom --}}
     <link rel="stylesheet" href="{{ asset('public/font_end/custom/checkout_custom.css') }}">
     <link rel="stylesheet" href="{{ asset('public/font_end/custom/voucher_checkout_custom.css') }}">
-
+    <link rel="stylesheet" href="{{ asset('public/font_end/custom_ui/css/change_css.css') }}">
     <div class="content-checkout" style="background: rgb(245, 245, 245);">
         <div class="container">
             <form action="{{ URL::to('process_checkout') }}" method="post" name="form_content_check_out_pay">
@@ -187,11 +187,13 @@
                                 <label class="btn btn-outline-secondary active btn-outline-payment btn_cash">
                                     <input type="radio" name="payment_method" value="0" id="cash_pay" autocomplete="off"
                                         checked=""> Thanh toán khi nhận hàng
+                                    <img src="{{ asset('public/upload/payment-method.svg') }}" style="height: 30px; padding-left: 5px" alt="">
                                 </label>
                                 <label for=""></label>
                                 <label class="btn btn-outline-secondary btn-outline-payment btn_paypal">
                                     <input type="radio" name="payment_method" value="1" id="paypal" autocomplete="off">
                                     Paypal
+                                    <img src="{{ asset('public/upload/paypal.svg') }}" style="height: 30px; padding-left: 5px" alt="">
                                 </label>
                             </div>
                             <div class="content-text-payment_method text_payment_method">
@@ -317,7 +319,7 @@
                             <select name="district" id="district_add_trans" class="select form-control">
                                 <option value="">Chọn Quận/Huyện</option>
                             </select>
-                            <select name="ward" id="ward_add_trans" class="select">
+                            <select name="ward" id="ward_add_trans" class="select form-control">
                                 <option value="">Chọn Phường/Xã</option>
 
                             </select>

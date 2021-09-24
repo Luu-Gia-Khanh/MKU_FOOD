@@ -303,7 +303,13 @@ class CheckOutController extends Controller
     public function check_out_success(){
         return view('client.checkout.view_checkout_success');
     }
-    public function view_checkout_paypal_success($payment_method,$summary_total_order,$status,$order_code){
+    public function view_checkout_paypal_success(
+        $payment_method,
+        $summary_total_order,
+        $status,
+        $order_code,
+
+    ){
         return view('client.checkout.view_checkout_paypal_success',[
             'payment_method'=>$payment_method,
             'summary_total_order'=>$summary_total_order,

@@ -14,7 +14,8 @@
                 @hasrole(['admin','manager'])
                 <li class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle">
-                        <span class="micon dw dw-house-1"></span><span class="mtext">Quản Trị</span>
+                        <span class="micon dw dw-house-1"></span>
+                        <span class="mtext">Quản Trị</span>
                     </a>
                     <ul class="submenu">
                         <li><a href="{{ URL::to('admin/all_admin') }}">Danh Sách Quản Trị</a></li>
@@ -25,7 +26,8 @@
                 @endhasrole
                 <li class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle">
-                        <span class="micon dw dw-house-1"></span><span class="mtext">Sản Phẩm</span>
+                        <span class="micon dw dw-inbox-4"></span>
+                        <span class="mtext">Sản Phẩm</span>
                     </a>
                     <ul class="submenu">
                         <li><a href="{{ URL::to('admin/add_product') }}">Thêm Sản Phẩm</a></li>
@@ -37,7 +39,8 @@
 
                 <li class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle">
-                        <span class="micon icon-copy ti-harddrive"></span><span class="mtext">Loại Sản Phẩm</span>
+                        <span class="micon dw dw-list3"></span>
+                        <span class="mtext">Loại Sản Phẩm</span>
                     </a>
                     <ul class="submenu">
                         <li><a href="{{ URL::to('admin/all_category') }}">Danh Sách Loại Sản Phẩm</a></li>
@@ -49,7 +52,8 @@
 
                 <li class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle">
-                        <span class="micon icon-copy ti-harddrives"></span><span class="mtext">Kho Hàng</span>
+                        <span class="micon dw dw-wallet"></span>
+                        <span class="mtext">Kho Hàng</span>
                     </a>
                     <ul class="submenu">
                         <li><a href="{{ URL::to('admin/all_storage') }}">Danh Sách Kho Hàng</a></li>
@@ -59,7 +63,7 @@
                 {{-- ORDER --}}
                 <li class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle">
-                        <span class="micon icon-copy ti-harddrives"></span>
+                        <span class="micon dw dw-file"></span>
                         <span class="mtext">Đơn Hàng</span>
                     </a>
                     <ul class="submenu">
@@ -70,7 +74,8 @@
                 {{-- COMMENT --}}
                 <li class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle">
-                        <span class="micon icon-copy ti-harddrives"></span><span class="mtext">Duyệt Bình Luận</span>
+                        <span class="micon dw dw-chat-4"></span>
+                        <span class="mtext">Duyệt Bình Luận</span>
                     </a>
                     <ul class="submenu">
                         <li><a href="{{ URL::to('admin/view_comment_to_process') }}">Bình luận chờ duyệt</a></li>
@@ -82,7 +87,8 @@
                 {{-- CUSTOMER --}}
                 <li class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle">
-                        <span class="micon icon-copy ti-harddrives"></span><span class="mtext">Khách Hàng</span>
+                        <span class="micon dw dw-user2"></span>
+                        <span class="mtext">Khách Hàng</span>
                     </a>
                     <ul class="submenu">
                         <li><a href="{{ URL::to('admin/all_customer') }}">Danh Sách Khách Hàng</a></li>
@@ -99,7 +105,8 @@
                 {{-- DISCOUNT --}}
                 <li class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle">
-                        <span class="micon icon-copy ti-harddrives"></span><span class="mtext">Giảm Giá</span>
+                        <span class="micon dw dw-analytics-111"></span>
+                        <span class="mtext">Giảm Giá</span>
                     </a>
                     <ul class="submenu">
                         <li><a href="{{ URL::to('admin/all_discount') }}">Danh Sách Giảm Giá</a></li>
@@ -110,7 +117,8 @@
                 {{-- VOUCHER --}}
                 <li class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle">
-                        <span class="micon icon-copy ti-harddrives"></span><span class="mtext">Voucher</span>
+                        <span class="micon dw dw-ticket-1"></span>
+                        <span class="mtext">Voucher</span>
                     </a>
                     <ul class="submenu">
                         <li><a href="{{ URL::to('admin/all_product_voucher') }}">DS Sản Phẩm Voucher</a></li>
@@ -129,7 +137,8 @@
                 {{-- SLIDER --}}
                 <li class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle">
-                        <span class="micon icon-copy ti-harddrives"></span><span class="mtext">Slider</span>
+                        <span class="micon dw dw-slideshow"></span>
+                        <span class="mtext">Slider</span>
                     </a>
                     <ul class="submenu">
                         <li><a href="{{ URL::to('admin/all_slider') }}">Danh sách slider</a></li>

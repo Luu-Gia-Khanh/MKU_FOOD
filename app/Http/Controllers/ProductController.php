@@ -384,7 +384,7 @@ class ProductController extends Controller
             'cate_id' => 'required',
             'unit_id' => 'required',
             'storage_id' => 'required',
-            'product_sort_desc' => 'required|max:255',
+            'product_sort_desc' => 'required|max:500',
             'product_desc' => 'required',
         ],[
             'product_name.required' => 'Tên sản phẩm không được để trống',

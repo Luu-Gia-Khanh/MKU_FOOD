@@ -58,7 +58,8 @@
                                 <div class="font-14 text-secondary weight-500">Sản Phẩm</div>
                             </div>
                             <div class="widget-icon">
-                                <div class="icon" data-color="#ffc107"><i class="icon-copy dw dw-warning-1"></i>
+                                <div class="icon" data-color="#76f6e2">
+                                    <i class="icon-copy dw dw-inbox-1"></i>
                                 </div>
                             </div>
                         </div>
@@ -74,8 +75,9 @@
                                 <div class="font-14 text-secondary weight-500">Sản Phẩm Mới</div>
                             </div>
                             <div class="widget-icon">
-                                {{-- <i class="icon-copy dw dw-down-chevron"></i> --}}
-                                <div class="icon" data-color="#17a2b8"><i class="icon-copy dw dw-check"></i></div>
+                                <div class="icon" data-color="#8de5f5">
+                                    <i class="icon-copy dw dw-inbox"></i>
+                                </div>
                             </div>
                         </div>
                     </a>
@@ -90,8 +92,9 @@
                                 <div class="font-14 text-secondary weight-500">Sản Phẩm Đặc Trưng</div>
                             </div>
                             <div class="widget-icon">
-                                <div class="icon" data-color="rgb(0, 180, 137)"><i class="icon-copy dw dw-truck"
-                                        aria-hidden="true"></i></div>
+                                <div class="icon" data-color="#8dbaf5">
+                                    <i class="icon-copy dw dw-inbox-4"></i>
+                                </div>
                             </div>
                         </div>
                     </a>
@@ -106,8 +109,9 @@
                                 <div class="font-14 text-secondary weight-500">Khuyến Mãi</div>
                             </div>
                             <div class="widget-icon">
-                                <div class="icon" data-color="#28a745"><i class="icon-copy dw dw-checked"
-                                        aria-hidden="true"></i></div>
+                                <div class="icon" data-color="#afaefb">
+                                    <i class="icon-copy dw dw-analytics-111"></i>
+                                </div>
                             </div>
                         </div>
                     </a>

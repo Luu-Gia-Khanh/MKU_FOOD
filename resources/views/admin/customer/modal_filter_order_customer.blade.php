@@ -177,7 +177,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn_dismiss_modal_filter_price" data-dismiss="modal">Thoát</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
                     <button type="button" class="btn btn-success" id="btn_filter_order_customer_fol_date">Lọc</button>
                 </div>
             </div>
@@ -208,7 +208,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn_dismiss_modal_filter_price" data-dismiss="modal">Thoát</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
                     <button type="button" class="btn btn-success" id="btn_filter_order_customer_fol_date_many">Lọc</button>
                 </div>
             </div>

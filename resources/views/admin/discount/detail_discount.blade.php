@@ -238,9 +238,9 @@
                                                                 @endif
                                                             </td>
                                                         @else
-                                                            <td>Null</td>
-                                                            <td>Null</td>
-                                                            <td>Null</td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
                                                         @endif
 
                                                     </tr>

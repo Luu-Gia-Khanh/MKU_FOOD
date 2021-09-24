@@ -65,9 +65,9 @@
 </style>
 
     <!--Hero Section-->
-    <div class="hero-section hero-background">
+    {{-- <div class="hero-section hero-background">
         <h1 class="page-title">Thực Phẩm</h1>
-    </div>
+    </div> --}}
     <div class="content_view_search">
         <div class="container">
             <nav class="biolife-nav cus_breadcrumb">

@@ -22,6 +22,8 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('public/back_end/src/plugins/datatables/css/dataTables.bootstrap4.min.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('public/back_end/src/plugins/datatables/css/responsive.bootstrap4.min.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('public/back_end/vendors/styles/style.css') }}">
+    <!-- switchery css -->
+	<link rel="stylesheet" type="text/css" href="{{ asset('public/back_end/src/plugins/switchery/switchery.min.css') }}">
     {{-- sweetaler --}}
     <link rel="stylesheet" href="{{ asset('public/font_end/custom/sweet.css') }}">
     <!-- bootstrap-tagsinput css -->
@@ -65,8 +67,8 @@
 	<script src="{{ asset('public/back_end/src/plugins/datatables/js/dataTables.responsive.min.js') }}"></script>
 	<script src="{{ asset('public/back_end/src/plugins/datatables/js/responsive.bootstrap4.min.js') }}"></script>
 	<script src="{{ asset('public/back_end/vendors/scripts/dashboard.js') }}"></script>
-    {{-- <script src="{{ asset('public/back_end/src/plugins/apexcharts/apexcharts.min.js') }}"></script>
-	<script src="{{ asset('public/back_end/vendors/scripts/apexcharts-setting.js') }}"></script> --}}
+    <!-- switchery js -->
+	<script src="{{ asset('public/back_end/src/plugins/switchery/switchery.min.js') }}"></script>
 
     {{-- sort table --}}
     <script src="{{ asset('public/back_end/sort_table/Scripts/bootstrap-sortable.js') }}"></script>
