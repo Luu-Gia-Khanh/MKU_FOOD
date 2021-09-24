@@ -35,8 +35,8 @@
 	<div class="login-header box-shadow">
 		<div class="container-fluid d-flex justify-content-between align-items-center">
 			<div class="brand-logo">
-				<a href="login.html">
-					<img src="{{ asset('public/back_end/vendors/images/deskapp-logo.svg') }}" alt="">
+				<a href="{{ URL::to('/') }}">
+					<img src="{{ asset('public/upload/logo_mku_8.svg') }}" alt="" style="height: 46px;">
 				</a>
 			</div>
 			<div class="login-menu">

@@ -175,6 +175,7 @@ class DashboardController extends Controller
                 ->join('customer_info','customer_info.customer_id', '=', 'customer.customer_id')
                 ->where('order_detail_status.status_id', 1)
                 ->where('order_detail_status.status', 1)
+                ->orderBy('orders.order_id','desc')
                 ->get();
         return $notification;
     }

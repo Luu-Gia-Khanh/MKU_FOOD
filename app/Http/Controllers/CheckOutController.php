@@ -307,8 +307,7 @@ class CheckOutController extends Controller
         $payment_method,
         $summary_total_order,
         $status,
-        $order_code,
-
+        $order_code
     ){
         return view('client.checkout.view_checkout_paypal_success',[
             'payment_method'=>$payment_method,

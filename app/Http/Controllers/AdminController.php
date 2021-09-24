@@ -397,6 +397,9 @@ class AdminController extends Controller
     }
     public function find_admin(Request $request){
         $val_find = $request->value_find;
+        $roles = DB::table('roles')
+                ->join('admin_roles','admin_roles.roles_roles_id','=','roles.roles_id')
+                ->get();
         $result_find = Admin::where('deleted_at', null)
             ->where('admin_name','LIKE','%'.$val_find.'%')
             ->orwhere('admin_phone','LIKE','%'.$val_find.'%')
@@ -405,7 +408,10 @@ class AdminController extends Controller
             ->where('deleted_at', null)
             ->orwhere('admin_id','LIKE','%'.$val_find.'%')
             ->get();
-        echo view('admin.admin.view_find_admin',['all_admin'=>$result_find]);
+        echo view('admin.admin.view_find_admin',[
+            'all_admin'=>$result_find,
+            'roles'=>$roles,
+        ]);
     }
 
     public function delete_when_find(Request $request,$admin_id){

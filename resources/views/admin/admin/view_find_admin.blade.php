@@ -1,20 +1,24 @@
 @if (count($all_admin) > 0)
     <div class="row">
         <div class="col-12 table-responsive">
-            <table class="data-table table table-hover multiple-select-row nowrap no-footer dtr-inline" id="DataTables_Table_0"
-                role="grid" aria-describedby="DataTables_Table_0_info">
+            <table class="data-table table table-hover multiple-select-row nowrap no-footer dtr-inline sortable"
+                id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
                 <thead>
                     <tr role="row">
-                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1">STT
-                        </th>
-                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1">Họ
-                            Và Tên</th>
-                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1">Số
-                            Điện Thoại</th>
-                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1">
-                            Email</th>
-                        <th class="datatable-nosort sorting_disabled" rowspan="1" colspan="1" aria-label="Action">Thao
-                            Tác</th>
+                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                            colspan="1">STT</th>
+                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                            colspan="1" data-defaultsign="AZ">Họ Và Tên</th>
+                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                            colspan="1">Chức Vụ</th>
+                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                            colspan="1">Ngày Sinh</th>
+                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                            colspan="1">Số Điện Thoại</th>
+                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                            colspan="1" data-defaultsign="AZ">Email</th>
+                        <th class="datatable-nosort sorting_disabled" rowspan="1" colspan="1"
+                            aria-label="Action" data-defaultsort="disabled">Thao Tác</th>
                     </tr>
                 </thead>
                 <tbody class="content_find_admin">
@@ -37,28 +41,50 @@
                                     </div>
                                 </div>
                             </td>
+                            <td>
+                                @foreach ($roles as $role)
+                                    @if ($role->admin_admin_id == $ad->admin_id)
+                                        <p>
+                                            <i class="icon-copy fa fa-hand-o-right" aria-hidden="true"></i>
+                                            @if ($role->name == 'admin')
+                                                Quản trị viên
+                                            @elseif($role->name == 'manager')
+                                                Nhân viên quản lý
+                                            @elseif($role->name == 'employee')
+                                                Nhân viên
+                                            @elseif($role->name == 'delivery')
+                                                Nhân viên giao hàng
+                                            @endif
+                                        </p>
+
+                                    @endif
+                                @endforeach
+                            </td>
+                            <td>
+                                {{ date('d/m/Y', strtotime($ad->admin_birthday)) }}
+                            </td>
                             <td>{{ $ad->admin_phone }}</td>
                             <td>{{ $ad->admin_email }}</td>
                             <td>
                                 <div class="dropdown">
-                                    <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#"
-                                        role="button" data-toggle="dropdown">
+                                    <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"
+                                        href="#" role="button" data-toggle="dropdown">
                                         <i class="dw dw-more"></i>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                                        <a class="dropdown-item" href="{{ URL::to('admin/view_profile/'.$ad->admin_id) }}"><i class="dw dw-eye"></i>Thông tin cá nhân</a>
                                         <a class="dropdown-item"
-                                            href="{{ URL::to('admin/view_profile/'.$ad->admin_id) }}"><i
-                                                class="dw dw-eye"></i>Thông tin cá nhân</a>
-                                        <a class="dropdown-item"
-                                            href="{{ URL::to('admin/update_admin/'.$ad->admin_id) }}"><i
+                                            href="{{ URL::to('admin/update_admin/' . $ad->admin_id) }}"><i
                                                 class="dw dw-edit2"></i>Chỉnh Sửa</a>
 
                                         @if (Session::get('admin_id') != $ad->admin_id)
-                                            <a href="{{ URL::to('admin/delete_when_find/'.$ad->admin_id) }}"
-                                                class="dropdown-item test"
-                                                ><i class="dw dw-delete-3"></i>Xóa</a>
+                                            <button class="dropdown-item soft_delete_admin_class"
+                                                data-id="{{ $ad->admin_id }}" data-toggle="modal"
+                                                data-target="#Modal_delete"><i
+                                                    class="dw dw-delete-3"></i>Xóa</button>
 
                                         @endif
+
                                     </div>
                                 </div>
                             </td>

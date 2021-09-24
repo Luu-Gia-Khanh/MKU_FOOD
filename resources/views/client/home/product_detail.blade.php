@@ -952,7 +952,7 @@
                 <form>
                     @csrf
                     <div class="">Bạn muốn xóa đánh giá này ?</div>
-                        <input type=" hidden" value=""
+                        <input type="hidden" value=""
                         class="val_hidden_comment_to_delete">
                 </form>
             </div>

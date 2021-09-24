@@ -35,8 +35,8 @@
 	<div class="login-header box-shadow">
 		<div class="container-fluid d-flex justify-content-between align-items-center">
 			<div class="brand-logo">
-				<a href="login.html">
-					<img src="{{ asset('public/back_end/vendors/images/deskapp-logo.svg') }}" alt="">
+				<a href="{{ URL::to('/') }}">
+					<img src="{{ asset('public/upload/logo_mku_8.svg') }}" alt="" style="height: 46px;">
 				</a>
 			</div>
 			<div class="login-menu">
@@ -51,6 +51,9 @@
 		<div class="container">
 			<div class="row align-items-center">
 				<div class="col-md-6 col-lg-7">
+                    <img src="{{ asset('public/upload/logo_mku_large_login_client.svg') }}" alt="" style="height: 468px;
+					margin-left: 140px;
+					margin-top: 8px;">
 				</div>
 				<div class="col-md-6 col-lg-5">
 					<div class="login-box bg-white box-shadow border-radius-10">
@@ -69,17 +72,6 @@
 									<span class="input-group-text"><i class="icon-copy dw dw-email-1"></i></span>
 								</div>
 							</div>
-							{{-- <div class="row pb-30">
-								<div class="col-6">
-									<div class="custom-control custom-checkbox">
-										<input type="checkbox" class="custom-control-input" id="customCheck1">
-										<label class="custom-control-label" for="customCheck1">Remember</label>
-									</div>
-								</div>
-								<div class="col-6">
-									<div class="forgot-password"><a href="forgot-password.html">Forgot Password</a></div>
-								</div>
-							</div> --}}
                             <div style="margin-bottom: 20px;">
                                 <img src="{{ asset('public/upload/warning.png') }}" alt="" width="25px">
                                 <span style="color: rgb(134, 131, 131);">Vui lòng kiểm tra lại email sau khi gửi</span>
