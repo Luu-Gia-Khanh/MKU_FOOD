@@ -32,17 +32,14 @@
                         <tr role="row" class="odd text-center">
                             <td>{{ $stt }}</td>
                             <td style="cursor: pointer;">
-                                <a href="#" class=" btn_open_modal"
-                                    data-id={{ $voucher->voucher_id }} data-toggle="modal"
-                                    data-target="#modal_voucher">
+                                <a href="#" class=" btn_open_modal" data-id={{ $voucher->voucher_id }}
+                                    data-toggle="modal" data-target="#modal_voucher">
                                     {{ $voucher->voucher_code }}
                                 </a>
                             </td>
-                            <td class="text-left" id="voucher_name"
-                                style="cursor: pointer;">
-                                <a href="#" class=" btn_open_modal"
-                                    data-id={{ $voucher->voucher_id }} data-toggle="modal"
-                                    data-target="#modal_voucher">
+                            <td class="text-left" id="voucher_name" style="cursor: pointer;">
+                                <a href="#" class=" btn_open_modal" data-id={{ $voucher->voucher_id }}
+                                    data-toggle="modal" data-target="#modal_voucher">
                                     {{ $voucher->voucher_name }}
                                 </a>
                             </td>
@@ -79,11 +76,10 @@
                                         <a class="dropdown-item"
                                             href="{{ URL::to('admin/update_voucher/' . $voucher->voucher_id) }}"><i
                                                 class="dw dw-edit2"></i>Chỉnh Sửa</a>
-                                        <button class="dropdown-item soft_delete_voucher"
+                                        <button class="dropdown-item soft_delete_voucher" id="haha"
                                             data-id="{{ $voucher->voucher_id }}" data-toggle="modal"
                                             data-target="#Modal_delete_voucher"><i
-                                                class="dw dw-delete-3"></i>Xóa</button>
-                                    </div>
+                                                class="dw dw-delete-3"></i>Xóa</button>                                    </div>
                                 </div>
                             </td>
                         </tr>
@@ -95,5 +91,14 @@
 @else
     <div class="center">Không có kết quả tìm kiếm</div>
 @endif
-{{-- <script src="{{ asset('public/back_end/custom_voucher/custom_voucher.js') }}"></script> --}}
-
+<script src="{{ asset('public/back_end/custom_voucher/custom_voucher.js') }}"></script>
+{{-- <script src="{{ asset('public/font_end/assets/js/jquery-3.4.1.min.js') }}"></script> --}}
+{{-- <script>
+    $( document ).ready(function() {
+        $('.test').click(function(){
+            var voucher_id = $(this).attr('data-id');
+            $('.id_delete_voucher').val(voucher_id);
+            alert('haha')
+        });
+    });
+</script> --}}

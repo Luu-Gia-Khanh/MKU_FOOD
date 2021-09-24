@@ -3,10 +3,10 @@
     <div class="min-height-200px">
         <div class="page-header">
             <div class="row">
-                <div class="col-md-6 col-sm-12">
+                <div class="col-md-8 col-sm-12">
                     <nav aria-label="breadcrumb" role="navigation">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ URL::to('admin/dashboard') }}">Trang chủ</a></li>
+                            <li class="breadcrumb-item"><a href="{{ URL::to('admin/') }}">Trang chủ</a></li>
                             <li class="breadcrumb-item"><a href="{{ URL::to('admin/all_storage') }}">Danh sách kho hàng</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Danh sách kho sản phẩm</li>
                         </ol>
@@ -93,7 +93,7 @@
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-left" style="">
                                             <a class="dropdown-item" href="#" data-toggle="modal"
-                                                data-target="#Modal_filter_storage_product_follow_quantity">Số lượng đơn đặt hàng</a>
+                                                data-target="#Modal_filter_storage_product_follow_quantity">Số lượng sản phẩm trong kho</a>
                                         </div>
                                     </div>
                                 </div>

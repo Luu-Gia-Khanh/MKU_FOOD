@@ -4,7 +4,7 @@
     <div class="min-height-200px">
         <div class="page-header">
             <div class="row">
-                <div class="col-md-6 col-sm-12">
+                <div class="col-md-8 col-sm-12">
                     <nav aria-label="breadcrumb" role="navigation">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ URL::to('admin/') }}">Trang chủ</a></li>
@@ -303,7 +303,7 @@
                     Bạn có muốn xóa dữ liệu này ?
                     <form action="{{ URL::to('admin/soft_delete_voucher') }}" method="post" name="form_soft_delete">
                         @csrf
-                        <input type="text" class="id_delete_voucher" name="voucher_id" value="">
+                        <input type="hidden" class="id_delete_voucher" name="voucher_id" value="">
                     </form>
                 </div>
 

@@ -4,14 +4,12 @@
     <div class="min-height-200px">
         <div class="page-header">
             <div class="row">
-                <div class="col-md-12 col-sm-12">
-                    <div class="title">
-                        <h4>Thông Tin Khách Hàng</h4>
-                    </div>
+                <div class="col-md-6 col-sm-12">
                     <nav aria-label="breadcrumb" role="navigation">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ URL::to('admin/dashboard') }}">Trang chủ</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Thông tin khách hàng</li>
+                            <li class="breadcrumb-item"><a href="{{ URL::to('admin/') }}">Trang chủ</a></li>
+                            <li class="breadcrumb-item"><a href="{{ URL::to('admin/all_customer') }}">Danh sách khách hàng</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Chi tiết khách hàng</li>
                         </ol>
                     </nav>
                 </div>

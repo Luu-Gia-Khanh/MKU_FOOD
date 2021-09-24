@@ -402,7 +402,7 @@ class CustomerAdminController extends Controller
                             ->join('customer_info', 'customer_info.customer_id', '=', 'customer.customer_id')
                             ->get();
         $all_order = Orders::all();
-        $all_transport = DB::table('customer_transport')->where('trans_status', 1)->get();
+        $all_transport = Customer_Transport::where('trans_status', 1)->get();
         $type_filter = $request->type_filter;
         $level_filter = $request->level_filter;
 
@@ -477,7 +477,7 @@ class CustomerAdminController extends Controller
                 $string_title = 'Danh Sách Khách Hàng';
                 $pdf = PDF::loadView('admin.customer.view_print_pdf_customer', 
                                         compact('all_order', 'all_customer', 'string_title', 'all_transport'));
-                return $pdf->download('danhsachkhachhang.pdf');
+                return $pdf->download('danhsachkhachhang.pdf'); 
         }
     }
 }

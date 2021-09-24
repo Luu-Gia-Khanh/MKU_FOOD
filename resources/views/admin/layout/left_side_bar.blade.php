@@ -37,10 +37,10 @@
 
                 <li class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle">
-                        <span class="micon icon-copy ti-harddrive"></span><span class="mtext">Loại Sản Phẩm</span>
+                        <span class="micon icon-copy ti-harddrive"></span><span class="mtext">Danh Mục</span>
                     </a>
                     <ul class="submenu">
-                        <li><a href="{{ URL::to('admin/all_category') }}">Danh Sách Loại Sản Phẩm</a></li>
+                        <li><a href="{{ URL::to('admin/all_category') }}">Danh Mục Sản Phẩm</a></li>
                         <li><a href="{{ URL::to('admin/add_category') }}">Thêm Loại Sản Phẩm</a></li>
                     </ul>
                 </li>
