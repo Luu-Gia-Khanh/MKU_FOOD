@@ -93,7 +93,7 @@ class AjaxSearchProductKeyword extends Controller
                 $arrayProduct[] = $product;
             }
         }
-        $orderByArrayProduct = collect($arrayProduct)->sortBy('price_now')->reverse()->toArray();
+        $orderByArrayProduct = collect($arrayProduct)->sortByDesc('price_now')->reverse()->toArray();
         echo view('client.home.list_item_search_keyword',[
             'result_search'=>$orderByArrayProduct,
             'type_filter'=>$type_filter,

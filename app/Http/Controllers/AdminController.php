@@ -5,6 +5,9 @@ use App\Admin;
 use App\Roles;
 use App\Admin_Roles;
 use App\Admin_Action_Admin;
+use App\Product;
+use App\Category;
+use App\Storage;
 use Auth;
 use DB;
 use Session;
@@ -380,16 +383,75 @@ class AdminController extends Controller
     }
     public function view_profile($admin_id){
         $view_profile = Admin::find($admin_id);
-        //$view_profile = DB::table('admin_roles')
-        // ->join('admin','admin.admin_id','=','admin_roles.admin_admin_id')
-        // ->join('roles','roles.roles_id','=','admin_roles.roles_roles_id')
-        //->where('admin_admin_id',$admin_id)->first();
+        $all_product = Product::all();
+        $all_cate = Category::all();
+        $all_admin = Admin::where('admin_id','!=',1)->where('deleted_at', null)->get();
+        $all_storage = Storage::all();
+
+        $admin_action_product = DB::table('admin_action_product')
+                            ->join('product','product.product_id','=','admin_action_product.product_id')
+                            ->join('action','action.action_id','=','admin_action_product.action_id')
+                            ->where('admin_action_product.admin_id', $admin_id)
+                            ->orderBy('admin_action_product.action_time','asc')
+                            ->get();
+        $admin_action_cate = DB::table('admin_action_category')
+                            ->join('category','category.cate_id','=','admin_action_category.cate_id')
+                            ->join('action','action.action_id','=','admin_action_category.action_id')
+                            ->where('admin_action_category.admin_id', $admin_id)
+                            ->orderBy('admin_action_category.action_time','asc')
+                            ->get();
+        $admin_action_product_price = DB::table('admin_action_product_price')
+                            ->join('product_price','product_price.price_id','=','admin_action_product_price.price_id')
+                            ->join('product','product.product_id','=','product_price.product_id')
+                            ->join('action','action.action_id','=','admin_action_product_price.action_id')
+                            ->where('admin_action_product_price.admin_id', $admin_id)
+                            ->orderBy('admin_action_product_price.action_time','asc')
+                            ->get();
+        $admin_action_admin = DB::table('admin_action_admin')
+                            ->join('admin','admin.admin_id','=','admin_action_admin.admin_impact_id')
+                            ->join('action','action.action_id','=','admin_action_admin.action_id')
+                            ->where('admin_action_admin.admin_id', $admin_id)
+                            ->orderBy('admin_action_admin.action_time','asc')
+                            ->get();
+        $admin_action_product_image = DB::table('admin_action_product_image')
+                            ->join('product_image','product_image.image_id','=','admin_action_product_image.image_id')
+                            ->join('product','product.product_id','=','product_image.product_id')
+                            ->join('action','action.action_id','=','admin_action_product_image.action_id')
+                            ->where('admin_action_product_image.admin_id', $admin_id)
+                            ->orderBy('admin_action_product_image.action_time','asc')
+                            ->get();
+        $admin_action_storage = DB::table('admin_action_storage')
+                            ->join('storage','storage.storage_id','=','admin_action_storage.storage_id')
+                            ->join('action','action.action_id','=','admin_action_storage.action_id')
+                            ->where('admin_action_storage.admin_id', $admin_id)
+                            ->orderBy('admin_action_storage.action_time','asc')
+                            ->get();
+        $admin_action_storage_product = DB::table('admin_action_storage_product')
+                            ->join('storage_product','storage_product.storage_product_id','=','admin_action_storage_product.storage_product_id')
+                            ->join('product','product.product_id','=','storage_product.product_id')
+                            ->join('action','action.action_id','=','admin_action_storage_product.action_id')
+                            ->where('admin_action_storage_product.admin_id', $admin_id)
+                            ->orderBy('admin_action_storage_product.action_time','asc')
+                            ->get();
 
         $citys = DB::table('tinhthanhpho')->get();
         $districts = DB::table('quanhuyen')->get();
         $wards = DB::table('xaphuongthitran')->get();
         return view('admin.admin.view_profile_admin',[
             'view_profile'=>$view_profile,
+            'all_product'=>$all_product,
+            'all_cate'=>$all_cate,
+            'all_admin'=>$all_admin,
+            'all_storage'=>$all_storage,
+
+            'admin_action_product'=>$admin_action_product,
+            'admin_action_cate'=>$admin_action_cate,
+            'admin_action_product_price'=>$admin_action_product_price,
+            'admin_action_admin'=>$admin_action_admin,
+            'admin_action_product_image'=>$admin_action_product_image,
+            'admin_action_storage'=>$admin_action_storage,
+            'admin_action_storage_product'=>$admin_action_storage_product,
+
             'citys'=>$citys,
             'districts'=>$districts,
             'wards'=>$wards

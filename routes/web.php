@@ -115,6 +115,7 @@ Route::prefix('admin')->group(function () {
     Route::post('filter_product_follow_date_create_many', 'ProductController@filter_product_follow_date_create_many');
 
     Route::post('print_pdf_product', 'ProductController@print_pdf_product');
+
     // PRODUCT IMAGE
     Route::get('all_gallery_product/{prod_id}', 'ImageProductController@all_gallery_product');
     Route::get('view_recycle_image_product/{prod_id}', 'ImageProductController@view_recycle_image_product');
@@ -289,6 +290,36 @@ Route::prefix('admin')->group(function () {
     Route::post('filter_comment_fol_rating', 'CommentController@filter_comment_fol_rating');
 
     Route::post('print_pdf_comment', 'CommentController@print_pdf_comment');
+
+    // TRACE
+    Route::post('trace_product_side_profile_single_date', 'TraceSideProfileController@trace_product_side_profile_single_date');
+    Route::post('trace_product_side_profile_many_date', 'TraceSideProfileController@trace_product_side_profile_many_date');
+
+    Route::post('trace_cate_side_profile_single_date', 'TraceSideProfileController@trace_cate_side_profile_single_date');
+    Route::post('trace_cate_side_profile_many_date', 'TraceSideProfileController@trace_cate_side_profile_many_date');
+
+    Route::post('trace_price_product_side_profile_single_date', 'TraceSideProfileController@trace_price_product_side_profile_single_date');
+    Route::post('trace_price_product_side_profile_many_date', 'TraceSideProfileController@trace_price_product_side_profile_many_date');
+
+    Route::post('trace_admin_side_profile_single_date', 'TraceSideProfileController@trace_admin_side_profile_single_date');
+    Route::post('trace_admin_side_profile_many_date', 'TraceSideProfileController@trace_admin_side_profile_many_date');
+
+    Route::post('trace_product_image_side_profile_single_date', 'TraceSideProfileController@trace_product_image_side_profile_single_date');
+    Route::post('trace_product_image_side_profile_many_date', 'TraceSideProfileController@trace_product_image_side_profile_many_date');
+
+    Route::post('trace_storage_side_profile_single_date', 'TraceSideProfileController@trace_storage_side_profile_single_date');
+    Route::post('trace_storage_side_profile_many_date', 'TraceSideProfileController@trace_storage_side_profile_many_date');
+
+    Route::post('trace_storage_product_side_profile_single_date', 'TraceSideProfileController@trace_storage_product_side_profile_single_date');
+    Route::post('trace_storage_product_side_profile_many_date', 'TraceSideProfileController@trace_storage_product_side_profile_many_date');
+
+    Route::post('trace_discount_side_profile_single_date', 'TraceSideProfileController@trace_discount_side_profile_single_date');
+    Route::post('trace_discount_side_profile_many_date', 'TraceSideProfileController@trace_discount_side_profile_many_date');
+
+    Route::post('trace_voucher_side_profile_single_date', 'TraceSideProfileController@trace_voucher_side_profile_single_date');
+    Route::post('trace_voucher_side_profile_many_date', 'TraceSideProfileController@trace_voucher_side_profile_many_date');
+
+
 
 });
 

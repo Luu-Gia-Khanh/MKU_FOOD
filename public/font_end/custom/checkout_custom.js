@@ -226,12 +226,13 @@ $(document).ready(function(){
         $.ajax({
             url: 'check_voucher_code_to_apply',
             method: 'POST',
+            dataType: "json",
             data: {
                 _token: _token,
                 input_voucher_code: input_voucher_code,
             },
             success: function (data) {
-                if(data == 0){
+                if(data.product == 0){
                     Swal.fire({
                         position: 'top-end',
                         icon: 'error',
@@ -241,23 +242,23 @@ $(document).ready(function(){
                         });
                 }
                 else{
+                    var qty_product_voucher = $('.qty_prod_voucher_'+data.product).val();
+                    var amount_discount_voucher = qty_product_voucher*data.voucher_amount;
+                    if(qty_product_voucher){
+                        // show discount voucher
+                        $('.discount_voucher').html('-'+formatNumber(amount_discount_voucher)+'₫');
+                        $('.val-total-voucher').html('-'+formatNumber(amount_discount_voucher)+'₫');
 
-                    // show discount voucher
-                    $('.discount_voucher').html('-'+formatNumber(data)+'₫');
-                    $('.val-total-voucher').html('-'+formatNumber(data)+'₫');
+                        //summary_total_order
+                        var summary_total_order = $('.old_summary_total_order').val();
+                        $('.val-total-summary').html(formatNumber(summary_total_order - amount_discount_voucher)+'₫');
+                        $('.summary_total_order').val(Number(summary_total_order) - amount_discount_voucher);
 
-                    //summary_total_order
-                    var summary_total_order = $('.old_summary_total_order').val();
-                    $('.val-total-summary').html(formatNumber(summary_total_order - data)+'₫');
-                    $('.summary_total_order').val(Number(summary_total_order) - data);
-
-                    $('.val_hidden_discount_voucher').val(data);
-                    $('#btn-open-model-voucher').html('Thay Đổi');
-                    $('.val_hidden_voucher_code').val(input_voucher_code);
-                    $('#modal_voucher').hide();
-
-                    //
-
+                        $('.val_hidden_discount_voucher').val(amount_discount_voucher);
+                        $('#btn-open-model-voucher').html('Thay Đổi');
+                        $('.val_hidden_voucher_code').val(input_voucher_code);
+                        $('#modal_voucher').hide();
+                    }
                 }
             }
         });

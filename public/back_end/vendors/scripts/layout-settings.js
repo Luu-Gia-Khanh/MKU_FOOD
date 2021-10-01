@@ -109,6 +109,7 @@
 		sidebar_dark.click(function() {
 			'use strict';
 			jQuery(this).addClass('active');
+            $('#logo_left_side_admin').attr('src','http://mkufood.abc/public/upload/logo_mku_9.svg');
 			sidebar_light.removeClass('active');
 			body.removeClass('sidebar-light').addClass('sidebar-dark');
 
@@ -124,6 +125,7 @@
 		sidebar_light.click(function() {
 			'use strict';
 			jQuery(this).addClass('active');
+            $('#logo_left_side_admin').attr('src','http://mkufood.abc/public/upload/logo_mku_10.svg');
 			sidebar_dark.removeClass('active');
 			body.removeClass('sidebar-dark').addClass('sidebar-light');
 

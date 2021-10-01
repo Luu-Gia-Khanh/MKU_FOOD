@@ -77,16 +77,6 @@
                                     @endforeach
                                 </ul>
                             </div>
-                        {{-- <div class="dropdown">
-                        <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" data-color="#1b3133" href="#" role="button" data-toggle="dropdown" style="color: rgb(27, 49, 51);" aria-expanded="false">
-                            <i class="dw dw-more"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list" style="">
-                            <a class="dropdown-item" href="#"><i class="dw dw-eye"></i> View</a>
-                            <a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
-                            <a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>
-                        </div>
-                    </div> --}}
                     </div>
                 </div>
             </div>
@@ -195,7 +185,28 @@
 
                         </table>
                     </div>
+                    @if (count($admin_action_order)>0)
+                        <div class="pd-10">
+                            <table class="table table-bordered">
+                                @foreach ($admin_action_order as $action)
+                                    <tr>
+                                        <td>
+                                            {{ date('d/m/Y H:i a', strtotime($action->action_time)) }}
+                                        </td>
+                                        <td>
+                                            {{ $action->action_message }}
+                                        </td>
+                                        <td>
+                                            {{ $action->admin_name }}
+                                        </td>
+                                    </tr>
+                                @endforeach
+
+                            </table>
+                        </div>
+                    @endif
                 </div>
+
             </div>
         </div>
     </div>

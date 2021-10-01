@@ -18,6 +18,9 @@
         .btn.active.focus {
             outline: none;
         }
+        body{
+            font-family: 'system-ui';
+        }
     </style>
     @if (count($all_product_discount) > 0)
         <div class="product-tab z-index-20 bg">
@@ -178,11 +181,11 @@
                                 <a href="#" class="bn-link"><img src="{{ asset('public/font_end/assets/images/home-05/media-banner-11.jpg') }}" width="281" height="358" alt=""></a>
                             </div>
                             <div class="text-content">
-                                <span class="text1">California</span>
-                                <b class="text2">Fresh Fruit</b>
-                                <span class="text3">Association</span>
-                                <b class="text4">Sale <span>50%</span> Off</b>
-                                <a href="#" class="btn btn-bold">Shop now</a>
+                                <span class="text1">CỬA HÀNG</span>
+                                <b class="text2">MKU FOOD</b>
+                                <span class="text3">KHUYẾN MÃI</span>
+                                <b class="text4">ƯU ĐÃI ĐẾN 50%</b>
+                                <a href="{{ URL::to('shop_product') }}" class="btn btn-bold">Cửa Hàng</a>
                             </div>
                         </div>
                     </div>
@@ -194,9 +197,9 @@
                                 <a href="#" class="bn-link"><img src="{{ asset('public/font_end/assets/images/home-05/media-banner-12.jpg') }}" width="281" height="358" alt=""></a>
                             </div>
                             <div class="text-content">
-                                <i class="text1">Sumer Fruit</i>
-                                <b class="text2">100% Pure Natural Fruit Juice</b>
-                                <a href="#" class="btn btn-thin">Shop now</a>
+                                <i class="text1">Đảm Bảo</i>
+                                <b class="text2">100% Chiết Suất Từ Thiên Nhiên</b>
+                                <a href="{{ URL::to('shop_product') }}" class="btn btn-thin">Cửa Hàng</a>
                             </div>
                         </div>
                     </div>
@@ -328,35 +331,35 @@
         </div>
     @endif
     {{--  --}}
-    <div class="container" style="background-color: #fff; border-bottom: 1px solid rgba(0, 0, 0, 0.09); padding: 15px">
+    {{-- <div class="container" style="background-color: #fff; border-bottom: 1px solid rgba(0, 0, 0, 0.09); padding: 15px"> --}}
         <div class="biolife-service type01 biolife-service__type01 sm-margin-top-0 xs-margin-top-45px">
             <b class="txt-show-01" >100%</b>
-            <i class="txt-show-02" >MKU FOOD</i>
+            <i class="txt-show-02" style="font-family: cursive">MKU FOOD</i>
             <ul class="services-list">
                 <li>
                     <div class="service-inner color-reverse">
                         <span class="number">1</span>
                         <span class="biolife-icon icon-beer"></span>
-                        <a class="srv-name" href="#">full stamped product</a>
+                        <a class="srv-name" href="#">sản phẩm chất lượng</a>
                     </div>
                 </li>
                 <li>
                     <div class="service-inner color-reverse">
                         <span class="number">2</span>
                         <span class="biolife-icon icon-schedule"></span>
-                        <a class="srv-name" href="#">place and delivery on time</a>
+                        <a class="srv-name" href="#">làm việc 24/7</a>
                     </div>
                 </li>
                 <li>
                     <div class="service-inner color-reverse">
                         <span class="number">3</span>
                         <span class="biolife-icon icon-car"></span>
-                        <a class="srv-name" href="#">Free shipping in the city</a>
+                        <a class="srv-name" href="#">Giao Hàng Nhanh</a>
                     </div>
                 </li>
             </ul>
         </div>
-    </div>
+    {{-- </div> --}}
 
 
     {{-- RECOMMENT PRODUCT --}}

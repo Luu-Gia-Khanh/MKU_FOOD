@@ -227,6 +227,13 @@ class OrderController extends Controller
         $transport = Customer_Transport::find($order->trans_id);
         $time_line = Order_Detail_Status::where('order_id', $order_id)->get();
         $all_voucher = Voucher::all();
+
+        $admin_action_order = DB::table('admin_action_order')
+                            ->join('admin','admin.admin_id','=','admin_action_order.admin_id')
+                            ->where('admin_action_order.order_id', $order_id)
+                            ->orderBy('admin_action_order.action_time','asc')
+                            ->get();
+
         return view('admin.order.order_detail_item',[
             'order_item' =>$order_item,
             'product' =>$product,
@@ -237,6 +244,8 @@ class OrderController extends Controller
             'trans' =>$transport,
             'time_line' =>$time_line,
             'all_voucher' =>$all_voucher,
+
+            'admin_action_order' =>$admin_action_order,
         ]);
     }
     public function filter_order_fol_price(Request $request){

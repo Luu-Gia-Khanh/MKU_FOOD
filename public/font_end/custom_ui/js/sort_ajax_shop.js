@@ -1,22 +1,33 @@
 $(document).ready(function(){
     var _token = $('input[name="_token"]').val();
     $('.choose_cate_sort_ajax_shop').click(function (){
+        //
+        $('.val_price_sort_start').val('');
+        $('.val_price_sort_end').val('');
+        $('.check_cus_price').removeClass('selected');
+        //
         var cate_id = $(this).attr('data-id');
-            $.ajax({
-                url: 'ajax_sort_cate_shop',
-                method: 'POST',
-                data: {
-                    _token: _token,
-                    cate_id: cate_id,
-                },
-                success: function (data) {
-                    $('.content_list_product_sort_ajax_shop').html(data);
-                }
-            });
+        $.ajax({
+            url: 'ajax_sort_cate_shop',
+            method: 'POST',
+            data: {
+                _token: _token,
+                cate_id: cate_id,
+            },
+            success: function (data) {
+                $('.content_list_product_sort_ajax_shop').html(data);
+            }
+        });
     });
 
     // sort rating ajaz shop
     $('.choose_rating_sort_ajax_shop').click(function(){
+        //
+        $('.check_cus_price').removeClass('selected');
+        $('.check_cus_cate').removeClass('selected');
+        $('.val_price_sort_start').val('');
+        $('.val_price_sort_end').val('');
+        //
         var rating = $(this).attr('data-id');
         $.ajax({
             url: 'ajax_sort_rating_shop',
@@ -33,6 +44,10 @@ $(document).ready(function(){
 
     // btn sort price
     $('.btn_sort_price_ajax_shop').click(function (){
+        //
+        $('.check_cus_price').removeClass('selected');
+        $('.check_cus_cate').removeClass('selected');
+        //
         var price_start = $('.val_price_sort_start').val();
         var price_end = $('.val_price_sort_end').val();
 
@@ -63,6 +78,11 @@ $(document).ready(function(){
 
     // check to sort price ajax shop
     $('.check_sort_price_ajax_shop').click(function(){
+        //
+        $('.val_price_sort_start').val('');
+        $('.val_price_sort_end').val('');
+        $('.check_cus_cate').removeClass('selected');
+        //
         var check_price_id = $(this).attr('data-id');
         if(check_price_id == 1){
             var price_start = 1000;
@@ -216,4 +236,6 @@ $(document).ready(function(){
             }
         });
     });
+
+    // access check
 });

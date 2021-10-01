@@ -81,21 +81,21 @@
                                                 <span class="title-for-mobile">Sắp xếp theo</span>
                                                 <div data-title="Price:" class="selector-item">
                                                     <select name="sort_price_fiter" class="sort_price_fiter">
-                                                        <option value="" disabled selected hidden>Giá</option>
+                                                        <option value="">Giá</option>
                                                         <option value="desc">Giá: Thấp đến Cao</option>
                                                         <option value="asc">Giá: Cao đến Thấp</option>
                                                     </select>
                                                 </div>
                                                 <div data-title="Rating:" class="selector-item content_sort_rating_fiter">
                                                     <select name="sort_rating_fiter" class="sort_rating_fiter">
-                                                        <option value="" disabled selected hidden>Đánh Giá</option>
+                                                        <option value="">Đánh Giá</option>
                                                         <option value="desc">Đánh Giá: Thấp đến Cao</option>
                                                         <option value="asc">Đánh Giá: Cao đến Thấp</option>
                                                     </select>
                                                 </div>
                                                 <div data-title="Much sell:" class="selector-item">
                                                     <select name="sort_discount_fiter" class="sort_discount_fiter">
-                                                        <option value="" disabled selected hidden>Giảm Giá</option>
+                                                        <option value="">Giảm Giá</option>
                                                         <option value="desc">Giảm Giá: Thấp đến Cao</option>
                                                         <option value="asc">Giảm Giá: Cao đến Thấp</option>
                                                     </select>
@@ -243,7 +243,7 @@
                                     <div class="wgt-content">
                                         <ul class="check-list single">
                                             @foreach ($all_category as $cate)
-                                                <li class="check-list-item">
+                                                <li class="check-list-item check_cus_cate">
                                                     <a href="#" class="check-link choose_cate_search" data-id="{{ $cate->cate_id }}">{{ $cate->cate_name }}</a>
                                                 </li>
                                             @endforeach
@@ -268,19 +268,19 @@
                                             </form>
                                         </div>
                                         <ul class="check-list bold single">
-                                            <li class="check-list-item">
+                                            <li class="check-list-item check_cus_price">
                                                 <a href="#" class="check-link check_filter_price" data-id="1">1.000₫ - 50.000₫</a>
                                             </li>
-                                            <li class="check-list-item">
+                                            <li class="check-list-item check_cus_price">
                                                 <a href="#" class="check-link check_filter_price" data-id="2">50.000₫ - 100.000₫</a>
                                             </li>
-                                            <li class="check-list-item">
+                                            <li class="check-list-item check_cus_price">
                                                 <a href="#" class="check-link check_filter_price" data-id="3">100.000₫ - 500.000₫</a>
                                             </li>
-                                            <li class="check-list-item">
+                                            <li class="check-list-item check_cus_price">
                                                 <a href="#" class="check-link check_filter_price" data-id="4">500.000₫ - 1.000.000₫</a>
                                             </li>
-                                            <li class="check-list-item">
+                                            <li class="check-list-item check_cus_price">
                                                 <a href="#" class="check-link check_filter_price" data-id="5">Trên 1.000.000₫</a>
                                             </li>
                                         </ul>

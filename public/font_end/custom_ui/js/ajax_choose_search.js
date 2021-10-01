@@ -2,6 +2,11 @@ $(document).ready(function(){
     var keyword_search = $('.keyword_search').val();
     var _token = $('input[name="_token"]').val();
     $('.choose_cate_search').click(function (){
+        //
+        $('.val_price_filter_start').val('');
+        $('.val_price_filter_end').val('');
+        $('.check_cus_price').removeClass('selected');
+        //
         var cate_id = $(this).attr('data-id');
             $.ajax({
                 url: 'ajax_search_cate_and_keyword',
@@ -20,6 +25,12 @@ $(document).ready(function(){
 
     // filter rating
     $('.choose_rating_search').click(function(){
+        //
+        $('.check_cus_price').removeClass('selected');
+        $('.check_cus_cate').removeClass('selected');
+        $('.val_price_filter_start').val('');
+        $('.val_price_filter_end').val('');
+        //
         var rating = $(this).attr('data-id');
         $.ajax({
             url: 'ajax_search_rating_and_keyword',
@@ -38,6 +49,10 @@ $(document).ready(function(){
 
     // filter price
     $('.btn_filter_price').click(function (){
+        //
+        $('.check_cus_price').removeClass('selected');
+        $('.check_cus_cate').removeClass('selected');
+        //
         var price_start = $('.val_price_filter_start').val();
         var price_end = $('.val_price_filter_end').val();
 
@@ -68,6 +83,11 @@ $(document).ready(function(){
     });
 
     $('.check_filter_price').click(function(){
+        //
+        $('.val_price_filter_start').val('');
+        $('.val_price_filter_end').val('');
+        $('.check_cus_cate').removeClass('selected');
+        //
         var check_price_id = $(this).attr('data-id');
         if(check_price_id == 1){
             var price_start = 1000;

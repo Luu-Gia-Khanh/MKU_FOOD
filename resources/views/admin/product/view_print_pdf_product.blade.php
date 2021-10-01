@@ -10,6 +10,15 @@
     <style>
         .title{
             text-align: center;
+            font-size: 20px;
+            font-weight: bold
+
+        }
+        body {
+            font-family: DejaVu Sans, sans-serif;
+        }
+        .table td, .table th {
+            font-size: 10px;
         }
     </style>
 </head>

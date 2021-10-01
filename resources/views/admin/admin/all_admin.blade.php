@@ -104,8 +104,10 @@
                                                 colspan="1">Số Điện Thoại</th>
                                             <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                                                 colspan="1" data-defaultsign="AZ">Email</th>
-                                            <th class="datatable-nosort sorting_disabled" rowspan="1" colspan="1"
+                                            @hasrole('admin')
+                                                <th class="datatable-nosort sorting_disabled" rowspan="1" colspan="1"
                                                 aria-label="Action" data-defaultsort="disabled">Thao Tác</th>
+                                            @endhasrole
                                         </tr>
                                     </thead>
                                     <tbody class="content_find_admin">
@@ -152,29 +154,30 @@
                                                 </td>
                                                 <td>{{ $ad->admin_phone }}</td>
                                                 <td>{{ $ad->admin_email }}</td>
-                                                <td>
-                                                    <div class="dropdown">
-                                                        <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"
-                                                            href="#" role="button" data-toggle="dropdown">
-                                                            <i class="dw dw-more"></i>
-                                                        </a>
-                                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                                            <a class="dropdown-item" href="{{ URL::to('admin/view_profile/'.$ad->admin_id) }}"><i class="dw dw-eye"></i>Thông tin cá nhân</a>
-                                                            <a class="dropdown-item"
-                                                                href="{{ URL::to('admin/update_admin/' . $ad->admin_id) }}"><i
-                                                                    class="dw dw-edit2"></i>Chỉnh Sửa</a>
+                                                @hasrole('admin')
+                                                    <td>
+                                                        <div class="dropdown">
+                                                            <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"
+                                                                href="#" role="button" data-toggle="dropdown">
+                                                                <i class="dw dw-more"></i>
+                                                            </a>
+                                                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                                                                <a class="dropdown-item" href="{{ URL::to('admin/view_profile/'.$ad->admin_id) }}"><i class="dw dw-eye"></i>Thông tin cá nhân</a>
+                                                                <a class="dropdown-item"
+                                                                    href="{{ URL::to('admin/update_admin/' . $ad->admin_id) }}"><i
+                                                                        class="dw dw-edit2"></i>Chỉnh Sửa</a>
 
-                                                            @if (Session::get('admin_id') != $ad->admin_id)
-                                                                <button class="dropdown-item soft_delete_admin_class"
-                                                                    data-id="{{ $ad->admin_id }}" data-toggle="modal"
-                                                                    data-target="#Modal_delete"><i
-                                                                        class="dw dw-delete-3"></i>Xóa</button>
+                                                                @if (Session::get('admin_id') != $ad->admin_id)
+                                                                    <button class="dropdown-item soft_delete_admin_class"
+                                                                        data-id="{{ $ad->admin_id }}" data-toggle="modal"
+                                                                        data-target="#Modal_delete"><i
+                                                                            class="dw dw-delete-3"></i>Xóa</button>
 
-                                                            @endif
-
+                                                                @endif
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </td>
+                                                    </td>
+                                                @endhasrole
                                             </tr>
                                         @endforeach
                                     </tbody>

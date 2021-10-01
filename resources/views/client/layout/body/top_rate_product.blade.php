@@ -102,7 +102,7 @@
                 @if (count($all_product_top_rating) > 0)
                     <div class="advance-product-box">
                         <div class="biolife-title-box bold-style biolife-title-box__bold-style">
-                            <h3 class="title" style="font-size: 22px;">Top Rating</h3>
+                            <h3 class="title" style="font-size: 22px;">Đánh Giá Hàng Đầu</h3>
                         </div>
                         <ul class="products biolife-carousel nav-center-03 nav-none-on-mobile row-space-29px" data-slick='{"rows":2,"arrows":true,"dots":false,"infinite":false,"speed":400,"slidesMargin":30,"slidesToShow":2,"responsive":[{"breakpoint":1200,"settings":{ "rows":2, "slidesToShow": 2}},{"breakpoint":992, "settings":{ "rows":2, "slidesToShow": 1}},{"breakpoint":768, "settings":{ "rows":2, "slidesToShow": 2}},{"breakpoint":500, "settings":{ "rows":2, "slidesToShow": 1}}]}'>
                             @foreach ($all_product_top_rating as $product)
@@ -157,8 +157,8 @@
                                 <div class="text-content">
                                     <span class="first-line">Tươi Mới Mỗi Ngày</span>
                                     <b class="second-line">Natural</b>
-                                    <i class="third-line">MKU Food</i>
-                                    <span class="fourth-line">Premium Quality</span>
+                                    <i class="third-line">MKU FOOD</i>
+                                    <span class="fourth-line">Ưu Đãi Khủng</span>
                                 </div>
                             </div>
                         </div>

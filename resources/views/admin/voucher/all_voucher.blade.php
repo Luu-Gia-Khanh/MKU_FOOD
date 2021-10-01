@@ -16,16 +16,7 @@
                 </div>
 
                 <div class="col-md-6 col-sm-12">
-                    {{-- <div class="dropdown">
-                    <a class="btn btn-primary dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-                        January 2018
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="#">Export List</a>
-                        <a class="dropdown-item" href="#">Policies</a>
-                        <a class="dropdown-item" href="#">View Assets</a>
-                    </div>
-                </div> --}}
+
                 </div>
             </div>
         </div>
@@ -87,14 +78,15 @@
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-left" style="">
                                                 <a class="dropdown-item btn_filter_voucher_follow_status_apply"
-                                                    href="#">Đang Áp
-                                                    dụng</a>
+                                                    href="#">Đang áp dụng
+                                                </a>
                                                 <a class="dropdown-item btn_filter_voucher_follow_status_unapply"
-                                                    href="#">Ngưng
-                                                    Áp dụng</a>
+                                                    href="#">Ngưng áp dụng
+                                                </a>
                                                 <a class="dropdown-item" href="#" data-toggle="modal"
-                                                    data-target="#Modal_filter_voucher_follow_date_create">Ngày Tạo
-                                                    Voucher</a>
+                                                    data-target="#Modal_filter_voucher_follow_date_create">
+                                                    Ngày tạo voucher
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
@@ -115,6 +107,20 @@
                                             </button>
                                         </form>
                                     </div>
+                                    <div class="trace_voucher pl-10">
+                                        <div class="dropdown">
+                                            <a class="btn btn-primary dropdown-toggle" href="#" role="button"
+                                                data-toggle="dropdown" aria-expanded="false">
+                                                Truy vết theo
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-left" style="">
+                                                <a class="dropdown-item" href="#" data-toggle="modal"
+                                                    data-target="#Modal_trace_voucher_side_voucher">
+                                                    Voucher
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="col-sm-12 col-md-6">
                                     <div id="DataTables_Table_0_filter" class="dataTables_filter">
@@ -128,7 +134,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="content_find_voucher">
+                            <div class="content_find_voucher content_trace_voucher">
                                 <div class="row">
                                     <div class="col-12 table-responsive">
                                         <table
@@ -315,7 +321,10 @@
             </div>
         </div>
     </div>
+    {{-- include modal filter voucher --}}
     @include('admin.voucher.modal_filter_voucher')
+    {{-- include modal trace --}}
+    @include('admin.voucher.modal_trace_voucher')
     <script src="{{ asset('public/font_end/assets/js/jquery-3.4.1.min.js') }}"></script>
     <script src="{{ asset('public/back_end/custom_voucher/custom_voucher.js') }}"></script>
     <script src="{{ asset('public/back_end/filter_voucher/filter_voucher.js') }}"></script>

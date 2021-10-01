@@ -19,6 +19,13 @@
     .btn.active.focus {
         outline: none;
     }
+    a:hover{
+        text-decoration: none;
+    }
+    a:focus{
+        outline: none;
+        text-decoration: none;
+    }
     @media (min-width: 1200px){
         .container {
             width: 1200px;
@@ -62,6 +69,9 @@
     #loadLess:hover {
         color:black;
     }
+    body{
+            font-family: 'system-ui';
+        }
 </style>
 
     <!--Hero Section-->
@@ -473,7 +483,7 @@
                                         <div class="wgt-content">
                                             <ul class="check-list single">
                                                 @foreach ($all_category as $cate)
-                                                    <li class="check-list-item">
+                                                    <li class="check-list-item check_cus_cate">
                                                         <a href="#" class="check-link choose_cate_sort_ajax_shop" data-id="{{ $cate->cate_id }}">{{ $cate->cate_name }}</a>
                                                     </li>
                                                 @endforeach
@@ -498,19 +508,19 @@
                                                 </form>
                                             </div>
                                             <ul class="check-list bold single">
-                                                <li class="check-list-item">
+                                                <li class="check-list-item check_cus_price">
                                                     <a href="#" class="check-link check_sort_price_ajax_shop" data-id="1">1.000₫ - 50.000₫</a>
                                                 </li>
-                                                <li class="check-list-item">
+                                                <li class="check-list-item check_cus_price">
                                                     <a href="#" class="check-link check_sort_price_ajax_shop" data-id="2">50.000₫ - 100.000₫</a>
                                                 </li>
-                                                <li class="check-list-item">
+                                                <li class="check-list-item check_cus_price">
                                                     <a href="#" class="check-link check_sort_price_ajax_shop" data-id="3">100.000₫ - 500.000₫</a>
                                                 </li>
-                                                <li class="check-list-item">
+                                                <li class="check-list-item check_cus_price">
                                                     <a href="#" class="check-link check_sort_price_ajax_shop" data-id="4">500.000₫ - 1.000.000₫</a>
                                                 </li>
-                                                <li class="check-list-item">
+                                                <li class="check-list-item check_cus_price">
                                                     <a href="#" class="check-link check_sort_price_ajax_shop" data-id="5">Trên 1.000.000₫</a>
                                                 </li>
                                             </ul>
@@ -520,7 +530,7 @@
                                         <h4 class="wgt-title">Đánh giá</h4>
                                         <div class="wgt-content content_choose_rating">
                                             <ul class="cat-list">
-                                                <li class="cat-list-item">
+                                                <li class="cat-list-item check_cus_rating">
                                                     <a class="cat-link pointer choose_rating_sort_ajax_shop" data-id="5">
                                                         <div class="rating" style="display: flex;">
                                                             <p class="star-rating" style="align-self: center">
@@ -529,7 +539,7 @@
                                                         </div>
                                                     </a>
                                                 </li>
-                                                <li class="cat-list-item">
+                                                <li class="cat-list-item check_cus_rating">
                                                     <a class="cat-link pointer choose_rating_sort_ajax_shop" data-id="4">
                                                         <div class="rating" style="display: flex;">
                                                             <p class="star-rating" style="align-self: center">
@@ -539,7 +549,7 @@
                                                         </div>
                                                     </a>
                                                 </li>
-                                                <li class="cat-list-item">
+                                                <li class="cat-list-item check_cus_rating">
                                                     <a class="cat-link pointer choose_rating_sort_ajax_shop" data-id="3">
                                                         <div class="rating" style="display: flex;">
                                                             <p class="star-rating" style="align-self: center">
@@ -549,7 +559,7 @@
                                                         </div>
                                                     </a>
                                                 </li>
-                                                <li class="cat-list-item">
+                                                <li class="cat-list-item check_cus_rating">
                                                     <a class="cat-link pointer choose_rating_sort_ajax_shop" data-id="2">
                                                         <div class="rating" style="display: flex;">
                                                             <p class="star-rating" style="align-self: center">
@@ -559,7 +569,7 @@
                                                         </div>
                                                     </a>
                                                 </li>
-                                                <li class="cat-list-item">
+                                                <li class="cat-list-item check_cus_rating">
                                                     <a class="cat-link pointer choose_rating_sort_ajax_shop" data-id="1">
                                                         <div class="rating" style="display: flex;">
                                                             <p class="star-rating" style="align-self: center">

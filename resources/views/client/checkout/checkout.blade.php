@@ -36,7 +36,10 @@
                         <div class="address_static_show">
                             @if ($static_trans)
                                 <div class="static-address hidden_address">
-                                    <strong class="info-trans info_trans_js_change">{{ $static_trans->trans_fullname }} {{ $static_trans->trans_phone }}</strong>
+                                    <strong class="info-trans info_trans_js_change">
+                                        {{ $static_trans->trans_fullname }}
+                                        {{ $static_trans->trans_phone }}
+                                    </strong>
                                     <label class="detail-address address_detail_change">
                                         {{ $static_trans->trans_address }}
                                     </label>
@@ -140,6 +143,7 @@
                                                             </td>
                                                             <td>
                                                                 {{ $cart->quantity }}
+                                                                <input type="hidden" value="{{ $cart->quantity }}" class="qty_prod_voucher_{{ $product->product_id }}">
                                                                 @php
                                                                     $qty_prod = $cart->quantity;
                                                                     $total_qty += $cart->quantity;
@@ -249,7 +253,7 @@
                         <input type="text" id="voucher_code_apply" class="input-voucher col-8" placeholder="Mã MKU_FOOD Voucher">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                     </div>
-                    <button type="button" class="btn-green btn-voucher col-2 cusor_none btn_apply_voucher">ÁP DỤNG</button>
+                    <button type="button" class="btn-green btn-voucher col-2 btn_apply_voucher" disabled>ÁP DỤNG</button>
                 </div>
                 <div class="container__voucher-list">
                     @foreach ($arrCart_id as $cart_id)

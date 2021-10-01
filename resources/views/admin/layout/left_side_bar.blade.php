@@ -1,7 +1,7 @@
 <div class="left-side-bar">
     <div class="brand-logo">
         <a href="{{ URL::to("/admin") }}">
-            <img src="{{ asset('public/upload/logo_mku_9.svg') }}" alt="" style="height: 46px;">
+            <img id="logo_left_side_admin" src="{{ asset('public/upload/logo_mku_9.svg') }}" alt="" style="height: 46px;">
         </a>
         <div class="close-sidebar" data-toggle="left-sidebar-close">
             <i class="ion-close-round"></i>

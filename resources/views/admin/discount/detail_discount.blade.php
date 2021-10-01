@@ -16,9 +16,22 @@
                         </nav>
                     </div>
                     <div class="col-md-6 col-sm-12 text-right">
-
+                        <button type="button" class="btn btn-primary dropdown-toggle waves-effect"
+                            data-toggle="dropdown" aria-expanded="false">
+                            Truy vết theo
+                            <span class="caret"></span>
+                        </button>
+                        <div class="dropdown-menu">
+                            <button class="dropdown-item" data-toggle="modal"
+                            data-target="#Modal_trace_discount_side_discount">
+                                Giảm giá sản phẩm
+                            </button>
+                        </div>
                     </div>
                 </div>
+        </div>
+        <div id="content_trace_discount">
+
         </div>
         <!-- Simple Datatable start -->
         <div class="card-box pd-20 mb-30">
@@ -255,6 +268,7 @@
                         </ul>
                     </div>
             </div>
-
         </div>
+        {{-- include modal trace --}}
+        @include('admin.discount.modal_trace_side_discount')
     @endsection

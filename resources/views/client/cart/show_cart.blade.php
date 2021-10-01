@@ -177,7 +177,7 @@
 
                                     </div>
                                     <div class="btn-checkout content_btn_check_out">
-                                        <a class="btn checkout submit_form_check_out">Mua Hàng</a>
+                                        <a class="btn checkout submit_form_check_out" style="border-radius: 5px">Mua Hàng</a>
                                     </div>
                                 </div>
                             </div>

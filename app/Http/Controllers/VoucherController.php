@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Product;
 use App\ProductPrice;
 use App\Voucher;
+use App\Admin;
 use Carbon\Carbon;
 use Session;
 use PDF;
@@ -36,9 +37,10 @@ class VoucherController extends Controller
     public function all_voucher($product_id){
         $all_voucher = Voucher::where('product_id', $product_id)->orderBy('voucher_id', 'desc')->paginate(10);
         $product = Product::where('product_id', $product_id)->first();
+        $all_admin = Admin::all();
         $product_name = $product->product_name;
         $product_id = $product->product_id;
-        return view('admin.voucher.all_voucher', compact('all_voucher', 'product_name', 'product_id'));
+        return view('admin.voucher.all_voucher', compact('all_voucher', 'product_name', 'product_id', 'all_admin'));
     }
 
     public function add_voucher(){
@@ -389,7 +391,7 @@ class VoucherController extends Controller
                                 ->where('end_date', '<', $date_now)
                                 ->orWhere('voucher_quantity', '=', 0)
                                 ->orderBy('voucher_id', 'desc')
-                                ->get();        
+                                ->get();
         $string_title = ' Theo Trạng Thái Ngưng Áp Dụng';
         $product = Product::where('product_id', $product_id)->first();
         $product_name = $product->product_name;
@@ -468,7 +470,7 @@ class VoucherController extends Controller
                     $product = Product::where('product_id', $product_id)->first();
                     $product_name = $product->product_name;
                     $string_title = 'Danh Sách Voucher Đang Áp Dụng - "'.$product_name.'"';
-                    $pdf = PDF::loadView('admin.voucher.view_print_pdf_voucher', 
+                    $pdf = PDF::loadView('admin.voucher.view_print_pdf_voucher',
                                         compact('all_voucher', 'string_title'));
                     return $pdf->download('danhsachvoucherdangapdung.pdf');
                 break;
@@ -482,7 +484,7 @@ class VoucherController extends Controller
                 $product = Product::where('product_id', $product_id)->first();
                 $product_name = $product->product_name;
                 $string_title = 'Danh Sách Voucher Ngưng Áp Dụng - "'.$product_name.'"';
-                $pdf = PDF::loadView('admin.voucher.view_print_pdf_voucher', 
+                $pdf = PDF::loadView('admin.voucher.view_print_pdf_voucher',
                                     compact('all_voucher', 'string_title'));
                 return $pdf->download('danhsachvoucherdangapdung.pdf');
 
@@ -493,7 +495,7 @@ class VoucherController extends Controller
                     $string_title = 'Danh Sách Voucher Theo Ngày "'.date('d/m/Y', strtotime($date_filter)).'"';
                     $product = Product::where('product_id', $product_id)->first();
                     $product_name = $product->product_name;
-            
+
                     $arrayVoucher = [];
                     foreach($all_voucher_db as $voucher){
                         $created_at = date('Y-m-d', strtotime($voucher->created_at));
@@ -502,7 +504,7 @@ class VoucherController extends Controller
                         }
                     }
                     $all_voucher = array_reverse($arrayVoucher);
-                    $pdf = PDF::loadView('admin.voucher.view_print_pdf_voucher', 
+                    $pdf = PDF::loadView('admin.voucher.view_print_pdf_voucher',
                                     compact('all_voucher', 'string_title'));
                     return $pdf->download('danhsachvouchertheongay.pdf');
                 break;
@@ -514,7 +516,7 @@ class VoucherController extends Controller
                         Đến Ngày '.date('d/m/Y', strtotime($end_date)).'"';
                     $product = Product::where('product_id', $product_id)->first();
                     $product_name = $product->product_name;
-            
+
                     $arrayVoucher = [];
                     foreach($all_voucher_db as $voucher){
                         $created_at = date('Y-m-d', strtotime($voucher->created_at));
@@ -523,14 +525,14 @@ class VoucherController extends Controller
                         }
                     }
                     $all_voucher = array_reverse($arrayVoucher);
-                    $pdf = PDF::loadView('admin.voucher.view_print_pdf_voucher', 
+                    $pdf = PDF::loadView('admin.voucher.view_print_pdf_voucher',
                                     compact('all_voucher', 'string_title'));
                     return $pdf->download('danhsachvouchertheongaytuychon.pdf');
                 break;
             default:
                     $all_voucher = Voucher::all();
                     $string_title = 'Danh Sách Voucher';
-                    $pdf = PDF::loadView('admin.voucher.view_print_pdf_voucher', 
+                    $pdf = PDF::loadView('admin.voucher.view_print_pdf_voucher',
                                         compact('all_voucher', 'string_title'));
                     return $pdf->download('danhsachvouchertheongaytuychon.pdf');
         }

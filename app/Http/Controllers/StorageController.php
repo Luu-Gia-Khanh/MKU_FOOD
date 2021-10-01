@@ -96,7 +96,7 @@ class StorageController extends Controller
         $action_storage = new Admin_Action_Storage();
         $action_storage->admin_id = Session::get('admin_id');
         $action_storage->storage_id = $storage_id;
-        $action_storage->action_id = 3;
+        $action_storage->action_id = 2;
         $action_storage->action_message = "Sửa kho hàng";
         $action_storage->action_time = Carbon::now('Asia/Ho_Chi_Minh');
         $action_storage->save();
@@ -137,7 +137,7 @@ class StorageController extends Controller
 
     public function process_delete_storage(Request $request, $storage_id) {
         $storage_product = Storage_Product::where('storage_id', $storage_id)->get();
-        
+
         if(count($storage_product) > 0){
             $request->session()->flash('check_delete_storage', 'Kho hàng đang còn sản phẩm');
             return redirect()->back();
@@ -149,11 +149,11 @@ class StorageController extends Controller
             $action_storage = new Admin_Action_Storage();
             $action_storage->admin_id = Session::get('admin_id');
             $action_storage->storage_id = $storage_id;
-            $action_storage->action_id = 2;
+            $action_storage->action_id = 3;
             $action_storage->action_message = "Xóa kho hàng";
             $action_storage->action_time = Carbon::now('Asia/Ho_Chi_Minh');
             $action_storage->save();
-            
+
             $request->session()->flash('success_delete_storage', 'Xóa thành công');
             return redirect()->back();
         }
@@ -179,7 +179,7 @@ class StorageController extends Controller
             $action_storage = new Admin_Action_Storage();
             $action_storage->admin_id = Session::get('admin_id');
             $action_storage->storage_id = $storage_id;
-            $action_storage->action_id = 2;
+            $action_storage->action_id = 3;
             $action_storage->action_message = "Xóa kho hàng";
             $action_storage->action_time = Carbon::now('Asia/Ho_Chi_Minh');
             $action_storage->save();

@@ -357,17 +357,21 @@ class CheckOutController extends Controller
     public function check_voucher_code_to_apply(Request $request){
         $voucher_code = $request->input_voucher_code;
         $check_discount_voucher = Voucher::where('voucher_code',$voucher_code)->first();
+        $obVal = array(
+            'product' => 0,
+            'voucher_amount' => 0
+        );
         if($check_discount_voucher){
             $check_voucher_in_storage = Storage_Customer_Voucher::where('voucher_id', $check_discount_voucher->voucher_id)->where('status', 1)->where('customer_id', Session::get('customer_id'))->first();
             if($check_voucher_in_storage){
                 if($check_discount_voucher){
-                    echo $check_discount_voucher->voucher_amount;
-                }
-                else{
-                    echo 0;
+                    $obVal = array(
+                        'product' => $check_discount_voucher->product_id,
+                        'voucher_amount' => $check_discount_voucher->voucher_amount
+                    );
                 }
             }
         }
-
+        echo json_encode($obVal);
     }
 }

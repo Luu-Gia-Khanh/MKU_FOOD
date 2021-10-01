@@ -9,6 +9,7 @@ use App\Storage_Product;
 use App\Discount;
 use App\History_Discount;
 use App\Admin_Action_Discount;
+use App\Admin;
 use DB;
 use Session;
 use Carbon\Carbon;
@@ -308,7 +309,7 @@ class DiscountController extends Controller
             $admin_action_discount->admin_id = Session::get('admin_id');
             $admin_action_discount->discount_id = $add_discount->discount_id;
             $admin_action_discount->action_id = 1;
-            $admin_action_discount->action_message = 'Thêm discount';
+            $admin_action_discount->action_message = 'Thêm giảm giá';
             $admin_action_discount->action_time = Carbon::now('Asia/Ho_Chi_Minh');
             $admin_action_discount->save();
 
@@ -425,7 +426,7 @@ class DiscountController extends Controller
             $admin_action_discount->admin_id = Session::get('admin_id');
             $admin_action_discount->discount_id = $discount_id;
             $admin_action_discount->action_id = 2;
-            $admin_action_discount->action_message = 'update discount';
+            $admin_action_discount->action_message = 'Thiết lập lại giảm giá';
             $admin_action_discount->action_time = Carbon::now('Asia/Ho_Chi_Minh');
             $admin_action_discount->save();
 
@@ -435,11 +436,12 @@ class DiscountController extends Controller
     }
     public function detail_discount($discount_id){
         $all_product = DB::table('product')
-        ->join('product_price','product_price.product_id','=','product.product_id')
-        ->join('storage_product','storage_product.product_id','=','product.product_id')
-        ->where('product_price.status',1)->where('product.discount_id', $discount_id)
-        ->where('product.deleted_at', null)->get();
+                    ->join('product_price','product_price.product_id','=','product.product_id')
+                    ->join('storage_product','storage_product.product_id','=','product.product_id')
+                    ->where('product_price.status',1)->where('product.discount_id', $discount_id)
+                    ->where('product.deleted_at', null)->get();
         $discount = Discount::find($discount_id);
+        $all_admin = Admin::all();
 
         $time_line_his = Admin_Action_Discount::where('discount_id', $discount_id)->orderBy('action_time','desc')->get();
         $history_discount = History_Discount::where('discount_id',$discount_id)->get();
@@ -450,6 +452,8 @@ class DiscountController extends Controller
             'time_line_his'=>$time_line_his,
             'history_discount'=>$history_discount,
             'all_product_history_discount'=>$all_product_history_discount,
+
+            'all_admin'=>$all_admin,
         ]);
     }
     public function delete_discount(Request $request){
@@ -479,7 +483,7 @@ class DiscountController extends Controller
             $admin_action_discount->admin_id = Session::get('admin_id');
             $admin_action_discount->discount_id = $discount_id;
             $admin_action_discount->action_id = 2;
-            $admin_action_discount->action_message = 'xóa discount';
+            $admin_action_discount->action_message = 'Xóa giảm giá';
             $admin_action_discount->action_time = Carbon::now('Asia/Ho_Chi_Minh');
             $admin_action_discount->save();
 

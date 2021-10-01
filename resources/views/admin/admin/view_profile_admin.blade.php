@@ -1,5 +1,10 @@
 @extends('admin.layout_admin')
 @section('container')
+<style>
+    #accordion .card{
+        margin-bottom: 10px;
+    }
+</style>
     <div class="min-height-200px">
         <div class="page-header">
             <div class="row">
@@ -102,7 +107,7 @@
                             <ul class="nav nav-tabs customtab" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active tab_timeline" data-toggle="tab"
-                                    href="#timeline" role="tab" aria-selected="true">Cập Nhật Thông Tin</a>
+                                    href="#info_user" role="tab" aria-selected="true">Cập Nhật Thông Tin</a>
                                 </li>
                                 @if (Session::get('admin_id') == 1 || $view_profile->admin_id == Session::get('admin_id'))
                                     <li class="nav-item">
@@ -110,12 +115,17 @@
                                         href="#setting" role="tab" aria-selected="false">Đổi Mật Khẩu</a>
                                     </li>
                                 @endif
+                                <li class="nav-item">
+                                    <input type="hidden" class="admin_id" value="{{ $view_profile->admin_id }}">
+                                    <a class="nav-link tab_timeline" data-toggle="tab"
+                                    href="#find_trace" role="tab" aria-selected="true">Truy Vết</a>
+                                </li>
                             </ul>
                             <div class="tab-content">
-                                <!-- Timeline Tab start -->
+                                <!-- Tab update info -->
                                 <div class="tab-pane fade active show content_tab_time_line"
-                                        id="timeline" role="tabpanel">
-                                    <div class="pd-20">
+                                        id="info_user" role="tabpanel">
+                                    <div>
                                         <div class="card-body">
                                             <div class="profile-setting">
                                                 <form action="{{ URL::to('admin/process_update_profile_admin/'.$view_profile->admin_id) }}" method="post" enctype="multipart/form-data">
@@ -279,8 +289,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Timeline Tab End -->
-                                <!-- Setting Tab start -->
+
+                                <!-- Tab reset password -->
                                 <div class="tab-pane fade height-100-p content_tab_change_info" id="setting" role="tabpanel">
                                     <div class="card">
                                         <div class="card-body">
@@ -327,7 +337,354 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Setting Tab End -->
+
+                                <!-- Tap find  -->
+                                <div class="tab-pane fade height-100-p" id="find_trace" role="tabpanel">
+                                    <div class="pl-20 pt-20">
+                                        <button type="button" class="btn btn-primary dropdown-toggle waves-effect"
+                                            data-toggle="dropdown" aria-expanded="false">
+                                            Truy vết theo
+                                            <span class="caret"></span>
+                                        </button>
+										<div class="dropdown-menu">
+                                            <button class="dropdown-item" data-toggle="modal"
+                                            data-target="#Modal_trace_admin_side_profile">
+                                                Nhân viên
+                                            </button>
+											<button class="dropdown-item" data-toggle="modal"
+                                            data-target="#Modal_trace_product_side_profile">
+                                                Sản phẩm
+                                            </button>
+											<button class="dropdown-item" data-toggle="modal"
+                                            data-target="#Modal_trace_product_price_side_profile">
+                                                Giá sản phẩm
+                                            </button>
+											<button class="dropdown-item" data-toggle="modal"
+                                            data-target="#Modal_trace_product_image_side_profile">
+                                                Hình ảnh sản phẩm
+                                            </button>
+											<button class="dropdown-item" data-toggle="modal"
+                                            data-target="#Modal_trace_cate_side_profile">
+                                                Danh mục sản phẩm
+                                            </button>
+											<button class="dropdown-item" data-toggle="modal"
+                                            data-target="#Modal_trace_storage_side_profile">
+                                                Kho
+                                            </button>
+											<button class="dropdown-item" data-toggle="modal"
+                                            data-target="#Modal_trace_storage_product_side_profile">
+                                                Kho sản phẩm
+                                            </button>
+										</div>
+                                    </div>
+                                    <div class="pd-20" id="content_trace_side_profile">
+                                        <div id="accordion">
+                                            {{-- card product --}}
+                                            <div class="card">
+                                              <div class="card-header">
+                                                <a class="card-link" data-toggle="collapse" href="#collapseOne">
+                                                    Thao tác với sản phẩm
+                                                </a>
+                                              </div>
+                                              <div id="collapseOne" class="collapse show" data-parent="#accordion">
+                                                <div class="card-body">
+                                                    <div class="profile-timeline-list">
+                                                        <ul>
+                                                            @if (count($admin_action_product) > 0)
+                                                                @foreach ($admin_action_product as $product)
+                                                                    <li>
+                                                                        <div class="date">
+                                                                            {{ date('d/m/Y', strtotime($product->action_time)) }}
+                                                                        </div>
+                                                                        <div class="task-name">
+                                                                            {{ $product->action_name }}
+                                                                        </div>
+                                                                        <p>
+                                                                            {{ $product->action_message }}
+                                                                            "
+                                                                            <span style="color: blue">
+                                                                                {{ $product->product_name }}
+                                                                            </span>
+                                                                            "
+                                                                        </p>
+                                                                        <div class="task-time">
+                                                                            {{ date('H:i a', strtotime($product->action_time)) }}
+                                                                        </div>
+                                                                    </li>
+                                                                @endforeach
+
+                                                            @else
+                                                                <div class="center">
+                                                                    Không có kết quả nào
+                                                                </div>
+                                                            @endif
+
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            {{-- card cate --}}
+                                            <div class="card">
+                                              <div class="card-header">
+                                                <a class="collapsed card-link" data-toggle="collapse" href="#collapseTwo">
+                                                    Thao tác với danh mục sản phẩm
+                                                </a>
+                                              </div>
+                                              <div id="collapseTwo" class="collapse" data-parent="#accordion">
+                                                <div class="card-body">
+                                                    <div class="profile-timeline-list">
+                                                        <ul>
+                                                            @if (count($admin_action_cate) > 0)
+                                                                @foreach ($admin_action_cate as $cate)
+                                                                    <li>
+                                                                        <div class="date">
+                                                                            {{ date('d/m/Y', strtotime($cate->action_time)) }}
+                                                                        </div>
+                                                                        <div class="task-name">
+                                                                            {{ $cate->action_name }}
+                                                                        </div>
+                                                                        <p>
+                                                                            {{ $cate->action_message }}
+                                                                            "
+                                                                            <span style="color: blue">
+                                                                                {{ $cate->cate_name }}
+                                                                            </span>
+                                                                            "
+                                                                        </p>
+                                                                        <div class="task-time">
+                                                                            {{ date('H:i a', strtotime($cate->action_time)) }}
+                                                                        </div>
+                                                                    </li>
+                                                                @endforeach
+                                                            @else
+                                                                <div class="center">
+                                                                    Không có kết quả nào
+                                                                </div>
+                                                            @endif
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            {{-- card price product --}}
+                                            <div class="card">
+                                              <div class="card-header">
+                                                <a class="collapsed card-link" data-toggle="collapse" href="#collapseThree">
+                                                    Thao tác với giá sản phẩm
+                                                </a>
+                                              </div>
+                                              <div id="collapseThree" class="collapse" data-parent="#accordion">
+                                                <div class="card-body">
+                                                    <div class="profile-timeline-list">
+                                                        <ul>
+                                                            @if (count($admin_action_product_price) > 0)
+                                                                @foreach ($admin_action_product_price as $product)
+                                                                    <li>
+                                                                        <div class="date">
+                                                                            {{ date('d/m/Y', strtotime($product->action_time)) }}
+                                                                        </div>
+                                                                        <div class="task-name">
+                                                                            {{ $product->action_name }}
+                                                                        </div>
+                                                                        <p>
+                                                                            {{ $product->action_message }}
+                                                                            "
+                                                                            <span style="color: blue">
+                                                                                {{ $product->product_name }}
+                                                                            </span>
+                                                                            "
+                                                                        </p>
+                                                                        <div class="task-time">
+                                                                            {{ date('H:i a', strtotime($product->action_time)) }}
+                                                                        </div>
+                                                                    </li>
+                                                                @endforeach
+                                                            @else
+                                                                <div class="center">
+                                                                    Không có kết quả nào
+                                                                </div>
+                                                            @endif
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            {{-- card product image --}}
+                                            <div class="card">
+                                                <div class="card-header">
+                                                  <a class="collapsed card-link" data-toggle="collapse" href="#collapse5">
+                                                      Thao tác với hình ảnh sản phẩm
+                                                  </a>
+                                                </div>
+                                                <div id="collapse5" class="collapse" data-parent="#accordion">
+                                                  <div class="card-body">
+                                                      <div class="profile-timeline-list">
+                                                          <ul>
+                                                              @if (count($admin_action_product_image) > 0)
+                                                                  @foreach ($admin_action_product_image as $product)
+                                                                      <li>
+                                                                          <div class="date">
+                                                                              {{ date('d/m/Y', strtotime($product->action_time)) }}
+                                                                          </div>
+                                                                          <div class="task-name">
+                                                                              {{ $product->action_name }}
+                                                                          </div>
+                                                                          <p>
+                                                                              {{ $product->action_message }}
+                                                                              "
+                                                                              <span style="color: blue">
+                                                                                  {{ $product->product_name }}
+                                                                              </span>
+                                                                              "
+                                                                          </p>
+                                                                          <div class="task-time">
+                                                                              {{ date('H:i a', strtotime($product->action_time)) }}
+                                                                          </div>
+                                                                      </li>
+                                                                  @endforeach
+                                                              @else
+                                                                  <div class="center">
+                                                                      Không có kết quả nào
+                                                                  </div>
+                                                              @endif
+                                                          </ul>
+                                                      </div>
+                                                  </div>
+                                                </div>
+                                            </div>
+                                            {{-- card admin --}}
+                                            <div class="card">
+                                                <div class="card-header">
+                                                  <a class="collapsed card-link" data-toggle="collapse" href="#collapse4">
+                                                      Thao tác với nhân viên
+                                                  </a>
+                                                </div>
+                                                <div id="collapse4" class="collapse" data-parent="#accordion">
+                                                  <div class="card-body">
+                                                      <div class="profile-timeline-list">
+                                                          <ul>
+                                                              @if (count($admin_action_admin) > 0)
+                                                                  @foreach ($admin_action_admin as $admin)
+                                                                      <li>
+                                                                          <div class="date">
+                                                                              {{ date('d/m/Y', strtotime($admin->action_time)) }}
+                                                                          </div>
+                                                                          <div class="task-name">
+                                                                              {{ $admin->action_name }}
+                                                                          </div>
+                                                                          <p>
+                                                                              {{ $admin->action_message }}
+                                                                              "
+                                                                              <span style="color: blue">
+                                                                                  {{ $admin->admin_name }}
+                                                                              </span>
+                                                                              "
+                                                                          </p>
+                                                                          <div class="task-time">
+                                                                              {{ date('H:i a', strtotime($admin->action_time)) }}
+                                                                          </div>
+                                                                      </li>
+                                                                  @endforeach
+                                                              @else
+                                                                  <div class="center">
+                                                                      Không có kết quả nào
+                                                                  </div>
+                                                              @endif
+                                                          </ul>
+                                                      </div>
+                                                  </div>
+                                                </div>
+                                            </div>
+                                            {{-- card storage --}}
+                                            <div class="card">
+                                                <div class="card-header">
+                                                  <a class="collapsed card-link" data-toggle="collapse" href="#collapse6">
+                                                      Thao tác với kho
+                                                  </a>
+                                                </div>
+                                                <div id="collapse6" class="collapse" data-parent="#accordion">
+                                                  <div class="card-body">
+                                                      <div class="profile-timeline-list">
+                                                          <ul>
+                                                              @if (count($admin_action_storage) > 0)
+                                                                  @foreach ($admin_action_storage as $storage)
+                                                                      <li>
+                                                                          <div class="date">
+                                                                              {{ date('d/m/Y', strtotime($storage->action_time)) }}
+                                                                          </div>
+                                                                          <div class="task-name">
+                                                                              {{ $storage->action_name }}
+                                                                          </div>
+                                                                          <p>
+                                                                              {{ $storage->action_message }}
+                                                                              "
+                                                                              <span style="color: blue">
+                                                                                  {{ $storage->storage_name }}
+                                                                              </span>
+                                                                              "
+                                                                          </p>
+                                                                          <div class="task-time">
+                                                                              {{ date('H:i a', strtotime($storage->action_time)) }}
+                                                                          </div>
+                                                                      </li>
+                                                                  @endforeach
+                                                              @else
+                                                                  <div class="center">
+                                                                      Không có kết quả nào
+                                                                  </div>
+                                                              @endif
+                                                          </ul>
+                                                      </div>
+                                                  </div>
+                                                </div>
+                                            </div>
+                                            {{-- card storage product --}}
+                                            <div class="card">
+                                                <div class="card-header">
+                                                  <a class="collapsed card-link" data-toggle="collapse" href="#collapse7">
+                                                      Thao tác với kho sản phẩm
+                                                  </a>
+                                                </div>
+                                                <div id="collapse7" class="collapse" data-parent="#accordion">
+                                                  <div class="card-body">
+                                                      <div class="profile-timeline-list">
+                                                          <ul>
+                                                              @if (count($admin_action_storage_product) > 0)
+                                                                  @foreach ($admin_action_storage_product as $product)
+                                                                      <li>
+                                                                          <div class="date">
+                                                                              {{ date('d/m/Y', strtotime($product->action_time)) }}
+                                                                          </div>
+                                                                          <div class="task-name">
+                                                                              {{ $product->action_name }}
+                                                                          </div>
+                                                                          <p>
+                                                                              {{ $product->action_message }}
+                                                                              "
+                                                                              <span style="color: blue">
+                                                                                  {{ $product->product_name }}
+                                                                              </span>
+                                                                              "
+                                                                          </p>
+                                                                          <div class="task-time">
+                                                                              {{ date('H:i a', strtotime($product->action_time)) }}
+                                                                          </div>
+                                                                      </li>
+                                                                  @endforeach
+                                                              @else
+                                                                  <div class="center">
+                                                                      Không có kết quả nào
+                                                                  </div>
+                                                              @endif
+                                                          </ul>
+                                                      </div>
+                                                  </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -357,4 +714,6 @@
             </div>
         </div>
     </div>
+    {{-- include modal trace --}}
+    @include('admin.admin.modal_trace_side_profile')
 @endsection
