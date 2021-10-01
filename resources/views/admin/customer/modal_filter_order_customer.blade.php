@@ -1,5 +1,3 @@
-<input type="hidden" class="customer_id" name="customer_id" value="{{ $customer->customer_id }}">
-<input type="hidden" name="_token" value="{{ csrf_token() }}" />
 {{-- modal filter order customer follow price  --}}
 <div class="modal fade" id="Modal_filter_customer_follow_order_quantity">
     <div class="modal-dialog modal-dialog-centered">

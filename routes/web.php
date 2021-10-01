@@ -291,6 +291,7 @@ Route::prefix('admin')->group(function () {
 
     Route::post('print_pdf_comment', 'CommentController@print_pdf_comment');
 
+
     // TRACE
     Route::post('trace_product_side_profile_single_date', 'TraceSideProfileController@trace_product_side_profile_single_date');
     Route::post('trace_product_side_profile_many_date', 'TraceSideProfileController@trace_product_side_profile_many_date');
@@ -320,6 +321,16 @@ Route::prefix('admin')->group(function () {
     Route::post('trace_voucher_side_profile_many_date', 'TraceSideProfileController@trace_voucher_side_profile_many_date');
 
 
+
+    // SHIPPING COST
+    Route::get('all_shipping_cost', 'ShippingCostController@all_shipping_cost');
+    Route::get('add_shipping_cost', 'ShippingCostController@add_shipping_cost');
+    Route::post('process_add_shipping_cost', 'ShippingCostController@process_add_shipping_cost');
+    Route::post('delete_shipping_cost', 'ShippingCostController@delete_shipping_cost');
+    Route::get('update_shipping_cost/{shipping_cost_id}', 'ShippingCostController@update_shipping_cost');
+    Route::post('process_update_shipping_cost/{shipping_cost_id}', 'ShippingCostController@process_update_shipping_cost');
+
+    Route::post('find_shipping_cost', 'ShippingCostController@find_shipping_cost');
 
 });
 

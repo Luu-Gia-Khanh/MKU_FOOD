@@ -9,29 +9,29 @@
 ///
 
 // 24/9 -> 1/10
-khánh {
-   truy vết admin{
-       - admin -> ok
-       - cate, -> ok
-       - product, -> ok
-       - product price -> ok
-       -{
-           - discount,
-           - voucher
-           - slider
 
-           - order -> ok
-
-           - product image -> ok
-           - storage -> ok
-           - storage product -> ok
-       }
-   }
-   - bỏ 2 cái action_unit, action_import
+1/ usecase
+2/ class
+3/ sequence diagram{
+    - đăng nhập ->google
+    - thêm, xóa, sửa, tìm kiếm -> sản Phẩm
+    - thanh toán -> client
 }
-kha {
-    1/ fee ship.
-    2/ gắn khóa ngoại.
+4/ cộng tác{
+    - đăng nhập ->google
+    - thêm, xóa, sửa, tìm kiếm -> sản Phẩm
+    - thanh toán -> client
+}
+5/ trạng thái{
+    - sản phẩm,
+    - admin,
+    - customer
+    - cart
+}
+6/ hoạt động{
+    - đăng nhập ->google
+    - thêm, xóa, sửa, tìm kiếm -> sản Phẩm
+    - thanh toán -> client
 }
 
 //// memory

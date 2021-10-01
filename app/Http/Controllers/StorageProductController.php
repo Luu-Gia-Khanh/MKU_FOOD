@@ -51,21 +51,23 @@ class StorageProductController extends Controller
             return redirect()->back();
         }
 
-        DB::table('Storage_Product')->where('storage_product_id', $storage_product_id)->update([
+        $result_save = DB::table('Storage_Product')->where('storage_product_id', $storage_product_id)->update([
             'total_quantity_product' => $request->total_quantity_product,
             'updated_at' => Carbon::now('Asia/Ho_Chi_Minh'),
         ]);
 
-        // Action update storage product
-        $action_storage_product = new Admin_Action_Storage_Product();
-        $action_storage_product->admin_id = Session::get('admin_id');
-        $action_storage_product->storage_product_id = $storage_product->storage_product_id;
-        $action_storage_product->action_id = 3;
-        $action_storage_product->action_message = "Sửa kho sản phẩm";
-        $action_storage_product->action_time = Carbon::now('Asia/Ho_Chi_Minh');
-        $action_storage_product->save();
+        if($result_save) {
+            // Action update storage product
+            $action_storage_product = new Admin_Action_Storage_Product();
+            $action_storage_product->admin_id = Session::get('admin_id');
+            $action_storage_product->storage_product_id = $storage_product->storage_product_id;
+            $action_storage_product->action_id = 2;
+            $action_storage_product->action_message = "Cập nhật số lượng sản phẩm";
+            $action_storage_product->action_time = Carbon::now('Asia/Ho_Chi_Minh');
+            $action_storage_product->save();
 
-        $request->session()->flash('success_update_storage_product', 'Sửa kho sản phẩm thành công');
+            $request->session()->flash('success_update_storage_product', 'Sửa kho sản phẩm thành công');
+        }
         return redirect('admin/all_storage_product/'.$storage_product->storage_id);
     }
 
@@ -97,22 +99,21 @@ class StorageProductController extends Controller
         ]);
 
         if($check_import){
-            DB::table('Storage_Product')->where('storage_product_id', $storage_product_id)->update([
+            $result_save = DB::table('Storage_Product')->where('storage_product_id', $storage_product_id)->update([
                 'total_quantity_product' => $total_quantity_new,
             ]);
 
-            // Action add storage product
-            $action_storage_product = new Admin_Action_Storage_Product();
-            $action_storage_product->admin_id = Session::get('admin_id');
-            $action_storage_product->storage_product_id = $storage_product->storage_product_id;
-            $action_storage_product->action_id = 1;
-            $action_storage_product->action_message = "Nhập kho sản phẩm";
-            $action_storage_product->action_time = Carbon::now('Asia/Ho_Chi_Minh');
-            $action_storage_product->save();
+            if($result_save) {
+                // Action add storage product
+                $action_storage_product = new Admin_Action_Storage_Product();
+                $action_storage_product->admin_id = Session::get('admin_id');
+                $action_storage_product->storage_product_id = $storage_product->storage_product_id;
+                $action_storage_product->action_id = 1;
+                $action_storage_product->action_message = "Nhập hàng";
+                $action_storage_product->action_time = Carbon::now('Asia/Ho_Chi_Minh');
+                $action_storage_product->save();
+            }
         }
-
-
-
         $request->session()->flash('success_import_storage_product', 'Nhập kho sản phẩm thành công');
         return redirect('admin/all_storage_product/'.$storage_product->storage_id);
     }
@@ -147,17 +148,19 @@ class StorageProductController extends Controller
         }
         else{
             Product::where('product_id', $product_id)->delete();
-            Storage_Product::destroy($storage_product_id);
-            // Action delete storage product
-            $action_storage_product = new Admin_Action_Storage_Product();
-            $action_storage_product->admin_id = Session::get('admin_id');
-            $action_storage_product->storage_product_id = $storage_product_id;
-            $action_storage_product->action_id = 2;
-            $action_storage_product->action_message = "Xóa kho sản phẩm";
-            $action_storage_product->action_time = Carbon::now('Asia/Ho_Chi_Minh');
-            $action_storage_product->save();
+            $result_destroy = Storage_Product::destroy($storage_product_id);
+            if($result_destroy) {
+                // Action delete storage product
+                $action_storage_product = new Admin_Action_Storage_Product();
+                $action_storage_product->admin_id = Session::get('admin_id');
+                $action_storage_product->storage_product_id = $storage_product_id;
+                $action_storage_product->action_id = 3;
+                $action_storage_product->action_message = "Xóa kho sản phẩm";
+                $action_storage_product->action_time = Carbon::now('Asia/Ho_Chi_Minh');
+                $action_storage_product->save();
 
-            $request->session()->flash('success_delete_storage_product', 'Xóa thành công');
+                $request->session()->flash('success_delete_storage_product', 'Xóa thành công');
+            }
             return redirect()->back();
         }
     }
@@ -181,17 +184,19 @@ class StorageProductController extends Controller
         }
         else{
             Product::where('product_id', $product_id)->delete();
-            Storage_Product::where('storage_product_id', $storage_product_id)->delete();
-            $request->session()->flash('success_delete_soft_storage_product', 'Xóa thành công');
+            $result_delete = Storage_Product::where('storage_product_id', $storage_product_id)->delete();
 
-            // Action delete storage product
-            $action_storage_product = new Admin_Action_Storage_Product();
-            $action_storage_product->admin_id = Session::get('admin_id');
-            $action_storage_product->storage_product_id = $storage_product_id;
-            $action_storage_product->action_id = 2;
-            $action_storage_product->action_message = "Xóa sản phẩm trong kho";
-            $action_storage_product->action_time = Carbon::now('Asia/Ho_Chi_Minh');
-            $action_storage_product->save();
+            if($result_delete) {
+                // Action delete storage product
+                $action_storage_product = new Admin_Action_Storage_Product();
+                $action_storage_product->admin_id = Session::get('admin_id');
+                $action_storage_product->storage_product_id = $storage_product_id;
+                $action_storage_product->action_id = 3;
+                $action_storage_product->action_message = "Xóa sản phẩm trong kho";
+                $action_storage_product->action_time = Carbon::now('Asia/Ho_Chi_Minh');
+                $action_storage_product->save();
+                $request->session()->flash('success_delete_soft_storage_product', 'Xóa thành công');
+            }
             return redirect()->back();
         }
     }
@@ -201,7 +206,9 @@ class StorageProductController extends Controller
         $product_id = $storage_product->product_id;
 
         Product::withTrashed()->where('product_id', $product_id)->restore();
-        Storage_Product::withTrashed()->where('storage_product_id', $storage_product_id)->restore();
+        $result_restore = Storage_Product::withTrashed()->where('storage_product_id', $storage_product_id)->restore();
+        
+        if($result_restore) {
             // Action recovery storage product
             $action_storage_product = new Admin_Action_Storage_Product();
             $action_storage_product->admin_id = Session::get('admin_id');
@@ -210,8 +217,8 @@ class StorageProductController extends Controller
             $action_storage_product->action_message = "Khôi phục sản phẩm từ kho";
             $action_storage_product->action_time = Carbon::now('Asia/Ho_Chi_Minh');
             $action_storage_product->save();
-
-        $request->session()->flash('success_recovery_storage_product', 'Khôi phục thành công');
+            $request->session()->flash('success_recovery_storage_product', 'Khôi phục thành công');
+        }
         return redirect()->back();
     }
     public function delete_forever(Request $request){
@@ -223,17 +230,19 @@ class StorageProductController extends Controller
         ProductPrice::withTrashed()->where('product_id', $product_id)->forceDelete();
         ImageProduct::withTrashed()->where('product_id', $product_id)->forceDelete();
         Product::withTrashed()->where('product_id', $product_id)->forceDelete();
-        Storage_Product::withTrashed()->where('storage_product_id', $storage_product_id)->forceDelete();
+        $result_forcedelete = Storage_Product::withTrashed()->where('storage_product_id', $storage_product_id)->forceDelete();
 
-        // Action delete forever storage product
-        $action_storage_product = new Admin_Action_Storage_Product();
-        $action_storage_product->admin_id = Session::get('admin_id');
-        $action_storage_product->storage_product_id = $storage_product_id;
-        $action_storage_product->action_id = 5;
-        $action_storage_product->action_message = "Xóa vĩnh viễn kho sản phẩm";
-        $action_storage_product->action_time = Carbon::now('Asia/Ho_Chi_Minh');
-        $action_storage_product->save();
-        $request->session()->flash('success_delete_forever_storage_product', 'Xóa vĩnh viễn thành công');
+        if($result_forcedelete) {
+            // Action delete forever storage product
+            $action_storage_product = new Admin_Action_Storage_Product();
+            $action_storage_product->admin_id = Session::get('admin_id');
+            $action_storage_product->storage_product_id = $storage_product_id;
+            $action_storage_product->action_id = 5;
+            $action_storage_product->action_message = "Xóa vĩnh viễn kho sản phẩm";
+            $action_storage_product->action_time = Carbon::now('Asia/Ho_Chi_Minh');
+            $action_storage_product->save();
+            $request->session()->flash('success_delete_forever_storage_product', 'Xóa vĩnh viễn thành công');
+        }
         return redirect()->back();
     }
 
@@ -265,6 +274,7 @@ class StorageProductController extends Controller
         $all_storage_product = Storage_Product::where('storage_id', $storage_id)
                                                 ->where('total_quantity_product', '>=', $quantity_start)
                                                 ->where('total_quantity_product', '<=', $quantity_end)
+                                                ->orderBy('total_quantity_product', 'desc')
                                                 ->get();
         echo view('admin.storage_product.view_filter_storage_product', compact('type_filter', 'level_filter', 'storage_id',
                                                                                 'all_product', 'all_storage_product', 'string_title'));
@@ -281,6 +291,7 @@ class StorageProductController extends Controller
         $all_storage_product = Storage_Product::where('storage_id', $storage_id)
                                                 ->where('total_quantity_product', '>=', $quantity_start)
                                                 ->where('total_quantity_product', '<=', $quantity_end)
+                                                ->orderBy('total_quantity_product', 'desc')
                                                 ->get();
         echo view('admin.storage_product.view_filter_storage_product', compact('type_filter', 'level_filter', 'storage_id',
                                                                                 'all_product', 'all_storage_product', 'string_title'));

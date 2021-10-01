@@ -34,7 +34,7 @@
             <div class="login-menu d-flex align-items-center justify-content-end" style="width: 100%">
                 @if (Session::get('admin_id'))
                     <span class="user-icon">
-                        <img src="{{ asset('public/upload/'.Session::get('admin_image')) }}" alt="" style="width: 52px; height: 52px;">
+                        <img src="{{ asset('public/upload/'.Session::get('admin_image')) }}" alt="" style="width: 52px; height: 52px; border-radius: 50%;">
                     </span>
                     <span class="text-admin-name">{{ Session::get('admin_name') }}</span>
                 @endif

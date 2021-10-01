@@ -28,46 +28,19 @@
         </div>
 
         <div class="card-box mb-30">
-            @if (session('success_add_category'))
+            @if (session('success_category'))
                     <div class="alert alert-success alert-dismissible" role="alert">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        {{ session('success_add_category') }}
+                        {{ session('success_category') }}
                     </div>
                 @endif
         </div>
 
         <div class="card-box mb-30">
-            @if (session('success_update_category'))
-                    <div class="alert alert-success alert-dismissible" role="alert">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        {{ session('success_update_category') }}
-                    </div>
-                @endif
-        </div>
-
-        <div class="card-box mb-30">
-            @if (session('success_delete_soft_category'))
-                    <div class="alert alert-success alert-dismissible" role="alert">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        {{ session('success_delete_soft_category') }}
-                    </div>
-                @endif
-        </div>
-
-        <div class="card-box mb-30">
-            @if (session('success_delete_category'))
-                    <div class="alert alert-success alert-dismissible" role="alert">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        {{ session('success_delete_category') }}
-                    </div>
-                @endif
-        </div>
-
-        <div class="card-box mb-30">
-            @if (session('error_delete_category'))
+            @if (session('error_category'))
                 <div class="alert alert-danger alert-dismissible" role="alert">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    {{ session('error_delete_category') }}
+                    {{ session('error_category') }}
                 </div>
             @endif
         </div>

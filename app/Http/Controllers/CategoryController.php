@@ -50,18 +50,20 @@ class CategoryController extends Controller
         else{
             $category->cate_image = ('no_image.png');
         }
-        $category->save();
+        $result_save = $category->save();
 
-        // Action add category
-        $action_category = new Admin_Action_Category();
-        $action_category->admin_id = Session::get('admin_id');
-        $action_category->cate_id = $category->cate_id;
-        $action_category->action_id = 1;
-        $action_category->action_message = "Thêm loại sản phẩm";
-        $action_category->action_time = Carbon::now('Asia/Ho_Chi_Minh');
-        $action_category->save();
+        if($result_save){
+            // Action add category
+            $action_category = new Admin_Action_Category();
+            $action_category->admin_id = Session::get('admin_id');
+            $action_category->cate_id = $category->cate_id;
+            $action_category->action_id = 1;
+            $action_category->action_message = "Thêm loại sản phẩm";
+            $action_category->action_time = Carbon::now('Asia/Ho_Chi_Minh');
+            $action_category->save();
 
-        $request->session()->flash('success_add_category', 'Thêm loại sản phẩm thành công');
+            $request->session()->flash('success_category', 'Thêm loại sản phẩm thành công');
+        }
         return redirect('admin/all_category');
     }
 
@@ -76,9 +78,13 @@ class CategoryController extends Controller
         $category = Category::find($cate_id);
 
         //check name category
-        $check_cate_name = Category::where('cate_name', $request->cate_name)->first();
+        $check_cate_name = Category::where('cate_name', $request->cate_name)->where('cate_id', '<>', $cate_id)->first();
 
-        if($request->cate_name == $category->cate_name){
+        if ($check_cate_name) {
+            $request->session()->flash('check_cate_name', 'Tên loại đã tồn tại');
+            return redirect('admin/update_category/'.$cate_id);
+        }
+        else {
             $category->cate_name = $request->cate_name;
             $category->updated_at = Carbon::now('Asia/Ho_Chi_Minh');
             $get_image = $request->file('cate_image');
@@ -88,58 +94,25 @@ class CategoryController extends Controller
                 $new_image = $name_image.rand(0,99).'.'.$get_image->getClientOriginalExtension();
                 $get_image->move('public/upload',$new_image);
                 $category->cate_image = $new_image;
-                $category->save();
+                $result_save = $category->save();
 
-                // Action update category
-                $this->action_update_cate($category->cate_id);
-
-                $request->session()->flash('success_update_category', 'Sửa loại sản phẩm thành công');
+                if($result_save) {
+                    // Action update ategory
+                    $this->action_update_cate($category->cate_id);
+                    $request->session()->flash('success_category', 'Sửa loại sản phẩm thành công');
+                }
                 return redirect('admin/all_category');
             }
             else{
                 $category->cate_image = $category->cate_image;
-                $category->save();
+                $result_save = $category->save();
 
-                // Action update category
-                $this->action_update_cate($category->cate_id);
-
-                $request->session()->flash('success_update_category', 'Sửa loại sản phẩm thành công');
-                return redirect('admin/all_category');
-            }
-        }
-        else {
-            if ($check_cate_name) {
-                $request->session()->flash('check_cate_name', 'Tên loại đã tồn tại');
-                return redirect('admin/update_category/'.$cate_id);
-            }
-            else {
-                $category->cate_name = $request->cate_name;
-                $category->updated_at = Carbon::now('Asia/Ho_Chi_Minh');
-                $get_image = $request->file('cate_image');
-                if(isset($get_image)){
-                    $get_name_image = $get_image->getClientOriginalName();
-                    $name_image = current(explode('.',$get_name_image));
-                    $new_image = $name_image.rand(0,99).'.'.$get_image->getClientOriginalExtension();
-                    $get_image->move('public/upload',$new_image);
-                    $category->cate_image = $new_image;
-                    $category->save();
-
+                if($result_save) {
                     // Action update ategory
                     $this->action_update_cate($category->cate_id);
-
-                    $request->session()->flash('success_update_category', 'Sửa loại sản phẩm thành công');
-                    return redirect('admin/all_category');
+                    $request->session()->flash('success_category', 'Sửa loại sản phẩm thành công');
                 }
-                else{
-                    $category->cate_image = $category->cate_image;
-                    $category->save();
-
-                    // Action update category
-                    $this->action_update_cate($category->cate_id);
-
-                    $request->session()->flash('success_update_category', 'Sửa loại sản phẩm thành công');
-                    return redirect('admin/all_category');
-                }
+                return redirect('admin/all_category');
             }
         }
     }
@@ -163,7 +136,7 @@ class CategoryController extends Controller
     public function process_delete_category(Request $request, $cate_id) {
         $cate_product = Product::where('category_id', $cate_id)->get();
         if(isset($cate_product)){
-            $request->session()->flash('error_delete_category', 'Loại sản phẩm này đang còn hàng, không thể xóa!');
+            $request->session()->flash('error_category', 'Loại sản phẩm này đang còn hàng, không thể xóa!');
             return redirect()->back();
         } else{
             $result_delete = Category::destroy($cate_id);
@@ -177,9 +150,9 @@ class CategoryController extends Controller
                 $Action_Category->action_time = Carbon::now('Asia/Ho_Chi_Minh');
                 $Action_Category->save();
 
-                $request->session()->flash('success_delete_category', 'Xóa thành công');
-                return redirect()->back();
+                $request->session()->flash('success_category', 'Xóa thành công');
             }
+            return redirect()->back();
         }
     }
 
@@ -197,36 +170,40 @@ class CategoryController extends Controller
             $request->session()->flash('cate_id', $cate_name_recycle->cate_id);
             return redirect()->back();
         }else {
-            Category::withTrashed()->where('cate_id', $cate_id)->restore();
+            $result_restore = Category::withTrashed()->where('cate_id', $cate_id)->restore();
 
-            // Action recovery category
-            $Action_Category = new Admin_Action_Category();
-            $Action_Category->admin_id = Session::get('admin_id');
-            $Action_Category->cate_id = $cate_id;
-            $Action_Category->action_id = 4;
-            $Action_Category->action_message = "Khôi phục loại sản phẩm";
-            $Action_Category->action_time = Carbon::now('Asia/Ho_Chi_Minh');
-            $Action_Category->save();
+            if($result_restore) {
+                // Action recovery category
+                $Action_Category = new Admin_Action_Category();
+                $Action_Category->admin_id = Session::get('admin_id');
+                $Action_Category->cate_id = $cate_id;
+                $Action_Category->action_id = 4;
+                $Action_Category->action_message = "Khôi phục loại sản phẩm";
+                $Action_Category->action_time = Carbon::now('Asia/Ho_Chi_Minh');
+                $Action_Category->save();
 
-            $request->session()->flash('success_recovery_category', 'Khôi phục thành công');
+                $request->session()->flash('success_recovery_category', 'Khôi phục thành công');
+            }
             return redirect()->back();
         }
     }
 
     public function delete_forever(Request $request){
         $cate_id = $request->category_id_delete_forever;
-        Category::withTrashed()->where('cate_id', $cate_id)->forceDelete();
+        $result_forcedelete = Category::withTrashed()->where('cate_id', $cate_id)->forceDelete();
 
-        // Action delete forever category
-        $Action_Category = new Admin_Action_Category();
-        $Action_Category->admin_id = Session::get('admin_id');
-        $Action_Category->cate_id = $cate_id;
-        $Action_Category->action_id = 5;
-        $Action_Category->action_message = "Xóa vĩnh viễn loại sản phẩm";
-        $Action_Category->action_time = Carbon::now('Asia/Ho_Chi_Minh');
-        $Action_Category->save();
+        if($result_forcedelete) {
+            // Action delete forever category
+            $Action_Category = new Admin_Action_Category();
+            $Action_Category->admin_id = Session::get('admin_id');
+            $Action_Category->cate_id = $cate_id;
+            $Action_Category->action_id = 5;
+            $Action_Category->action_message = "Xóa vĩnh viễn loại sản phẩm";
+            $Action_Category->action_time = Carbon::now('Asia/Ho_Chi_Minh');
+            $Action_Category->save();
 
-        $request->session()->flash('success_delete_forever_category', 'Xóa vĩnh viễn thành công');
+            $request->session()->flash('success_delete_forever_category', 'Xóa vĩnh viễn thành công');
+        }
         return redirect()->back();
     }
 
@@ -239,8 +216,8 @@ class CategoryController extends Controller
     public function soft_delete(Request $request){
         $cate_id = $request->cate_id;
         $cate_product = Product::where('category_id', $cate_id)->get();
-        if(isset($cate_product)){
-            $request->session()->flash('error_delete_category', 'Loại sản phẩm này đang còn hàng, không thể xóa!');
+        if(count($cate_product) > 0){
+            $request->session()->flash('error_category', 'Loại sản phẩm này đang còn hàng, không thể xóa!');
             return redirect()->back();
         } else{
             $result_delete = Category::destroy($cate_id);
@@ -254,9 +231,9 @@ class CategoryController extends Controller
                 $Action_Category->action_time = Carbon::now('Asia/Ho_Chi_Minh');
                 $Action_Category->save();
 
-                $request->session()->flash('success_delete_category', 'Xóa thành công');
-                return redirect()->back();
+                $request->session()->flash('success_category', 'Xóa thành công');
             }
+            return redirect()->back();
         }
     }
 

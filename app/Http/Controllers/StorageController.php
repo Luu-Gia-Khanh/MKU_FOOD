@@ -38,18 +38,20 @@ class StorageController extends Controller
         $storage = new Storage();
         $storage->storage_name = $request->storage_name;
         $storage->created_at = Carbon::now('Asia/Ho_Chi_Minh');
-        $storage->save();
+        $reuslt_save = $storage->save();
 
-        // Action add storage
-        $action_storage = new Admin_Action_Storage();
-        $action_storage->admin_id = Session::get('admin_id');
-        $action_storage->storage_id = $storage->storage_id;
-        $action_storage->action_id = 1;
-        $action_storage->action_message = "Thêm kho hàng";
-        $action_storage->action_time = Carbon::now('Asia/Ho_Chi_Minh');
-        $action_storage->save();
+        if($reuslt_save) {
+            // Action add storage
+            $action_storage = new Admin_Action_Storage();
+            $action_storage->admin_id = Session::get('admin_id');
+            $action_storage->storage_id = $storage->storage_id;
+            $action_storage->action_id = 1;
+            $action_storage->action_message = "Thêm kho hàng";
+            $action_storage->action_time = Carbon::now('Asia/Ho_Chi_Minh');
+            $action_storage->save();
 
-        $request->session()->flash('success_add_storage', 'Thêm kho hàng thành công');
+            $request->session()->flash('success_add_storage', 'Thêm kho hàng thành công');
+        }
         return redirect('admin/all_storage');
     }
 
@@ -59,36 +61,24 @@ class StorageController extends Controller
         $storage = Storage::find($storage_id);
 
         //CHECK NAME OF STORAGE
-        $check_storage_name = Storage::where('storage_name', $request->storage_name)->first();
+        $check_storage_name = Storage::where('storage_name', $request->storage_name)->where('storage_id', '<>', $storage_id)->first();
 
-        if($storage->storage_name == $request->storage_name){
-            $storage->storage_name = $request->storage_name;
-            $storage->updated_at = Carbon::now('Asia/Ho_Chi_Minh');
-            $storage->save();
-
-            // Action update storage
-            $this->action_update_storage($storage->storage_id);
-
-            $request->session()->flash('success_update_storage', 'Sửa kho hàng thành công');
+        if($check_storage_name){
+            $request->session()->flash('check_storage_name', 'Tên kho hàng đã tồn tại');
             return redirect('admin/all_storage');
         }
         else{
-            if($check_storage_name){
-                $request->session()->flash('check_storage_name', 'Tên kho hàng đã tồn tại');
-                // return redirect('admin/update_storage/'.$storage_id);
-                return redirect('admin/all_storage');
-            }
-            else{
-                $storage->storage_name = $request->storage_name;
-                $storage->updated_at = Carbon::now('Asia/Ho_Chi_Minh');
-                $storage->save();
+            $storage->storage_name = $request->storage_name;
+            $storage->updated_at = Carbon::now('Asia/Ho_Chi_Minh');
+            $reuslt_save = $storage->save();
 
+            if($reuslt_save) {
                 // Action update storage
                 $this->action_update_storage($storage->storage_id);
 
                 $request->session()->flash('success_update_storage', 'Sửa kho hàng thành công');
-                return redirect('admin/all_storage');
             }
+            return redirect('admin/all_storage');
         }
     }
 
@@ -106,33 +96,6 @@ class StorageController extends Controller
         $val_find_storage = $request->value_find;
         $all_storage = DB::table('storage')->where('deleted_at', null)->where('storage_name', 'LIKE','%'.$val_find_storage.'%')->get();
         echo view('admin.storage.find_result_storage', compact('all_storage'));
-        // $stt = 0;
-        // foreach($result_find as $result_item){
-        //     $stt++;
-        //     echo '<table class="data-table table stripe hover nowrap dataTable no-footer dtr-inline"
-        //             id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
-        //             <tbody class="content_find_category">
-
-        //             <tr role="row" class="odd">
-        //                 <td>'.$stt.'</td>
-        //                 <td>'.$result_item->storage_name.'</td>
-        //                 <td>'.Carbon::createFromFormat('Y-m-d H:i:s', $result_item->created_at)->format('d-m-Y').'</td>
-        //                 <td>
-        //                     <div class="dropdown">
-        //                         <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"
-        //                             href="#" role="button" data-toggle="dropdown">
-        //                             <i class="dw dw-more"></i>
-        //                         </a>
-        //                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-        //                             <a class="dropdown-item" href="http://localhost/MKU_FOOD/admin/update_storage/'.$result_item->storage_id.'"><i class="dw dw-edit2"></i>Chỉnh Sửa</a>
-        //                             <a class="dropdown-item" href="http://localhost/MKU_FOOD/admin/process_delete_storage/'.$result_item->storage_id.'"><i class="dw dw-delete-3"></i>Xóa</a>
-        //                         </div>
-        //                     </div>
-        //                 </td>
-        //             </tr>
-        //         </tbody>
-        //         </table>';
-        // }
     }
 
     public function process_delete_storage(Request $request, $storage_id) {
@@ -143,18 +106,19 @@ class StorageController extends Controller
             return redirect()->back();
         }
         else{
-            Storage::destroy($storage_id);
+            $result_destroy = Storage::destroy($storage_id);
+            if($result_destroy) {
+                // Action delete storage
+                $action_storage = new Admin_Action_Storage();
+                $action_storage->admin_id = Session::get('admin_id');
+                $action_storage->storage_id = $storage_id;
+                $action_storage->action_id = 3;
+                $action_storage->action_message = "Xóa kho hàng";
+                $action_storage->action_time = Carbon::now('Asia/Ho_Chi_Minh');
+                $action_storage->save();
 
-            // Action delete storage
-            $action_storage = new Admin_Action_Storage();
-            $action_storage->admin_id = Session::get('admin_id');
-            $action_storage->storage_id = $storage_id;
-            $action_storage->action_id = 3;
-            $action_storage->action_message = "Xóa kho hàng";
-            $action_storage->action_time = Carbon::now('Asia/Ho_Chi_Minh');
-            $action_storage->save();
-
-            $request->session()->flash('success_delete_storage', 'Xóa thành công');
+                $request->session()->flash('success_delete_storage', 'Xóa thành công');
+            }
             return redirect()->back();
         }
     }
@@ -173,18 +137,20 @@ class StorageController extends Controller
             return redirect()->back();
         }
         else{
-            Storage::where('storage_id', $storage_id)->delete();
+            $result_delete = Storage::where('storage_id', $storage_id)->delete();
 
-            // Action delete storage
-            $action_storage = new Admin_Action_Storage();
-            $action_storage->admin_id = Session::get('admin_id');
-            $action_storage->storage_id = $storage_id;
-            $action_storage->action_id = 3;
-            $action_storage->action_message = "Xóa kho hàng";
-            $action_storage->action_time = Carbon::now('Asia/Ho_Chi_Minh');
-            $action_storage->save();
+            if($result_delete) {
+                // Action delete storage
+                $action_storage = new Admin_Action_Storage();
+                $action_storage->admin_id = Session::get('admin_id');
+                $action_storage->storage_id = $storage_id;
+                $action_storage->action_id = 2;
+                $action_storage->action_message = "Xóa kho hàng";
+                $action_storage->action_time = Carbon::now('Asia/Ho_Chi_Minh');
+                $action_storage->save();
 
-            $request->session()->flash('success_delete_soft_storage', 'Xóa thành công');
+                $request->session()->flash('success_delete_soft_storage', 'Xóa thành công');
+            }
             return redirect()->back();
         }
     }
@@ -198,18 +164,20 @@ class StorageController extends Controller
             $request->session()->flash('storage_id', $storage_name_recycle->storage_id);
             return redirect()->back();
         }else {
-            Storage::withTrashed()->where('storage_id', $storage_id)->restore();
+            $result_restore = Storage::withTrashed()->where('storage_id', $storage_id)->restore();
 
-            // Action recovery category
-            $action_storage = new Admin_Action_Storage();
-            $action_storage->admin_id = Session::get('admin_id');
-            $action_storage->storage_id = $storage_id;
-            $action_storage->action_id = 4;
-            $action_storage->action_message = "Khôi phục kho hàng";
-            $action_storage->action_time = Carbon::now('Asia/Ho_Chi_Minh');
-            $action_storage->save();
+            if($result_restore) {
+                // Action recovery category
+                $action_storage = new Admin_Action_Storage();
+                $action_storage->admin_id = Session::get('admin_id');
+                $action_storage->storage_id = $storage_id;
+                $action_storage->action_id = 4;
+                $action_storage->action_message = "Khôi phục kho hàng";
+                $action_storage->action_time = Carbon::now('Asia/Ho_Chi_Minh');
+                $action_storage->save();
 
-            $request->session()->flash('success_recovery_storage', 'Khôi phục thành công');
+                $request->session()->flash('success_recovery_storage', 'Khôi phục thành công');
+            }
             return redirect()->back();
         }
     }
@@ -217,18 +185,20 @@ class StorageController extends Controller
     public function delete_forever(Request $request){
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         $storage_id = $request->storage_id_delete_forever;
-        Storage::withTrashed()->where('storage_id', $storage_id)->forceDelete();
+        $result_forcedelete = Storage::withTrashed()->where('storage_id', $storage_id)->forceDelete();
 
-        // Action delete forever storage
-        $action_storage = new Admin_Action_Storage();
-        $action_storage->admin_id = Session::get('admin_id');
-        $action_storage->storage_id = $storage_id;
-        $action_storage->action_id = 5;
-        $action_storage->action_message = "Xóa vĩnh viễn kho hàng";
-        $action_storage->action_time = Carbon::now('Asia/Ho_Chi_Minh');
-        $action_storage->save();
+        if($result_forcedelete) {
+            // Action delete forever storage
+            $action_storage = new Admin_Action_Storage();
+            $action_storage->admin_id = Session::get('admin_id');
+            $action_storage->storage_id = $storage_id;
+            $action_storage->action_id = 5;
+            $action_storage->action_message = "Xóa vĩnh viễn kho hàng";
+            $action_storage->action_time = Carbon::now('Asia/Ho_Chi_Minh');
+            $action_storage->save();
 
-        $request->session()->flash('success_delete_forever_storage', 'Xóa vĩnh viễn thành công');
+            $request->session()->flash('success_delete_forever_storage', 'Xóa vĩnh viễn thành công');
+        }
         return redirect()->back();
     }
 

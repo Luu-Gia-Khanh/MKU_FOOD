@@ -9,7 +9,6 @@ class UserTableSeeder extends Seeder
     public function run()
     {
 
-
         // Admin::truncate();
 
         // DB::table('admin_roles')->truncate();
@@ -59,6 +58,6 @@ class UserTableSeeder extends Seeder
         // $manager->roles()->attach($managerRoles);
         // $employee->roles()->attach($employeeRoles);
         // $delivery->roles()->attach($deliveryRoles);
-        //factory(App\Admin::class,10)->create();
+        // factory(App\Admin::class,10)->create();
     }
 }

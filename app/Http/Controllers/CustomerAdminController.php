@@ -360,10 +360,11 @@ class CustomerAdminController extends Controller
                 }
             }
             if($quantity_start <= $count_order && $count_order <= $quantity_end){
+                $customer->number_order = $count_order;
                 $arrayCustomer[] = $customer;
             }
         }
-        $all_customer = array_reverse($arrayCustomer);
+        $all_customer = collect($arrayCustomer)->sortByDesc('number_order')->toArray();
         $string_title = 'Theo Số Lượng " Từ '.$quantity_start.' Đơn Hàng Đến ' .$quantity_end.' Đơn Hàng"';
         echo view('admin.customer.view_filter_customer', compact('type_filter', 'level_filter',
                                                                 'all_order', 'all_customer', 'string_title'));
@@ -387,10 +388,11 @@ class CustomerAdminController extends Controller
                 }
             }
             if($quantity_start <= $count_order && $count_order <= $quantity_end){
+                $customer->number_order = $count_order;
                 $arrayCustomer[] = $customer;
             }
         }
-        $all_customer = array_reverse($arrayCustomer);
+        $all_customer = collect($arrayCustomer)->sortByDesc('number_order')->toArray();
         $string_title = 'Theo Số Lượng " Từ '.$quantity_start.' Đơn Hàng Đến ' .$quantity_end.' Đơn Hàng"';
         echo view('admin.customer.view_filter_customer', compact('type_filter', 'all_order', 'level_filter',
                                                                 'all_customer', 'string_title',
