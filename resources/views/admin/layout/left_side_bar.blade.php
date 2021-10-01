@@ -81,9 +81,23 @@
                         <li><a href="{{ URL::to('admin/view_comment_to_process') }}">Bình luận chờ duyệt</a></li>
                     </ul>
                 </li>
+
+                {{-- SHIPPING CODE --}}
+                <li class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <span class="micon dw dw-file"></span>
+                        <span class="mtext">Phí Vận Chuyển</span>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="{{ URL::to('admin/all_shipping_cost') }}">Danh Sách Phí</a></li>
+                        <li><a href="{{ URL::to('admin/add_shipping_cost') }}">Thêm Phí Vận Chuyển</a></li>
+                    </ul>
+                </li>
+                
                 <li>
                     <div class="dropdown-divider"></div>
                 </li>
+
                 {{-- CUSTOMER --}}
                 <li class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle">

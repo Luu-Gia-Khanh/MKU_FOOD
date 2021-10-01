@@ -290,6 +290,16 @@ Route::prefix('admin')->group(function () {
 
     Route::post('print_pdf_comment', 'CommentController@print_pdf_comment');
 
+    // SHIPPING COST
+    Route::get('all_shipping_cost', 'ShippingCostController@all_shipping_cost');
+    Route::get('add_shipping_cost', 'ShippingCostController@add_shipping_cost');
+    Route::post('process_add_shipping_cost', 'ShippingCostController@process_add_shipping_cost');
+    Route::post('delete_shipping_cost', 'ShippingCostController@delete_shipping_cost');
+    Route::get('update_shipping_cost/{shipping_cost_id}', 'ShippingCostController@update_shipping_cost');
+    Route::post('process_update_shipping_cost/{shipping_cost_id}', 'ShippingCostController@process_update_shipping_cost');
+
+    Route::post('find_shipping_cost', 'ShippingCostController@find_shipping_cost');
+
 });
 
 // FONT END

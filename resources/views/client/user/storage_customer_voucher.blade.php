@@ -60,13 +60,13 @@
                                 <li class="user-module-item">
                                     <a href="{{ URL::to('user/address') }}" class="user-module-item--link">Địa chỉ</a>
                                 </li>
-                                <li class="user-module-item user-module-item--active">
+                                <li class="user-module-item">
                                     <a href="{{ URL::to('user/resetpassword') }}" class="user-module-item--link">Đổi mật khẩu</a>
                                 </li>
                                 <li class="user-module-item">
                                     <a href="{{ URL::to('user/order') }}" class="user-module-item--link">Đơn mua</a>
                                 </li>
-                                <li class="user-module-item">
+                                <li class="user-module-item user-module-item--active">
                                     <a href="{{ URL::to('user/voucher') }}" class="user-module-item--link">Kho Voucher</a>
                                 </li>
                             </ul>

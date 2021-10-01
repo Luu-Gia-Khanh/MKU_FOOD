@@ -118,8 +118,8 @@
 										<div class="col-5 horizontal-line"></div>
 									</div>
 									<div class="row">
-										<div class="col-6">
-											<a href="#" class="link-social">
+										<div class="col-6">	
+											<a href="{{ URL::to('login_facebook') }}" class="link-social">
 												<div  class="btn-social-bg">
 													<img class="icon-social" src="{{ asset('public/upload/logo-facebook.svg') }}" alt="">
 													<span class="">
@@ -129,7 +129,7 @@
 											</a>
 										</div>
 										<div class="col-6">
-											<a href="#" class="link-social">
+											<a href="{{ URL::to('login_google') }}" class="link-social">
 												<div class="btn-social-bg">
 													<img class="icon-social" src="{{ asset('public/upload/logo-google.svg') }}">
 													<span class="">
