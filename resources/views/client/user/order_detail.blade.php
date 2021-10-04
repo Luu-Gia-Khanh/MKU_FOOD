@@ -226,12 +226,22 @@
                                 </div>
                             </div>
                             <div class="order-detail-bill">
+                                @php
+                                    $fee_ship = $order->fee_ship;
+                                    if($order->voucher_code == null){
+                                        $fee_voucher = 0;
+                                    }
+                                    else{
+                                        $fee_voucher = $order->total_price - $fee_ship;
+                                    }
+
+                                @endphp
                                 <div class="item-order-detail-bill">
                                     <div class="item-order-detail-bill--left">
-                                        <span>Tổng tiền hàng</span>
+                                        <span>Voucher</span>
                                     </div>
                                     <div class="item-order-detail-bill--right">
-                                        {{ number_format($order->total_price, 0,'.','.') }}đ
+                                        -{{ number_format($fee_voucher, 0,'.','.') }}đ
                                     </div>
                                 </div>
                                 <div class="item-order-detail-bill">
@@ -239,7 +249,7 @@
                                         <span>Phí vận chuyển</span>
                                     </div>
                                     <div class="item-order-detail-bill--right">
-                                        Miễn phí
+                                        {{ number_format($fee_ship, 0,'.','.') }}đ
                                     </div>
                                 </div>
                                 <div class="item-order-detail-bill">

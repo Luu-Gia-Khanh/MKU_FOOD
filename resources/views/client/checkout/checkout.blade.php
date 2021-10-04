@@ -61,9 +61,9 @@
                                     @foreach ($cus_trans as $trans)
                                         <p>
                                             @if ($trans->trans_status == 1)
-                                                <input type="radio" value="{{ $trans->trans_id }}" id="{{ $trans->trans_id }}" name="trans_id" checked>
+                                                <input type="radio" value="{{ $trans->trans_id }}" class="trans_id_radio" id="{{ $trans->trans_id }}" name="trans_id" checked>
                                             @else
-                                                <input type="radio" value="{{ $trans->trans_id }}" id="{{ $trans->trans_id }}" name="trans_id">
+                                                <input type="radio" value="{{ $trans->trans_id }}" class="trans_id_radio" id="{{ $trans->trans_id }}" name="trans_id">
                                             @endif
 
                                             <label for="{{ $trans->trans_id }}" class="static-address">
@@ -209,20 +209,29 @@
                     </div>
                     <div class="view-summary">
                         <div class="content-total-summary">
+                            {{-- total_start --}}
                             <div class="title-total-price">Tổng tiền hàng</div>
                             <div class="val-total-price">{{ number_format($total_temporary_price, 0, ',', '.') }}đ</div>
+                            <input type="hidden" class="total_start" value="{{ $total_temporary_price }}">
+                            {{-- fee ship --}}
                             <div class="format-free-trans">Phí vận chuyển</div>
-                            <div class="val-free-trans">0đ</div>
+                            <div class="val-free-trans fee_ship_tran_text">{{ number_format($fee_ship, 0, ',', '.') }}đ</div>
+                            <input type="hidden" class="fee_ship" name="fee_ship" value="{{ $fee_ship }}">
+                            {{-- total voucher --}}
                             <div class="format-total-voucher">Tổng cộng Voucher giảm giá:</div>
                             <div class="val-total-voucher">0đ</div>
+                            <input type="hidden" name="voucher_code" class="val_hidden_voucher_code" value="">
+                            <input type="hidden" value="0" class="val_discount_voucher">
+                            {{-- sumary total price check out --}}
                             <div class="format-total-summary">Tổng thanh toán:</div>
                             @php
-                                $summary_total_order = $total_temporary_price;
+                                $summary_total_order = $total_temporary_price + $fee_ship;
                             @endphp
                             <div class="val-total-summary">{{ number_format($summary_total_order, 0, ',', '.') }}đ</div>
                             <input type="hidden" class="summary_total_order" name="summary_total_order" value="{{ $summary_total_order }}">
                             <input type="hidden" class="old_summary_total_order" value="{{ $summary_total_order }}">
-                            <input type="hidden" name="voucher_code" class="val_hidden_voucher_code" value="">
+
+
                         </div>
                         <div class="view-btn-buy">
                             <div class="title-rule">Nhấn "Đặt hàng" đồng nghĩa với việc bạn đồng ý tuân theo

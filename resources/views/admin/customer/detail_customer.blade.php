@@ -276,6 +276,32 @@
                                                                         @endif
                                                                     @endif
                                                                 @endforeach
+                                                                @php
+                                                                    $fee_ship = $order->fee_ship;
+                                                                    if($order->voucher_code == null){
+                                                                        $fee_voucher = 0;
+                                                                    }
+                                                                    else{
+                                                                        $fee_voucher = $order->total_price - $fee_ship;
+                                                                    }
+
+                                                                @endphp
+                                                                <tr>
+                                                                    <td colspan="2" style="text-align: right; font-size: 16px">
+                                                                        Voucher
+                                                                    </td>
+                                                                    <td>
+                                                                        {{ number_format($fee_voucher, 0, ',', '.') }}₫
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td colspan="2" style="text-align: right; font-size: 16px">
+                                                                        Phí vận chuyển
+                                                                    </td>
+                                                                    <td>
+                                                                        {{ number_format($fee_ship, 0, ',', '.') }}₫
+                                                                    </td>
+                                                                </tr>
                                                                 <tr>
                                                                     <td colspan="2"
                                                                         style="text-align: right; font-size: 16px">
@@ -292,8 +318,8 @@
                                                                         </div>
                                                                     </td>
                                                                     <td style="font-size: 14px">
-                                                                        {{ number_format($order->total_price, 0, ',', '.') }}
-                                                                        ₫</td>
+                                                                        {{ number_format($order->total_price, 0, ',', '.') }}₫
+                                                                    </td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>

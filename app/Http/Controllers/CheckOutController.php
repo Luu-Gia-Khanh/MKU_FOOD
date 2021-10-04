@@ -14,6 +14,7 @@ use DB;
 use App\Customer_Transport;
 use App\Storage_Customer_Voucher;
 use App\Voucher;
+use App\Shipping_Cost;
 use Session;
 use Carbon\Carbon;
 
@@ -27,6 +28,7 @@ class CheckOutController extends Controller
         $all_product = Product::all();
         $product_price = ProductPrice::where('status',1)->get();
         $citys = DB::table('tinhthanhpho')->get();
+        $fee_ship = 0;
 
         $customer_id = Session::get('customer_id');
         $static_trans = Customer_Transport::where('trans_status', 1)->where('customer_id',$customer_id)->first();
@@ -40,6 +42,16 @@ class CheckOutController extends Controller
                                  ->where('voucher.end_date', '>=', $date_now)
                                 ->where('storage_customer_voucher.customer_id', $customer_id)
                                 ->get();
+        if($static_trans){
+            $address = $static_trans->trans_address;
+            $arrCity = explode(", ", $address);
+            $city = $arrCity[count($arrCity)-1];
+            $distance = Shipping_Cost::where('end_position', $city)->first();
+            if($distance){
+                $fee_ship = $distance->cost;
+            }
+        }
+
         return view('client.checkout.checkout',[
             'arrCart_id' => $arrCart_id,
             'all_cart' => $all_cart,
@@ -49,7 +61,23 @@ class CheckOutController extends Controller
             'static_trans' =>$static_trans,
             'cus_trans' =>$cus_trans,
             'storage_customer_voucher' => $storage_customer_voucher,
+            'fee_ship' => $fee_ship,
         ]);
+    }
+    public function get_fee_ship_checkout(Request $request){
+        $trans_id = $request->trans_id;
+        $trans = Customer_Transport::find($trans_id);
+        $fee_ship = 0;
+        if($trans){
+            $address = $trans->trans_address;
+            $arrCity = explode(", ", $address);
+            $city = $arrCity[count($arrCity)-1];
+            $distance = Shipping_Cost::where('end_position', $city)->first();
+            if($distance){
+                $fee_ship = $distance->cost;
+            }
+        }
+        echo $fee_ship;
     }
     public function add_address_trans(Request $request){
 
@@ -67,7 +95,7 @@ class CheckOutController extends Controller
         $find_ward = DB::table('xaphuongthitran')->where('xaid',$ward)->first();
         $txt_ward = $find_ward->name_xa;
 
-        $address_trans = $detail_address.', '.$txt_ward.', '.$txt_district.', '.$txt_city.'.';
+        $address_trans = $detail_address.', '.$txt_ward.', '.$txt_district.', '.$txt_city;
         $customer_id = Session::get('customer_id');
         $find_static = Customer_Transport::where('trans_status', 1)->where('customer_id', $customer_id)->first();
         if($find_static){
@@ -136,6 +164,7 @@ class CheckOutController extends Controller
         $payment_method = $request->payment_method;
         $cart_id = $request->cart_id;
         $summary_total_order = $request->summary_total_order;
+        $fee_ship = $request->fee_ship;
         $customer_id = Session::get('customer_id');
         $check = 1;
         $all_storage_product = Storage_Product::all();
@@ -177,6 +206,7 @@ class CheckOutController extends Controller
                 $orders->payment_id = $payment_method;
                 $orders->trans_id = $trans_id;
                 $orders->voucher_code = $voucher_code;
+                $orders->fee_ship = $fee_ship;
                 $orders->create_at = Carbon::now('Asia/Ho_Chi_Minh');
                 $orders->save();
                 //
@@ -240,6 +270,7 @@ class CheckOutController extends Controller
                 $orders->payment_id = $payment_method;
                 $orders->trans_id = $trans_id;
                 $orders->voucher_code = $voucher_code;
+                $orders->fee_ship = $fee_ship;
                 $orders->status_pay = 1;
                 $orders->create_at = Carbon::now('Asia/Ho_Chi_Minh');
                 $orders->save();

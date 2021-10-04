@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{{ asset('public/font_end/assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('public/font_end/assets/css/animate.min.css') }}">
     <link rel="stylesheet" href="{{ asset('public/font_end/assets/css/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/font_end/assets/css/nice-select.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('public/font_end/assets/css/nice-select.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('public/font_end/assets/css/slick.min.css') }}">
     <link rel="stylesheet" href="{{ asset('public/font_end/assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('public/font_end/custom/sweet.css') }}">

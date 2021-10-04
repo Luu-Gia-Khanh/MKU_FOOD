@@ -464,6 +464,7 @@ Route::get('view_checkout_paypal_success/{payment_method}/{summary_total_order}/
 Route::get('view_checkout_paypal_fail/{order_id}', 'CheckOutController@view_checkout_paypal_fail');
 
 Route::get('check_out_success', 'CheckOutController@check_out_success');
+Route::post('get_fee_ship_checkout', 'CheckOutController@get_fee_ship_checkout');
 
 //CUSTOMER VOUCHER
 Route::get('user/voucher', 'AccountController@show_voucher');

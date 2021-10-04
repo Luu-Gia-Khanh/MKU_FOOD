@@ -112,25 +112,37 @@
                                             </div>
                                         </td>
                                         <td class="text-center">{{ $item->quantity_product }}</td>
-                                        <td class="text-center">{{ number_format($item->price_product, 0, ',', '.')  }} vnđ</th>
+                                        <td class="text-center">{{ number_format($item->price_product, 0, ',', '.')  }}₫</th>
                                     </tr>
                                 @endforeach
+                                @php
+                                    $fee_ship = $order->fee_ship;
+                                    if($order->voucher_code == null){
+                                        $fee_voucher = 0;
+                                    }
+                                    else{
+                                        $fee_voucher = $order->total_price - $fee_ship;
+                                    }
+                                @endphp
                                     @if ($order->voucher_code != null)
                                         <tr>
                                             <td colspan="2" style="text-align: right; font-size: 16px">Áp dụng voucher: <b>#{{ $order->voucher_code }}</b> </td>
                                             <td style="font-size: 14px">
-                                                @foreach ($all_voucher as $voucher)
-                                                    @if ($voucher->voucher_code == $order->voucher_code)
-                                                        {{ number_format($voucher->voucher_amount, 0, ',', '.')  }} vnđ
-                                                    @endif
-                                                @endforeach
-
+                                                {{ number_format($fee_voucher, 0, ',', '.')  }}₫
                                             </td>
                                         </tr>
                                     @endif
                                     <tr>
+                                        <td colspan="2" style="text-align: right; font-size: 16px">
+                                            Phí vận chuyển
+                                        </td>
+                                            <td style="font-size: 14px">
+                                                {{ number_format($order->fee_ship, 0, ',', '.')  }}₫
+                                            </td>
+                                    </tr>
+                                    <tr>
                                         <td colspan="2" style="text-align: right; font-size: 16px">Tổng giá đơn hàng:</td>
-                                        <td style="font-size: 14px">{{ number_format($order->total_price, 0, ',', '.')  }} vnđ</td>
+                                        <td style="font-size: 14px">{{ number_format($order->total_price, 0, ',', '.')  }}₫</td>
                                     </tr>
                             </tbody>
                         </table>

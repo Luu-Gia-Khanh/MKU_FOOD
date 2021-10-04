@@ -87,8 +87,8 @@
                     </div>
                     <div class="content_find_customer">
                         @if (count($all_customer) > 0)
-                            <input type="hidden" class="customer_id" name="customer_id"
-                                value="{{ $customer->customer_id }}">
+                            {{-- <input type="hidden" class="customer_id" name="customer_id"
+                                value="{{ $customer->customer_id }}"> --}}
                             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                             <div class="row">
                                 <div class="col-12 table-responsive">

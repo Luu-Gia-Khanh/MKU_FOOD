@@ -148,6 +148,7 @@ $(document).ready(function(){
         var payment_method = $('input[name="payment_method"]:checked').val();
         var summary_total_order = $('.summary_total_order').val();
         var cart_id = [];
+        var fee_ship = $('.fee_ship').val();
         $("input:checkbox[name='cart_id[]']:checked").each(function() {
             cart_id.push($(this).val());
         });
@@ -160,6 +161,7 @@ $(document).ready(function(){
                 payment_method: payment_method,
                 summary_total_order: summary_total_order,
                 cart_id: cart_id,
+                fee_ship: fee_ship,
             },
             success: function (data) {
                 if(data == 0){
@@ -257,13 +259,37 @@ $(document).ready(function(){
                         $('.val_hidden_discount_voucher').val(amount_discount_voucher);
                         $('#btn-open-model-voucher').html('Thay Đổi');
                         $('.val_hidden_voucher_code').val(input_voucher_code);
+                        $('.val_discount_voucher').val(amount_discount_voucher);
                         $('#modal_voucher').hide();
                     }
                 }
             }
         });
     });
+    $('.trans_id_radio').change(function(){
+        var trans_id = $(this).val();
+        var _token = $('input[name="_token"]').val();
+        $.ajax({
+            url: 'get_fee_ship_checkout',
+            method: 'POST',
+            data: {
+                _token: _token,
+                trans_id: trans_id,
+            },
+            success: function (data) {
+                $('.fee_ship_tran_text').html(formatNumber(data)+'₫');
+                $('.fee_ship').val(data);
 
+                var total_start = $('.total_start').val();
+                var voucher = $('.val_discount_voucher').val();
+                //summary_total_order
+                $('.val-total-summary').html(formatNumber(Number(total_start) + Number(data) - Number(voucher))+'₫');
+                $('.summary_total_order').val(Number(total_start) + Number(data) - Number(voucher));
+                $('.old_summary_total_order').val(Number(total_start) + Number(data));
+            }
+        });
+
+    });
 
 
 });
