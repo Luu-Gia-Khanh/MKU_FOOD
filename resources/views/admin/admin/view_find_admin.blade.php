@@ -78,11 +78,11 @@
                                                 class="dw dw-edit2"></i>Chỉnh Sửa</a>
 
                                         @if (Session::get('admin_id') != $ad->admin_id)
-                                            <button class="dropdown-item soft_delete_admin_class"
+                                            {{-- <button class="dropdown-item soft_delete_admin_class"
                                                 data-id="{{ $ad->admin_id }}" data-toggle="modal"
                                                 data-target="#Modal_delete"><i
-                                                    class="dw dw-delete-3"></i>Xóa</button>
-
+                                                    class="dw dw-delete-3"></i>Xóa</button> --}}
+                                            <a class="dropdown-item" href="{{ URL::to('admin/delete_when_find/'.$ad->admin_id) }}"><i class="dw dw-delete-3"></i>Xóa</a>
                                         @endif
 
                                     </div>

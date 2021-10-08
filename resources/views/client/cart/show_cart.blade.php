@@ -19,7 +19,8 @@
                 <!--Cart Table-->
                 @if (count($all_cart) > 0 || count($old_date_cart) > 0)
                     <div class="shopping-cart-container">
-                        <div class="row">
+                    @if (count($all_cart) > 0)
+                        <div class="row" style="margin-bottom: 30px">
                             <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
                                 <h3 class="box-title"></h3>
                                 <div class="cus_bg_show_cart">
@@ -182,12 +183,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
-                                <div class="line_spacing"></div>
-                            </div>
-                        </div>
+                    @endif
                         @if (count($old_date_cart) > 0)
+                            @if (count($old_date_cart) > 0 && count($all_cart) > 0)
+                                <div class="row">
+                                    <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="line_spacing"></div>
+                                    </div>
+                                </div>
+                            @endif
                             <div class="row">
                                 <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
                                     <div class="cus_bg_show_cart_disalbe">
@@ -244,14 +248,6 @@
                                                             </td>
                                                         </tr>
                                                     @endforeach
-
-                                                    {{-- <tr class="cart_item wrap-buttons">
-                                                    <td class="wrap-btn-control" colspan="4">
-                                                        <a class="btn back-to-shop">Back to Shop</a>
-                                                        <button class="btn btn-update" type="submit" disabled="">update</button>
-                                                        <button class="btn btn-clear" type="reset">clear all</button>
-                                                    </td>
-                                                </tr> --}}
                                                 </tbody>
                                             </table>
                                         </form>

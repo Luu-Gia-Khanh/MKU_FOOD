@@ -200,6 +200,7 @@ Route::prefix('admin')->group(function () {
     Route::get('delivery_success', 'OrderController@delivery_success');
     Route::get('detail_order_item/{order_id}', 'OrderController@detail_order_item');
     Route::get('cancelled', 'OrderController@cancelled');
+    Route::get('print_pdf_delivery_order/{order_id}', 'OrderController@print_pdf_delivery_order');
 
     Route::post('confirm_order', 'OrderController@confirm_order');
     Route::post('confirm_delivary_order', 'OrderController@confirm_delivary_order');
@@ -319,8 +320,6 @@ Route::prefix('admin')->group(function () {
 
     Route::post('trace_voucher_side_profile_single_date', 'TraceSideProfileController@trace_voucher_side_profile_single_date');
     Route::post('trace_voucher_side_profile_many_date', 'TraceSideProfileController@trace_voucher_side_profile_many_date');
-
-
 
     // SHIPPING COST
     Route::get('all_shipping_cost', 'ShippingCostController@all_shipping_cost');

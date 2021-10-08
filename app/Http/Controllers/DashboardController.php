@@ -50,8 +50,11 @@ class DashboardController extends Controller
         $all_admin = Admin::all();
         // list top customer
         foreach ($all_customer as $customer){
-            $customer->all_product_buy = $this->CountBuyCustomer($customer->customer_id);
-            $arrCustomerBestBuy[] = $customer;
+            $number_buy = $this->CountBuyCustomer($customer->customer_id);
+            if($number_buy > 0){
+                $customer->all_product_buy = $number_buy;
+                $arrCustomerBestBuy[] = $customer;
+            }
         }
         $listCustomerBuy = collect($arrCustomerBestBuy)->sortBy('all_product_buy')->reverse()->toArray();
         $topCustomerBuy = array_slice($listCustomerBuy, 0, 5);

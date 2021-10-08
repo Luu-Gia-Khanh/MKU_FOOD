@@ -35,9 +35,17 @@
                         </ol>
                     </nav>
                 </div>
+                <div class="col-md-6 col-sm-12 text-right">
+                    {{-- content print pdf --}}
+                    <div class="content_print_pdf_delivery">
+                        <a href="{{ URL::to('admin/print_pdf_delivery_order/'.$order->order_id) }}" class="btn btn-secondary">
+                            In phiếu giao hàng
+                            <img src="{{ asset('public/upload/pdf1.svg') }}" style="height: 25px;" alt="">
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
-
         <div class="card-box pd-20 mb-20">
             <div class="h5">Thông Tin Địa Chỉ Nhận Hàng</div>
             <div class="content_address_delivery pd-10">

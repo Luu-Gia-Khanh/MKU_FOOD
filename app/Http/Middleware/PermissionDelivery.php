@@ -21,7 +21,7 @@ class PermissionDelivery
             }
             else{
                 $request->session()->flash('no_permission', 'Bạn không có quyền truy cập trang này');
-                return redirect('all_order_delivering/');
+                return redirect('login_shipper');
             }
         }
         else{

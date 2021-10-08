@@ -8,7 +8,7 @@
         </div>
     @endif
 
-    {{-- <div class="pre-loader">
+    <div class="pre-loader">
 		<div class="pre-loader-box">
 			<div class="loader-logo">
                 <img src="{{ asset('public/upload/logo_mku_large_login_admin.svg') }}"
@@ -23,7 +23,7 @@
 				Đang Tải...
 			</div>
 		</div>
-	</div> --}}
+	</div>
     <div class="title pb-20">
         <h2 class="h3 mb-0">Trang Chủ</h2>
     </div>

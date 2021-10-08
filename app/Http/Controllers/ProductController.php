@@ -132,6 +132,7 @@ class ProductController extends Controller
                     ->join('product_price','product_price.product_id','=','product.product_id')
                     ->join('storage_product','storage_product.product_id','=','product.product_id')
                     ->where('product_price.status', 1)
+                    ->where('product.deleted_at', null)
                     ->orderBy('product.product_id','desc')
                     ->paginate(10);
         $all_cate = Category::all();

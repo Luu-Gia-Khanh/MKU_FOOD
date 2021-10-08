@@ -80,16 +80,31 @@ class OrderController extends Controller
             $action_order->action_message = 'Duyệt đơn hàng';
             $action_order->save();
 
-            //
+            //send mail
+            $customer = Customer::find($order->customer_id);
             $data=[
                 'order' => $order,
             ];
-            $customer = Customer::find($order->customer_id);
             Mail::to($customer->email)->send(new Confirm_Order_Mail($data));
 
             $request->session()->flash('confirm_success', 'Xác nhận đơn hàng thành công');
             return redirect()->back();
         }
+    }
+    public function print_pdf_delivery_order($order_id){
+        $order = Orders::find($order_id);
+        // print pdf
+        $trans = Customer_Transport::find($order->trans_id)->first();
+        $order_pdf = Orders::find($order->order_id);
+        $order_item = DB::table('order_item')
+                    ->join('product', 'product.product_id', '=','order_item.product_id')
+                    ->where('order_id', $order->order_id)->get();
+        $pdf = PDF::loadView('admin.order.view_print_pdf_delivery_order', [
+            'order_pdf'=>$order_pdf,
+            'order_item'=>$order_item,
+            'trans'=>$trans,
+        ]);
+        return $pdf->download('pdf_giaohang.pdf');
     }
     public function confirmed(){
         $orders = DB::table('order_detail_status')

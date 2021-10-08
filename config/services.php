@@ -30,9 +30,9 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
     'facebook' => [
-        'client_id' => '823161181678172',
-        'client_secret' => 'ce087215c977db63ff57b90bad39978c',
-        'redirect' => 'https://mkufood.abc/callback'
+        'client_id' => '867557233900891',
+        'client_secret' => '5827fcf96f62107612931b951daa5589',
+        'redirect' => 'http://localhost/MKU_FOOD/callback'
     ],
     'google' => [
         'client_id' => '339861231523-gg5flju7ncd78mmcd611h2ukjrn7hnii.apps.googleusercontent.com',
