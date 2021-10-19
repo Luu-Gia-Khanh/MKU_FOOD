@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -25,15 +26,18 @@
 
 </head>
 <style>
-    @media (min-width: 1200px){
+    @media (min-width: 1200px) {
         .container {
             width: 1200px;
         }
-        .main-content{
+
+        .main-content {
             background-color: rgb(245, 245, 245);
         }
     }
+
 </style>
+
 <body class="biolife-body">
     <!-- Preloader -->
     {{-- @include('client.layout.header_middle.preload') --}}
@@ -47,7 +51,9 @@
                 <div class="row">
                     {{-- LOGO --}}
                     <div class="col-lg-2 col-md-2 col-md-6 col-xs-6">
-                        <a href="{{ URL::to('/') }}" class="biolife-logo"><img src="{{ asset('public/upload/logo_mku_8.svg') }}" alt="biolife logo" style="height: 46px;"></a>
+                        <a href="{{ URL::to('/') }}" class="biolife-logo"><img
+                                src="{{ asset('public/upload/logo_mku_8.svg') }}" alt="biolife logo"
+                                style="height: 46px;"></a>
                     </div>
                     {{-- NAV PAGES --}}
                     {{-- @include('client.layout.header_middle.nav_pages') --}}
@@ -90,7 +96,7 @@
             @yield('banner_view_client')
 
             <!--Block 03: Product Tabs-->
-           @yield('product_tap_view_client')
+            @yield('product_tap_view_client')
 
             <!--Block 04: Banner Promotion 01-->
             @yield('promotion_view_client')
@@ -132,24 +138,25 @@
     </div>
 
     <script>
-      var chatbox = document.getElementById('fb-customer-chat');
-      chatbox.setAttribute("page_id", "101784998888187");
-      chatbox.setAttribute("attribution", "biz_inbox");
+        var chatbox = document.getElementById('fb-customer-chat');
+        chatbox.setAttribute("page_id", "101784998888187");
+        chatbox.setAttribute("attribution", "biz_inbox");
 
-      window.fbAsyncInit = function() {
-        FB.init({
-          xfbml            : true,
-          version          : 'v11.0'
-        });
-      };
+        window.fbAsyncInit = function() {
+            FB.init({
+                xfbml: true,
+                version: 'v11.0'
+            });
+        };
 
-      (function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
-        fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'facebook-jssdk'));
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
     </script>
     {{--  --}}
     <script src="{{ asset('public/font_end/assets/js/jquery-3.4.1.min.js') }}"></script>
@@ -169,6 +176,8 @@
     <script src="{{ asset('public/font_end/custom/update_cart_ajax.js') }}"></script>
     <script src="{{ asset('public/font_end/custom_ui/js/ajax_wish_list.js') }}"></script>
     <script src="{{ asset('public/back_end/src/scripts/upperFirstKey.js') }}"></script>
+    <script src="{{ asset('public/back_end/src/scripts/checkName.js') }}"></script>
+
 
     {{-- check out custom
     <script src="{{ asset('public/font_end/custom/checkout_custom.js') }}"></script> --}}

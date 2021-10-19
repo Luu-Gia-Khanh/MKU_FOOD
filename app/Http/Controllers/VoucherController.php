@@ -340,7 +340,7 @@ class VoucherController extends Controller
 
     public function validate_voucher(Request $request){
         $request->validate([
-            'voucher_code' => 'required|min:5|max:10|alpha_dash|regex:/^([a-z A-Z 0-9]+)$/',
+            'voucher_code' => 'required|alpha_dash|regex:/^([a-z A-Z 0-9]+)$/',
             'voucher_name' => 'required|min:5|max:100',
             'product_id' => 'required',
             'start_date' => 'required',
@@ -351,8 +351,6 @@ class VoucherController extends Controller
             'voucher_code.required' => 'Mã voucher không được để trống',
             'voucher_code.alpha_dash' => 'Mã voucher không hợp lệ',
             'voucher_code.regex' => 'Mã voucher không hợp lệ',
-            'voucher_code.min' => 'Mã voucher phải lớn hơn 5 ký tự',
-            'voucher_code.max' => 'Mã voucher không lớn hơn 10 ký tự',
             'product_id.required' => 'Vui lòng chọn sản phẩm cho voucher',
             'start_date.required' => 'Vui lòng chọn ngày bắt đầu',
             'end_date.required' => 'Vui lòng chọn ngày kết thúc',

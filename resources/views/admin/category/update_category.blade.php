@@ -7,8 +7,9 @@
                     <nav aria-label="breadcrumb" role="navigation">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ URL::to('admin/') }}">Trang chủ</a></li>
-                            <li class="breadcrumb-item"><a href="{{ URL::to('admin/all_category') }}">Danh mục sản phẩm</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Sửa loại sản phẩm</li>
+                            <li class="breadcrumb-item"><a href="{{ URL::to('admin/all_category') }}">Danh mục sản phẩm</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">Sửa danh mục sản phẩm</li>
                         </ol>
                     </nav>
                 </div>
@@ -19,10 +20,11 @@
 
         <div class="pd-20 card-box mb-30">
             <div class="pd-20">
-                <h4 class="text-blue h4">Sửa Loại Sản Phẩm</h4>
+                <h4 class="text-blue h4">Sửa Danh Mục Sản Phẩm</h4>
             </div>
             <div class="pd-20">
-                <form action="{{ URL::to('admin/process_update_category/' . $update_category->cate_id) }}" method="post" enctype="multipart/form-data">
+                <form action="{{ URL::to('admin/process_update_category/' . $update_category->cate_id) }}" method="post"
+                    enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="col-sm-6">
@@ -31,15 +33,17 @@
                                 <input class="form-control upper_val" type="text" name="cate_name"
                                     value="{{ $update_category->cate_name }}" onblur="return upberFirstKey()"
                                     placeholder="Nhập Loại Sản Phẩm">
-                                    @if ($errors->has('cate_name'))
+                                @if ($errors->has('cate_name'))
                                     <div class="alert alert-danger alert-dismissible mt-1">
-                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                        <a href="#" class="close" data-dismiss="alert"
+                                            aria-label="close">&times;</a>
                                         {{ $errors->first('cate_name') }}
                                     </div>
                                 @endif
                                 @if (session('check_cate_name'))
                                     <div class="alert alert-danger alert-dismissible mt-1" role="alert">
-                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                        <a href="#" class="close" data-dismiss="alert"
+                                            aria-label="close">&times;</a>
                                         {{ session('check_cate_name') }}
                                     </div>
                                 @endif
@@ -57,14 +61,15 @@
                         <div class="ml-3" id="">
                             <div class="da-card box-shadow" style="height: 350x; width: 475px">
                                 <div class="da-card-photo">
-                                    <img src="{{ asset('public/upload/' . $update_category->cate_image) }}" class="" alt="hình ảnh"
-                                id="image_upload">
+                                    <img src="{{ asset('public/upload/' . $update_category->cate_image) }}"
+                                        class="" alt="hình ảnh" id="image_upload">
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="center mr-t mt-5">
-                        <button type="submit" class="btn color-btn-them" value="Chỉnh Sửa Quản Trị Viên"><i class="icon-copy fi-page-edit"></i> Chỉnh Sửa Loại Sản Phẩm</button>
+                        <button type="submit" class="btn color-btn-them" value="Chỉnh Sửa Quản Trị Viên"><i
+                                class="icon-copy fi-page-edit"></i> Chỉnh Sửa Loại Sản Phẩm</button>
                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">
                             <i class="icon-copy fi-x"></i> Hủy Thay Đổi
                         </button>
@@ -72,8 +77,8 @@
                 </form>
             </div>
         </div>
-         <!-- The Modal -->
-         <div class="modal fade" id="myModal">
+        <!-- The Modal -->
+        <div class="modal fade" id="myModal">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
 

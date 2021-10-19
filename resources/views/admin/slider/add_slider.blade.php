@@ -25,32 +25,15 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label>Tên Slider</label>
-                                <input class="form-control upper_val" type="text" name="slider_name"
-                                    value="{{ old('slider_name') }}" onblur="return upberFirstKey()"
-                                    placeholder="Nhập Tên Slider">
-                                @if ($errors->has('slider_name'))
-                                    <div class="alert alert-danger alert-dismissible mt-1">
-                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                        {{ $errors->first('slider_name') }}
-                                    </div>
-                                @endif
-                                @if (session('check_name_slider'))
-                                    <div class="alert alert-danger alert-dismissible mt-1">
-                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                        {{ session('check_name_slider') }}
-                                    </div>
-                                @endif
-                            </div>
-                            <div class="form-group">
                                 <label>Hình Ảnh</label>
                                 <input class="form-control" type="file" name="slider_image" id="file_upload"
                                     onchange="return uploadhinh()" value="no_image">
                                 @if ($errors->has('slider_image'))
-                                <div class="alert alert-danger alert-dismissible mt-1">
-                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                    {{ $errors->first('slider_image') }}
-                                </div>
+                                    <div class="alert alert-danger alert-dismissible mt-1">
+                                        <a href="#" class="close" data-dismiss="alert"
+                                            aria-label="close">&times;</a>
+                                        {{ $errors->first('slider_image') }}
+                                    </div>
                                 @endif
                             </div>
                         </div>
@@ -73,24 +56,12 @@
                                     </div>
                                 @endif
                             </div> --}}
-                            <div class="form-group">
-                                <label for="exampleFormControlTextarea1">Mô Tả</label>
-                                <textarea rows="3" class="form-control upper_val" type="text" name="slider_description"
-                                value="{{ old('slider_desscription') }}" onblur="return upberFirstKey()"
-                                placeholder="Nhập mô tả" style="height: 142px;"></textarea>
-                                @if ($errors->has('slider_description'))
-                                    <div class="alert alert-danger alert-dismissible mt-1">
-                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                        {{ $errors->first('slider_description') }}
-                                    </div>
-                                @endif
-                              </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="ml-3" id="content_image_upload op-0">
                             <img src="" class="op-0 c" alt="hình ảnh" id="image_upload" style="width: 774px; height: 300px; border-radius: 2px;
-                            border: 1px solid #ecf0f4;">
+                                border: 1px solid #ecf0f4;">
                         </div>
                     </div>
                     <div class="center mr-t">

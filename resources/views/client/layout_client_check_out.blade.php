@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,6 +20,7 @@
     <link rel="stylesheet" href="{{ asset('public/font_end/custom_account/event_hover_account.css') }}">
     <link rel="stylesheet" href="{{ asset('public/font_end/custom_account/user_sidebar_content.css') }}">
 </head>
+
 <body class="biolife-body">
 
     <header id="header" class="header-area style-01 layout-03">
@@ -59,5 +61,8 @@
     <script src="{{ asset('public/font_end/custom/update_cart_ajax.js') }}"></script>
     <script src="{{ asset('public/font_end/custom/ajax_address_customer.js') }}"></script>
     <script src="{{ asset('public/back_end/src/scripts/upperFirstKey.js') }}"></script>
+    <script src="{{ asset('public/back_end/src/scripts/checkName.js') }}"></script>
+
 </body>
+
 </html>

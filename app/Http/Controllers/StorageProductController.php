@@ -24,7 +24,10 @@ class StorageProductController extends Controller
         $all_storage_product = Storage_Product::where('storage_id', $storage_id)->paginate(5);
         $all_product = DB::table('product')->get();
 
-        return view('admin.storage_product.all_storage_product', compact('all_storage_product', 'all_product', 'storage_id'));
+        $storage = Storage::where('storage_id', $storage_id)->first();
+        $storage_name = $storage->storage_name;
+
+        return view('admin.storage_product.all_storage_product', compact('all_storage_product', 'all_product', 'storage_id', 'storage_name'));
     }
 
     public function update_storage_product(Request $request, $storage_product_id){
