@@ -20,7 +20,6 @@ class PermissionDelivery
                 return $next($request);
             }
             else{
-                $request->session()->flash('no_permission', 'Bạn không có quyền truy cập trang này');
                 return redirect('login_shipper');
             }
         }

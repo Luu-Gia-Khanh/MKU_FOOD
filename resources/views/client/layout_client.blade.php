@@ -5,6 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>MKU FOOD</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('public/upload/logo_mku_shortcut_icon.svg') }}" />
     <link rel="stylesheet" href="{{ asset('public/font_end/assets/css/bootstrap.min.css') }}">
@@ -33,6 +36,9 @@
             background-color: rgb(245, 245, 245);
         }
     }
+    /* body{
+        font-family: 'Inter', sans-serif;
+    } */
 </style>
 <body class="biolife-body">
     <!-- Preloader -->

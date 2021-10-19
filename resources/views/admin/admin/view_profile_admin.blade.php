@@ -243,7 +243,7 @@
                                                                 <label>Tỉnh/Thành Phố</label>
                                                                 <select name="city" id="city_update_profile"
                                                                     class="custom-select2 form-control select2-hidden-accessible form-control-lg"
-                                                                    style="width: 100%; height: 38px;" data-select2-id="4" tabindex="-1" aria-hidden="true">
+                                                                    style="width: 100%; height: 38px;" data-select2-id="10" tabindex="-1" aria-hidden="true">
                                                                     @foreach ($citys as $city)
                                                                         @if ($address[0] == $city->name_tp)
                                                                             <option value="{{ $city->matp }}" selected>{{ $city->name_tp }}</option>

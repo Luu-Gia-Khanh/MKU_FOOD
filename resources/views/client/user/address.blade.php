@@ -202,7 +202,7 @@
 
     <div class="modal_delete_address modal" id="modal_delete_address">
         <!-- Modal content -->
-        <div class="modal-content_delete_address container">
+        <div class="modal-content_delete_address container" style="height: auto">
             <div class="modal-header-cus modal-header-address">
                 <span class="close_delete_address close">&times;</span>
                 <h4>Thông báo</h4>

@@ -18,9 +18,9 @@
         .btn.active.focus {
             outline: none;
         }
-        body{
-            font-family: 'system-ui';
-        }
+        /* body{
+            font-family: 'Inter', sans-serif;
+        } */
     </style>
     @if (count($all_product_discount) > 0)
         <div class="product-tab z-index-20 bg">
@@ -147,9 +147,9 @@
         {{--  --}}
         <div class="container">
             <div class="content_advertisement_img" style="display: flex;">
-                <img src="{{ asset('public/upload/refun_xtra100.jpg') }}" alt="">
-                <img src="{{ asset('public/upload/image_freeship_xtra70.jpg') }}" alt="">
-                <img src="{{ asset('public/upload/refun_extra_coppy.jpg') }}" alt="">
+                <img src="{{ asset('public/upload/sale1.png') }}" alt="" style="width: 400px; height: 120px;">
+                <img src="{{ asset('public/upload/sale2.png') }}" alt="" style="width: 400px; height: 120px;">
+                <img src="{{ asset('public/upload/sale3.png') }}" alt="" style="width: 400px; height: 120px;">
             </div>
         </div>
     @endif

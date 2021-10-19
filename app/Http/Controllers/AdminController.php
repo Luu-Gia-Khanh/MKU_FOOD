@@ -527,7 +527,7 @@ class AdminController extends Controller
         ],[
             'admin_name.required'=>'Họ và Tên không được để trống',
             'admin_name.min'=>'Họ và Tên phải ít nhất 5 ký tự',
-            'admin_name.alpha'=>'Họ và Tên không được chứa chữ số',
+            // 'admin_name.regex'=>'Họ và Tên không đúng định dạng',
             'admin_name.max'=>'Họ và Tên có độ dài tối đa là 100 ký tự',
 
             'admin_email.required' => 'Email không được để trống',

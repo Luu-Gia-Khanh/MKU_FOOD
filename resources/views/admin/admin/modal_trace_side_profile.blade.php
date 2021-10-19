@@ -125,7 +125,7 @@
                             <div class="col-1"></div>
                         </div>
                         <div class="content-filter-price-cus-option pd-20">
-                            <form id="formFilterProductDateMany">
+                            <form>
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group">
@@ -285,7 +285,7 @@
                             <div class="col-1"></div>
                         </div>
                         <div class="content-filter-price-cus-option pd-20">
-                            <form id="formFilterProductDateMany">
+                            <form>
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group">
@@ -446,7 +446,7 @@
                             <div class="col-1"></div>
                         </div>
                         <div class="content-filter-price-cus-option pd-20">
-                            <form id="formFilterProductDateMany">
+                            <form>
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group">
@@ -607,7 +607,7 @@
                             <div class="col-1"></div>
                         </div>
                         <div class="content-filter-price-cus-option pd-20">
-                            <form id="formFilterProductDateMany">
+                            <form>
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group">
@@ -708,7 +708,7 @@
                             <div class="col-1"></div>
                         </div>
                         <div class="content-filter-price-cus-option pd-20">
-                            <form id="formFilterProductDateMany">
+                            <form>
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group">
@@ -867,7 +867,7 @@
                             <div class="col-1"></div>
                         </div>
                         <div class="content-filter-price-cus-option pd-20">
-                            <form id="formFilterProductDateMany">
+                            <form>
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group">
@@ -1026,7 +1026,7 @@
                             <div class="col-1"></div>
                         </div>
                         <div class="content-filter-price-cus-option pd-20">
-                            <form id="formFilterProductDateMany">
+                            <form>
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group">

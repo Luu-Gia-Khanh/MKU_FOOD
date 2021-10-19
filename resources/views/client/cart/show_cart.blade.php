@@ -270,9 +270,9 @@
         </div>
     </div>
     {{-- MODAL delete cart item --}}
-    <div class="modal_delete_address modal modal_delete_item_cart" id="">
+    <div class="modal_delete_address modal modal_delete_item_cart">
         <!-- Modal content -->
-        <div class="modal-content_delete_address container">
+        <div class="modal-content_delete_address container" style="height: auto;">
             <div class="modal-header-cus modal-header-address">
                 <span class="close_delete_address close close_modal">&times;</span>
                 <h4>Thông báo</h4>

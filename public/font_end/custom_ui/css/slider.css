@@ -55,7 +55,6 @@
 }
 
 body {
-	font-family: 'Source Sans Pro', sans-serif;
 	color: #6e6e6e;
 	font-size: 12px;
 }
@@ -71,7 +70,7 @@ ul {
 .center {
 	width: 100%;
     height: auto;
-    
+
 	margin: auto;
 }
 
@@ -221,7 +220,7 @@ ul {
 
 /* Make it adaptive to any layout */
 
-@media (max-width: 1200px) { 
+@media (max-width: 1200px) {
 	.center {
 		width: 100%;
 		padding: 0 15px;

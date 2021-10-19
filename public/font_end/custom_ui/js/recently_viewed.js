@@ -20,28 +20,38 @@ $(document).ready(function(){
         var matches = $.grep(old_data, function(obj){
             return obj.product_id == product_id;
         });
-        if(matches.length > 0){
-            
-        }
-        else{
+        if(! matches.length > 0){
             old_data.push(new_item);
         }
         localStorage.setItem('data', JSON.stringify(old_data));
     });
 
-    if(localStorage.getItem('data')!=null){
+    if(localStorage.getItem('data') != null){
         var data = JSON.parse(localStorage.getItem('data'));
         data.reverse();
-        for(i=0;i<data.length;i++){
+        for(i=0; i<data.length; i++){
             var product_img = data[i].product_img;
             var product_name = data[i].product_name;
             var product_price = data[i].product_price;
             var product_detail = data[i].product_detail;
-            $('.content_recently_viewed').append('<li class="pr-item"><div class="contain-product style-widget"><div class="product-thumb"><a href="'+product_detail+'" class="link-to-product" tabindex="0">'+
-            '<img src="'+product_img+'" alt="dd" style="width: 82px; height: 82px" class="product-thumnail"></a></div><div class="info">'+
-            '<h4 class="product-title"><a href="'+product_detail+'" class="pr-name" tabindex="0">'+product_name+'</a></h4><div class="price">'+
-            '<ins><span class="price-amount">'+product_price+'</span></ins>'+
-            '</div></div></div></li>');
+            $('.content_recently_viewed').append(
+            '<li class="pr-item">'+
+                '<div class="contain-product style-widget">'+
+                    '<div class="product-thumb">'+
+                        '<a href="'+product_detail+'" class="link-to-product" tabindex="0">'+
+                            '<img src="'+product_img+'" alt="dd" style="width: 82px; height: 82px" class="product-thumnail">'+
+                            '</a>'+
+                    '</div>'+
+                    '<div class="info">'+
+                        '<h4 class="product-title">'+
+                            '<a href="'+product_detail+'" class="pr-name" tabindex="0">'+product_name+'</a>'+
+                        '</h4>'+
+                        '<div class="price">'+
+                            '<ins><span class="price-amount">'+product_price+'</span></ins>'+
+                        '</div>'+
+                    '</div>'+
+                '</div>'+
+            '</li>');
         }
         $('.content_recently_viewed').append('<div id="loadMore">Xem thêm</div><div id="loadLess">Thu gọn</div>');
     }
@@ -55,15 +65,6 @@ $(document).ready(function(){
     }
 
     var x = 2;
-    // $('#loadMore').on('click', function (e) {
-    //     e.preventDefault();
-    //     x = x+2;
-    //     $('#myList li').slice(0, x).slideDown();
-    //     if($('#myList li').length == x || $('#myList li').length == (x - 1)){
-    //         $('#loadMore').hide();
-    //         $('#loadLess').show();
-    //     }
-    // });
 
     $('#loadMore').click(function () {
         x = x + 2;
@@ -73,13 +74,6 @@ $(document).ready(function(){
             $('#loadLess').show();
         }
     });
-
-    // $('#loadMore').click(function () {
-    //     x = $('#myList li').length;
-    //     $('#myList li').slice(0, x).slideDown();
-    //     $('#loadMore').hide();
-    //     $('#loadLess').show();
-    // });  
 
     $('#loadLess').click(function () {
         x = 2 - $('#myList li').length;

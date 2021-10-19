@@ -28,7 +28,12 @@
                     <div class="blog-detail card-box overflow-hidden mb-30">
                         <div class="blog-img">
                             <div class="content-image-deatail-product">
-                                <img class="img_detail_product" src="{{ asset('public/upload/'.$product->product_image) }}" alt="">
+                                <img
+                                class="img_detail_product"
+                                src="{{ asset('public/upload/'.$product->product_image) }}"
+                                alt=""
+                                style="width: 100%;"
+                                >
                             </div>
                         </div>
                         <div class="blog-caption">

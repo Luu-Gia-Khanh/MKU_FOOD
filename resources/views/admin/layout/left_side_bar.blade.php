@@ -43,8 +43,8 @@
                         <span class="mtext">Danh Mục</span>
                     </a>
                     <ul class="submenu">
-                        <li><a href="{{ URL::to('admin/all_category') }}">Danh Mục Sản Phẩm</a></li>
-                        <li><a href="{{ URL::to('admin/add_category') }}">Thêm Danh Mục Sản Phẩm</a></li>
+                        <li><a href="{{ URL::to('admin/all_category') }}">Danh Sách Danh Mục</a></li>
+                        <li><a href="{{ URL::to('admin/add_category') }}">Thêm Danh Mục</a></li>
                     </ul>
                 </li>
 
@@ -93,7 +93,7 @@
                         <li><a href="{{ URL::to('admin/add_shipping_cost') }}">Thêm Phí Vận Chuyển</a></li>
                     </ul>
                 </li>
-                
+
                 <li>
                     <div class="dropdown-divider"></div>
                 </li>

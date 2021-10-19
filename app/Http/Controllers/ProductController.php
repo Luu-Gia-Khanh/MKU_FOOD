@@ -30,6 +30,7 @@ class ProductController extends Controller
                 ['category'=>$category,'unit_product'=>$unit_product,'storage'=>$storage]);
     }
     public function process_add_product(Request $request){
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         $this->Validate_Product($request);
 
         $name_product = $request->product_name;
@@ -192,6 +193,7 @@ class ProductController extends Controller
     }
     public function process_update_product(Request $request, $prod_id){
         $this->Validate_Product_Update($request);
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
         $name_product = $request->product_name;
         $check_name = Product::where('product_name', $name_product)
@@ -257,6 +259,7 @@ class ProductController extends Controller
 
     }
     public function soft_delete_product(Request $request){
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         $product_id = $request->product_id;
         $quantity_product = Storage_Product::where('product_id', $product_id)->first();
         if($quantity_product->total_quantity_product != 0){
@@ -1023,6 +1026,4 @@ class ProductController extends Controller
           }
 
     }
-
-
 }

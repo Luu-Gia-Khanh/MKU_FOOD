@@ -165,7 +165,7 @@
                                     onchange="return uploadhinh()" placeholder="">
                             </div>
                         </div> --}}
-                        <div class="col-3">
+                        <div class="col-6">
                             <div class="form-group">
                                 <label>Hình Ảnh</label>
                                 <div class="custom-file">

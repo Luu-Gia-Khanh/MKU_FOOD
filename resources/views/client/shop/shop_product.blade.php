@@ -69,9 +69,9 @@
     #loadLess:hover {
         color:black;
     }
-    body{
-            font-family: 'system-ui';
-        }
+    /* body{
+            font-family: 'Inter', sans-serif;
+        } */
 </style>
 
     <!--Hero Section-->
@@ -94,74 +94,6 @@
                         <div class="row">
                             <!-- Main content -->
                             <div id="main-content" class="main-content col-lg-9 col-md-8 col-sm-12 col-xs-12">
-                                {{-- product discount --}}
-                                @if (count($all_product_discount) > 0)
-                                    <div class="block-item recently-products-cat md-margin-bottom-39">
-                                        <ul class="products-list biolife-carousel nav-center-02 nav-none-on-mobile" data-slick='{"rows":1,"arrows":true,"dots":false,"infinite":false,"speed":400,"slidesMargin":0,"slidesToShow":5, "responsive":[{"breakpoint":1200, "settings":{ "slidesToShow": 3}},{"breakpoint":992, "settings":{ "slidesToShow": 3, "slidesMargin":30}},{"breakpoint":768, "settings":{ "slidesToShow": 2, "slidesMargin":10}}]}' >
-                                            @foreach ($all_product_discount as $product)
-                                                @php
-                                                    $price_discount = App\Http\Controllers\HomeClientController::check_price_discount($product->product_id);
-                                                    $info_rating_saled = App\Http\Controllers\HomeClientController::info_rating_saled($product->product_id);
-                                                @endphp
-                                                <li class="product-item col-lg-3 col-md-3 col-sm-3 col-xs-6" style="width: 168px">
-                                                    <div class="contain-product layout-default content_product_sm_shop" style="width: 168px">
-                                                        <div class="product-thumb">
-                                                            <form>
-                                                                @csrf
-                                                                <input type="hidden" value="{{ $product->product_name }}" id="recently_viewed_product_name_{{ $product->product_id }}">
-                                                                <input type="hidden" value="{{ number_format($price_discount->price_now, 0, ',', '.') }}₫" id="recently_viewed_product_price_{{ $product->product_id }}">
-                                                            </form>
-                                                            <a href="{{ URL::to('product_detail_slug/' . $product->slug) }}" class="link-to-product btn_recently_viewed" data-id="{{ $product->product_id }}" id="recently_viewed_product_detail_{{ $product->product_id }}">
-                                                                <img src="{{ asset('public/upload/'.$product->product_image) }}" alt="dd" style="width: 150px; height: 150px" class="product-thumnail" id="recently_viewed_product_img_{{ $product->product_id }}">
-                                                            </a>
-                                                            <span href="#" class="lookup get_val_quickview btn_call_quickview_detail btn_open_modal"
-                                                                data-id="{{ $product->product_id }}"><i
-                                                                    class="biolife-icon icon-search"></i></span>
-                                                        </div>
-                                                        <div class="info">
-                                                            <h4 class="product-title" style="height: 70px">
-                                                                <a href="{{ URL::to('product_detail_slug/' . $product->slug) }}" class="pr-name name_product cus_prod_name_card_sm btn_recently_viewed" data-id="{{ $product->product_id }}">
-                                                                    {{ $product->product_name }}
-                                                                </a>
-                                                            </h4>
-                                                            <div class="price">
-                                                                @if ($price_discount->percent_discount == 0)
-                                                                    <ins><span class="price-amount cus_price_card_sm" style="font-size: 16px;">
-                                                                        <span class="currencySymbol">{{ number_format($price_discount->price_now, 0, ',', '.') }}₫</span>
-                                                                    </ins>
-                                                                @else
-                                                                    <ins><span class="price-amount cus_price_card_sm" style="font-size: 16px;">
-                                                                        <span class="currencySymbol">{{ number_format($price_discount->price_now, 0, ',', '.') }}₫</span>
-                                                                    </ins>
-                                                                    <del><span class="price-amount"><span class="currencySymbol">{{ number_format($price_discount->price_old, 0, ',', '.') }}₫</span></del>
-                                                                @endif
-                                                            </div>
-                                                            <div class="content_qty_rating content_qty_rating_sm_shop">
-                                                                <div class="rating" style="display: flex;">
-                                                                    <p class="star-rating" style="align-self: flex-start">
-                                                                        <span class="width-80percent" style="width:{{ $info_rating_saled->avg_rating *20 }}%"></span>
-                                                                    </p>
-                                                                </div>
-                                                                <div class="availeble_product" style="font-size: 13px">Đã bán: {{ $info_rating_saled->count_product_saled }}</div>
-                                                            </div>
-
-                                                        </div>
-                                                        @if ($price_discount->percent_discount != 0)
-                                                            <div class="content_discount_product" style="right: 8px; top:5px">
-                                                                <div class="content_sub_discount bg_discount">
-                                                                    <div class="content_title_discount">
-                                                                        <span class="percent">{{ $price_discount->percent_discount }}%</span>
-                                                                        <span class="txt_giam">giảm</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        @endif
-                                                    </div>
-                                                </li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                @endif
                                 {{-- sort --}}
                                 <div class="product-category grid-style">
                                     <div id="top-functions-area" class="top-functions-area" >

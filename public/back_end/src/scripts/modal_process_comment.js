@@ -10,7 +10,7 @@ $(document).ready(function(){
     });
 
     // unaccept comment
-     $('.btn_open_modal_unaccep_comment').click(function(){
+    $('.btn_open_modal_unaccep_comment').click(function(){
         var comment_id = $(this).attr('data-id');
         $('.id_unaccep_comment').val(comment_id);
     });
