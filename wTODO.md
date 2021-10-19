@@ -8,17 +8,29 @@
  5/ quan lý don hang sau dat.
  -> xong co ban.(1 tháng 16/06 - 16/7) -> FINISH
 ///
+khanh {
+    2/ link footer
+    3/ convert number filter price
+    9/ check name admin
+    10/ check price (function)
+}
+kha{
+    1/ logo new password
+    4/ btn close modal (add trans_address, delete)
+    5/ upper name modal update trans address
+    6/ scroll voucher (product detail and check out)
+    7/ remove btn xem danh gia
+    8/ change image sp saw
+}
 
-1/ logo new password
-2/ link footer
-3/ convert number filter price
-4/ btn close modal add trans_address
-5/ upper name modal update address
-6/ scroll voucher (product detail and check out)
-7/ remove btn xem danh gia
-8/ change image sp saw
-9/ check name admin
-10/ check price
+
+
+
+
+
+
+
+
 
 
 //// memory

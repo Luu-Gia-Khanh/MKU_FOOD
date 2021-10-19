@@ -7,7 +7,7 @@
                     <nav aria-label="breadcrumb" role="navigation">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ URL::to('admin/') }}">Trang chủ</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Thêm loại sản phẩm</li>
+                            <li class="breadcrumb-item active" aria-current="page">Thêm danh mục sản phẩm</li>
                         </ol>
                     </nav>
                 </div>
@@ -17,7 +17,7 @@
         </div>
         <div class="pd-20 card-box mb-30">
             <div class="pd-20">
-                <h4 class="text-blue h4">Thêm Loại Sản Phẩm</h4>
+                <h4 class="text-blue h4">Thêm Danh Mục Sản Phẩm</h4>
             </div>
             <div class="pd-20">
                 <form action="{{ URL::to('admin/process_add_category') }}" method="post" enctype="multipart/form-data">
@@ -25,19 +25,21 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label>Tên Loại Sản Phẩm</label>
+                                <label>Tên Danh Mục Sản Phẩm</label>
                                 <input class="form-control upper_val" type="text" name="cate_name"
                                     value="{{ old('cate_name') }}" onblur="return upberFirstKey()"
                                     placeholder="Nhập Loại Sản Phẩm">
                                 @if ($errors->has('cate_name'))
                                     <div class="alert alert-danger alert-dismissible mt-1">
-                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                        <a href="#" class="close" data-dismiss="alert"
+                                            aria-label="close">&times;</a>
                                         {{ $errors->first('cate_name') }}
                                     </div>
                                 @endif
                                 @if (session('check_cate_name'))
                                     <div class="alert alert-danger alert-dismissible mt-1">
-                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                        <a href="#" class="close" data-dismiss="alert"
+                                            aria-label="close">&times;</a>
                                         {{ session('check_cate_name') }}
                                     </div>
                                 @endif
@@ -55,7 +57,8 @@
                         <div class="ml-3" id="content_image_upload op-0">
                             <div class="da-card box-shadow" style="height: 350x; width: 475px">
                                 <div class="da-card-photo">
-                                    <img src="" class="op-0" alt="hình ảnh" style="height: 350x; width: 475px" id="image_upload">
+                                    <img src="" class="op-0" alt="hình ảnh" style="height: 350x; width: 475px"
+                                        id="image_upload">
                                 </div>
                             </div>
                         </div>

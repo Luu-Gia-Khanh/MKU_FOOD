@@ -163,7 +163,7 @@
     <script src="{{ asset('public/font_end/custom/rating_comment.js') }}"></script>
     <script src="{{ asset('public/font_end/custom/update_cart_ajax.js') }}"></script>
     <script src="{{ asset('public/back_end/src/scripts/upperFirstKey.js') }}"></script>
-    <script src="{{ asset('public/back_end/src/scripts/check_name_input.js') }}"></script>
+    <script src="{{ asset('public/back_end/src/scripts/checkName.js') }}"></script>
 
     {{-- check out custom
     <script src="{{ asset('public/font_end/custom/checkout_custom.js') }}"></script> --}}

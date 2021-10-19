@@ -29,37 +29,37 @@
 
         <div class="card-box mb-30">
             @if (session('slider_status_unactive'))
-                    <div class="alert alert-success alert-dismissible" role="alert">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        {{ session('slider_status_unactive') }}
-                    </div>
-                @endif
+                <div class="alert alert-success alert-dismissible" role="alert">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    {{ session('slider_status_unactive') }}
+                </div>
+            @endif
         </div>
         <div class="card-box mb-30">
             @if (session('delete_slider'))
-                    <div class="alert alert-success alert-dismissible" role="alert">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        {{ session('delete_slider') }}
-                    </div>
-                @endif
+                <div class="alert alert-success alert-dismissible" role="alert">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    {{ session('delete_slider') }}
+                </div>
+            @endif
         </div>
 
         <div class="card-box mb-30">
             @if (session('slider_status_active'))
-                    <div class="alert alert-success alert-dismissible" role="alert">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        {{ session('slider_status_active') }}
-                    </div>
-                @endif
+                <div class="alert alert-success alert-dismissible" role="alert">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    {{ session('slider_status_active') }}
+                </div>
+            @endif
         </div>
 
         <div class="card-box mb-30">
             @if (session('change_status_slider'))
-                    <div class="alert alert-success alert-dismissible" role="alert">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        {{ session('change_status_slider') }}
-                    </div>
-                @endif
+                <div class="alert alert-success alert-dismissible" role="alert">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    {{ session('change_status_slider') }}
+                </div>
+            @endif
         </div>
 
         <div class="card-box mb-30">
@@ -84,79 +84,78 @@
             <div class="pb-20">
                 <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer ">
                     <div class="content_find_storage">
-                            <div class="col-12 table-responsive">
-                                <table class="data-table table table-hover multiple-select-row nowrap no-footer dtr-inline sortable"
+                        <div class="col-12 table-responsive">
+                            <table
+                                class="data-table table table-hover multiple-select-row nowrap no-footer dtr-inline sortable"
                                 id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
-                                    <thead>
-                                        <tr role="row">
-                                            <tr role="row">
-                                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                                    colspan="1">STT</th>
-                                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                                    colspan="1" data-defaultsign="AZ">Tên Slider</th>
-                                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                                    colspan="1" data-defaultsort="disabled">Hình Ảnh</th>
-                                                <th class="datatable-nosort sorting_disabled" rowspan="1" colspan="1"
-                                                    aria-label="Action" data-defaultsort="disabled">Mô Tả</th>
-                                                <th class="datatable-nosort sorting_disabled" rowspan="1" colspan="1"
-                                                    aria-label="Action" data-defaultsort="disabled">Trạng Thái</th>
-                                                <th class="datatable-nosort sorting_disabled" rowspan="1" colspan="1"
-                                                    aria-label="Action" data-defaultsort="disabled">Xóa</th>
-                                            </tr>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+                                <thead>
+                                    <tr role="row">
+                                    <tr role="row">
+                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
+                                            rowspan="1" colspan="1">STT</th>
+                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
+                                            rowspan="1" colspan="1" data-defaultsort="disabled">Hình Ảnh</th>
+                                        <th class="datatable-nosort sorting_disabled" rowspan="1" colspan="1"
+                                            aria-label="Action" data-defaultsort="disabled">Trạng Thái</th>
+                                        <th class="datatable-nosort sorting_disabled" rowspan="1" colspan="1"
+                                            aria-label="Action" data-defaultsort="disabled">Xóa</th>
+                                    </tr>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php
+                                        $stt = 0;
+                                    @endphp
+                                    @foreach ($all_slider as $slider)
                                         @php
-                                            $stt = 0;
+                                            $stt++;
                                         @endphp
-                                        @foreach ($all_slider as $slider)
-                                            @php
-                                                $stt++;
-                                            @endphp
-                                        
-                                            <tr role="row" class="odd">
-                                                <td>{{ $stt }}</td>
-                                                <td>{{ $slider->slider_name }}</td>
-                                                <td>
-                                                    <img src="{{ asset('public/upload/'.$slider->slider_image) }}" style="width: 200px; height: 78px; border-radius: 2px;
-                                                    border: 1px solid #ecf0f4;" alt="hình ảnh" srcset="">
-                                                </td>
-                                                <td>{{ $slider->slider_description }}</td>
-                                                <td>
-                                                    @if ($slider->slider_status == 1)
-                                                        <a href="{{ URL::to('admin/unactive_slider/'.$slider->slider_id) }}">
-                                                            <span class="badge badge-success" style="width: 105px;">Bật/Tắt</span>
-                                                        </a>
-                                                    @else
-                                                        <a href="{{ URL::to('admin/active_slider/'.$slider->slider_id) }}">
-                                                            <span class="badge badge-danger" style="width: 105px;">Bật/Tắt</span>
-                                                        </a>
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    <a class="delete_slider"
-                                                            data-id="{{ $slider->slider_id }}" data-toggle="modal"
-                                                            data-target="#Modal_delete_slider" style="cursor: pointer">
-                                                        <i class="icon-copy fa fa-close" aria-hidden="true" style="font-size: 25px; color: rgb(207, 51, 11)"></i>
+
+                                        <tr role="row" class="odd">
+                                            <td>{{ $stt }}</td>
+                                            <td>
+                                                <img src="{{ asset('public/upload/' . $slider->slider_image) }}" style="width: 200px; height: 78px; border-radius: 2px;
+                                                                border: 1px solid #ecf0f4;" alt="hình ảnh" srcset="">
+                                            </td>
+                                            <td>
+                                                @if ($slider->slider_status == 1)
+                                                    <a
+                                                        href="{{ URL::to('admin/unactive_slider/' . $slider->slider_id) }}">
+                                                        <span class="badge badge-success"
+                                                            style="width: 105px;">Bật/Tắt</span>
                                                     </a>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                                                @else
+                                                    <a href="{{ URL::to('admin/active_slider/' . $slider->slider_id) }}">
+                                                        <span class="badge badge-danger"
+                                                            style="width: 105px;">Bật/Tắt</span>
+                                                    </a>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <a class="delete_slider" data-id="{{ $slider->slider_id }}"
+                                                    data-toggle="modal" data-target="#Modal_delete_slider"
+                                                    style="cursor: pointer">
+                                                    <i class="icon-copy fa fa-close" aria-hidden="true"
+                                                        style="font-size: 25px; color: rgb(207, 51, 11)"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-5">
+                        </div>
+                        <div class="col-sm-12 col-md-7">
+                            <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
+                                <ul class="pagination">
+                                    {!! $all_slider->links() !!}
+                                </ul>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-12 col-md-5">
-                            </div>
-                            <div class="col-sm-12 col-md-7">
-                                <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
-                                    <ul class="pagination">
-                                        {!! $all_slider->links() !!}
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -174,7 +173,8 @@
                     <!-- Modal body -->
                     <div class="modal-body">
                         Bạn có muốn xóa slider này ?
-                        <form action="{{ URL::to('admin/process_delete_slider') }}" method="post" name="form_delete_slider">
+                        <form action="{{ URL::to('admin/process_delete_slider') }}" method="post"
+                            name="form_delete_slider">
                             @csrf
                             <input type="hidden" class="slider_id" name="slider_id" value="">
                         </form>
