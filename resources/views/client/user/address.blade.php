@@ -171,7 +171,7 @@
         <!-- Modal content -->
         <div class="modal-content_address container">
             <div class="modal-header-cus modal-header-address">
-                <span class="close close_modal_address">&times;</span>
+                <span class="close" id="btn_close_modal">&times;</span>
                 <h4>Địa Chỉ Mới</h4>
             </div>
             <div class="modal-body-cus">
@@ -223,7 +223,7 @@
         <!-- Modal content -->
         <div class="modal-content_delete_address container" style="height: auto">
             <div class="modal-header-cus modal-header-address">
-                <span class="close_delete_address close">&times;</span>
+                <span class="close_delete_address close" id="close_modal_delete_address">&times;</span>
                 <h4>Thông báo</h4>
             </div>
             <div class="modal-body-cus">
@@ -256,9 +256,8 @@
                         @csrf
                         <div class="line">
                             <input type="hidden" class="trans_id" name="trans_id">
-                            <input type="text" class="form-control input upper_val fullname_address_update"
-                                id="trans_fullname" value="{{ old('trans_fullname') }}" onblur="return upberFirstKey()"
-                                placeholder="Họ và tên">
+                            <input type="text" class="form-control upper_val input fullname_address_update"
+                                id="trans_fullname" value="" onblur="return upberFirstKey()" placeholder="Họ và tên">
                             <div class="" style="width: 50px"></div>
 
                             <input type="text" class="form-control input phone_address_update trans_phone" id="trans_phone"

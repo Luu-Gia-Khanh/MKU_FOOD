@@ -99,7 +99,7 @@
     border-radius: 2px;
     z-index: 3;
     background-color: rgb(247, 247, 247);
-    overflow-y: scroll;
+    overflow: auto;
     box-shadow: 0 2px 3px #adacac;
     display: none;
 }

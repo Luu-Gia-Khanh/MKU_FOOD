@@ -34,6 +34,11 @@ btn_close.onclick = function(){
     modal_add_address.style.display="none";
 }
 
+var btn_close_modal = document.getElementById("btn_close_modal");
+btn_close_modal.onclick = function(){
+    modal_add_address.style.display="none";
+}
+
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
   modal_add_address.style.display = "none";
@@ -72,6 +77,12 @@ $(document).ready(function(){
         var btn_close_delete = document.getElementById("close_delete_address");
 
         btn_close_delete.onclick = function(){
+            modal_delete_address.style.display="none";
+        }
+
+        var close_modal_delete_address = document.getElementById("close_modal_delete_address");
+
+        close_modal_delete_address.onclick = function(){
             modal_delete_address.style.display="none";
         }
 

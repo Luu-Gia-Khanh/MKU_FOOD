@@ -24,7 +24,7 @@
 .container__voucher-item{
     display: flex;
     width: 48%;
-    box-shadow: 0 2px 3px #adacac4d;
+    box-shadow: 5px 5px 8px #adacac4d, -1px -1px .5em #adacac4d;
     background-color: white;
     margin: 16px 8px;
 }
@@ -51,8 +51,6 @@
     display: flex;
     background: linear-gradient( 90deg ,transparent 0,transparent .1875rem,#fff .25rem);
     background-origin: border-box;
-    border-top: 1px solid #e8e8e8;
-    border-bottom: 1px solid #e8e8e8;
     border-right: 1px dashed #e8e8e8;
 }
 .voucher-item--left-img{

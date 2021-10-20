@@ -56,7 +56,7 @@ $(document).ready(function(){
         $('.content_recently_viewed').append('<div id="loadMore">Xem thêm</div><div id="loadLess">Thu gọn</div>');
     }
     else{
-        $('.content_recently_viewed').append('<img src="public/upload/no_product.png" alt="" style="width: 100%; height: 150px;">');
+        $('.content_recently_viewed').append('<img src="public/upload/search_not_found.jpg" alt="" style="width: 100%; height: auto;">');
     }
 
     $('#myList li').slice(0, 2).show();

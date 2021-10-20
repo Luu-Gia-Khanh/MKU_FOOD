@@ -1,3 +1,16 @@
+function checkName(name, event){
+    if (/\d/.test(name)) {
+        Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: 'Tên không hợp lệ',
+            showConfirmButton: false,
+            timer: 1500
+        });
+        event.preventDefaul();
+    }
+}
+
 $(document).ready(function(){
     // UPDATE INFO ACCOUNT
     $('.btn_update_info_account').click(function(){
@@ -7,6 +20,9 @@ $(document).ready(function(){
         var customer_birthday = $('.customer_birthday').val();
         //
         var _token = $('input[name="_token"]').val();
+
+        checkName(customer_fullname);
+
         $.ajax({
             url: '../update_info_account',
             method: 'POST',
