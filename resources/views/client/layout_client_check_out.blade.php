@@ -61,6 +61,7 @@
     <script src="{{ asset('public/font_end/custom/update_cart_ajax.js') }}"></script>
     <script src="{{ asset('public/font_end/custom/ajax_address_customer.js') }}"></script>
     <script src="{{ asset('public/back_end/src/scripts/upperFirstKey.js') }}"></script>
+    <script src="{{ asset('public/back_end/fix/js/format_name_input.js') }}"></script>
     <script src="{{ asset('public/back_end/src/scripts/checkName.js') }}"></script>
 
 </body>

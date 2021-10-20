@@ -77,6 +77,7 @@
     <script src="{{ asset('public/back_end/src/scripts/upload_image.js') }}"></script>
     <script src="{{ asset('public/back_end/src/scripts/custom.js') }}"></script>
     <script src="{{ asset('public/back_end/src/scripts/upperFirstKey.js') }}"></script>
+    <script src="{{ asset('public/back_end/fix/js/format_name_input.js') }}"></script>
     <script src="{{ asset('public/back_end/src/scripts/address.js') }}"></script>
     <script src="{{ asset('public/back_end/src/scripts/find_ajax_admin.js') }}"></script>
     <script src="{{ asset('public/back_end/src/scripts/find_ajax_product.js') }}"></script>

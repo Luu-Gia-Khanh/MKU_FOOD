@@ -111,6 +111,7 @@
                                         <div class="dropdown">
                                             <a class="btn btn-primary dropdown-toggle" href="#" role="button"
                                                 data-toggle="dropdown" aria-expanded="false">
+                                                <i class="icon-copy dw dw-search2"></i>
                                                 Truy vết theo
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-left" style="">

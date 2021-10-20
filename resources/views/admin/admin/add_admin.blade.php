@@ -26,8 +26,9 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Họ Và Tên</label>
-                                <input class="form-control upper_val" type="text" name="admin_name"
-                                    value="{{ old('admin_name') }}" onblur="return upberFirstKey()"
+                                <input class="form-control upper_val check_format_name_input" type="text" name="admin_name"
+                                    value="{{ old('admin_name') }}"
+                                    onblur="return upberFirstKey()"
                                     placeholder="Nhập Họ Và Tên">
                                 @if ($errors->has('admin_name'))
                                     <div class="alert alert-danger alert-dismissible mt-1">
@@ -158,13 +159,6 @@
                         </div>
                     </div>
                     <div class="row">
-                        {{-- <div class="col-sm-3">
-                            <div class="form-group">
-                                <label>Hình Ảnh</label>
-                                <input class="form-control" type="file" name="avt" id="file_upload"
-                                    onchange="return uploadhinh()" placeholder="">
-                            </div>
-                        </div> --}}
                         <div class="col-6">
                             <div class="form-group">
                                 <label>Hình Ảnh</label>

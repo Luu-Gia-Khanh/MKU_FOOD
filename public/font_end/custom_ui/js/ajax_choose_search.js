@@ -53,8 +53,8 @@ $(document).ready(function(){
         $('.check_cus_price').removeClass('selected');
         $('.check_cus_cate').removeClass('selected');
         //
-        var price_start = $('.val_price_filter_start').val();
-        var price_end = $('.val_price_filter_end').val();
+        var price_start = Number($('.val_price_filter_start').val());
+        var price_end = Number($('.val_price_filter_end').val());
 
         if(price_start >= price_end || price_start < 0){
             Swal.fire({

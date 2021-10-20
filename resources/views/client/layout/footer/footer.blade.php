@@ -62,10 +62,10 @@
                         <div class="row" style="padding-left: 50px">
                             <div class="wrap-custom-menu vertical-menu-2">
                                 <ul class="menu">
-                                    <li><a href="#">&#187 Trang Chủ</a></li>
-                                    <li><a href="#">&#187 Cửa Hàng</a></li>
-                                    <li><a href="#">&#187 Liên Hệ</a></li>
-                                    <li><a href="#">&#187 Chính Sách Và Điều Khoảng</a></li>
+                                    <li><a href="{{ URL::to('/') }}">&#187 Trang Chủ</a></li>
+                                    <li><a href="{{ URL::to('shop_product') }}">&#187 Cửa Hàng</a></li>
+                                    <li><a href="{{ URL::to('contact_us') }}">&#187 Liên Hệ</a></li>
+                                    <li><a href="{{ URL::to('terms_conditions') }}">&#187 Chính Sách Và Điều Khoảng</a></li>
 
                                 </ul>
                             </div>

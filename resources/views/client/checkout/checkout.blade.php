@@ -317,7 +317,7 @@
                     <form name="form_add_address">
                         @csrf
                         <div class="line">
-                                <input type="text" name="fullname" class="form-control input trans_fullname upper_val" placeholder="Họ và tên" onblur="return upberFirstKey()">
+                                <input type="text" name="fullname" class="form-control input trans_fullname upper_val check_format_name_input" placeholder="Họ và tên" onblur="return upberFirstKey()">
                                 <div class="" style="width: 50px"></div>
                                 <input type="text" name="phone" class="form-control input trans_phone" placeholder="Số điện thoại">
                         </div>

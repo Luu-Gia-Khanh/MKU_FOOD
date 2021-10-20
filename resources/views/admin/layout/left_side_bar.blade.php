@@ -85,7 +85,7 @@
                 {{-- SHIPPING CODE --}}
                 <li class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle">
-                        <span class="micon dw dw-file"></span>
+                        <span class="micon dw dw-money"></span>
                         <span class="mtext">Phí Vận Chuyển</span>
                     </a>
                     <ul class="submenu">

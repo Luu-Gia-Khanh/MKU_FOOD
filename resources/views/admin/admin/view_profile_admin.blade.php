@@ -134,7 +134,7 @@
                                                         <li class="weight-500 col-md-6">
                                                             <div class="form-group">
                                                                 <label>Họ Và Tên</label>
-                                                                <input class="form-control upper_val form-control-lg change_name" type="text" name="admin_name"
+                                                                <input class="form-control upper_val form-control-lg change_name check_format_name_input" type="text" name="admin_name"
                                                                     value="{{ $view_profile->admin_name }}" onblur="return upberFirstKey()"
                                                                     placeholder="Nhập Họ Và Tên">
                                                                 @if ($errors->has('admin_name'))
@@ -343,6 +343,7 @@
                                     <div class="pl-20 pt-20">
                                         <button type="button" class="btn btn-primary dropdown-toggle waves-effect"
                                             data-toggle="dropdown" aria-expanded="false">
+                                            <i class="icon-copy dw dw-search2"></i>
                                             Truy vết theo
                                             <span class="caret"></span>
                                         </button>

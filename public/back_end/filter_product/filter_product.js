@@ -168,7 +168,11 @@ $(document).ready(function(){
         $('#btn_filter_product_fol_price').removeClass('dis-none');
     });
         // change value price
-    $('.price_start_cus_option').change(function(){
+    $('.price_start_cus_option').keyup(function(){
+        $('#btn_filter_product_fol_price').removeClass('dis-none');
+
+    });
+    $('.price_end_cus_option').keyup(function(){
         $('#btn_filter_product_fol_price').removeClass('dis-none');
 
     });

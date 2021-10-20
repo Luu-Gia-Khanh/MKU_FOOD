@@ -18,6 +18,7 @@
                     <div class="col-md-6 col-sm-12 text-right">
                         <button type="button" class="btn btn-primary dropdown-toggle waves-effect"
                             data-toggle="dropdown" aria-expanded="false">
+                            <i class="icon-copy dw dw-search2"></i>
                             Truy vết theo
                             <span class="caret"></span>
                         </button>

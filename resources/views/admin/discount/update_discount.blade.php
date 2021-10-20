@@ -166,8 +166,14 @@
                     Bạn chưa chọn sản phẩm nào để áp dụng mã giảm giá
                 </div>
                 <div class="center mr-t content_btn_update_discount_product">
-                    <input type="button" class="btn color-btn-them btn_update_discount_product" value="Thiết Lập Lại Giảm Giá Sản Phẩm">
-                    <a href="" class="btn btn-danger">Hủy Thay Đổi</a>
+                    <button type="button" class="btn color-btn-them btn_update_discount_product">
+                        <i class="icon-copy fi-page-edit"></i>
+                        Thiết Lập Lại Giảm Giá Sản Phẩm
+                    </button>
+                    <a href="" class="btn btn-danger">
+                        <i class="icon-copy fi-x"></i>
+                        Hủy Thay Đổi
+                    </a>
                 </div>
             </form>
         </div>

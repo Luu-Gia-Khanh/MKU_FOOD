@@ -40,7 +40,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Tên Sản Phẩm</label>
-                                <input class="form-control upper_val" type="text" name="product_name"
+                                <input class="form-control upper_val format_name_input" type="text" name="product_name"
                                     value="{{ old('product_name') }}" onblur="return upberFirstKey()"
                                     placeholder="Nhập Tên Sản Phẩm">
                                 @if ($errors->has('product_name'))

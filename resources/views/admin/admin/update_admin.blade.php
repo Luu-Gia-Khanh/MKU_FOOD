@@ -27,7 +27,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Họ Và Tên</label>
-                                <input class="form-control upper_val" type="text" name="admin_name"
+                                <input class="form-control upper_val check_format_name_input" type="text" name="admin_name"
                                     value="{{ $update_admin->admin_name }}" onblur="return upberFirstKey()"
                                     placeholder="Nhập Họ Và Tên">
                                 @if ($errors->has('admin_name'))

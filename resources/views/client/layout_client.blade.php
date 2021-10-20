@@ -181,6 +181,7 @@
     <script src="{{ asset('public/font_end/custom/update_cart_ajax.js') }}"></script>
     <script src="{{ asset('public/font_end/custom_ui/js/ajax_wish_list.js') }}"></script>
     <script src="{{ asset('public/back_end/src/scripts/upperFirstKey.js') }}"></script>
+    <script src="{{ asset('public/back_end/fix/js/format_name_input.js') }}"></script>
     <script src="{{ asset('public/back_end/src/scripts/checkName.js') }}"></script>
 
 
