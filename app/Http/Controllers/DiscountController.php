@@ -281,28 +281,31 @@ class DiscountController extends Controller
             $arrProduct = explode(",", $list_product_discount);
             foreach ($arrProduct as $prod){
                 $product = Product::where('product_name',$prod)->first();
+                if($product){
+                    //update discount product
+                    $update_product = Product::find($product->product_id);
+                    $update_product->discount_id = $add_discount->discount_id;
+                    $update_product->save();
 
-                //update discount product
-                $update_product = Product::find($product->product_id);
-                $update_product->discount_id = $add_discount->discount_id;
-                $update_product->save();
-
-                // add history discount
-                $add_history_discount = new History_Discount();
-                $add_history_discount->product_id = $product->product_id;
-                $add_history_discount->start_date_1 = $time_start_1;
-                $add_history_discount->end_date_1 = $time_end_1;
-                $add_history_discount->amount_discount_1 = $amount_discount_1;
-                $add_history_discount->condition_discount_1 = $condition_discount_1;
-                if($time_start_2 != '' && $time_end_2 != '' && $condition_discount_2 != '' && $amount_discount_2 != ''){
-                    $add_history_discount->start_date_2 = $time_start_2;
-                    $add_history_discount->end_date_2 = $time_end_2;
-                    $add_history_discount->amount_discount_2 = $amount_discount_2;
-                    $add_history_discount->condition_discount_2 = $condition_discount_2;
+                    // add history discount
+                    $add_history_discount = new History_Discount();
+                    $add_history_discount->product_id = $product->product_id;
+                    $add_history_discount->start_date_1 = $time_start_1;
+                    $add_history_discount->end_date_1 = $time_end_1;
+                    $add_history_discount->amount_discount_1 = $amount_discount_1;
+                    $add_history_discount->condition_discount_1 = $condition_discount_1;
+                    if($time_start_2 != '' && $time_end_2 != '' && $condition_discount_2 != '' && $amount_discount_2 != ''){
+                        $add_history_discount->start_date_2 = $time_start_2;
+                        $add_history_discount->end_date_2 = $time_end_2;
+                        $add_history_discount->amount_discount_2 = $amount_discount_2;
+                        $add_history_discount->condition_discount_2 = $condition_discount_2;
+                    }
+                    $add_history_discount->discount_id = $add_discount->discount_id;
+                    $add_history_discount->created_at = Carbon::now('Asia/Ho_Chi_Minh');
+                    $add_history_discount->save();
                 }
-                $add_history_discount->discount_id = $add_discount->discount_id;
-                $add_history_discount->created_at = Carbon::now('Asia/Ho_Chi_Minh');
-                $add_history_discount->save();
+
+
             }
             // add admin action
             $admin_action_discount = new Admin_Action_Discount();
@@ -372,27 +375,30 @@ class DiscountController extends Controller
             if(count($arrProduct) > 0){
                 foreach ($arrProduct as $prod){
                     $product = Product::where('product_name',$prod)->first();
-                    //update new discount product
-                    $update_new_discount_product = Product::find($product->product_id);
-                    $update_new_discount_product->discount_id = $update_discount->discount_id;
-                    $update_new_discount_product->save();
+                    if($product){
+                        //update new discount product
+                        $update_new_discount_product = Product::find($product->product_id);
+                        $update_new_discount_product->discount_id = $update_discount->discount_id;
+                        $update_new_discount_product->save();
 
-                    // add history discount
-                    $add_history_discount = new History_Discount();
-                    $add_history_discount->product_id = $product->product_id;
-                    $add_history_discount->start_date_1 = $time_start_1;
-                    $add_history_discount->end_date_1 = $time_end_1;
-                    $add_history_discount->amount_discount_1 = $amount_discount_1;
-                    $add_history_discount->condition_discount_1 = $condition_discount_1;
-                    if($time_start_2 != '' && $time_end_2 != '' && $condition_discount_2 != '' && $amount_discount_2 != ''){
-                        $add_history_discount->start_date_2 = $time_start_2;
-                        $add_history_discount->end_date_2 = $time_end_2;
-                        $add_history_discount->amount_discount_2 = $amount_discount_2;
-                        $add_history_discount->condition_discount_2 = $condition_discount_2;
+                        // add history discount
+                        $add_history_discount = new History_Discount();
+                        $add_history_discount->product_id = $product->product_id;
+                        $add_history_discount->start_date_1 = $time_start_1;
+                        $add_history_discount->end_date_1 = $time_end_1;
+                        $add_history_discount->amount_discount_1 = $amount_discount_1;
+                        $add_history_discount->condition_discount_1 = $condition_discount_1;
+                        if($time_start_2 != '' && $time_end_2 != '' && $condition_discount_2 != '' && $amount_discount_2 != ''){
+                            $add_history_discount->start_date_2 = $time_start_2;
+                            $add_history_discount->end_date_2 = $time_end_2;
+                            $add_history_discount->amount_discount_2 = $amount_discount_2;
+                            $add_history_discount->condition_discount_2 = $condition_discount_2;
+                        }
+                        $add_history_discount->discount_id = $discount_id;
+                        $add_history_discount->created_at = Carbon::now('Asia/Ho_Chi_Minh');
+                        $add_history_discount->save();
                     }
-                    $add_history_discount->discount_id = $discount_id;
-                    $add_history_discount->created_at = Carbon::now('Asia/Ho_Chi_Minh');
-                    $add_history_discount->save();
+
                 }
             }
             else{

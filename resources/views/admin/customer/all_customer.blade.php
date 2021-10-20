@@ -130,8 +130,8 @@
                                                                 <div class="avatar mr-2 flex-shrink-0">
 
                                                                     <img src="{{ asset('public/upload/' . $customer->customer_avt) }}"
-                                                                        class="border-radius-100 shadow" width="50"
-                                                                        height="50" alt="">
+                                                                        class="border-radius-100 shadow" style="width: 50px; height: 50px"
+                                                                        alt="avt admin">
                                                                 </div>
                                                                 <div class="txt">
                                                                     <div class="weight-600">{{ $customer->username }}

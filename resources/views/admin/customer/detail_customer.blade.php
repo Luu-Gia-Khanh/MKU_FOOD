@@ -141,6 +141,7 @@
                                                 @foreach ($all_order as $order)
                                                     @php
                                                         $stt++;
+                                                        $val_discount_voucher = App\Http\Controllers\CustomerAdminController::check_voucher_order($order->order_id);
                                                     @endphp
                                                     <li style="padding-left: 5px;">
                                                         <div class="cus_head_order_customer collapsed"
@@ -256,35 +257,16 @@
                                                                                 {{ $order_item->quantity_product }}</td>
                                                                             <td class="text-center">
                                                                                 {{ number_format($order_item->price_product, 0, ',', '.') }}
-                                                                                ₫</th>
+                                                                                ₫</td>
+                                                                            @php
+
+                                                                            @endphp
                                                                         </tr>
-                                                                        @if ($order->voucher_code != '')
-                                                                            <tr>
-                                                                                <td colspan="2" style="text-align: right;">
-                                                                                    Đơn hàng áp dụng mã Voucher <span
-                                                                                        style="color: blue; font-weight: 500; font-size: 16px;">{{ $order->voucher_code }}</span>
-                                                                                </td>
-                                                                                <td>
-                                                                                    @foreach ($all_voucher as $voucher)
-                                                                                        @if ($voucher->voucher_code == $order->voucher_code)
-                                                                                            -{{ number_format($voucher->voucher_amount, 0, ',', '.') }}
-                                                                                            ₫
-                                                                                        @endif
-                                                                                    @endforeach
-                                                                                </td>
-                                                                            </tr>
-                                                                        @endif
                                                                     @endif
                                                                 @endforeach
                                                                 @php
                                                                     $fee_ship = $order->fee_ship;
-                                                                    if($order->voucher_code == null){
-                                                                        $fee_voucher = 0;
-                                                                    }
-                                                                    else{
-                                                                        $fee_voucher = $order->total_price - $fee_ship;
-                                                                    }
-
+                                                                    $fee_voucher = $val_discount_voucher;
                                                                 @endphp
                                                                 <tr>
                                                                     <td colspan="2" style="text-align: right; font-size: 16px">

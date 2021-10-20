@@ -125,12 +125,8 @@
                                 @endforeach
                                 @php
                                     $fee_ship = $order->fee_ship;
-                                    if($order->voucher_code == null){
-                                        $fee_voucher = 0;
-                                    }
-                                    else{
-                                        $fee_voucher = $order->total_price - $fee_ship;
-                                    }
+                                    $val_discount_voucher = App\Http\Controllers\CustomerAdminController::check_voucher_order($order->order_id);
+                                    $fee_voucher = $val_discount_voucher;
                                 @endphp
                                     @if ($order->voucher_code != null)
                                         <tr>

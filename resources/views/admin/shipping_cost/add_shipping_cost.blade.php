@@ -3,7 +3,7 @@
     <div class="min-height-200px">
         <div class="page-header">
             <div class="row">
-                <div class="col-md-6 col-sm-12">
+                <div class="col-md-12 col-sm-12">
                     <nav aria-label="breadcrumb" role="navigation">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ URL::to('admin/') }}">Trang chủ</a></li>
@@ -13,8 +13,7 @@
                         </ol>
                     </nav>
                 </div>
-                <div class="col-md-6 col-sm-12 text-right">
-                </div>
+                {{-- <div class="col-md-6 col-sm-12 text-right"></div> --}}
             </div>
         </div>
         <div class="pd-20 card-box mb-30">

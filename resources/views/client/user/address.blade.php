@@ -256,7 +256,7 @@
                         @csrf
                         <div class="line">
                             <input type="hidden" class="trans_id" name="trans_id">
-                            <input type="text" class="form-control upper_val input fullname_address_update"
+                            <input type="text" class="form-control upper_val input fullname_address_update check_format_name_input"
                                 id="trans_fullname" value="" onblur="return upberFirstKey()" placeholder="Họ và tên">
                             <div class="" style="width: 50px"></div>
 

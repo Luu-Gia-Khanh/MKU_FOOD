@@ -18,6 +18,34 @@ use Illuminate\Support\Facades\DB;
 
 class CustomerAdminController extends Controller
 {
+    public static function check_voucher_order($order_id){
+        $order = Orders::find($order_id);
+        $all_voucher = Voucher::all();
+        $all_order_item = Order_Item::where('order_id', $order_id)->get();
+
+        $voucher_amount = 0;
+        $product_id_voucher = 0;
+        $qty_product = 0;
+        $val_discount_voucher = 0;
+        $voucher_code = $order->voucher_code;
+        if($voucher_code != null){
+            foreach ($all_voucher as $voucher){
+                if($voucher->voucher_code == $voucher_code){
+                    $voucher_amount = $voucher->voucher_amount;
+                    $product_id_voucher = $voucher->product_id;
+                    break;
+                }
+            }
+        }
+        foreach ($all_order_item as $order_item){
+            if($product_id_voucher == $order_item->product_id){
+                $qty_product = $order_item->quantity_product;
+                $val_discount_voucher = $qty_product * $voucher_amount;
+                break;
+            }
+        }
+        return $val_discount_voucher;
+    }
     //
     public function all_customer(){
         $all_customer = DB::table('customer')
