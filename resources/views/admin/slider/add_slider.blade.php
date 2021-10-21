@@ -61,11 +61,12 @@
                     <div class="row">
                         <div class="ml-3" id="content_image_upload op-0">
                             <img src="" class="op-0 c" alt="hình ảnh" id="image_upload" style="width: 774px; height: 300px; border-radius: 2px;
-                                border: 1px solid #ecf0f4;">
+                                        border: 1px solid #ecf0f4;">
                         </div>
                     </div>
                     <div class="center mr-t">
-                        <input type="submit" class="btn color-btn-them" value="Thêm Slider">
+                        <button type="submit" class="btn color-btn-them" value="Chỉnh Sửa Quản Trị Viên"><i
+                                class="icon-copy fi-page-edit"></i>Thêm Silder</button>
                     </div>
                 </form>
             </div>

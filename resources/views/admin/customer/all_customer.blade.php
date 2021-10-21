@@ -47,8 +47,8 @@
                         <div class="col-sm-12 col-md-6 d-flex">
                             <div class="content_filter pl-20">
                                 <div class="dropdown">
-                                    <a class="btn btn-success dropdown-toggle" href="#" role="button" data-toggle="dropdown"
-                                        aria-expanded="false">
+                                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button"
+                                        data-toggle="dropdown" aria-expanded="false">
                                         <i class="icon-copy dw dw-filter"></i> Lọc
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-left" style="">
@@ -130,8 +130,8 @@
                                                                 <div class="avatar mr-2 flex-shrink-0">
 
                                                                     <img src="{{ asset('public/upload/' . $customer->customer_avt) }}"
-                                                                        class="border-radius-100 shadow" style="width: 50px; height: 50px"
-                                                                        alt="avt admin">
+                                                                        class="border-radius-100 shadow"
+                                                                        style="width: 50px; height: 50px" alt="avt admin">
                                                                 </div>
                                                                 <div class="txt">
                                                                     <div class="weight-600">{{ $customer->username }}

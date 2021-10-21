@@ -1,15 +1,15 @@
-function checkName(name, event){
-    if (/\d/.test(name)) {
-        Swal.fire({
-            position: 'top-end',
-            icon: 'error',
-            title: 'Tên không hợp lệ',
-            showConfirmButton: false,
-            timer: 1500
-        });
-        event.preventDefaul();
-    }
-}
+// function checkName(name, event){
+//     if (/\d/.test(name)) {
+//         Swal.fire({
+//             position: 'top-end',
+//             icon: 'error',
+//             title: 'Tên không hợp lệ',
+//             showConfirmButton: false,
+//             timer: 1500
+//         });
+//         event.preventDefaul();
+//     }
+// }
 
 $(document).ready(function(){
 
@@ -87,7 +87,7 @@ $(document).ready(function(){
         var _token = $('input[name="_token"]').val();
         var check = 1;
 
-        checkName(fullname);
+        // checkName(fullname);
 
         if(fullname == "" || phone == "" || city == "" || district == "" || ward == "" || detail_address == ""){
             check = 0;
@@ -256,7 +256,7 @@ $(document).ready(function(){
         var detail_address = $('#detail_update_address').val();
         var _token = $('input[name="_token"]').val();
 
-        checkName(fullname);
+        // checkName(fullname);
 
         $.ajax({
             url: '../process_update_address',

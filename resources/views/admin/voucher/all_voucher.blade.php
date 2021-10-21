@@ -72,7 +72,7 @@
                                 <div class="col-sm-12 col-md-6 d-flex">
                                     <div class="content_filter pl-20">
                                         <div class="dropdown">
-                                            <a class="btn btn-success dropdown-toggle" href="#" role="button"
+                                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button"
                                                 data-toggle="dropdown" aria-expanded="false">
                                                 <i class="icon-copy dw dw-filter"></i> Lọc
                                             </a>
@@ -109,7 +109,7 @@
                                     </div>
                                     <div class="trace_voucher pl-10">
                                         <div class="dropdown">
-                                            <a class="btn btn-primary dropdown-toggle" href="#" role="button"
+                                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button"
                                                 data-toggle="dropdown" aria-expanded="false">
                                                 <i class="icon-copy dw dw-search2"></i>
                                                 Truy vết theo

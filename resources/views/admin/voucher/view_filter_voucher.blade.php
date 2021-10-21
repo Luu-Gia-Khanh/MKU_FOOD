@@ -10,7 +10,7 @@
             <div class="col-sm-12 col-md-6 d-flex">
                 <div class="content_filter pl-20">
                     <div class="dropdown">
-                        <a class="btn btn-success dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-toggle="dropdown"
                             aria-expanded="false">
                             <i class="icon-copy dw dw-filter"></i> Lọc
                         </a>
@@ -25,31 +25,33 @@
                     </div>
                 </div>
                 @if (count($all_voucher) > 0)
-                <div class="content_print_pdf_voucher ml-10">
-                    <form action="{{ URL::to('admin/print_pdf_voucher') }}" method="post">
-                        @csrf
-                        @if (isset($type_filter))
-                            <input type="hidden" name="product_id" value="{{ $product_id }}">
-                            <input type="hidden" class="type_filter" name="type_filter" value="{{ $type_filter }}">
-                            <input type="hidden" class="level_filter" name="level_filter" value="{{ $level_filter }}">
-                            @if (isset($start_date) && isset($end_date))
-                                <input type="hidden" name="start_date" value="{{ $start_date }}">
-                                <input type="hidden" name="end_date" value="{{ $end_date }}">
+                    <div class="content_print_pdf_voucher ml-10">
+                        <form action="{{ URL::to('admin/print_pdf_voucher') }}" method="post">
+                            @csrf
+                            @if (isset($type_filter))
+                                <input type="hidden" name="product_id" value="{{ $product_id }}">
+                                <input type="hidden" class="type_filter" name="type_filter"
+                                    value="{{ $type_filter }}">
+                                <input type="hidden" class="level_filter" name="level_filter"
+                                    value="{{ $level_filter }}">
+                                @if (isset($start_date) && isset($end_date))
+                                    <input type="hidden" name="start_date" value="{{ $start_date }}">
+                                    <input type="hidden" name="end_date" value="{{ $end_date }}">
+                                @else
+                                    <input type="hidden" name="start_date" value="">
+                                    <input type="hidden" name="end_date" value="">
+                                @endif
                             @else
-                                <input type="hidden" name="start_date" value="">
-                                <input type="hidden" name="end_date" value="">
+                                <input type="hidden" class="type_filter" name="type_filter" value="">
+                                <input type="hidden" class="level_filter" name="level_filter" value="">
                             @endif
-                        @else
-                            <input type="hidden" class="type_filter" name="type_filter" value="">
-                            <input type="hidden" class="level_filter" name="level_filter" value="">
-                        @endif
-                        <button type="submit" class="btn btn-secondary">
-                            Xuất
-                            <img src="{{ asset('public/upload/pdf1.svg') }}" style="height: 25px" alt="">
-                        </button>
-                    </form>
-                </div>
-            @endif
+                            <button type="submit" class="btn btn-secondary">
+                                Xuất
+                                <img src="{{ asset('public/upload/pdf1.svg') }}" style="height: 25px" alt="">
+                            </button>
+                        </form>
+                    </div>
+                @endif
             </div>
             <div class="col-sm-12 col-md-6">
                 {{-- <div id="DataTables_Table_0_filter" class="dataTables_filter">
@@ -102,17 +104,14 @@
                                     <tr role="row" class="odd text-center">
                                         <td>{{ $stt }}</td>
                                         <td style="cursor: pointer;">
-                                            <a href="#" class=" btn_open_modal"
-                                                data-id={{ $voucher->voucher_id }} data-toggle="modal"
-                                                data-target="#modal_voucher">
+                                            <a href="#" class=" btn_open_modal" data-id={{ $voucher->voucher_id }}
+                                                data-toggle="modal" data-target="#modal_voucher">
                                                 {{ $voucher->voucher_code }}
                                             </a>
                                         </td>
-                                        <td class="text-left" id="voucher_name"
-                                            style="cursor: pointer;">
-                                            <a href="#" class=" btn_open_modal"
-                                                data-id={{ $voucher->voucher_id }} data-toggle="modal"
-                                                data-target="#modal_voucher">
+                                        <td class="text-left" id="voucher_name" style="cursor: pointer;">
+                                            <a href="#" class=" btn_open_modal" data-id={{ $voucher->voucher_id }}
+                                                data-toggle="modal" data-target="#modal_voucher">
                                                 {{ $voucher->voucher_name }}
                                             </a>
                                         </td>

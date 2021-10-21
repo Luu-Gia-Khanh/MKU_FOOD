@@ -29,47 +29,47 @@
 
         <div class="card-box mb-30">
             @if (session('success_add_storage'))
-                    <div class="alert alert-success alert-dismissible" role="alert">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        {{ session('success_add_storage') }}
-                    </div>
-                @endif
+                <div class="alert alert-success alert-dismissible" role="alert">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    {{ session('success_add_storage') }}
+                </div>
+            @endif
         </div>
 
         <div class="card-box mb-30">
             @if (session('success_update_storage'))
-                    <div class="alert alert-success alert-dismissible" role="alert">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        {{ session('success_update_storage') }}
-                    </div>
-                @endif
+                <div class="alert alert-success alert-dismissible" role="alert">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    {{ session('success_update_storage') }}
+                </div>
+            @endif
         </div>
 
         <div class="card-box mb-30">
             @if (session('success_delete_soft_storage'))
-                    <div class="alert alert-success alert-dismissible" role="alert">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        {{ session('success_delete_soft_storage') }}
-                    </div>
-                @endif
+                <div class="alert alert-success alert-dismissible" role="alert">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    {{ session('success_delete_soft_storage') }}
+                </div>
+            @endif
         </div>
 
         <div class="card-box mb-30">
             @if (session('success_delete_storage'))
-                    <div class="alert alert-success alert-dismissible" role="alert">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        {{ session('success_delete_storage') }}
-                    </div>
-                @endif
+                <div class="alert alert-success alert-dismissible" role="alert">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    {{ session('success_delete_storage') }}
+                </div>
+            @endif
         </div>
 
         <div class="card-box mb-30">
             @if (session('check_delete_storage'))
-                    <div class="alert alert-danger alert-dismissible" role="alert">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        {{ session('check_delete_storage') }}
-                    </div>
-                @endif
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    {{ session('check_delete_storage') }}
+                </div>
+            @endif
         </div>
 
         <div class="card-box mb-30">
@@ -98,7 +98,7 @@
                 </div>
                 <div class="col-2 mt-4">
                     <button class="btn color-btn-them add_storage float-right" data-id data-toggle="modal"
-                data-target="#Modal_add_storage">Thêm kho</button>
+                        data-target="#Modal_add_storage">Thêm kho</button>
                 </div>
             </div>
             <div class="pb-20">
@@ -110,80 +110,92 @@
                             <div id="DataTables_Table_0_filter" class="dataTables_filter">
                                 <form action="">
                                     @csrf
-                                    <label>Tìm Kiếm:<input type="search" class="form-control form-control-sm" id="find_storage" placeholder="Tìm Kiếm"
-                                        aria-controls="DataTables_Table_0"></label>
+                                    <label>Tìm Kiếm:<input type="search" class="form-control form-control-sm"
+                                            id="find_storage" placeholder="Tìm Kiếm"
+                                            aria-controls="DataTables_Table_0"></label>
                                 </form>
                             </div>
                         </div>
                     </div>
                     <div class="content_find_storage">
-                            <div class="col-12 table-responsive">
-                                <table class="data-table table table-hover multiple-select-row nowrap no-footer dtr-inline sortable"
+                        <div class="col-12 table-responsive">
+                            <table
+                                class="data-table table table-hover multiple-select-row nowrap no-footer dtr-inline sortable"
                                 id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
-                                    <thead>
-                                        <tr role="row">
-                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                                colspan="1">STT</th>
-                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                                colspan="1" data-defaultsign="AZ">Tên Loại</th>
-                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                                                colspan="1">Ngày Thêm</th>
-                                            <th class="datatable-nosort sorting_disabled" rowspan="1" colspan="1"
-                                                aria-label="Action" data-defaultsort="disabled">Thao Tác</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+                                <thead>
+                                    <tr role="row">
+                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
+                                            rowspan="1" colspan="1">STT</th>
+                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
+                                            rowspan="1" colspan="1" data-defaultsign="AZ">Tên Loại</th>
+                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
+                                            rowspan="1" colspan="1">Ngày Thêm</th>
+                                        <th class="datatable-nosort sorting_disabled" rowspan="1" colspan="1"
+                                            aria-label="Action" data-defaultsort="disabled">Thao Tác</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php
+                                        $stt = 0;
+                                    @endphp
+                                    @foreach ($all_storage as $storage)
                                         @php
-                                            $stt = 0;
+                                            $stt++;
                                         @endphp
-                                        @foreach ($all_storage as $storage)
-                                            @php
-                                                $stt++;
-                                            @endphp
-                                        
-                                            <tr role="row" class="odd">
-                                                <td>{{ $stt }}</td>
-                                                <td>
-                                                    <a href="{{ URL::to('admin/all_storage_product/'.$storage->storage_id) }}">
-                                                        {{ $storage->storage_name }}
+
+                                        <tr role="row" class="odd">
+                                            <td>{{ $stt }}</td>
+                                            <td>
+                                                <a
+                                                    href="{{ URL::to('admin/all_storage_product/' . $storage->storage_id) }}">
+                                                    {{ $storage->storage_name }}
+                                                </a>
+                                            </td>
+                                            <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $storage->created_at)->format('d-m-Y') }}
+                                            </td>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"
+                                                        href="#" role="button" data-toggle="dropdown">
+                                                        <i class="dw dw-more"></i>
                                                     </a>
-                                                </td>
-                                                <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $storage->created_at)->format('d-m-Y') }}</td>
-                                                <td>
-                                                    <div class="dropdown">
-                                                        <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"
-                                                            href="#" role="button" data-toggle="dropdown">
-                                                            <i class="dw dw-more"></i>
-                                                        </a>
-                                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                                            <a class="dropdown-item" href="{{ URL::to('admin/all_storage_product/'.$storage->storage_id) }}"><i class="dw dw-eye"></i>Xem kho hàng</a>
-                                                           
-                                                                <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-                                                                <button class="dropdown-item update_storage" data-id = {{ $storage->storage_id }} data-toggle="modal" data-target="#Modal_update_storage"><i class="dw dw-edit2"></i>Chỉnh Sửa</button>
-                                                           
-                                                            <button class="dropdown-item soft_delete_storage_class" data-id="{{ $storage->storage_id }}" data-toggle="modal" data-target="#Modal_delete"><i class="dw dw-delete-3"></i>Xóa</button>
-                                                        </div>
+                                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                                                        <a class="dropdown-item"
+                                                            href="{{ URL::to('admin/all_storage_product/' . $storage->storage_id) }}"><i
+                                                                class="dw dw-eye"></i>Xem kho hàng</a>
+
+                                                        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                                                        <button class="dropdown-item update_storage"
+                                                            data-id={{ $storage->storage_id }} data-toggle="modal"
+                                                            data-target="#Modal_update_storage"><i
+                                                                class="dw dw-edit2"></i>Chỉnh Sửa</button>
+
+                                                        <button class="dropdown-item soft_delete_storage_class"
+                                                            data-id="{{ $storage->storage_id }}" data-toggle="modal"
+                                                            data-target="#Modal_delete"><i
+                                                                class="dw dw-delete-3"></i>Xóa</button>
                                                     </div>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-5">
+                            <a href="{{ URL::to('admin/view_recycle_storage') }}" class="btn color-btn-them ml-10"
+                                style="color: white"><i class="dw dw-delete-3"></i> Thùng Rác</a>
+                        </div>
+                        <div class="col-sm-12 col-md-7">
+                            <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
+                                <ul class="pagination">
+                                    {!! $all_storage->links() !!}
+                                </ul>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-12 col-md-5">
-                                <a href="{{ URL::to('admin/view_recycle_storage') }}" class="btn color-btn-them ml-10"
-                                    style="color: white"><i class="dw dw-delete-3"></i> Thùng Rác</a>
-                            </div>
-                            <div class="col-sm-12 col-md-7">
-                                <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
-                                    <ul class="pagination">
-                                        {!! $all_storage->links() !!}
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -230,7 +242,7 @@
                         <form action="{{ URL::to('admin/process_add_storage') }}" method="post" name="add_storage">
                             @csrf
                             <label>Tên Kho Hàng</label>
-                            <input class="form-control upper_val" type="text" name="storage_name"
+                            <input class="form-control upper_val check_format_name_input" type="text" name="storage_name"
                                 value="{{ old('storage_name') }}" onblur="return upberFirstKey()"
                                 placeholder="Nhập Tên Kho Hàng">
                         </form>
@@ -260,9 +272,10 @@
                         <form action="{{ URL::to('admin/process_update_storage') }}" method="post" name="update_storage">
                             @csrf
                             <label>Tên Kho hàng</label>
-                            <input type="hidden" class="form-control val_storage" name="storage_id" value="">
+                            <input type="hidden" class="form-control val_storage check_format_name_input" name="storage_id"
+                                value="">
                             <input class="form-control upper_val name_storage_update" type="text" name="storage_name"
-                             onblur="return upberFirstKey()">
+                                onblur="return upberFirstKey()">
                         </form>
                     </div>
 
@@ -274,4 +287,5 @@
                 </div>
             </div>
         </div>
-    @endsection
+    </div>
+@endsection

@@ -13,13 +13,13 @@
 
     {{-- <link rel="stylesheet" type="text/css"
         href="{{ asset('public/back_end/src/plugins/datatables/css/responsive.bootstrap4.min.css') }}"> --}}
-        <link rel="stylesheet" type="text/css" href="{{ asset('public/back_end/vendors/styles/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/back_end/vendors/styles/style.css') }}">
     <title>Duyệt đơn hàng</title>
     <style>
         table tbody {
             display: block;
             max-height: 400px;
-            overflow-y: scroll;
+            overflow: auto;
         }
 
         table thead,
@@ -42,13 +42,14 @@
             <div class="login-menu d-flex align-items-center justify-content-end" style="width: 100%">
                 @if (Session::get('admin_id'))
                     <span class="user-icon">
-                        <img src="{{ asset('public/upload/'.Session::get('admin_image')) }}" alt="" style="width: 52px; height: 52px; border-radius: 50%;">
+                        <img src="{{ asset('public/upload/' . Session::get('admin_image')) }}" alt=""
+                            style="width: 52px; height: 52px; border-radius: 50%;">
                     </span>
                     <span class="text-admin-name">{{ Session::get('admin_name') }}</span>
                 @endif
                 <span class="border"></span>
-				<a href="{{ URL::to('logout_shipper') }}" style="color: #1b3133">Đăng xuất</a>
-			</div>
+                <a href="{{ URL::to('logout_shipper') }}" style="color: #1b3133">Đăng xuất</a>
+            </div>
         </div>
     </div>
     <div class="container">
@@ -86,12 +87,12 @@
                         <tbody id="myTable" style="background-color: #fff">
                             @foreach ($all_order_delivered as $order)
                                 <tr>
-                                    <td style="width: 150px" class="text-center">
+                                    <td style="min-width: 150px" class="text-center">
                                         <a href="{{ URL::to('order_detail/' . $order->order_id) }}">
                                             <strong>{{ $order->order_code }}</strong>
                                         </a>
                                     </td>
-                                    <td style="width: 400px">
+                                    <td style="min-width: 400px">
                                         @foreach ($transport as $trans)
                                             @if ($order->trans_id == $trans->trans_id)
                                                 {{ $trans->trans_fullname }}<br>
@@ -100,8 +101,8 @@
                                             @endif
                                         @endforeach
                                     </td>
-                                    <td style="width: 146px;" class="text-center">
-                                        <button type="button" class="btn btn-success ml-5 btn_confirm_order"
+                                    <td style="min-width: 163px;" class="text-center">
+                                        <button type="button" class="btn btn-success btn_confirm_order"
                                             data-toggle="modal" data-target="#modal_confirm_delivered"
                                             data-id="{{ $order->order_code }}"></i>Xác Nhận</button>
                                     </td>

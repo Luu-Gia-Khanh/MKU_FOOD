@@ -503,7 +503,9 @@ class CustomerAdminController extends Controller
 
                 break;
             default:
-                $all_customer = Customer::all();
+                $all_customer = DB::table('customer')
+                ->join('customer_info', 'customer_info.customer_id', '=', 'customer.customer_id')
+                ->get();
                 $string_title = 'Danh Sách Khách Hàng';
                 $pdf = PDF::loadView('admin.customer.view_print_pdf_customer',
                                         compact('all_order', 'all_customer', 'string_title', 'all_transport'));
