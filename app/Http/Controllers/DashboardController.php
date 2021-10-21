@@ -107,7 +107,7 @@ class DashboardController extends Controller
                 'total_receive' => $total_receive,
                 'date' => $date,
             ];
-            $obStatistical[] =  $arrMege;
+            $obStatistical[] = $arrMege;
         }
         // dd($obStatistical);
         $data = $this->paginate($obStatistical);

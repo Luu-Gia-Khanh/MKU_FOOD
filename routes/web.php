@@ -56,32 +56,32 @@ Route::get('success_process_register', 'CustomerController@success_process_regis
 // GROUP ADMIN
 Route::prefix('admin')->group(function () {
     // DASHBORD
-    Route::get('/', 'DashboardController@index')->middleware('roles');
-    Route::post('auto_load_data_dashboard', 'DashboardController@auto_load_data_dashboard');
-    Route::post('filer_year_order_dashboard', 'DashboardController@filer_year_order_dashboard');
-    Route::post('filer_year_revenue_dashboard', 'DashboardController@filer_year_revenue_dashboard');
+    Route::get('/', 'DashboardController@index')->middleware('admin_manager_employee');
+    Route::post('auto_load_data_dashboard', 'DashboardController@auto_load_data_dashboard')->middleware('admin_manager_employee');
+    Route::post('filer_year_order_dashboard', 'DashboardController@filer_year_order_dashboard')->middleware('admin_manager_employee');
+    Route::post('filer_year_revenue_dashboard', 'DashboardController@filer_year_revenue_dashboard')->middleware('admin_manager_employee');
 
     // ADMIN
-    //Route::group(['middleware'=>'admin_manager'], function(){
-        Route::get('all_admin', 'AdminController@show_admin');
-        Route::get('add_admin', 'AdminController@add_admin');
-        Route::get('update_admin/{admin_id}', 'AdminController@update_admin');
-        Route::get('view_recycle', 'AdminController@view_recycle');
-        Route::get('re_delete/{admin_id}', 'AdminController@re_delete');
-        Route::get('delete_when_find/{admin_id}', 'AdminController@delete_when_find');
-        Route::get('view_profile/{admin_id}', 'AdminController@view_profile');
+    // Route::group(['middleware'=>'admin_manager'], function(){
+        Route::get('all_admin', 'AdminController@show_admin')->middleware('admin_manager');
+        Route::get('add_admin', 'AdminController@add_admin')->middleware('admin');
+        Route::get('update_admin/{admin_id}', 'AdminController@update_admin')->middleware('admin');
+        Route::get('view_recycle', 'AdminController@view_recycle')->middleware('admin');
+        Route::get('re_delete/{admin_id}', 'AdminController@re_delete')->middleware('admin');
+        Route::get('delete_when_find/{admin_id}', 'AdminController@delete_when_find')->middleware('admin');
+        Route::get('view_profile/{admin_id}', 'AdminController@view_profile')->middleware('admin_manager_employee');
 
-        Route::post('find_admin', 'AdminController@find_admin');
-        Route::post('delete_forever', 'AdminController@delete_forever');
-        Route::post('soft_delete', 'AdminController@soft_delete');
-        Route::post('process_add_admin', 'AdminController@process_add_admin');
-        Route::post('process_update_admin/{admin_id}', 'AdminController@process_update_admin');
-        Route::post('process_update_profile_admin/{admin_id}', 'AdminController@process_update_profile_admin');
-        Route::post('update_password_admin/{admin_id}', 'AdminController@update_password_admin');
+        Route::post('find_admin', 'AdminController@find_admin')->middleware('admin_manager');
+        Route::post('delete_forever', 'AdminController@delete_forever')->middleware('admin');
+        Route::post('soft_delete', 'AdminController@soft_delete')->middleware('admin');
+        Route::post('process_add_admin', 'AdminController@process_add_admin')->middleware('admin');
+        Route::post('process_update_admin/{admin_id}', 'AdminController@process_update_admin')->middleware('admin');
+        Route::post('process_update_profile_admin/{admin_id}', 'AdminController@process_update_profile_admin')->middleware('admin_manager_employee');
+        Route::post('update_password_admin/{admin_id}', 'AdminController@update_password_admin')->middleware('admin_manager_employee');
 
-        Route::post('filter_admin_role', 'AdminController@filter_admin_role');
-        Route::post('print_pdf_admin', 'AdminController@print_pdf_admin');
-    //});
+        Route::post('filter_admin_role', 'AdminController@filter_admin_role')->middleware('admin_manager_employee');
+        Route::post('print_pdf_admin', 'AdminController@print_pdf_admin')->middleware('admin_manager_employee');
+    // });
 
     //PERMISSION
     Route::get('list_permission', 'AdminController@list_permission');//->middleware('role_admin_manager');

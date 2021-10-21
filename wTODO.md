@@ -35,7 +35,6 @@ kha{
 
 27/ xuất file PDF khách hàng
 
-<<<<<<< HEAD
 28/ doanh thu từ ngày -> đến ngày{
     - ngày -> tổng đơn -> tổng tiền(từng ngày) ->(Tổng doanh thu khoảng ngày)
 }
@@ -49,7 +48,4 @@ kha{
 
 TODO ->{
     1. export excel,(late)
-=======
-TODO ->{ 1. export excel,(late)
->>>>>>> e92ce1f423ea28ace4678ec123703eb477424c80
 }
