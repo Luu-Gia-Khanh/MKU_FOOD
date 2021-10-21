@@ -145,7 +145,7 @@
                 </div>
             </div>
     </div>
-    {{--  --}}
+    {{-- view top --}}
     <div class="row">
         @if (count($topCustomerBuy) > 0)
             <div class="col-lg-4 col-md-6 mb-20">
@@ -293,7 +293,53 @@
             </div>
         @endif
     </div>
+    {{-- thống kê doanh thu --}}
+    <!-- Simple Datatable start -->
+    <div class="card-box mb-30 content_filter_admin">
+        <div class="pd-20">
+            <h4 class="text-blue h4">Thống Kê Doanh Thu</h4>
+        </div>
+        <div class="pb-20">
+            <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer ">
+                <div class="row">
 
+                </div>
+                <div class="content_find_admin">
+                    <div class="row">
+                        <div class="col-12 table-responsive">
+                            <table class="data-table table table-hover multiple-select-row nowrap no-footer dtr-inline sortable"
+                                id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                                <thead>
+                                    <tr role="row">
+                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                                            colspan="1">STT</th>
+                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                                            colspan="1">Ngày</th>
+                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                                            colspan="1">Số Đơn Hàng</th>
+                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                                            colspan="1">Tổng Tiền</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="content_find_admin">
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-7">
+                            <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
+                                <ul class="pagination">
+                                    {!! $data->links() !!}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     {{-- SCRIPT --}}
     <script src="{{ asset('public/back_end/src/plugins/apexcharts/apexcharts.min.js') }}"></script>
     <script src="{{ asset('public/font_end/assets/js/jquery-3.4.1.min.js') }}"></script>

@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Pagination\Paginator;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
+
 use Illuminate\Http\Request;
 use App\Order_Detail_Status;
 use App\Orders;
@@ -88,6 +92,26 @@ class DashboardController extends Controller
             $arrRevenue[] = $this->StatisticalRevenue($i,$year);
         }
 
+        // get list date
+        $order_date = array();
+        $obStatistical = [];
+        foreach ($all_order as $order){
+            $order_date[] = date('Y-m-d', strtotime($order->create_at));
+        }
+        $unique_date = array_unique($order_date);
+        foreach ($unique_date as $date){
+            $count_order = Orders::whereDate('create_at', $date)->get();
+            $total_receive = Orders::whereDate('create_at',$date)->sum('total_price');
+            $arrMege = [
+                'count_order' => $count_order,
+                'total_receive' => $total_receive,
+                'date' => $date,
+            ];
+            $obStatistical[] =  $arrMege;
+        }
+        // dd($obStatistical);
+        $data = $this->paginate($obStatistical);
+
         return view('admin.dashboard.dashbord',[
             'arrSaled' => $arrSaled,
             'arrRevenue' => $arrRevenue,
@@ -107,8 +131,16 @@ class DashboardController extends Controller
             'topCustomerBuy' => $topCustomerBuy,
             'topProductRating' => $topProductRating,
             'topProductSaled' => $topProductSaled,
+
+            'data' => $data,
         ]);
 
+    }
+    public function paginate($items, $perPage = 2, $page = null, $options = [])
+    {
+        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+        $items = $items instanceof Collection ? $items : Collection::make($items);
+        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
     }
     public static function StatisticalSaled($month, $year){
         $orders = DB::table('orders')

@@ -96,7 +96,7 @@
                                                     @if ($discount->condition_discount_1 == 1)
                                                         {{ $discount->amount_discount_1 }}%
                                                     @else
-                                                        -{{ number_format($discount->amount_discount_1, 0, ',', '.') }}vnđ
+                                                        -{{ number_format($discount->amount_discount_1, 0, ',', '.') }}₫
                                                     @endif
                                                 </td>
                                                 <td>
@@ -107,9 +107,9 @@
                                                         @php
                                                             $price_discount = $price*$discount->amount_discount_1/100;
                                                         @endphp
-                                                        {{ number_format($price-$price_discount, 0, ',', '.') }}vnđ
+                                                        {{ number_format($price-$price_discount, 0, ',', '.') }}₫
                                                     @else
-                                                        {{ number_format($price-$discount->amount_discount_1, 0, ',', '.') }}vnđ
+                                                        {{ number_format($price-$discount->amount_discount_1, 0, ',', '.') }}₫
                                                     @endif
                                                 </td>
                                             </tr>
@@ -178,7 +178,7 @@
                                                         @if ($discount->condition_discount_2 == 1)
                                                             {{ $discount->amount_discount_2 }}%
                                                         @else
-                                                            -{{ number_format($discount->amount_discount_2, 0, ',', '.') }}vnđ
+                                                            -{{ number_format($discount->amount_discount_2, 0, ',', '.') }}₫
                                                         @endif
                                                     </td>
                                                     <td>
@@ -189,9 +189,9 @@
                                                             @php
                                                                 $price_discount = $price*$discount->amount_discount_2/100;
                                                             @endphp
-                                                            {{ number_format($price-$price_discount, 0, ',', '.') }}vnđ
+                                                            {{ number_format($price-$price_discount, 0, ',', '.') }}₫
                                                         @else
-                                                            {{ number_format($price-$discount->amount_discount_2, 0, ',', '.') }}vnđ
+                                                            {{ number_format($price-$discount->amount_discount_2, 0, ',', '.') }}₫
                                                         @endif
                                                     </td>
                                                 </tr>
@@ -232,23 +232,23 @@
                                                                 @endif
                                                             @endforeach
                                                         </td>
-                                                        <td style="font-size: 12px">{{  date('d/m/Y H:i', strtotime($his->start_date_1))  }}</td>
-                                                        <td style="font-size: 12px">{{  date('d/m/Y H:i', strtotime($his->end_date_1))  }}</td>
+                                                        <td style="font-size: 12px">{{  date('d/m/Y H:i a', strtotime($his->start_date_1))  }}</td>
+                                                        <td style="font-size: 12px">{{  date('d/m/Y H:i a', strtotime($his->end_date_1))  }}</td>
                                                         <td>
                                                             @if ($his->condition_discount_1 == 1)
                                                                 {{ $his->amount_discount_1 }}%
                                                             @else
-                                                                {{ number_format($his->amount_discount_1, 0, ',', '.') }}vnđ
+                                                                {{ number_format($his->amount_discount_1, 0, ',', '.') }}₫
                                                             @endif
                                                         </td>
                                                         @if ($his->start_date_2 != "")
-                                                            <td style="font-size: 12px">{{  date('d/m/Y H:i', strtotime($his->start_date_2))  }}</td>
-                                                            <td style="font-size: 12px">{{  date('d/m/Y H:i', strtotime($his->end_date_2))  }}</td>
+                                                            <td style="font-size: 12px">{{  date('d/m/Y H:i a', strtotime($his->start_date_2))  }}</td>
+                                                            <td style="font-size: 12px">{{  date('d/m/Y H:i a', strtotime($his->end_date_2))  }}</td>
                                                             <td>
                                                                 @if ($his->condition_discount_2 == 1)
                                                                     {{ $his->amount_discount_2 }}%
                                                                 @else
-                                                                    {{ number_format($his->amount_discount_2, 0, ',', '.') }}vnđ
+                                                                    {{ number_format($his->amount_discount_2, 0, ',', '.') }}₫
                                                                 @endif
                                                             </td>
                                                         @else

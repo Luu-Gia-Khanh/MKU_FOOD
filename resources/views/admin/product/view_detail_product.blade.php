@@ -7,7 +7,7 @@
 <div class="min-height-200px">
     <div class="page-header">
         <div class="row">
-            <div class="col-md-12 col-sm-12">
+            <div class="col-md-6 col-sm-12">
                 <div class="title">
                     <h4>Chi Tiết Sản Phẩm</h4>
                 </div>

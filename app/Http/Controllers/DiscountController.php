@@ -451,7 +451,7 @@ class DiscountController extends Controller
 
         $time_line_his = Admin_Action_Discount::where('discount_id', $discount_id)->orderBy('action_time','desc')->get();
         $history_discount = History_Discount::where('discount_id',$discount_id)->get();
-        $all_product_history_discount = Product::all();
+        $all_product_history_discount = DB::table('product')->get();
         return view('admin.discount.detail_discount',[
             'all_product'=>$all_product,
             'discount'=>$discount,
