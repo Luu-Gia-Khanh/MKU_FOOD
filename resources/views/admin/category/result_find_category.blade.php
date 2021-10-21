@@ -12,8 +12,10 @@
                         Tên Danh Mục</th>
                     <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1">
                         Ngày Thêm</th>
-                    <th class="datatable-nosort sorting_disabled" rowspan="1" colspan="1" aria-label="Action">Thao Tác
-                    </th>
+                    @hasrole(['admin'])
+                        <th class="datatable-nosort sorting_disabled" rowspan="1" colspan="1" aria-label="Action">Thao Tác
+                        </th>
+                    @endhasrole
                 </tr>
             </thead>
             <tbody class="content_find_category">
@@ -44,12 +46,16 @@
                                     <i class="dw dw-more"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                                    @hasrole(['admin','manager'])
                                     <a class="dropdown-item"
                                         href="{{ URL::to('admin/update_category/' . $cate->cate_id) }}"><i
                                             class="dw dw-edit2"></i>Chỉnh Sửa</a>
+                                    @endhasrole
+                                    @hasrole(['admin'])
                                     <a class="dropdown-item"
                                         href="{{ URL::to('admin/process_delete_category/' . $cate->cate_id) }}"><i
                                             class="dw dw-delete-3"></i>Xóa</a>
+                                    @endhasrole
                                 </div>
                             </div>
                         </td>

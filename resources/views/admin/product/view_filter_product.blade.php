@@ -102,8 +102,11 @@
                                 colspan="1" data-defaultsort="disabled">Mới</th>
                                 <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
                                 colspan="1" data-defaultsort="disabled">Đặc Trưng</th>
+
+                                @hasrole(['admin', 'manager'])
                                 <th class="datatable-nosort sorting_disabled" rowspan="1" colspan="1"
                                     aria-label="Action" data-defaultsort="disabled">Thao Tác</th>
+                                @endhasrole
                             </tr>
                         </thead>
                         <tbody class="">
@@ -169,12 +172,16 @@
                                             <i class="dw dw-more"></i>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                                            @hasrole(['admin','manager'])
                                             <a class="dropdown-item" href="{{ URL::to('admin/view_detail_product/'.$prod->product_id) }}"><i class="dw dw-eye"></i>Thông tin sản phẩm</a>
                                             <a class="dropdown-item" href="{{ URL::to('admin/update_product/'.$prod->product_id) }}"><i class="dw dw-edit2"></i>Chỉnh Sửa</a>
+                                            @endhasrole
+                                            @hasrole(['admin'])
                                             <button class="dropdown-item soft_delete_product_class"
                                                     data-id="{{ $prod->product_id }}" data-toggle="modal"
                                                     data-target="#Modal_delete_product"><i class="dw dw-delete-3"
                                                         ></i>Xóa</button>
+                                            @endhasrole
                                         </div>
                                     </div>
                                 </td>
@@ -197,16 +204,6 @@
                 </a>
             </div>
         @endif
-
-            {{-- <div class="row">
-                <div class="col-sm-12 col-md-5">
-                    <a href="{{ URL::to('admin/view_recycle_product') }}" class="btn color-btn-them ml-10"
-                        style="color: white"><i class="dw dw-delete-3"></i> Thùng Rác</a>
-                </div>
-                <div class="col-sm-12 col-md-7">
-
-                </div>
-            </div> --}}
         </div>
     </div>
 </div>

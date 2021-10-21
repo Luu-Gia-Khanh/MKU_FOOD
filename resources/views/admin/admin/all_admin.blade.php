@@ -172,7 +172,6 @@
                                                                         data-id="{{ $ad->admin_id }}" data-toggle="modal"
                                                                         data-target="#Modal_delete"><i
                                                                             class="dw dw-delete-3"></i>Xóa</button>
-
                                                                 @endif
                                                             </div>
                                                         </div>
@@ -185,9 +184,12 @@
                             </div>
                         </div>
                         <div class="row">
+
                             <div class="col-sm-12 col-md-5">
+                                @hasrole(['admin'])
                                 <a href="{{ URL::to('admin/view_recycle') }}" class="btn color-btn-them ml-10"
                                     style="color: white"><i class="dw dw-delete-3"></i> Thùng Rác</a>
+                                @endhasrole
                             </div>
                             <div class="col-sm-12 col-md-7">
                                 <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">

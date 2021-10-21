@@ -11,19 +11,26 @@
         <div class="sidebar-menu">
 
             <ul id="accordion-menu">
-                @hasrole(['admin','manager'])
-                <li class="dropdown">
-                    <a href="javascript:;" class="dropdown-toggle">
-                        <span class="micon dw dw-house-1"></span>
-                        <span class="mtext">Quản Trị</span>
-                    </a>
-                    <ul class="submenu">
-                        <li><a href="{{ URL::to('admin/all_admin') }}">Danh Sách Quản Trị</a></li>
-                        <li><a href="{{ URL::to('admin/add_admin') }}">Thêm Quản Trị Viên</a></li>
-                        <li><a href="{{ URL::to('admin/list_permission') }}">Phân Quyền</a></li>
-                    </ul>
-                </li>
-                @endhasrole
+
+                    <li class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle">
+                            <span class="micon dw dw-house-1"></span>
+                            <span class="mtext">Quản Trị</span>
+                        </a>
+                        <ul class="submenu">
+                            @hasrole(['admin','manager'])
+                                <li><a href="{{ URL::to('admin/all_admin') }}">Danh Sách Quản Trị</a></li>
+                            @endhasrole
+                            @hasrole(['admin'])
+                                <li><a href="{{ URL::to('admin/add_admin') }}">Thêm Quản Trị Viên</a></li>
+                            @endhasrole
+                            @hasrole(['admin','manager'])
+                                <li><a href="{{ URL::to('admin/list_permission') }}">Phân Quyền</a></li>
+                            @endhasrole
+                        </ul>
+                    </li>
+
+                @hasrole(['admin','manager', 'employee'])
                 <li class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle">
                         <span class="micon dw dw-inbox-4"></span>
@@ -34,9 +41,9 @@
                         <li><a href="{{ URL::to('admin/all_product') }}">Danh Sách Sản Phẩm</a></li>
                     </ul>
                 </li>
-
+                @endhasrole
                 {{-- CATEGORY --}}
-
+                @hasrole(['admin','manager', 'employee'])
                 <li class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle">
                         <span class="micon dw dw-list3"></span>
@@ -47,9 +54,9 @@
                         <li><a href="{{ URL::to('admin/add_category') }}">Thêm Danh Mục</a></li>
                     </ul>
                 </li>
-
+                @endhasrole
                 {{-- STORAGE --}}
-
+                @hasrole(['admin','manager', 'employee'])
                 <li class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle">
                         <span class="micon dw dw-wallet"></span>
@@ -59,8 +66,9 @@
                         <li><a href="{{ URL::to('admin/all_storage') }}">Danh Sách Kho Hàng</a></li>
                     </ul>
                 </li>
-
+                @endhasrole
                 {{-- ORDER --}}
+                @hasrole(['admin','manager', 'employee'])
                 <li class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle">
                         <span class="micon dw dw-file"></span>
@@ -70,8 +78,9 @@
                         <li><a href="{{ URL::to('admin/all_order') }}">Danh Sách Đơn Hàng</a></li>
                     </ul>
                 </li>
-
+                @endhasrole
                 {{-- COMMENT --}}
+                @hasrole(['admin','manager', 'employee'])
                 <li class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle">
                         <span class="micon dw dw-chat-4"></span>
@@ -81,8 +90,9 @@
                         <li><a href="{{ URL::to('admin/view_comment_to_process') }}">Bình luận chờ duyệt</a></li>
                     </ul>
                 </li>
-
+                @endhasrole
                 {{-- SHIPPING CODE --}}
+                @hasrole(['admin','manager', 'employee'])
                 <li class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle">
                         <span class="micon dw dw-money"></span>
@@ -93,11 +103,11 @@
                         <li><a href="{{ URL::to('admin/add_shipping_cost') }}">Thêm Phí Vận Chuyển</a></li>
                     </ul>
                 </li>
-
+                @endhasrole
                 <li>
                     <div class="dropdown-divider"></div>
                 </li>
-
+                @hasrole(['admin','manager', 'employee'])
                 {{-- CUSTOMER --}}
                 <li class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle">
@@ -108,11 +118,13 @@
                         <li><a href="{{ URL::to('admin/all_customer') }}">Danh Sách Khách Hàng</a></li>
                     </ul>
                 </li>
+                @endhasrole
                 <li>
                     <div class="dropdown-divider"></div>
                 </li>
 
             {{-- EVENT DISCOUNT --}}
+                @hasrole(['admin','manager', 'employee'])
                 <li>
                     <div class="sidebar-small-cap">Sự Kiện</div>
                 </li>
@@ -127,8 +139,9 @@
                         <li><a href="{{ URL::to('admin/add_discount') }}">Thêm Giảm Giá</a></li>
                     </ul>
                 </li>
-
+                @endhasrole
                 {{-- VOUCHER --}}
+                @hasrole(['admin','manager', 'employee'])
                 <li class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle">
                         <span class="micon dw dw-ticket-1"></span>
@@ -139,12 +152,13 @@
                         <li><a href="{{ URL::to('admin/add_voucher') }}">Thêm Voucher</a></li>
                     </ul>
                 </li>
-
+                @endhasrole
 
                 <li>
                     <div class="dropdown-divider"></div>
                 </li>
             {{-- FONT-END --}}
+                @hasrole(['admin'])
                 <li>
                     <div class="sidebar-small-cap">Giao Diện</div>
                 </li>
@@ -159,8 +173,7 @@
                         <li><a href="{{ URL::to('admin/add_slider') }}">Thêm slider</a></li>
                     </ul>
                 </li>
-
-
+                @endhasrole
             </ul>
         </div>
     </div>

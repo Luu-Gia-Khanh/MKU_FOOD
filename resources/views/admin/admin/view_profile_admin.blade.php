@@ -115,11 +115,13 @@
                                         href="#setting" role="tab" aria-selected="false">Đổi Mật Khẩu</a>
                                     </li>
                                 @endif
+                                @hasrole(['admin'])
                                 <li class="nav-item">
                                     <input type="hidden" class="admin_id" value="{{ $view_profile->admin_id }}">
                                     <a class="nav-link tab_timeline" data-toggle="tab"
                                     href="#find_trace" role="tab" aria-selected="true">Truy Vết</a>
                                 </li>
+                                @endhasrole
                             </ul>
                             <div class="tab-content">
                                 <!-- Tab update info -->
