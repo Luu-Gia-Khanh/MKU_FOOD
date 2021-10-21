@@ -39,6 +39,7 @@ class AdminController extends Controller
         return view('admin.admin.add_admin',['citys'=>$citys]);
     }
     public function process_add_admin(Request $request){
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         //Validate
         $this->Validation_Admin($request);
         // connect city distrist ward
