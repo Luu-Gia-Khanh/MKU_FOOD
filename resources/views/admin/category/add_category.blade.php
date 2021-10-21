@@ -26,9 +26,8 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Tên Danh Mục Sản Phẩm</label>
-                                <input class="form-control upper_val" type="text" name="cate_name"
-                                    value="{{ old('cate_name') }}" onblur="return upberFirstKey()"
-                                    placeholder="Nhập Loại Sản Phẩm">
+                                <input class="form-control check_format_name_input" type="text" name="cate_name"
+                                    value="{{ old('cate_name') }}" placeholder="Nhập Danh Mục Sản Phẩm">
                                 @if ($errors->has('cate_name'))
                                     <div class="alert alert-danger alert-dismissible mt-1">
                                         <a href="#" class="close" data-dismiss="alert"
@@ -64,7 +63,8 @@
                         </div>
                     </div>
                     <div class="center mr-t">
-                        <input type="submit" class="btn color-btn-them" value="Thêm Loại Sản Phẩm">
+                        <button type="submit" class="btn color-btn-them" value="Chỉnh Sửa Quản Trị Viên"><i
+                                class="icon-copy fi-page-edit"></i>Thêm Loại Sản Phẩm</button>
                     </div>
                 </form>
             </div>

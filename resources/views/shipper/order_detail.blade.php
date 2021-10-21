@@ -20,6 +20,7 @@
         body {
             font-size: 18px;
         }
+
     </style>
 </head>
 
@@ -34,13 +35,14 @@
             <div class="login-menu d-flex align-items-center justify-content-end" style="width: 100%">
                 @if (Session::get('admin_id'))
                     <span class="user-icon">
-                        <img src="{{ asset('public/upload/'.Session::get('admin_image')) }}" alt="" style="width: 52px; height: 52px; border-radius: 50%;">
+                        <img src="{{ asset('public/upload/' . Session::get('admin_image')) }}" alt=""
+                            style="width: 52px; height: 52px; border-radius: 50%;">
                     </span>
                     <span class="text-admin-name">{{ Session::get('admin_name') }}</span>
                 @endif
                 <span class="border"></span>
-				<a href="{{ URL::to('logout_shipper') }}" style="color: #1b3133">Đăng xuất</a>
-			</div>
+                <a href="{{ URL::to('logout_shipper') }}" style="color: #1b3133">Đăng xuất</a>
+            </div>
         </div>
     </div>
     <div class="container">
@@ -55,11 +57,15 @@
                     <a href="{{ URL::to('delivering') }}">
                         <button class="btn btn-secondary">Trở về</button>
                     </a>
-                    <button type="button" class="btn btn-success ml-5 btn_confirm_order" data-toggle="modal" data-target="#modal_confirm_delivered" data-id="{{ $order->order_code }}"></i>Duyệt Đơn Hàng</button>
+                    <button type="button" class="btn btn-success ml-5 btn_confirm_order" data-toggle="modal"
+                        data-target="#modal_confirm_delivered" data-id="{{ $order->order_code }}"></i>Duyệt Đơn
+                        Hàng</button>
                 </div>
                 <div class="d-flex justify-content-between">
-                    <span><strong>Mã Đơn Hàng: </strong><span class="text-primary">{{ $order->order_code }}</span></span>
-                    <span><strong>Ngày Mua Hàng:</strong> {{ date('d/m/Y H:i a', strtotime($order->create_at)) }}</span>
+                    <span><strong>Mã Đơn Hàng: </strong><span
+                            class="text-primary">{{ $order->order_code }}</span></span>
+                    <span><strong>Ngày Mua Hàng:</strong>
+                        {{ date('d/m/Y H:i a', strtotime($order->create_at)) }}</span>
                 </div>
                 <table class="table table-bordered">
                     <thead class="thead-dark">
@@ -95,6 +101,9 @@
                     <tbody style="background-color: #fff">
                         @foreach ($order_items as $order_item)
                             @if ($order_item->order_id == $order->order_id)
+                                @php
+                                    $val_discount_voucher = App\Http\Controllers\CustomerAdminController::check_voucher_order($order->order_id);
+                                @endphp
                                 <tr>
                                     <td class="table-plus sorting_1" tabindex="0">
                                         <div class="name-avatar d-flex align-items-center">
@@ -120,22 +129,26 @@
                                         {{ number_format($order_item->price_product, 0, ',', '.') }}
                                         ₫</th>
                                 </tr>
-                                @if ($order->voucher_code != '')
-                                    <tr>
-                                        <td colspan="2" style="text-align: right;">
-                                            Đơn hàng áp dụng mã Voucher <span
-                                                style="color: blue; font-weight: 500; font-size: 16px;">{{ $order->voucher_code }}</span>
-                                        </td>
-                                        <td>
-                                            @foreach ($all_voucher as $voucher)
-                                                @if ($voucher->voucher_code == $order->voucher_code)
-                                                    -{{ number_format($voucher->voucher_amount, 0, ',', '.') }}
-                                                    ₫
-                                                @endif
-                                            @endforeach
-                                        </td>
-                                    </tr>
-                                @endif
+                                @php
+                                    $fee_ship = $order->fee_ship;
+                                    $fee_voucher = $val_discount_voucher;
+                                @endphp
+                                <tr>
+                                    <td colspan="2" style="text-align: right; font-size: 16px">
+                                        Voucher
+                                    </td>
+                                    <td class="text-center">
+                                        {{ number_format($fee_voucher, 0, ',', '.') }}₫
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="text-align: right; font-size: 16px">
+                                        Phí vận chuyển
+                                    </td>
+                                    <td class="text-center">
+                                        {{ number_format($fee_ship, 0, ',', '.') }}₫
+                                    </td>
+                                </tr>
                             @endif
                         @endforeach
                         <tr>

@@ -68,11 +68,11 @@
                         </div>
                     </div>
                     <div class="center mr-t mt-5">
-                        <button type="submit" class="btn color-btn-them" value="Chỉnh Sửa Quản Trị Viên"><i
-                                class="icon-copy fi-page-edit"></i> Chỉnh Sửa Loại Sản Phẩm</button>
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">
+                        <button type="submit" class="btn color-btn-them"><i class="icon-copy fi-page-edit"></i>Chỉnh Sửa
+                            Loại Sản Phẩm</button>
+                        <a href="" class="btn btn-danger">
                             <i class="icon-copy fi-x"></i> Hủy Thay Đổi
-                        </button>
+                        </a>
                     </div>
                 </form>
             </div>

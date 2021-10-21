@@ -14,6 +14,13 @@ Session::start();
 class CustomerController extends Controller
 {
     //
+
+    public static function image($customer_id) {
+        $customer = Customer_Info::where('customer_id', $customer_id)->first();
+        $image = $customer->customer_avt;
+        return $image;
+    }
+
     public function show_login() {
         return view('client.login.login_client');
     }
@@ -34,12 +41,11 @@ class CustomerController extends Controller
                 $customer_avt = $customer->customer_avt;
             }
             else{
-                $customer_avt = 'no_image.png';
+                $customer_avt = 'user.png';
             }
 
             Session::put('customer_id', $check_customer_login->customer_id);
             Session::put('username', $check_customer_login->username);
-            Session::put('customer_avt', $customer_avt);
             return redirect('/');
         }
         else {
@@ -175,7 +181,6 @@ class CustomerController extends Controller
 
         Session::forget('customer_id');
         Session::forget('username');
-        Session::forget('customer_avt');
         Session::flush();
 
         return redirect('login_client');

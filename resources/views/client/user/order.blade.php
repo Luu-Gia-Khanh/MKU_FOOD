@@ -138,7 +138,7 @@
 
                                                                             <div class="content-item-price-wrap">
                                                                                 <span
-                                                                                    class="content-item-price">{{ number_format($order_item->quantity_product * $order_item->price_product, 0, '', '.') }}đ</span>
+                                                                                    class="content-item-price">{{ number_format($order_item->quantity_product * $order_item->price_product, 0, '', '.') }}₫</span>
                                                                             </div>
                                                                         </div>
                                                                         <div class="content-item-body">
@@ -155,7 +155,7 @@
                                                 </ul>
                                                 <footer class="content-item-footer">
                                                     <span class="content-item-total">Tổng tiền:
-                                                        {{ number_format($order->total_price, 0, '.', ',') }}đ</span>
+                                                        {{ number_format($order->total_price, 0, '.', ',') }}₫</span>
                                                 </footer>
                                                 <footer class="content-btn-footer">
                                                     @foreach ($all_order_detail_status as $status_order_detail)
@@ -266,7 +266,7 @@
                                                         </ul>
                                                         <footer class="content-item-footer">
                                                             <span class="content-item-total">Tổng tiền:
-                                                                {{ number_format($order->total_price, 0, '.', ',') }}đ</span>
+                                                                {{ number_format($order->total_price, 0, '.', ',') }}₫</span>
                                                         </footer>
                                                         <footer class="content-btn-footer">
                                                             <a href="{{ URL::to('user/order/' . $order->order_id) }}"
@@ -362,7 +362,7 @@
                                                         </ul>
                                                         <footer class="content-item-footer">
                                                             <span class="content-item-total">Tổng tiền:
-                                                                {{ number_format($order->total_price, 0, '.', ',') }}đ</span>
+                                                                {{ number_format($order->total_price, 0, '.', ',') }}₫</span>
                                                         </footer>
                                                         <footer class="content-btn-footer">
                                                             <a href="{{ URL::to('user/order/' . $order->order_id) }}"
@@ -459,7 +459,7 @@
                                                         </ul>
                                                         <footer class="content-item-footer">
                                                             <span class="content-item-total">Tổng tiền:
-                                                                {{ number_format($order->total_price, 0, '.', ',') }}đ</span>
+                                                                {{ number_format($order->total_price, 0, '.', ',') }}₫</span>
                                                         </footer>
                                                         <footer class="content-btn-footer">
                                                             <a href="{{ URL::to('user/order/' . $order->order_id) }}"
@@ -553,7 +553,7 @@
                                                         </ul>
                                                         <footer class="content-item-footer">
                                                             <span class="content-item-total">Tổng tiền:
-                                                                {{ number_format($order->total_price, 0, '.', ',') }}đ</span>
+                                                                {{ number_format($order->total_price, 0, '.', ',') }}₫</span>
                                                         </footer>
                                                         <footer class="content-btn-footer">
                                                             <a href="{{ URL::to('user/order/' . $order->order_id) }}"
@@ -647,7 +647,7 @@
                                                         </ul>
                                                         <footer class="content-item-footer">
                                                             <span class="content-item-total">Tổng tiền:
-                                                                {{ number_format($order->total_price, 0, '.', ',') }}đ</span>
+                                                                {{ number_format($order->total_price, 0, '.', ',') }}₫</span>
                                                         </footer>
                                                         <footer class="content-btn-footer">
                                                             <button class="item-btn-footer-primary--disable">Xem chi tiết

@@ -179,7 +179,7 @@
                     <form name="form_add_transport">
                         @csrf
                         <div class="line">
-                            <input type="text" class="form-control input upper_val trans_fullname"
+                            <input type="text" class="form-control input upper_val trans_fullname check_format_name_input"
                                 value="{{ old('trans_fullname') }}" onblur="return upberFirstKey()"
                                 placeholder="Họ và tên">
                             <div class="" style="width: 50px"></div>
@@ -256,8 +256,8 @@
                         @csrf
                         <div class="line">
                             <input type="hidden" class="trans_id" name="trans_id">
-                            <input type="text" class="form-control upper_val input fullname_address_update check_format_name_input"
-                                id="trans_fullname" value="" onblur="return upberFirstKey()" placeholder="Họ và tên">
+                            <input type="text" class="form-control input fullname_address_update check_format_name_input"
+                                id="trans_fullname" value="{{ old('trans_fullname') }}" placeholder="Họ và tên">
                             <div class="" style="width: 50px"></div>
 
                             <input type="text" class="form-control input phone_address_update trans_phone" id="trans_phone"
