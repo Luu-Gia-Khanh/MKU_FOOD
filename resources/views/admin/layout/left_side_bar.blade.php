@@ -11,7 +11,7 @@
         <div class="sidebar-menu">
 
             <ul id="accordion-menu">
-
+                @hasrole(['admin','manager'])
                     <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle">
                             <span class="micon dw dw-house-1"></span>
@@ -29,7 +29,7 @@
                             @endhasrole
                         </ul>
                     </li>
-
+                @endhasrole
                 @hasrole(['admin','manager', 'employee'])
                 <li class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle">
@@ -37,7 +37,9 @@
                         <span class="mtext">Sản Phẩm</span>
                     </a>
                     <ul class="submenu">
+                        @hasrole(['admin','manager'])
                         <li><a href="{{ URL::to('admin/add_product') }}">Thêm Sản Phẩm</a></li>
+                        @endhasrole
                         <li><a href="{{ URL::to('admin/all_product') }}">Danh Sách Sản Phẩm</a></li>
                     </ul>
                 </li>
@@ -51,7 +53,9 @@
                     </a>
                     <ul class="submenu">
                         <li><a href="{{ URL::to('admin/all_category') }}">Danh Sách Danh Mục</a></li>
+                        @hasrole(['admin','manager'])
                         <li><a href="{{ URL::to('admin/add_category') }}">Thêm Danh Mục</a></li>
+                        @endhasrole
                     </ul>
                 </li>
                 @endhasrole
@@ -136,7 +140,9 @@
                     </a>
                     <ul class="submenu">
                         <li><a href="{{ URL::to('admin/all_discount') }}">Danh Sách Giảm Giá</a></li>
+                        @hasrole(['admin','manager'])
                         <li><a href="{{ URL::to('admin/add_discount') }}">Thêm Giảm Giá</a></li>
+                        @endhasrole
                     </ul>
                 </li>
                 @endhasrole
@@ -149,7 +155,9 @@
                     </a>
                     <ul class="submenu">
                         <li><a href="{{ URL::to('admin/all_product_voucher') }}">DS Sản Phẩm Voucher</a></li>
+                        @hasrole(['admin','manager'])
                         <li><a href="{{ URL::to('admin/add_voucher') }}">Thêm Voucher</a></li>
+                        @endhasrole
                     </ul>
                 </li>
                 @endhasrole

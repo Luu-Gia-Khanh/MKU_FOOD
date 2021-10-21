@@ -84,8 +84,8 @@ Route::prefix('admin')->group(function () {
     // });
 
     //PERMISSION
-    Route::get('list_permission', 'AdminController@list_permission');//->middleware('role_admin_manager');
-    Route::post('assign_roles', 'AdminController@assign_roles');//->middleware('role_admin_manager');
+    Route::get('list_permission', 'AdminController@list_permission')->middleware('admin_manager');
+    Route::post('assign_roles', 'AdminController@assign_roles')->middleware('admin');
 
     //PRODUCT
     Route::get('add_product', 'ProductController@add_product')->middleware('admin_manager');
