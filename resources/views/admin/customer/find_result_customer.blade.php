@@ -1,22 +1,18 @@
 @if (count($all_customer) > 0)
     <div class="row">
         <div class="col-12 table-responsive">
-            <table class="data-table table table-hover multiple-select-row nowrap no-footer dtr-inline sortable"
-                id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+            <table class="data-table table table-hover multiple-select-row nowrap no-footer dtr-inline sortable" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
                 <thead>
                     <tr role="row">
-                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                            colspan="1">STT</th>
-                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                            colspan="1" data-defaultsign="AZ">Họ Và Tên</th>
-                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                            colspan="1">Số Điện Thoại</th>
-                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                            colspan="1" data-defaultsign="AZ">Email</th>
-                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                            colspan="1">Đơn Hàng Đã Mua</th>
-                        <th class="datatable-nosort sorting_disabled" rowspan="1" colspan="1" aria-label="Action"
-                            data-defaultsort="disabled">Thao Tác</th>
+                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1">STT</th>
+                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" data-defaultsign="AZ">Họ Và
+                            Tên</th>
+                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1">Số Điện Thoại</th>
+                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" data-defaultsign="AZ">Email
+                        </th>
+                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1">Đơn Hàng Đã Mua</th>
+                        <th class="datatable-nosort sorting_disabled" rowspan="1" colspan="1" aria-label="Action" data-defaultsort="disabled">Thao Tác
+                        </th>
                     </tr>
                 </thead>
                 <tbody class="content_find_customer">
@@ -34,8 +30,7 @@
                                     <div class="name-avatar d-flex align-items-center">
                                         <div class="avatar mr-2 flex-shrink-0">
 
-                                            <img src="{{ asset('public/upload/' . $customer->customer_avt) }}"
-                                                class="border-radius-100 shadow" width="50" height="50" alt="">
+                                            <img src="{{ asset('public/upload/' . $customer->customer_avt) }}" class="border-radius-100 shadow" width="50" height="50" alt="">
                                         </div>
                                         <div class="txt">
                                             <div class="weight-600">{{ $customer->username }}</div>
@@ -63,9 +58,7 @@
                                 {{ $count_order }}
                             </td>
                             <td>
-                                <a class="dropdown-item"
-                                    href="{{ URL::to('admin/detail_customer/' . $customer->customer_id) }}"><i
-                                        class="dw dw-eye"></i>Xem chi tiết</a>
+                                <a class="dropdown-item" href="{{ URL::to('admin/detail_customer/' . $customer->customer_id) }}"><i class="dw dw-eye"></i>Xem chi tiết</a>
                             </td>
                         </tr>
                     @endforeach

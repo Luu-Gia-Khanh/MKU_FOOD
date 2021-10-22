@@ -22,14 +22,14 @@
                 <h4 class="text-blue h4">Sửa Phí Vận Chuyển</h4>
             </div>
             <div class="pd-20">
-                <form action="{{ URL::to('admin/process_update_shipping_cost/'.$shipping_cost->id) }}" method="post" enctype="multipart/form-data">
+                <form action="{{ URL::to('admin/process_update_shipping_cost/' . $shipping_cost->id) }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="col-3"></div>
                         <div class="col-sm-6">
                             <label>Vị Trí Bắt Đầu</label>
-                            <select name="start_position" class="custom-select2 form-control select2-hidden-accessible"
-                                style="width: 100%; height: 38px;" data-select2-id="1" tabindex="-1" aria-hidden="true">
+                            <select name="start_position" class="custom-select2 form-control select2-hidden-accessible" style="width: 100%; height: 38px;" data-select2-id="1" tabindex="-1"
+                                aria-hidden="true">
                                 @foreach ($citys as $city)
                                     @if ($city->name_tp == $shipping_cost->start_position)
                                         <option value="{{ $city->matp }}" selected>{{ $city->name_tp }}</option>
@@ -50,8 +50,8 @@
                         <div class="col-3"></div>
                         <div class="col-sm-6">
                             <label>Vị Trí Kết Thúc</label>
-                            <select name="end_position" class="custom-select2 form-control select2-hidden-accessible"
-                                style="width: 100%; height: 38px;" data-select2-id="2" tabindex="-1" aria-hidden="true">
+                            <select name="end_position" class="custom-select2 form-control select2-hidden-accessible" style="width: 100%; height: 38px;" data-select2-id="2" tabindex="-1"
+                                aria-hidden="true">
                                 <option value="">Chọn Điểm Giao Hàng</option>
                                 @foreach ($citys as $city)
                                     @if ($city->name_tp == $shipping_cost->end_position)
@@ -69,8 +69,7 @@
                             @endif
                             @if (session('error_position'))
                                 <div class="alert alert-danger alert-dismissible mt-1">
-                                    <a href="#" class="close" data-dismiss="alert"
-                                        aria-label="close">&times;</a>
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                                     {{ session('error_position') }}
                                 </div>
                             @endif
@@ -81,13 +80,11 @@
                         <div class="col-sm-6">
                             <label>Phí Vận Chuyển</label>
                             <div class="form-group">
-                                
-                                <input class="form-control" type="number" name="cost"
-                                    value="{{ $shipping_cost->cost }}" placeholder="Nhập Phí Vận Chuyển">
+
+                                <input class="form-control" type="number" name="cost" value="{{ $shipping_cost->cost }}" placeholder="Nhập Phí Vận Chuyển">
                                 @if (session('cost'))
                                     <div class="alert alert-danger alert-dismissible mt-1">
-                                        <a href="#" class="close" data-dismiss="alert"
-                                            aria-label="close">&times;</a>
+                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                                         {{ session('cost') }}
                                     </div>
                                 @endif
@@ -95,7 +92,8 @@
                         </div>
                     </div>
                     <div class="center mr-t">
-                        <input type="submit" class="btn color-btn-them" value="Sửa Phí Vận Chuyển">
+                        <button type="submit" class="btn color-btn-them"><i class="icon-copy fi-page-edit"></i>Sửa Phí Vận
+                            Chuyển</button>
                     </div>
                 </form>
             </div>

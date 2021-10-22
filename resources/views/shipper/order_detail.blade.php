@@ -35,8 +35,7 @@
             <div class="login-menu d-flex align-items-center justify-content-end" style="width: 100%">
                 @if (Session::get('admin_id'))
                     <span class="user-icon">
-                        <img src="{{ asset('public/upload/' . Session::get('admin_image')) }}" alt=""
-                            style="width: 52px; height: 52px; border-radius: 50%;">
+                        <img src="{{ asset('public/upload/' . Session::get('admin_image')) }}" alt="" style="width: 52px; height: 52px; border-radius: 50%;">
                     </span>
                     <span class="text-admin-name">{{ Session::get('admin_name') }}</span>
                 @endif
@@ -57,13 +56,11 @@
                     <a href="{{ URL::to('delivering') }}">
                         <button class="btn btn-secondary">Trở về</button>
                     </a>
-                    <button type="button" class="btn btn-success ml-5 btn_confirm_order" data-toggle="modal"
-                        data-target="#modal_confirm_delivered" data-id="{{ $order->order_code }}"></i>Duyệt Đơn
+                    <button type="button" class="btn btn-success ml-5 btn_confirm_order" data-toggle="modal" data-target="#modal_confirm_delivered" data-id="{{ $order->order_code }}"></i>Duyệt Đơn
                         Hàng</button>
                 </div>
                 <div class="d-flex justify-content-between">
-                    <span><strong>Mã Đơn Hàng: </strong><span
-                            class="text-primary">{{ $order->order_code }}</span></span>
+                    <span><strong>Mã Đơn Hàng: </strong><span class="text-primary">{{ $order->order_code }}</span></span>
                     <span><strong>Ngày Mua Hàng:</strong>
                         {{ date('d/m/Y H:i a', strtotime($order->create_at)) }}</span>
                 </div>
@@ -74,18 +71,15 @@
                                 <div class="cus_bottom_order_customer">
 
                                     <div class="cus_bottom_order_customer--info">
-                                        <span class="cus_bottom_order_customer--text">Người
-                                            nhận</span>
+                                        <span class="cus_bottom_order_customer--text">Người nhận</span>
                                         <span>{{ $trans->trans_fullname }}</span>
                                     </div>
                                     <div class="cus_bottom_order_customer--info">
-                                        <span class="cus_bottom_order_customer--text">Số
-                                            điện thoại</span>
+                                        <span class="cus_bottom_order_customer--text">Số điện thoại</span>
                                         <span>{{ $trans->trans_phone }}</span>
                                     </div>
                                     <div class="cus_bottom_order_customer--info">
-                                        <span class="cus_bottom_order_customer--text">Địa
-                                            chỉ giao hàng</span>
+                                        <span class="cus_bottom_order_customer--text">Địa chỉ giao hàng</span>
                                         <span>{{ $trans->trans_address }}</span>
                                     </div>
 
@@ -110,9 +104,8 @@
                                             @foreach ($all_product as $product)
                                                 @if ($order_item->product_id == $product->product_id)
                                                     <div class="avatar mr-2 flex-shrink-0">
-                                                        <img src="{{ asset('public/upload/' . $product->product_image) }}"
-                                                            style="width: 40px; height: 40px; border-radius:5px"
-                                                            width="40" height="40" alt="">
+                                                        <img src="{{ asset('public/upload/' . $product->product_image) }}" style="width: 40px; height: 40px; border-radius:5px" width="40"
+                                                            height="40" alt="">
                                                     </div>
                                                     <div class="txt">
                                                         <div class="weight-600">
@@ -156,8 +149,7 @@
                                 <div class="cus_pay_order_customer">
                                     @foreach ($payment_method as $pay)
                                         @if ($pay->payment_id == $order->payment_id)
-                                            <span><img src="{{ asset('public/upload/dollar.png') }}" alt=""
-                                                    style="height: 25px; width:25px;">{{ $pay->payment_name }}</span>
+                                            <span><img src="{{ asset('public/upload/dollar.png') }}" alt="" style="height: 25px; width:25px;">{{ $pay->payment_name }}</span>
                                         @endif
                                     @endforeach
                                     <span>Tổng giá đơn hàng:</span>

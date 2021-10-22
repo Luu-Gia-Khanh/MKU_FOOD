@@ -15,8 +15,8 @@
                         <div class="col-10">
                             <div class="form-group">
                                 <label>Chọn nhân viên</label>
-                                <select name="admin_id" id="admin_id_single" class="custom-select2 form-control select2-hidden-accessible"
-                                    style="width: 100%; height: 30px;" data-select2-id="1" tabindex="-1" aria-hidden="true">
+                                <select name="admin_id" id="admin_id_single" class="custom-select2 form-control select2-hidden-accessible" style="width: 100%; height: 30px;" data-select2-id="1"
+                                    tabindex="-1" aria-hidden="true">
                                     <option value="0">Tất cả nhân viên</option>
                                     @foreach ($all_admin as $admin)
                                         <option value="{{ $admin->admin_id }}">{{ $admin->admin_name }}</option>
@@ -32,20 +32,16 @@
                             <label>Chọn thao tác</label>
                             <div class="btn-group btn-group-toggle ml-10" data-toggle="buttons">
                                 <label class="btn btn-outline-info active">
-                                    <input type="radio" name="type_action_voucher_single"
-                                        autocomplete="off" checked value="0"> Tất cả
+                                    <input type="radio" name="type_action_voucher_single" autocomplete="off" checked value="0"> Tất cả
                                 </label>
                                 <label class="btn btn-outline-info">
-                                    <input type="radio" name="type_action_voucher_single"
-                                        autocomplete="off" value="1"> Thêm voucher
+                                    <input type="radio" name="type_action_voucher_single" autocomplete="off" value="1"> Thêm voucher
                                 </label>
                                 <label class="btn btn-outline-info">
-                                    <input type="radio" name="type_action_voucher_single"
-                                    autocomplete="off" value="2"> Thiết lập lại voucher
+                                    <input type="radio" name="type_action_voucher_single" autocomplete="off" value="2"> Thiết lập lại voucher
                                 </label>
                                 <label class="btn btn-outline-info">
-                                    <input type="radio" name="type_action_voucher_single"
-                                    autocomplete="off" value="3"> Xóa voucher
+                                    <input type="radio" name="type_action_voucher_single" autocomplete="off" value="3"> Xóa voucher
                                 </label>
                             </div>
                         </div>
@@ -79,8 +75,8 @@
                         <div class="col-10">
                             <div class="form-group">
                                 <label>Chọn nhân viên</label>
-                                <select name="admin_id_many" id="admin_id_many" class="custom-select2 form-control select2-hidden-accessible"
-                                    style="width: 100%; height: 30px;" data-select2-id="2" tabindex="-1" aria-hidden="true">
+                                <select name="admin_id_many" id="admin_id_many" class="custom-select2 form-control select2-hidden-accessible" style="width: 100%; height: 30px;" data-select2-id="2"
+                                    tabindex="-1" aria-hidden="true">
                                     <option value="0">Tất cả nhân viên</option>
                                     @foreach ($all_admin as $admin)
                                         <option value="{{ $admin->admin_id }}">{{ $admin->admin_name }}</option>
@@ -96,20 +92,16 @@
                             <label>Chọn thao tác</label>
                             <div class="btn-group btn-group-toggle ml-10" data-toggle="buttons">
                                 <label class="btn btn-outline-info active">
-                                    <input type="radio" name="type_action_voucher_many"
-                                        autocomplete="off" checked value="0"> Tất cả
+                                    <input type="radio" name="type_action_voucher_many" autocomplete="off" checked value="0"> Tất cả
                                 </label>
                                 <label class="btn btn-outline-info">
-                                    <input type="radio" name="type_action_voucher_many"
-                                        autocomplete="off" value="1"> Thêm voucher
+                                    <input type="radio" name="type_action_voucher_many" autocomplete="off" value="1"> Thêm voucher
                                 </label>
                                 <label class="btn btn-outline-info">
-                                    <input type="radio" name="type_action_voucher_many"
-                                    autocomplete="off" value="2"> Thiết lập lại voucher
+                                    <input type="radio" name="type_action_voucher_many" autocomplete="off" value="2"> Thiết lập lại voucher
                                 </label>
                                 <label class="btn btn-outline-info">
-                                    <input type="radio" name="type_action_voucher_many"
-                                    autocomplete="off" value="3"> Xóa voucher
+                                    <input type="radio" name="type_action_voucher_many" autocomplete="off" value="3"> Xóa voucher
                                 </label>
                             </div>
                         </div>

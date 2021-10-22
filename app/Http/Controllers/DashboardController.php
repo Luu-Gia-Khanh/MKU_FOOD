@@ -249,6 +249,7 @@ class DashboardController extends Controller
                         ->where('order_detail_status.status_id', 4)
                         ->whereDate('orders.create_at','>=', $date_start)
                         ->whereDate('orders.create_at','<=', $date_end)
+                        ->orderBy('create_at', 'Asc')
                         ->get();
             $revenue = DB::table('orders')
                         ->join('order_detail_status','order_detail_status.order_id','=','orders.order_id')
@@ -295,6 +296,7 @@ class DashboardController extends Controller
                         ->where('order_detail_status.status_id', 4)
                         ->whereDate('orders.create_at','>=', $date_start)
                         ->whereDate('orders.create_at','<=', $date_end)
+                        ->orderBy('create_at', 'Asc')
                         ->get();
         $string_title = 'Thống Kê Doanh Thu từ ngày '
                         .date('d/m/Y', strtotime($date_start)).' - '

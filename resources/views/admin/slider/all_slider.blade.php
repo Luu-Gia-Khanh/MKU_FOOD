@@ -85,20 +85,15 @@
                 <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer ">
                     <div class="content_find_storage">
                         <div class="col-12 table-responsive">
-                            <table
-                                class="data-table table table-hover multiple-select-row nowrap no-footer dtr-inline sortable"
-                                id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                            <table class="data-table table table-hover multiple-select-row nowrap no-footer dtr-inline sortable" id="DataTables_Table_0" role="grid"
+                                aria-describedby="DataTables_Table_0_info">
                                 <thead>
                                     <tr role="row">
                                     <tr role="row">
-                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
-                                            rowspan="1" colspan="1">STT</th>
-                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
-                                            rowspan="1" colspan="1" data-defaultsort="disabled">Hình Ảnh</th>
-                                        <th class="datatable-nosort sorting_disabled" rowspan="1" colspan="1"
-                                            aria-label="Action" data-defaultsort="disabled">Trạng Thái</th>
-                                        <th class="datatable-nosort sorting_disabled" rowspan="1" colspan="1"
-                                            aria-label="Action" data-defaultsort="disabled">Xóa</th>
+                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1">STT</th>
+                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" data-defaultsort="disabled">Hình Ảnh</th>
+                                        <th class="datatable-nosort sorting_disabled" rowspan="1" colspan="1" aria-label="Action" data-defaultsort="disabled">Trạng Thái</th>
+                                        <th class="datatable-nosort sorting_disabled" rowspan="1" colspan="1" aria-label="Action" data-defaultsort="disabled">Xóa</th>
                                     </tr>
                                     </tr>
                                 </thead>
@@ -115,28 +110,22 @@
                                             <td>{{ $stt }}</td>
                                             <td>
                                                 <img src="{{ asset('public/upload/' . $slider->slider_image) }}" style="width: 200px; height: 78px; border-radius: 2px;
-                                                                border: 1px solid #ecf0f4;" alt="hình ảnh" srcset="">
+                                                                    border: 1px solid #ecf0f4;" alt="hình ảnh" srcset="">
                                             </td>
                                             <td>
                                                 @if ($slider->slider_status == 1)
-                                                    <a
-                                                        href="{{ URL::to('admin/unactive_slider/' . $slider->slider_id) }}">
-                                                        <span class="badge badge-success"
-                                                            style="width: 105px;">Bật/Tắt</span>
+                                                    <a href="{{ URL::to('admin/unactive_slider/' . $slider->slider_id) }}">
+                                                        <span class="badge badge-success" style="width: 105px;">Bật/Tắt</span>
                                                     </a>
                                                 @else
                                                     <a href="{{ URL::to('admin/active_slider/' . $slider->slider_id) }}">
-                                                        <span class="badge badge-danger"
-                                                            style="width: 105px;">Bật/Tắt</span>
+                                                        <span class="badge badge-danger" style="width: 105px;">Bật/Tắt</span>
                                                     </a>
                                                 @endif
                                             </td>
                                             <td>
-                                                <a class="delete_slider" data-id="{{ $slider->slider_id }}"
-                                                    data-toggle="modal" data-target="#Modal_delete_slider"
-                                                    style="cursor: pointer">
-                                                    <i class="icon-copy fa fa-close" aria-hidden="true"
-                                                        style="font-size: 25px; color: rgb(207, 51, 11)"></i>
+                                                <a class="delete_slider" data-id="{{ $slider->slider_id }}" data-toggle="modal" data-target="#Modal_delete_slider" style="cursor: pointer">
+                                                    <i class="icon-copy fa fa-close" aria-hidden="true" style="font-size: 25px; color: rgb(207, 51, 11)"></i>
                                                 </a>
                                             </td>
                                         </tr>
@@ -173,8 +162,7 @@
                     <!-- Modal body -->
                     <div class="modal-body">
                         Bạn có muốn xóa slider này ?
-                        <form action="{{ URL::to('admin/process_delete_slider') }}" method="post"
-                            name="form_delete_slider">
+                        <form action="{{ URL::to('admin/process_delete_slider') }}" method="post" name="form_delete_slider">
                             @csrf
                             <input type="hidden" class="slider_id" name="slider_id" value="">
                         </form>

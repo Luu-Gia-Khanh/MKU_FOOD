@@ -20,7 +20,8 @@ use Illuminate\Support\Facades\DB;
 class StorageProductController extends Controller
 {
     //
-    public function all_storage_product(Request $request, $storage_id){
+    public function all_storage_product(Request $request, $storage_id)
+    {
         $all_storage_product = Storage_Product::where('storage_id', $storage_id)->paginate(5);
         $all_product = DB::table('product')->get();
 
@@ -30,7 +31,8 @@ class StorageProductController extends Controller
         return view('admin.storage_product.all_storage_product', compact('all_storage_product', 'all_product', 'storage_id', 'storage_name'));
     }
 
-    public function update_storage_product(Request $request, $storage_product_id){
+    public function update_storage_product(Request $request, $storage_product_id)
+    {
         $storage_product = Storage_Product::find($storage_product_id);
         $storage_id = $storage_product->storage_id;
         $all_product = DB::table('product')->get();
@@ -38,18 +40,20 @@ class StorageProductController extends Controller
         return view('admin.storage_product.update_storage_product', compact('storage_product', 'all_product', 'storage_id'));
     }
 
-    public function process_update_storage_product(Request $request, $storage_product_id){
+    public function process_update_storage_product(Request $request, $storage_product_id)
+    {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         $storage_product = Storage_Product::find($storage_product_id);
 
-        if($request->total_quantity_product > $storage_product->total_quantity_product){
+        if ($request->total_quantity_product > $storage_product->total_quantity_product) {
             $request->session()->flash('error_check_storage_product_quantity', 'Số lượng không được lớn hơn số lượng hiện tại');
             return redirect()->back();
         }
-        if($request->total_quantity_product < 0){
+        if ($request->total_quantity_product < 0) {
             $request->session()->flash('error_check_storage_product_quantity', 'Số lượng nhập phải lớn hơn 0');
             return redirect()->back();
         }
-        if($request->total_quantity_product == null){
+        if ($request->total_quantity_product == null) {
             $request->session()->flash('error_check_storage_product_null', 'Số lượng nhập không được bỏ trống');
             return redirect()->back();
         }
@@ -59,7 +63,7 @@ class StorageProductController extends Controller
             'updated_at' => Carbon::now('Asia/Ho_Chi_Minh'),
         ]);
 
-        if($result_save) {
+        if ($result_save) {
             // Action update storage product
             $action_storage_product = new Admin_Action_Storage_Product();
             $action_storage_product->admin_id = Session::get('admin_id');
@@ -71,10 +75,11 @@ class StorageProductController extends Controller
 
             $request->session()->flash('success_update_storage_product', 'Sửa kho sản phẩm thành công');
         }
-        return redirect('admin/all_storage_product/'.$storage_product->storage_id);
+        return redirect('admin/all_storage_product/' . $storage_product->storage_id);
     }
 
-    public function import_storage_product($storage_product_id){
+    public function import_storage_product($storage_product_id)
+    {
         $storage_product = Storage_Product::find($storage_product_id);
         $storage_id = $storage_product->storage_id;
         $product = DB::table('product')->where('product_id', $storage_product->product_id)->first();
@@ -82,10 +87,12 @@ class StorageProductController extends Controller
         return view('admin.storage_product.import_storage_product', compact('storage_product', 'product', 'storage_id'));
     }
 
-    public function process_import_storage_product(Request $request, $storage_product_id){
+    public function process_import_storage_product(Request $request, $storage_product_id)
+    {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         $storage_product = Storage_Product::find($storage_product_id);
 
-        if($request->total_quantity_product <= 0){
+        if ($request->total_quantity_product <= 0) {
             $request->session()->flash('error_check_storage_product_quantity', 'Số lượng nhập phải lớn hơn 0');
             return redirect()->back();
         }
@@ -101,12 +108,12 @@ class StorageProductController extends Controller
             'created_at' => Carbon::now('Asia/Ho_Chi_Minh'),
         ]);
 
-        if($check_import){
+        if ($check_import) {
             $result_save = DB::table('Storage_Product')->where('storage_product_id', $storage_product_id)->update([
                 'total_quantity_product' => $total_quantity_new,
             ]);
 
-            if($result_save) {
+            if ($result_save) {
                 // Action add storage product
                 $action_storage_product = new Admin_Action_Storage_Product();
                 $action_storage_product->admin_id = Session::get('admin_id');
@@ -118,18 +125,20 @@ class StorageProductController extends Controller
             }
         }
         $request->session()->flash('success_import_storage_product', 'Nhập kho sản phẩm thành công');
-        return redirect('admin/all_storage_product/'.$storage_product->storage_id);
+        return redirect('admin/all_storage_product/' . $storage_product->storage_id);
     }
 
-    public function find_storage_product(Request $request) {
+    public function find_storage_product(Request $request)
+    {
         $value_find = $request->value_find;
         $value_storage_id = $request->value_storage_id;
         $all_storage_product = DB::table('storage_product')->where('deleted_at', null)->where('storage_id', $value_storage_id)->get();
-        $all_product = DB::table('product')->where('product_name', 'LIKE','%'.$value_find.'%')->get();
+        $all_product = DB::table('product')->where('product_name', 'LIKE', '%' . $value_find . '%')->get();
         echo view('admin.storage_product.result_find_storage_product', compact('all_storage_product', 'all_product'));
     }
 
-    public function history_storage_product($storage_product_id){
+    public function history_storage_product($storage_product_id)
+    {
         $history_storage_product = Import_Storage_Product::where('storage_product_id', $storage_product_id)->paginate(5);
         $storage_product = Storage_Product::where('storage_product_id', $storage_product_id)->first();
         $storage_id = $storage_product->storage_id;
@@ -140,19 +149,19 @@ class StorageProductController extends Controller
         return view('admin.storage_product.history_storage_product', compact('history_storage_product', 'all_product', 'storage_product', 'all_admin', 'storage_id', 'quantity_total'));
     }
 
-    public function process_delete_storage_product(Request $request, $storage_product_id) {
+    public function process_delete_storage_product(Request $request, $storage_product_id)
+    {
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         $storage_product = Storage_Product::where('storage_product_id', $storage_product_id)->first();
         $product_id = $storage_product->product_id;
 
-        if($storage_product->total_quantity_product > 0){
+        if ($storage_product->total_quantity_product > 0) {
             $request->session()->flash('error_delete_soft_storage_product', 'Sản phẩm chưa hết hàng không thể xóa');
             return redirect()->back();
-        }
-        else{
+        } else {
             Product::where('product_id', $product_id)->delete();
             $result_destroy = Storage_Product::destroy($storage_product_id);
-            if($result_destroy) {
+            if ($result_destroy) {
                 // Action delete storage product
                 $action_storage_product = new Admin_Action_Storage_Product();
                 $action_storage_product->admin_id = Session::get('admin_id');
@@ -168,28 +177,29 @@ class StorageProductController extends Controller
         }
     }
 
-    public function view_recycle($storage_id){
+    public function view_recycle($storage_id)
+    {
         $recycle_item = Storage_Product::onlyTrashed()->get();
         $all_product = DB::table('product')->get();
 
         return view('admin.storage_product.all_recycle_storage_product', compact('recycle_item', 'all_product', 'storage_id'));
     }
 
-    public function soft_delete(Request $request){
+    public function soft_delete(Request $request)
+    {
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         $storage_product_id = $request->storage_product_id;
         $storage_product = Storage_Product::where('storage_product_id', $storage_product_id)->first();
         $product_id = $storage_product->product_id;
 
-        if($storage_product->total_quantity_product > 0){
+        if ($storage_product->total_quantity_product > 0) {
             $request->session()->flash('error_delete_soft_storage_product', 'Sản phẩm chưa hết hàng không thể xóa');
             return redirect()->back();
-        }
-        else{
+        } else {
             Product::where('product_id', $product_id)->delete();
             $result_delete = Storage_Product::where('storage_product_id', $storage_product_id)->delete();
 
-            if($result_delete) {
+            if ($result_delete) {
                 // Action delete storage product
                 $action_storage_product = new Admin_Action_Storage_Product();
                 $action_storage_product->admin_id = Session::get('admin_id');
@@ -204,14 +214,16 @@ class StorageProductController extends Controller
         }
     }
 
-    public function re_delete(Request $request,$storage_product_id){
+    public function re_delete(Request $request, $storage_product_id)
+    {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         $storage_product = Storage_Product::onlyTrashed()->where('storage_product_id', $storage_product_id)->first();
         $product_id = $storage_product->product_id;
 
         Product::withTrashed()->where('product_id', $product_id)->restore();
         $result_restore = Storage_Product::withTrashed()->where('storage_product_id', $storage_product_id)->restore();
-        
-        if($result_restore) {
+
+        if ($result_restore) {
             // Action recovery storage product
             $action_storage_product = new Admin_Action_Storage_Product();
             $action_storage_product->admin_id = Session::get('admin_id');
@@ -224,7 +236,8 @@ class StorageProductController extends Controller
         }
         return redirect()->back();
     }
-    public function delete_forever(Request $request){
+    public function delete_forever(Request $request)
+    {
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         $storage_product_id = $request->storage_product_id_delete_forever;
         $storage_product = Storage_Product::withTrashed()->where('storage_product_id', $storage_product_id)->first();
@@ -235,7 +248,7 @@ class StorageProductController extends Controller
         Product::withTrashed()->where('product_id', $product_id)->forceDelete();
         $result_forcedelete = Storage_Product::withTrashed()->where('storage_product_id', $storage_product_id)->forceDelete();
 
-        if($result_forcedelete) {
+        if ($result_forcedelete) {
             // Action delete forever storage product
             $action_storage_product = new Admin_Action_Storage_Product();
             $action_storage_product->admin_id = Session::get('admin_id');
@@ -249,7 +262,8 @@ class StorageProductController extends Controller
         return redirect()->back();
     }
 
-    public function filter_storage_product_quantity_choose(Request $request){
+    public function filter_storage_product_quantity_choose(Request $request)
+    {
         $storage_id = $request->storageId;
         $all_product = Product::all();
         $storage_product_quantity_choose = $request->radioProductQuantity;
@@ -257,50 +271,61 @@ class StorageProductController extends Controller
         $level_filter = $storage_product_quantity_choose;
         $quantity_start = 0;
         $quantity_end = 0;
-        if($storage_product_quantity_choose == 1){
+        if ($storage_product_quantity_choose == 1) {
             $quantity_start = 0;
             $quantity_end = 50;
-        }
-        else if($storage_product_quantity_choose == 2){
+        } else if ($storage_product_quantity_choose == 2) {
             $quantity_start = 51;
             $quantity_end = 100;
-        }
-        else if($storage_product_quantity_choose == 3){
+        } else if ($storage_product_quantity_choose == 3) {
             $quantity_start = 101;
             $quantity_end = 150;
-        }
-        else if($storage_product_quantity_choose == 4){
+        } else if ($storage_product_quantity_choose == 4) {
             $quantity_start = 151;
             $quantity_end = 200;
         }
-        $string_title = 'Theo Số Lượng Sản Phẩm " Từ '.$quantity_start.' Đến ' .$quantity_end.'"';
+        $string_title = 'Theo Số Lượng Sản Phẩm " Từ ' . $quantity_start . ' Đến ' . $quantity_end . '"';
         $all_storage_product = Storage_Product::where('storage_id', $storage_id)
-                                                ->where('total_quantity_product', '>=', $quantity_start)
-                                                ->where('total_quantity_product', '<=', $quantity_end)
-                                                ->orderBy('total_quantity_product', 'desc')
-                                                ->get();
-        echo view('admin.storage_product.view_filter_storage_product', compact('type_filter', 'level_filter', 'storage_id',
-                                                                                'all_product', 'all_storage_product', 'string_title'));
+            ->where('total_quantity_product', '>=', $quantity_start)
+            ->where('total_quantity_product', '<=', $quantity_end)
+            ->orderBy('total_quantity_product', 'desc')
+            ->get();
+        echo view('admin.storage_product.view_filter_storage_product', compact(
+            'type_filter',
+            'level_filter',
+            'storage_id',
+            'all_product',
+            'all_storage_product',
+            'string_title'
+        ));
     }
 
-    public function filter_storage_product_quantity_cus_option(Request $request){
+    public function filter_storage_product_quantity_cus_option(Request $request)
+    {
         $storage_id = $request->storageId;
         $all_product = Product::all();
         $type_filter = 'cus_quantity';
         $level_filter = '';
         $quantity_start = $request->quantityStart;
         $quantity_end = $request->quantityEnd;
-        $string_title = 'Theo Số Lượng Sản Phẩm " Từ '.$quantity_start.' Đến ' .$quantity_end.'"';
+        $string_title = 'Theo Số Lượng Sản Phẩm " Từ ' . $quantity_start . ' Đến ' . $quantity_end . '"';
         $all_storage_product = Storage_Product::where('storage_id', $storage_id)
-                                                ->where('total_quantity_product', '>=', $quantity_start)
-                                                ->where('total_quantity_product', '<=', $quantity_end)
-                                                ->orderBy('total_quantity_product', 'desc')
-                                                ->get();
-        echo view('admin.storage_product.view_filter_storage_product', compact('type_filter', 'level_filter', 'storage_id',
-                                                                                'all_product', 'all_storage_product', 'string_title'));
+            ->where('total_quantity_product', '>=', $quantity_start)
+            ->where('total_quantity_product', '<=', $quantity_end)
+            ->orderBy('total_quantity_product', 'desc')
+            ->get();
+        echo view('admin.storage_product.view_filter_storage_product', compact(
+            'type_filter',
+            'level_filter',
+            'storage_id',
+            'all_product',
+            'all_storage_product',
+            'string_title'
+        ));
     }
 
-    public function print_pdf_storage_product(Request $request){
+    public function print_pdf_storage_product(Request $request)
+    {
         $all_product = Product::all();
         $storage_id = $request->storage_id;
         $type_filter = $request->type_filter;
@@ -308,31 +333,28 @@ class StorageProductController extends Controller
 
         switch ($type_filter) {
             case "choose_quantity":
+                $quantity_start = 0;
+                $quantity_end = 0;
+                if ($level_filter == 1) {
                     $quantity_start = 0;
-                    $quantity_end = 0;
-                    if($level_filter == 1){
-                        $quantity_start = 0;
-                        $quantity_end = 50;
-                    }
-                    else if($level_filter == 2){
-                        $quantity_start = 51;
-                        $quantity_end = 100;
-                    }
-                    else if($level_filter == 3){
-                        $quantity_start = 101;
-                        $quantity_end = 150;
-                    }
-                    else if($level_filter == 4){
-                        $quantity_start = 151;
-                        $quantity_end = 200;
-                    }
-                    $string_title = 'Danh Sách Kho Sản Phẩm Theo Số Lượng Sản Phẩm " Từ '.$quantity_start.' Đến ' .$quantity_end.'"';
-                    $all_storage_product = Storage_Product::where('storage_id', $storage_id)
-                                                            ->where('total_quantity_product', '>=', $quantity_start)
-                                                            ->where('total_quantity_product', '<=', $quantity_end)
-                                                            ->get();
-                    $pdf = PDF::loadView('admin.storage_product.view_print_pdf_storage_product', compact('all_product', 'all_storage_product', 'string_title'));
-                    return $pdf->download('danhsachkhosanphamtheosoluong.pdf');
+                    $quantity_end = 50;
+                } else if ($level_filter == 2) {
+                    $quantity_start = 51;
+                    $quantity_end = 100;
+                } else if ($level_filter == 3) {
+                    $quantity_start = 101;
+                    $quantity_end = 150;
+                } else if ($level_filter == 4) {
+                    $quantity_start = 151;
+                    $quantity_end = 200;
+                }
+                $string_title = 'Danh Sách Kho Sản Phẩm Theo Số Lượng Sản Phẩm " Từ ' . $quantity_start . ' Đến ' . $quantity_end . '"';
+                $all_storage_product = Storage_Product::where('storage_id', $storage_id)
+                    ->where('total_quantity_product', '>=', $quantity_start)
+                    ->where('total_quantity_product', '<=', $quantity_end)
+                    ->get();
+                $pdf = PDF::loadView('admin.storage_product.view_print_pdf_storage_product', compact('all_product', 'all_storage_product', 'string_title'));
+                return $pdf->download('danhsachkhosanphamtheosoluong.pdf');
                 break;
             case "cus_quantity":
                 $storage_id = $request->storageId;
@@ -341,13 +363,19 @@ class StorageProductController extends Controller
                 $level_filter = '';
                 $quantity_start = $request->quantityStart;
                 $quantity_end = $request->quantityEnd;
-                $string_title = 'Theo Số Lượng Sản Phẩm " Từ '.$quantity_start.' Đến ' .$quantity_end.'"';
+                $string_title = 'Theo Số Lượng Sản Phẩm " Từ ' . $quantity_start . ' Đến ' . $quantity_end . '"';
                 $all_storage_product = Storage_Product::where('storage_id', $storage_id)
-                                                        ->where('total_quantity_product', '>=', $quantity_start)
-                                                        ->where('total_quantity_product', '<=', $quantity_end)
-                                                        ->get();
-                $pdf = PDF::loadView('admin.storage_product.view_print_pdf_order_customer', compact('type_filter', 'level_filter', 'storage_id',
-                                    'all_product', 'all_storage_product', 'string_title'));
+                    ->where('total_quantity_product', '>=', $quantity_start)
+                    ->where('total_quantity_product', '<=', $quantity_end)
+                    ->get();
+                $pdf = PDF::loadView('admin.storage_product.view_print_pdf_order_customer', compact(
+                    'type_filter',
+                    'level_filter',
+                    'storage_id',
+                    'all_product',
+                    'all_storage_product',
+                    'string_title'
+                ));
                 return $pdf->download('danhsachkhohangtheosoluongtuchon.pdf');
             default:
                 $string_title = 'Danh Sách Kho Sản Phẩm';
@@ -355,5 +383,24 @@ class StorageProductController extends Controller
                 $pdf = PDF::loadView('admin.storage_product.view_print_pdf_storage_product', compact('all_product', 'all_storage_product', 'string_title'));
                 return $pdf->download('danhsachkhosanpham.pdf');
         }
+    }
+
+    public function print_pdf_history_storage_product(Request $request)
+    {
+        $storage_product_id = $request->storage_product_id;
+        $product_id = $request->product_id;
+
+        $history_storage_product = Import_Storage_Product::where('storage_product_id', $storage_product_id)->get();
+
+        $all_admin = Admin::all();
+
+        $storage_product = Storage_Product::where('storage_product_id', $storage_product_id)->first();
+        $quantity_total = $storage_product->total_quantity_product;
+        $product = Product::where('product_id', $product_id)->first();
+        $product_name = $product->product_name;
+
+        $string_title = 'Danh Sách Lịch Sử Nhập Hàng - "' . $product_name . '"';
+        $pdf = PDF::loadView('admin.storage_product.view_print_pdf_history_storage_product', compact('quantity_total', 'all_admin', 'history_storage_product', 'string_title'));
+        return $pdf->download('danhsachlichsunhaphang.pdf');
     }
 }

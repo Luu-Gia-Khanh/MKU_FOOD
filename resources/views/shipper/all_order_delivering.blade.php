@@ -42,8 +42,7 @@
             <div class="login-menu d-flex align-items-center justify-content-end" style="width: 100%">
                 @if (Session::get('admin_id'))
                     <span class="user-icon">
-                        <img src="{{ asset('public/upload/' . Session::get('admin_image')) }}" alt=""
-                            style="width: 52px; height: 52px; border-radius: 50%;">
+                        <img src="{{ asset('public/upload/' . Session::get('admin_image')) }}" alt="" style="width: 52px; height: 52px; border-radius: 50%;">
                     </span>
                     <span class="text-admin-name">{{ Session::get('admin_name') }}</span>
                 @endif
@@ -60,8 +59,7 @@
                 <div class="card-box mb-30 mt-4">
                     @if (session('confirm_delivery_order_success'))
                         <div class="alert alert-success alert-dismissible" role="alert">
-                            <a href="#" class="close" data-dismiss="alert" aria-label="Close"
-                                style="line-height: 10px;">&times;</a>
+                            <a href="#" class="close" data-dismiss="alert" aria-label="Close" style="line-height: 10px;">&times;</a>
                             {{ session('confirm_delivery_order_success') }}
                         </div>
                     @endif
@@ -70,8 +68,7 @@
                     <h2 class="font-weight-bold">Danh Sách Đơn Hàng</h2>
                 </div>
 
-                <input class="form-control" id="myInput" type="text"
-                    placeholder="Nhập mã đơn hàng, số điện thoại người nhận,..">
+                <input class="form-control" id="myInput" type="text" placeholder="Nhập mã đơn hàng, số điện thoại người nhận,..">
                 <br>
                 @if (count($all_order_delivered) > 0)
                     <table class="table table-fixed table-bordered tableFixHead">
@@ -102,8 +99,7 @@
                                         @endforeach
                                     </td>
                                     <td style="min-width: 163px;" class="text-center">
-                                        <button type="button" class="btn btn-success btn_confirm_order"
-                                            data-toggle="modal" data-target="#modal_confirm_delivered"
+                                        <button type="button" class="btn btn-success btn_confirm_order" data-toggle="modal" data-target="#modal_confirm_delivered"
                                             data-id="{{ $order->order_code }}"></i>Xác Nhận</button>
                                     </td>
                                 </tr>

@@ -62,9 +62,7 @@
                             <div id="DataTables_Table_0_filter" class="dataTables_filter">
                                 <form action="">
                                     @csrf
-                                    <label>Tìm Kiếm:<input type="search" class="form-control form-control-sm"
-                                            id="find_category" placeholder="Tìm Kiếm"
-                                            aria-controls="DataTables_Table_0"></label>
+                                    <label>Tìm Kiếm:<input type="search" class="form-control form-control-sm" id="find_category" placeholder="Tìm Kiếm" aria-controls="DataTables_Table_0"></label>
                                 </form>
                             </div>
                         </div>
@@ -72,22 +70,16 @@
                     <div class="content_find_category">
                         <div class="row">
                             <div class="col-12 table-responsive">
-                                <table
-                                    class="data-table table table-hover multiple-select-row nowrap no-footer dtr-inline sortable"
-                                    id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                                <table class="data-table table table-hover multiple-select-row nowrap no-footer dtr-inline sortable" id="DataTables_Table_0" role="grid"
+                                    aria-describedby="DataTables_Table_0_info">
                                     <thead>
                                         <tr role="row">
-                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
-                                                rowspan="1" colspan="1">STT</th>
-                                            <th class="table-plus datatable-nosort sorting_asc" rowspan="1" colspan="1"
-                                                aria-label="Name" data-defaultsort="disabled">Hình Ảnh</th>
-                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
-                                                rowspan="1" colspan="1" data-defaultsign="AZ">Tên Danh Mục</th>
-                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
-                                                rowspan="1" colspan="1">Ngày Thêm</th>
-                                            @hasrole(['admin','manager'])
-                                            <th class="datatable-nosort sorting_disabled" rowspan="1" colspan="1"
-                                                aria-label="Action" data-defaultsort="disabled">Thao Tác</th>
+                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1">STT</th>
+                                            <th class="table-plus datatable-nosort sorting_asc" rowspan="1" colspan="1" aria-label="Name" data-defaultsort="disabled">Hình Ảnh</th>
+                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" data-defaultsign="AZ">Tên Danh Mục</th>
+                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1">Ngày Thêm</th>
+                                            @hasrole(['admin', 'manager'])
+                                                <th class="datatable-nosort sorting_disabled" rowspan="1" colspan="1" aria-label="Action" data-defaultsort="disabled">Thao Tác</th>
                                             @endhasrole
                                         </tr>
                                     </thead>
@@ -104,10 +96,8 @@
                                                 <td class="table-plus sorting_1" tabindex="0">
                                                     <div class="da-card box-shadow" style="height: 80px; width: 80px">
                                                         <div class="da-card-photo">
-                                                            <img src="{{ asset('public/upload/' . $cate->cate_image) }}"
-                                                                alt="hình ảnh"
-                                                                style="height: 80px !important; width: 80px !important;"
-                                                                srcset="" width="80" height="80">
+                                                            <img src="{{ asset('public/upload/' . $cate->cate_image) }}" alt="hình ảnh" style="height: 80px !important; width: 80px !important;" srcset=""
+                                                                width="80" height="80">
                                                         </div>
                                                     </div>
                                                 </td>
@@ -117,19 +107,16 @@
                                                 @hasrole(['admin','manager'])
                                                 <td>
                                                     <div class="dropdown">
-                                                        <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"
-                                                            href="#" role="button" data-toggle="dropdown">
+                                                        <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
                                                             <i class="dw dw-more"></i>
                                                         </a>
                                                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                                            <a class="dropdown-item"
-                                                                href="{{ URL::to('admin/update_category/' . $cate->cate_id) }}"><i
-                                                                    class="dw dw-edit2"></i>Chỉnh Sửa</a>
+                                                            @hasrole(['admin', 'manager'])
+                                                                <a class="dropdown-item" href="{{ URL::to('admin/update_category/' . $cate->cate_id) }}"><i class="dw dw-edit2"></i>Chỉnh Sửa</a>
+                                                            @endhasrole
                                                             @hasrole(['admin'])
-                                                            <button class="dropdown-item soft_delete_category_class"
-                                                                data-id="{{ $cate->cate_id }}" data-toggle="modal"
-                                                                data-target="#Modal_delete"><i
-                                                                    class="dw dw-delete-3"></i>Xóa</button>
+                                                                <button class="dropdown-item soft_delete_category_class" data-id="{{ $cate->cate_id }}" data-toggle="modal" data-target="#Modal_delete"><i
+                                                                        class="dw dw-delete-3"></i>Xóa</button>
                                                             @endhasrole
                                                         </div>
                                                     </div>
@@ -145,8 +132,7 @@
                     <div class="row">
                         <div class="col-sm-12 col-md-5">
                             @hasrole(['admin'])
-                            <a href="{{ URL::to('admin/view_recycle_cate') }}" class="btn color-btn-them ml-10"
-                                style="color: white"><i class="dw dw-delete-3"></i> Thùng Rác</a>
+                                <a href="{{ URL::to('admin/view_recycle_cate') }}" class="btn color-btn-them ml-10" style="color: white"><i class="dw dw-delete-3"></i> Thùng Rác</a>
                             @endhasrole
                         </div>
                         <div class="col-sm-12 col-md-7">

@@ -9,8 +9,7 @@
                             <li class="breadcrumb-item"><a href="{{ URL::to('admin/') }}">Trang chủ</a></li>
                             <li class="breadcrumb-item"><a href="{{ URL::to('admin/all_storage') }}">Danh sách kho hàng</a>
                             </li>
-                            <li class="breadcrumb-item"><a
-                                    href="{{ URL::to('admin/all_storage_product/' . $storage_id) }}">Danh sách kho sản
+                            <li class="breadcrumb-item"><a href="{{ URL::to('admin/all_storage_product/' . $storage_id) }}">Danh sách kho sản
                                     phẩm</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Lịch sử nhập hàng</li>
                         </ol>
@@ -49,21 +48,28 @@
                 <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer ">
                     @if (count($history_storage_product) > 0)
                         <div class="row">
+                            <div class="col-sm-12 col-md-6 d-flex">
+                                <div class="content_print_pdf_storage_product ml-10 mb-10">
+                                    <form action="{{ URL::to('admin/print_pdf_history_storage_product') }}" method="post">
+                                        @csrf
+                                        <input type="hidden" name="product_id" value="{{ $storage_product->product_id }}">
+                                        <input type="hidden" name="storage_product_id" value="{{ $storage_product->storage_product_id }}">
+                                        <button type="submit" class="btn btn-secondary">
+                                            Xuất
+                                            <img src="{{ asset('public/upload/pdf1.svg') }}" style="height: 25px" alt="">
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
                             <div class="col-12 table-responsive">
-                                <table class="data-table table table-hover multiple-select-row nowrap no-footer dtr-inline"
-                                    id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                                <table class="data-table table table-hover multiple-select-row nowrap no-footer dtr-inline" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
                                     <thead>
                                         <tr role="row">
-                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
-                                                rowspan="1" colspan="1">STT</th>
-                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
-                                                rowspan="1" colspan="1">Nhân Viên Nhập</th>
-                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
-                                                rowspan="1" colspan="1">Số Lượng Tồn Kho</th>
-                                            <th class="datatable-nosort sorting_disabled" rowspan="1" colspan="1"
-                                                aria-label="Action">Số Lượng Nhập Mới</th>
-                                            <th class="datatable-nosort sorting_disabled" rowspan="1" colspan="1"
-                                                aria-label="Action">Ngày Nhập Hàng</th>
+                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1">STT</th>
+                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1">Nhân Viên Nhập</th>
+                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1">Số Lượng Tồn Kho</th>
+                                            <th class="datatable-nosort sorting_disabled" rowspan="1" colspan="1" aria-label="Action">Số Lượng Nhập Mới</th>
+                                            <th class="datatable-nosort sorting_disabled" rowspan="1" colspan="1" aria-label="Action">Ngày Nhập Hàng</th>
                                         </tr>
                                     </thead>
                                     <tbody>

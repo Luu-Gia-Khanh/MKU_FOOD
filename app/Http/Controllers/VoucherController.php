@@ -19,22 +19,24 @@ use Illuminate\Support\Facades\DB;
 class VoucherController extends Controller
 {
     //
-    public static function unique_product($product_id){
+    public static function unique_product($product_id)
+    {
         $count_voucher = Voucher::where('product_id', $product_id)->get();
-        if(count($count_voucher) > 0){
+        if (count($count_voucher) > 0) {
             return 1;
-        }
-        else{
+        } else {
             return 0;
         }
     }
-    public function all_product_voucher(){
+    public function all_product_voucher()
+    {
         $all_voucher = Voucher::all();
         $all_product = Product::paginate(10);
         return view('admin.voucher.all_product_voucher', compact('all_product', 'all_voucher'));
     }
 
-    public function all_voucher($product_id){
+    public function all_voucher($product_id)
+    {
         $all_voucher = Voucher::where('product_id', $product_id)->orderBy('voucher_id', 'desc')->paginate(10);
         $product = Product::where('product_id', $product_id)->first();
         $all_admin = Admin::all();
@@ -43,17 +45,22 @@ class VoucherController extends Controller
         return view('admin.voucher.all_voucher', compact('all_voucher', 'product_name', 'product_id', 'all_admin'));
     }
 
-    public function add_voucher(){
+    public function add_voucher()
+    {
         $all_product = Product::all();
         return view('admin.voucher.add_voucher', compact('all_product'));
     }
 
-    public function add_product_voucher($product_id){
+    public function add_product_voucher($product_id)
+    {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         $product = Product::find($product_id);
         return view('admin.voucher.add_product_voucher', compact('product'));
     }
 
-    public function process_add_voucher(Request $request){
+    public function process_add_voucher(Request $request)
+    {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         $this->validate_voucher($request);
 
         $voucher_code = $request->voucher_code;
@@ -65,25 +72,25 @@ class VoucherController extends Controller
         $voucher_quantity = $request->voucher_quantity;
         $voucher_type = $request->voucher_type;
 
-        $date_now =Carbon::now('Asia/Ho_Chi_Minh');
+        $date_now = Carbon::now('Asia/Ho_Chi_Minh');
         $product = ProductPrice::where('product_id', $product_id)->where('status', 1)->first();
         $product_price = $product->price;
 
         $check_voucher_code = Voucher::where('voucher_code', $voucher_code)->first();
 
-        if($check_voucher_code){
+        if ($check_voucher_code) {
             $request->session()->flash('voucher_code', 'Mã voucher đã tồn tại');
             return redirect()->back();
         }
-        if($start_date < date("Y-m-d\TH:i", strtotime($date_now))){
+        if ($start_date < date("Y-m-d\TH:i", strtotime($date_now))) {
             $request->session()->flash('start_date', 'Ngày bắt đầu không được nhỏ hơn ngày hiện tại');
             return redirect()->back();
         }
-        if($end_date <= $start_date){
+        if ($end_date <= $start_date) {
             $request->session()->flash('end_date', 'Ngày kết thúc phải lớn hơn ngày bắt đầu');
             return redirect()->back();
         }
-        if($voucher_quantity < 0){
+        if ($voucher_quantity < 0) {
             $request->session()->flash('check_voucher_quantity', 'Số lượng không hợp lệ');
             return redirect()->back();
         }
@@ -99,30 +106,28 @@ class VoucherController extends Controller
         $product = ProductPrice::where('product_id', $product_id)->where('status', 1)->first();
         $product_price = $product->price;
 
-        if($voucher_type == 1){
-            if($voucher_amount < 1000){
+        if ($voucher_type == 1) {
+            if ($voucher_amount < 1000) {
                 $request->session()->flash('voucher_amount', 'Mệnh giá không được nhỏ hơn 1.0000đ');
                 return redirect()->back();
             }
-            if($voucher_amount > $product_price){
-                $request->session()->flash('voucher_amount', 'Mệnh giá không được lớn hơn '.number_format($product_price, 0, ',', '.').'đ');
+            if ($voucher_amount > $product_price) {
+                $request->session()->flash('voucher_amount', 'Mệnh giá không được lớn hơn ' . number_format($product_price, 0, ',', '.') . 'đ');
                 return redirect()->back();
             }
             $voucher_new->voucher_amount = $voucher_amount;
-        }
-        else{
-            if($voucher_amount < 1 || $voucher_amount > 100){
+        } else {
+            if ($voucher_amount < 1 || $voucher_amount > 100) {
                 $request->session()->flash('voucher_amount', 'Mệnh giá phải từ 1-100%');
                 return redirect()->back();
-            }
-            else{
-                $voucher_new->voucher_amount = $product_price * ($voucher_amount/100);
+            } else {
+                $voucher_new->voucher_amount = $product_price * ($voucher_amount / 100);
             }
         }
         $voucher_new->status = 1;
         $result_voucher_new = $voucher_new->save();
 
-        if($result_voucher_new){
+        if ($result_voucher_new) {
             $admin_action_voucher = new Admin_Action_Voucher();
             $admin_action_voucher->admin_id = Session::get('admin_id');
             $admin_action_voucher->voucher_id = $voucher_new->voucher_id;
@@ -132,17 +137,20 @@ class VoucherController extends Controller
             $admin_action_voucher->save();
 
             $request->session()->flash('add_voucher_success', 'Thiết lập voucher cho sản phẩm thành công');
-            return redirect('admin/all_voucher/'.$product_id);
+            return redirect('admin/all_voucher/' . $product_id);
         }
     }
 
-    public function update_voucher($voucher_id){
+    public function update_voucher($voucher_id)
+    {
         $all_product = Product::all();
         $voucher = DB::table('voucher')->where('voucher_id', $voucher_id)->first();
         return view('admin.voucher.update_voucher', compact('voucher', 'all_product'));
     }
 
-    public function process_update_voucher(Request $request, $voucher_id){
+    public function process_update_voucher(Request $request, $voucher_id)
+    {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
         $this->validate_voucher($request);
 
@@ -162,24 +170,23 @@ class VoucherController extends Controller
         $check_voucher_code_first = Voucher::where('voucher_id', $voucher_id)->first();
         $check_voucher_code_second = Voucher::where('voucher_code', $voucher_code)->first();
 
-        if($check_voucher_code_first->voucher_code == $voucher_code){
+        if ($check_voucher_code_first->voucher_code == $voucher_code) {
             $voucher_code = $check_voucher_code_first->voucher_code;
-        }
-        else{
-            if($check_voucher_code_second){
+        } else {
+            if ($check_voucher_code_second) {
                 $request->session()->flash('voucher_code', 'Mã voucher đã tồn tại');
                 return redirect()->back();
             }
         }
-        if($start_date < date("Y-m-d\TH:i", strtotime($date_now))){
+        if ($start_date < date("Y-m-d\TH:i", strtotime($date_now))) {
             $request->session()->flash('start_date', 'Ngày bắt đầu không được nhỏ hơn ngày hiện tại');
             return redirect()->back();
         }
-        if($end_date <= $start_date){
+        if ($end_date <= $start_date) {
             $request->session()->flash('end_date', 'Ngày kết thúc phải lớn hơn ngày bắt đầu');
             return redirect()->back();
         }
-        if($voucher_quantity < 0){
+        if ($voucher_quantity < 0) {
             $request->session()->flash('check_voucher_quantity', 'Số lượng không hợp lệ');
             return redirect()->back();
         }
@@ -195,20 +202,18 @@ class VoucherController extends Controller
         $product = ProductPrice::where('product_id', $product_id)->where('status', 1)->first();
         $product_price = $product->price;
 
-        if($voucher_amount < 1000){
+        if ($voucher_amount < 1000) {
             $request->session()->flash('voucher_amount', 'Mệnh giá không được nhỏ hơn 1.000đ');
             return redirect()->back();
-        }
-        elseif($voucher_amount > $product_price){
-            $request->session()->flash('voucher_amount', 'Mệnh giá không được lớn hơn '.number_format($product_price, 0, ',', '.').'đ');
+        } elseif ($voucher_amount > $product_price) {
+            $request->session()->flash('voucher_amount', 'Mệnh giá không được lớn hơn ' . number_format($product_price, 0, ',', '.') . 'đ');
             return redirect()->back();
-        }
-        else{
+        } else {
             $voucher_update->voucher_amount = $voucher_amount;
         }
         $result_voucher_update = $voucher_update->save();
 
-        if($result_voucher_update){
+        if ($result_voucher_update) {
             $admin_action_voucher = new Admin_Action_Voucher();
             $admin_action_voucher->admin_id = Session::get('admin_id');
             $admin_action_voucher->voucher_id = $voucher_id;
@@ -218,11 +223,12 @@ class VoucherController extends Controller
             $admin_action_voucher->save();
 
             $request->session()->flash('update_voucher_success', 'Thiết lập lại voucher cho sản phẩm thành công');
-            return redirect('admin/all_voucher/'.$product_id);
+            return redirect('admin/all_voucher/' . $product_id);
         }
     }
 
-    public function get_voucher_id(Request $request){
+    public function get_voucher_id(Request $request)
+    {
         $voucher_id = $request->voucher_id;
         $voucher = Voucher::where('voucher_id', $voucher_id)->first();
         $product_id = $voucher->product_id;
@@ -230,27 +236,29 @@ class VoucherController extends Controller
         echo view('admin.voucher.modal_detail_voucher', compact('voucher', 'product'));
     }
 
-    public function find_product_voucher(Request $request) {
+    public function find_product_voucher(Request $request)
+    {
         $val_find_product_voucher = $request->value_find;
         $all_voucher = Voucher::all();
-        $all_product_voucher = Product::where('product_name', 'LIKE','%'.$val_find_product_voucher.'%')->get();
+        $all_product_voucher = Product::where('product_name', 'LIKE', '%' . $val_find_product_voucher . '%')->get();
         $count_result = DB::table('product')
-                            ->join('voucher', 'voucher.product_id', '=', 'product.product_id')
-                            ->where('product.product_name', 'LIKE','%'.$val_find_product_voucher.'%')
-                            ->get();
+            ->join('voucher', 'voucher.product_id', '=', 'product.product_id')
+            ->where('product.product_name', 'LIKE', '%' . $val_find_product_voucher . '%')
+            ->get();
         echo view('admin.voucher.find_result_product_voucher', compact('count_result', 'all_product_voucher', 'all_voucher'));
         // echo $val_find_product_voucher;
     }
 
-    public function find_voucher(Request $request) {
+    public function find_voucher(Request $request)
+    {
         $val_find_voucher = $request->value_find;
         $product_id = $request->product_id;
-        $all_voucher_find = Voucher::where('voucher_name', 'LIKE','%'.$val_find_voucher.'%')
-                            ->orWhere('voucher_code', 'LIKE','%'.$val_find_voucher.'%')
-                            ->get();
+        $all_voucher_find = Voucher::where('voucher_name', 'LIKE', '%' . $val_find_voucher . '%')
+            ->orWhere('voucher_code', 'LIKE', '%' . $val_find_voucher . '%')
+            ->get();
         $arrayVoucher = [];
-        foreach($all_voucher_find as $voucher){
-            if($voucher->product_id == $product_id){
+        foreach ($all_voucher_find as $voucher) {
+            if ($voucher->product_id == $product_id) {
                 $arrayVoucher[] = $voucher;
             }
         }
@@ -258,27 +266,27 @@ class VoucherController extends Controller
         echo view('admin.voucher.find_result_voucher', compact('all_voucher'));
     }
 
-    public function all_recycle($product_id){
+    public function all_recycle($product_id)
+    {
         $recycle_item = Voucher::onlyTrashed()->where('product_id', $product_id)->get();
         return view('admin.voucher.all_recycle', compact('recycle_item', 'product_id'));
     }
 
-    public function soft_delete_voucher(Request $request){
+    public function soft_delete_voucher(Request $request)
+    {
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         $voucher_id = $request->voucher_id;
         $voucher = Voucher::where('voucher_id', $voucher_id)->first();
 
         $date_now = Carbon::now('Asia/Ho_Chi_Minh');
 
-        if($voucher->start_date <= $date_now && $date_now <= $voucher->end_date && $voucher->voucher_quantity){
+        if ($voucher->start_date <= $date_now && $date_now <= $voucher->end_date && $voucher->voucher_quantity) {
             $request->session()->flash('error_delete_soft_voucher', 'Voucher đang áp dụng không thể xóa');
             return redirect()->back();
-        }
-        else if($voucher->start_date > $date_now){
+        } else if ($voucher->start_date > $date_now) {
             $request->session()->flash('error_delete_soft_voucher', 'Voucher chưa áp dụng không thể xóa');
             return redirect()->back();
-        }
-        else{
+        } else {
             Voucher::where('voucher_id', $voucher_id)->delete();
             $request->session()->flash('success_delete_soft_voucher', 'Xóa thành công');
 
@@ -294,13 +302,14 @@ class VoucherController extends Controller
         }
     }
 
-    public function delete_forever(Request $request){
+    public function delete_forever(Request $request)
+    {
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         $voucher_id = $request->voucher_id;
 
         $result_delete = Voucher::withTrashed()->where('voucher_id', $voucher_id)->forceDelete();
 
-        if($result_delete){
+        if ($result_delete) {
             $admin_action_voucher = new Admin_Action_Voucher();
             $admin_action_voucher->admin_id = Session::get('admin_id');
             $admin_action_voucher->voucher_id = $voucher_id;
@@ -313,17 +322,18 @@ class VoucherController extends Controller
         }
     }
 
-    public function re_delete(Request $request, $voucher_id){
+    public function re_delete(Request $request, $voucher_id)
+    {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         $voucher = Voucher::onlyTrashed()->where('voucher_id', $voucher_id)->first();
         $voucher_code_db = Voucher::where('voucher_code', $voucher->voucher_code)->get();
 
-        if(count($voucher_code_db) > 0){
+        if (count($voucher_code_db) > 0) {
             $request->session()->flash('error_check_voucher_code', 'Mã voucher đã tồn tại trong danh sách');
             return redirect()->back();
-        }
-        else {
+        } else {
             $result_recovery = Voucher::withTrashed()->where('voucher_id', $voucher_id)->restore();
-            if($result_recovery){
+            if ($result_recovery) {
                 $admin_action_voucher = new Admin_Action_Voucher();
                 $admin_action_voucher->admin_id = Session::get('admin_id');
                 $admin_action_voucher->voucher_id = $voucher_id;
@@ -338,7 +348,8 @@ class VoucherController extends Controller
         }
     }
 
-    public function validate_voucher(Request $request){
+    public function validate_voucher(Request $request)
+    {
         $request->validate([
             'voucher_code' => 'required|min:5|max:20|alpha_dash|regex:/^([a-z A-Z 0-9]+)$/',
             'voucher_name' => 'required|min:5|max:100',
@@ -347,7 +358,7 @@ class VoucherController extends Controller
             'end_date' => 'required',
             'voucher_amount' => 'required',
             'voucher_quantity' => 'required|integer',
-        ],[
+        ], [
             'voucher_code.required' => 'Mã voucher không được để trống',
             'voucher_code.alpha_dash' => 'Mã voucher không hợp lệ',
             'voucher_code.min' => 'Mã voucher phải lớn hơn 5 ký tự',
@@ -365,40 +376,43 @@ class VoucherController extends Controller
         ]);
     }
 
-    public function filter_voucher_follow_status_apply(Request $request){
+    public function filter_voucher_follow_status_apply(Request $request)
+    {
         $product_id = $request->productId;
         $type_filter = 'apply';
         $level_filter = '';
         $date_now = Carbon::now('Asia/Ho_Chi_Minh');
         $all_voucher = Voucher::where('product_id', $product_id)
-                                ->where('start_date', '<=', $date_now)
-                                ->where('end_date', '>=', $date_now)
-                                ->where('voucher_quantity', '>', 0)
-                                ->orderBy('voucher_id', 'desc')
-                                ->get();
+            ->where('start_date', '<=', $date_now)
+            ->where('end_date', '>=', $date_now)
+            ->where('voucher_quantity', '>', 0)
+            ->orderBy('voucher_id', 'desc')
+            ->get();
         $string_title = ' Theo Trạng Thái Đang Áp Dụng';
         $product = Product::where('product_id', $product_id)->first();
         $product_name = $product->product_name;
         echo view('admin.voucher.view_filter_voucher', compact('all_voucher', 'product_name', 'product_id', 'string_title', 'type_filter', 'level_filter'));
     }
 
-    public function filter_voucher_follow_status_unapply(Request $request){
+    public function filter_voucher_follow_status_unapply(Request $request)
+    {
         $product_id = $request->productId;
         $type_filter = 'unapply';
         $level_filter = '';
         $date_now = Carbon::now('Asia/Ho_Chi_Minh');
         $all_voucher = Voucher::where('product_id', $product_id)
-                                ->where('end_date', '<', $date_now)
-                                ->orWhere('voucher_quantity', '=', 0)
-                                ->orderBy('voucher_id', 'desc')
-                                ->get();
+            ->where('end_date', '<', $date_now)
+            ->orWhere('voucher_quantity', '=', 0)
+            ->orderBy('voucher_id', 'desc')
+            ->get();
         $string_title = ' Theo Trạng Thái Ngưng Áp Dụng';
         $product = Product::where('product_id', $product_id)->first();
         $product_name = $product->product_name;
         echo view('admin.voucher.view_filter_voucher', compact('all_voucher', 'product_name', 'product_id', 'string_title', 'type_filter', 'level_filter'));
     }
 
-    public function filter_voucher_follow_date_single(Request $request){
+    public function filter_voucher_follow_date_single(Request $request)
+    {
         $product_id = $request->productId;
         $date = $request->date;
         $date_filter = date('Y-m-d', strtotime($date));
@@ -406,15 +420,15 @@ class VoucherController extends Controller
         $type_filter = 'date';
         $level_filter = $date_filter;
 
-        $string_title = ' Theo Ngày "'.date('d/m/Y', strtotime($date)).'"';
+        $string_title = ' Theo Ngày "' . date('d/m/Y', strtotime($date)) . '"';
         $all_voucher_db = Voucher::where('product_id', $product_id)->get();
         $product = Product::where('product_id', $product_id)->first();
         $product_name = $product->product_name;
 
         $arrayVoucher = [];
-        foreach($all_voucher_db as $voucher){
+        foreach ($all_voucher_db as $voucher) {
             $created_at = date('Y-m-d', strtotime($voucher->created_at));
-            if($created_at == $date_filter){
+            if ($created_at == $date_filter) {
                 $arrayVoucher[] = $voucher;
             }
         }
@@ -422,7 +436,8 @@ class VoucherController extends Controller
         echo view('admin.voucher.view_filter_voucher', compact('all_voucher', 'product_name', 'product_id', 'string_title', 'type_filter', 'level_filter'));
     }
 
-    public function filter_voucher_follow_date_many(Request $request){
+    public function filter_voucher_follow_date_many(Request $request)
+    {
         $product_id = $request->productId;
         $date_start = $request->date_start;
         $date_end = $request->date_end;
@@ -434,16 +449,16 @@ class VoucherController extends Controller
         $start_date = $date_filter_start;
         $end_date = $date_filter_end;
 
-        $string_title = 'Voucher Được Tạo " Từ Ngày '.date('d/m/Y', strtotime($date_start)).'
-                        Đến Ngày '.date('d/m/Y', strtotime($date_filter_end)).' "';
+        $string_title = 'Voucher Được Tạo " Từ Ngày ' . date('d/m/Y', strtotime($date_start)) . '
+                        Đến Ngày ' . date('d/m/Y', strtotime($date_filter_end)) . ' "';
         $all_voucher_db = Voucher::where('product_id', $product_id)->get();
         $product = Product::where('product_id', $product_id)->first();
         $product_name = $product->product_name;
 
         $arrayVoucher = [];
-        foreach($all_voucher_db as $voucher){
+        foreach ($all_voucher_db as $voucher) {
             $created_at = date('Y-m-d', strtotime($voucher->created_at));
-            if($date_filter_start <= $created_at && $created_at <= $date_filter_end){
+            if ($date_filter_start <= $created_at && $created_at <= $date_filter_end) {
                 $arrayVoucher[] = $voucher;
             }
         }
@@ -451,7 +466,8 @@ class VoucherController extends Controller
         echo view('admin.voucher.view_filter_voucher', compact('all_voucher', 'product_name', 'product_id', 'string_title', 'type_filter', 'level_filter', 'start_date', 'end_date'));
     }
 
-    public function print_pdf_voucher(Request $request){
+    public function print_pdf_voucher(Request $request)
+    {
         $product_id = $request->product_id;
         $all_voucher_db = Voucher::where('product_id', $product_id)->get();
         $type_filter = $request->type_filter;
@@ -460,81 +476,91 @@ class VoucherController extends Controller
 
         switch ($type_filter) {
             case "apply":
-                    $date_now = Carbon::now('Asia/Ho_Chi_Minh');
-                    $all_voucher = Voucher::where('product_id', $product_id)
-                                            ->where('start_date', '<=', $date_now)
-                                            ->where('end_date', '>=', $date_now)
-                                            ->where('voucher_quantity', '>', 0)
-                                            ->orderBy('voucher_id', 'desc')
-                                            ->get();
-                    $product = Product::where('product_id', $product_id)->first();
-                    $product_name = $product->product_name;
-                    $string_title = 'Danh Sách Voucher Đang Áp Dụng - "'.$product_name.'"';
-                    $pdf = PDF::loadView('admin.voucher.view_print_pdf_voucher',
-                                        compact('all_voucher', 'string_title'));
-                    return $pdf->download('danhsachvoucherdangapdung.pdf');
+                $date_now = Carbon::now('Asia/Ho_Chi_Minh');
+                $all_voucher = Voucher::where('product_id', $product_id)
+                    ->where('start_date', '<=', $date_now)
+                    ->where('end_date', '>=', $date_now)
+                    ->where('voucher_quantity', '>', 0)
+                    ->orderBy('voucher_id', 'desc')
+                    ->get();
+                $product = Product::where('product_id', $product_id)->first();
+                $product_name = $product->product_name;
+                $string_title = 'Danh Sách Voucher Đang Áp Dụng - "' . $product_name . '"';
+                $pdf = PDF::loadView(
+                    'admin.voucher.view_print_pdf_voucher',
+                    compact('all_voucher', 'string_title')
+                );
+                return $pdf->download('danhsachvoucherdangapdung.pdf');
                 break;
             case "unapply":
                 $date_now = Carbon::now('Asia/Ho_Chi_Minh');
                 $all_voucher = Voucher::where('product_id', $product_id)
-                                        ->where('end_date', '<', $date_now)
-                                        ->orWhere('voucher_quantity', '=', 0)
-                                        ->orderBy('voucher_id', 'desc')
-                                        ->get();
+                    ->where('end_date', '<', $date_now)
+                    ->orWhere('voucher_quantity', '=', 0)
+                    ->orderBy('voucher_id', 'desc')
+                    ->get();
                 $product = Product::where('product_id', $product_id)->first();
                 $product_name = $product->product_name;
-                $string_title = 'Danh Sách Voucher Ngưng Áp Dụng - "'.$product_name.'"';
-                $pdf = PDF::loadView('admin.voucher.view_print_pdf_voucher',
-                                    compact('all_voucher', 'string_title'));
+                $string_title = 'Danh Sách Voucher Ngưng Áp Dụng - "' . $product_name . '"';
+                $pdf = PDF::loadView(
+                    'admin.voucher.view_print_pdf_voucher',
+                    compact('all_voucher', 'string_title')
+                );
                 return $pdf->download('danhsachvoucherdangapdung.pdf');
 
                 break;
             case "date":
-                    $date_filter = date('Y-m-d', strtotime($level_filter));
+                $date_filter = date('Y-m-d', strtotime($level_filter));
 
-                    $string_title = 'Danh Sách Voucher Theo Ngày "'.date('d/m/Y', strtotime($date_filter)).'"';
-                    $product = Product::where('product_id', $product_id)->first();
-                    $product_name = $product->product_name;
+                $string_title = 'Danh Sách Voucher Theo Ngày "' . date('d/m/Y', strtotime($date_filter)) . '"';
+                $product = Product::where('product_id', $product_id)->first();
+                $product_name = $product->product_name;
 
-                    $arrayVoucher = [];
-                    foreach($all_voucher_db as $voucher){
-                        $created_at = date('Y-m-d', strtotime($voucher->created_at));
-                        if($created_at == $date_filter){
-                            $arrayVoucher[] = $voucher;
-                        }
+                $arrayVoucher = [];
+                foreach ($all_voucher_db as $voucher) {
+                    $created_at = date('Y-m-d', strtotime($voucher->created_at));
+                    if ($created_at == $date_filter) {
+                        $arrayVoucher[] = $voucher;
                     }
-                    $all_voucher = array_reverse($arrayVoucher);
-                    $pdf = PDF::loadView('admin.voucher.view_print_pdf_voucher',
-                                    compact('all_voucher', 'string_title'));
-                    return $pdf->download('danhsachvouchertheongay.pdf');
+                }
+                $all_voucher = array_reverse($arrayVoucher);
+                $pdf = PDF::loadView(
+                    'admin.voucher.view_print_pdf_voucher',
+                    compact('all_voucher', 'string_title')
+                );
+                return $pdf->download('danhsachvouchertheongay.pdf');
                 break;
             case "date_many":
-                    $start_date = $request->start_date;
-                    $end_date = $request->end_date;
+                $start_date = $request->start_date;
+                $end_date = $request->end_date;
 
-                    $string_title = 'Danh Sách Voucher "Từ Ngày '.date('d/m/Y', strtotime($start_date)).'
-                        Đến Ngày '.date('d/m/Y', strtotime($end_date)).'"';
-                    $product = Product::where('product_id', $product_id)->first();
-                    $product_name = $product->product_name;
+                $string_title = 'Danh Sách Voucher "Từ Ngày ' . date('d/m/Y', strtotime($start_date)) . '
+                        Đến Ngày ' . date('d/m/Y', strtotime($end_date)) . '"';
+                $product = Product::where('product_id', $product_id)->first();
+                $product_name = $product->product_name;
 
-                    $arrayVoucher = [];
-                    foreach($all_voucher_db as $voucher){
-                        $created_at = date('Y-m-d', strtotime($voucher->created_at));
-                        if($start_date <= $created_at && $created_at <= $end_date){
-                            $arrayVoucher[] = $voucher;
-                        }
+                $arrayVoucher = [];
+                foreach ($all_voucher_db as $voucher) {
+                    $created_at = date('Y-m-d', strtotime($voucher->created_at));
+                    if ($start_date <= $created_at && $created_at <= $end_date) {
+                        $arrayVoucher[] = $voucher;
                     }
-                    $all_voucher = array_reverse($arrayVoucher);
-                    $pdf = PDF::loadView('admin.voucher.view_print_pdf_voucher',
-                                    compact('all_voucher', 'string_title'));
-                    return $pdf->download('danhsachvouchertheongaytuychon.pdf');
+                }
+                $all_voucher = array_reverse($arrayVoucher);
+                $pdf = PDF::loadView(
+                    'admin.voucher.view_print_pdf_voucher',
+                    compact('all_voucher', 'string_title')
+                );
+                return $pdf->download('danhsachvouchertheongaytuychon.pdf');
                 break;
             default:
-                    $all_voucher = Voucher::all();
-                    $string_title = 'Danh Sách Voucher';
-                    $pdf = PDF::loadView('admin.voucher.view_print_pdf_voucher',
-                                        compact('all_voucher', 'string_title'));
-                    return $pdf->download('danhsachvouchertheongaytuychon.pdf');
+                $all_voucher = Voucher::all();
+                $string_title = 'Danh Sách Voucher';
+                $pdf = PDF::loadView(
+                    'admin.voucher.view_print_pdf_voucher',
+                    compact('all_voucher', 'string_title')
+                );
+                return $pdf->download('danhsachvouchertheongaytuychon.pdf');
         }
     }
 }
