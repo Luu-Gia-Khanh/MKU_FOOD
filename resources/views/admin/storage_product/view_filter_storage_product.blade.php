@@ -118,21 +118,17 @@
                                                         href="#" role="button" data-toggle="dropdown">
                                                         <i class="dw dw-more"></i>
                                                     </a>
-                                                    <div
-                                                        class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                                        <a class="dropdown-item"
-                                                            href="{{ URL::to('admin/import_storage_product/' . $storage_product->storage_product_id) }}"><i
-                                                                class="icon-copy dw dw-add"></i>Nhập hàng</a>
-                                                        <a class="dropdown-item"
-                                                            href="{{ URL::to('admin/history_storage_product/' . $storage_product->storage_product_id) }}"><i
-                                                                class="dw dw-eye"></i>Xem Lịch sử</a>
-                                                        <a class="dropdown-item"
-                                                            href="{{ URL::to('admin/update_storage_product/' . $storage_product->storage_product_id) }}"><i
-                                                                class="dw dw-edit2"></i>Chỉnh Sửa</a>
-                                                        <button class="dropdown-item soft_delete_storage_product_class"
-                                                            data-id="{{ $storage_product->storage_product_id }}"
-                                                            data-toggle="modal" data-target="#Modal_delete"><i
-                                                                class="dw dw-delete-3"></i>Xóa</button>
+                                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                                                        @hasrole(['admin','manager'])
+                                                        <a class="dropdown-item" href="{{ URL::to('admin/import_storage_product/'.$storage_product->storage_product_id) }}"><i class="icon-copy dw dw-add"></i>Nhập hàng</a>
+                                                        @endhasrole
+                                                        <a class="dropdown-item" href="{{ URL::to('admin/history_storage_product/'.$storage_product->storage_product_id) }}"><i class="dw dw-eye"></i>Xem Lịch sử</a>
+                                                        @hasrole(['admin','manager'])
+                                                        <a class="dropdown-item" href="{{ URL::to('admin/update_storage_product/'.$storage_product->storage_product_id) }}"><i class="dw dw-edit2"></i>Chỉnh Sửa</a>
+                                                        @endhasrole
+                                                        @hasrole(['admin'])
+                                                        <a class="dropdown-item" href="{{ URL::to('admin/process_delete_storage_product/'.$storage_product->storage_product_id) }}"><i class="dw dw-delete-3"></i>Xóa</a>
+                                                        @endhasrole
                                                     </div>
                                                 </div>
                                             </td>

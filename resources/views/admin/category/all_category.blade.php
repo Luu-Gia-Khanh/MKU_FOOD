@@ -114,19 +114,17 @@
                                                 <td>{{ $cate->cate_name }}</td>
                                                 <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $cate->created_at)->format('d-m-Y') }}
                                                 </td>
+                                                @hasrole(['admin','manager'])
                                                 <td>
                                                     <div class="dropdown">
                                                         <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"
                                                             href="#" role="button" data-toggle="dropdown">
                                                             <i class="dw dw-more"></i>
                                                         </a>
-                                                        <div
-                                                            class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                                            @hasrole(['admin','manager'])
+                                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
                                                             <a class="dropdown-item"
                                                                 href="{{ URL::to('admin/update_category/' . $cate->cate_id) }}"><i
                                                                     class="dw dw-edit2"></i>Chỉnh Sửa</a>
-                                                            @endhasrole
                                                             @hasrole(['admin'])
                                                             <button class="dropdown-item soft_delete_category_class"
                                                                 data-id="{{ $cate->cate_id }}" data-toggle="modal"
@@ -136,6 +134,7 @@
                                                         </div>
                                                     </div>
                                                 </td>
+                                                @endhasrole
                                             </tr>
                                         @endforeach
                                     </tbody>

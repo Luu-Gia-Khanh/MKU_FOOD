@@ -6,7 +6,7 @@
         <div class="row">
             <div class="content_filter pd-10 ml-10">
                 <div class="dropdown">
-                    <a class="btn btn-success dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
                         <i class="icon-copy dw dw-filter"></i> Lọc
                     </a>
                     <div class="dropdown-menu dropdown-menu-left" style="">

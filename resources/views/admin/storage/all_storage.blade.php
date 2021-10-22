@@ -96,10 +96,12 @@
                 <div class="col-10 pd-20">
                     <h4 class="text-blue h4">Danh Sách Kho Hàng</h4>
                 </div>
+                @hasrole(['admin','manager'])
                 <div class="col-2 mt-4">
                     <button class="btn color-btn-them add_storage float-right" data-id data-toggle="modal"
                         data-target="#Modal_add_storage">Thêm kho</button>
                 </div>
+                @endhasrole
             </div>
             <div class="pb-20">
                 <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer ">
@@ -165,15 +167,18 @@
                                                                 class="dw dw-eye"></i>Xem kho hàng</a>
 
                                                         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                                                        @hasrole(['admin','manager'])
                                                         <button class="dropdown-item update_storage"
                                                             data-id={{ $storage->storage_id }} data-toggle="modal"
                                                             data-target="#Modal_update_storage"><i
                                                                 class="dw dw-edit2"></i>Chỉnh Sửa</button>
-
+                                                        @endhasrole
+                                                        @hasrole(['admin'])
                                                         <button class="dropdown-item soft_delete_storage_class"
                                                             data-id="{{ $storage->storage_id }}" data-toggle="modal"
                                                             data-target="#Modal_delete"><i
                                                                 class="dw dw-delete-3"></i>Xóa</button>
+                                                        @endhasrole
                                                     </div>
                                                 </div>
                                             </td>
@@ -185,8 +190,10 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-12 col-md-5">
+                            @hasrole(['admin'])
                             <a href="{{ URL::to('admin/view_recycle_storage') }}" class="btn color-btn-them ml-10"
                                 style="color: white"><i class="dw dw-delete-3"></i> Thùng Rác</a>
+                            @endhasrole
                         </div>
                         <div class="col-sm-12 col-md-7">
                             <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">

@@ -23,7 +23,11 @@
                 </nav>
             </div>
             <div class="col-md-3 col-sm-12 text-right">
-                <button class="btn color-btn-them" data-toggle="modal" data-target="#modal_add_image"><i class="icon-copy fa fa-plus" aria-hidden="true"></i></button>
+                @hasrole(['admin','manager'])
+                <button class="btn color-btn-them" data-toggle="modal" data-target="#modal_add_image">
+                    <i class="icon-copy fa fa-plus" aria-hidden="true"></i>
+                </button>
+                @endhasrole
             </div>
         </div>
     </div>
@@ -58,7 +62,13 @@
                                     <h5 class="mb-10 color-white pd-20">{{ date("d-m-Y H:i", strtotime($image->create_at))   }}</h5>
                                         <ul class="clearfix">
                                             <li><a href="{{ asset('public/upload/'.$image->image) }}" data-fancybox="images"><i class="fa fa-picture-o"></i></a></li>
-                                            <li><a class="soft_delete_image_product_class" data-id = "{{ $image->image_id }}" data-toggle="modal" data-target="#modal_delete_image" ><i class="dw dw-delete-3"></i></a></li>
+                                            @hasrole(['admin'])
+                                            <li>
+                                                <a class="soft_delete_image_product_class" data-id = "{{ $image->image_id }}" data-toggle="modal" data-target="#modal_delete_image" >
+                                                    <i class="dw dw-delete-3"></i>
+                                                </a>
+                                            </li>
+                                            @endhasrole
                                         </ul>
                                     </div>
                                 </div>
@@ -74,8 +84,10 @@
     </div>
     <div class="row mr-bt">
         <div class="col-sm-12 col-md-5">
+            @hasrole(['admin'])
             <a href="{{ URL::to('admin/view_recycle_image_product/'.$prod_id) }}" class="btn color-btn-them ml-10"
                 style="color: white"><i class="dw dw-delete-3"></i> Thùng Rác</a>
+            @endhasrole
         </div>
         <div class="col-sm-12 col-md-7">
             <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">

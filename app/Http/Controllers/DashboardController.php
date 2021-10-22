@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Collection;
+//use Illuminate\Support\Collection;
+use App\Support\Collection;
 
 use Illuminate\Http\Request;
 use App\Order_Detail_Status;
@@ -17,6 +18,7 @@ use App\Storage;
 use App\Slider;
 use App\Voucher;
 use DB;
+use PDF;
 
 
 class DashboardController extends Controller
@@ -92,25 +94,7 @@ class DashboardController extends Controller
             $arrRevenue[] = $this->StatisticalRevenue($i,$year);
         }
 
-        // get list date
-        $order_date = array();
-        $obStatistical = [];
-        foreach ($all_order as $order){
-            $order_date[] = date('Y-m-d', strtotime($order->create_at));
-        }
-        $unique_date = array_unique($order_date);
-        foreach ($unique_date as $date){
-            $count_order = Orders::whereDate('create_at', $date)->get();
-            $total_receive = Orders::whereDate('create_at',$date)->sum('total_price');
-            $arrMege = [
-                'count_order' => $count_order,
-                'total_receive' => $total_receive,
-                'date' => $date,
-            ];
-            $obStatistical[] = $arrMege;
-        }
-        // dd($obStatistical);
-        $data = $this->paginate($obStatistical);
+        $statisticals_daily = $this->RevenueOrderDaily();
 
         return view('admin.dashboard.dashbord',[
             'arrSaled' => $arrSaled,
@@ -132,16 +116,16 @@ class DashboardController extends Controller
             'topProductRating' => $topProductRating,
             'topProductSaled' => $topProductSaled,
 
-            'data' => $data,
+            'statisticals_daily' => $statisticals_daily,
         ]);
 
     }
-    public function paginate($items, $perPage = 2, $page = null, $options = [])
-    {
-        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
-        $items = $items instanceof Collection ? $items : Collection::make($items);
-        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
-    }
+    // public function paginate($items, $perPage, $page = null, $options = [])
+    // {
+    //     $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+    //     $items = $items instanceof Collection ? $items : Collection::make($items);
+    //     return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
+    // }
     public static function StatisticalSaled($month, $year){
         $orders = DB::table('orders')
                 ->join('order_detail_status','order_detail_status.order_id','=','orders.order_id')
@@ -213,5 +197,137 @@ class DashboardController extends Controller
                 ->orderBy('orders.order_id','desc')
                 ->get();
         return $notification;
+    }
+    public static function RevenueOrderDaily(){
+        // get list date
+        $order_date = array();
+        $obStatistical = [];
+        $statistical_order = DB::table('orders')
+                        ->join('order_detail_status','order_detail_status.order_id','=','orders.order_id')
+                        ->where('order_detail_status.status_id', 4)
+                        ->orderBy('create_at', 'Asc')
+                        ->get();
+        foreach ($statistical_order as $order){
+            $order_date[] = date('Y-m-d', strtotime($order->create_at));
+        }
+        $unique_date = array_unique($order_date);
+        foreach ($unique_date as $date){
+            $count_order = Orders::whereDate('create_at', $date)->get();
+            $total_receive = Orders::whereDate('create_at',$date)->sum('total_price');
+            $arrMege = [
+                'count_order' => count($count_order),
+                'total_receive' => $total_receive,
+                'date' => $date,
+            ];
+            $obStatistical[] = $arrMege;
+        }
+        // dd($obStatistical);
+        $data = (new Collection($obStatistical))->paginate(5);
+        return $data;
+    }
+    public function print_pdf_dashbpard_revenue_daily(Request $request){
+        $date_start = $request->date_start;
+        $date_end = $request->date_end;
+        $order_date = array();
+        $obStatistical = [];
+        $string_title = '';
+
+        if($date_start == '' && $date_end == ''){
+            $statistical_order = DB::table('orders')
+                        ->join('order_detail_status','order_detail_status.order_id','=','orders.order_id')
+                        ->where('order_detail_status.status_id', 4)
+                        ->orderBy('create_at', 'Asc')
+                        ->get();
+            $string_title = 'Thống Kê Doanh Thu';
+            $revenue = DB::table('orders')
+                ->join('order_detail_status','order_detail_status.order_id','=','orders.order_id')
+                ->where('order_detail_status.status_id', 4)
+                ->sum('total_price');
+        }else{
+            $statistical_order = DB::table('orders')
+                        ->join('order_detail_status','order_detail_status.order_id','=','orders.order_id')
+                        ->where('order_detail_status.status_id', 4)
+                        ->whereDate('orders.create_at','>=', $date_start)
+                        ->whereDate('orders.create_at','<=', $date_end)
+                        ->get();
+            $revenue = DB::table('orders')
+                        ->join('order_detail_status','order_detail_status.order_id','=','orders.order_id')
+                        ->where('order_detail_status.status_id', 4)
+                        ->whereDate('orders.create_at','>=', $date_start)
+                        ->whereDate('orders.create_at','<=', $date_end)
+                        ->sum('total_price');
+            $string_title = 'Thống Kê Doanh Thu từ ngày '
+                                .date('d/m/Y', strtotime($date_start)).' - '
+                                .date('d/m/Y', strtotime($date_end));
+        }
+        if(count($statistical_order)>0){
+            foreach ($statistical_order as $order){
+                $order_date[] = date('Y-m-d', strtotime($order->create_at));
+            }
+            $unique_date = array_unique($order_date);
+            foreach ($unique_date as $date){
+                $count_order = Orders::whereDate('create_at', $date)->get();
+                $total_receive = Orders::whereDate('create_at',$date)->sum('total_price');
+                $arrMege = [
+                    'count_order' => count($count_order),
+                    'total_receive' => $total_receive,
+                    'date' => $date,
+                ];
+                $obStatistical[] = $arrMege;
+            }
+        }
+
+        $data = $obStatistical;
+        $pdf = PDF::loadView('admin.dashboard.view_print_pdf_revenue_daily_order', [
+            'data'=>$data,
+            'string_title'=>$string_title,
+            'revenue'=>$revenue,
+        ]);
+        return $pdf->download('thongkedoanhthumoingay.pdf');
+    }
+    public function filter_date_daily_order(Request $request){
+        $date_start = $request->date_start;
+        $date_end = $request->date_end;
+        $order_date = array();
+        $obStatistical = [];
+        $statistical_order = DB::table('orders')
+                        ->join('order_detail_status','order_detail_status.order_id','=','orders.order_id')
+                        ->where('order_detail_status.status_id', 4)
+                        ->whereDate('orders.create_at','>=', $date_start)
+                        ->whereDate('orders.create_at','<=', $date_end)
+                        ->get();
+        $string_title = 'Thống Kê Doanh Thu từ ngày '
+                        .date('d/m/Y', strtotime($date_start)).' - '
+                        .date('d/m/Y', strtotime($date_end));
+        $revenue = DB::table('orders')
+                        ->join('order_detail_status','order_detail_status.order_id','=','orders.order_id')
+                        ->where('order_detail_status.status_id', 4)
+                        ->whereDate('orders.create_at','>=', $date_start)
+                        ->whereDate('orders.create_at','<=', $date_end)
+                        ->sum('total_price');
+        if(count($statistical_order)>0){
+            foreach ($statistical_order as $order){
+                $order_date[] = date('Y-m-d', strtotime($order->create_at));
+            }
+            $unique_date = array_unique($order_date);
+            foreach ($unique_date as $date){
+                $count_order = Orders::whereDate('create_at', $date)->get();
+                $total_receive = Orders::whereDate('create_at',$date)->sum('total_price');
+                $arrMege = [
+                    'count_order' => count($count_order),
+                    'total_receive' => $total_receive,
+                    'date' => $date,
+                ];
+                $obStatistical[] = $arrMege;
+            }
+        }
+        $data = $obStatistical;
+        return view('admin.dashboard.view_filter_daily_order',[
+            'string_title'=>$string_title,
+            'statisticals_daily'=>$data,
+            'revenue'=>$revenue,
+            'date_start'=>$date_start,
+            'date_end'=>$date_end,
+        ]);
     }
 }

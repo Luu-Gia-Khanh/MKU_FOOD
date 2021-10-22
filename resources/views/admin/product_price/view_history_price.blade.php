@@ -42,7 +42,7 @@
                 <div class="row">
                     <div class="content_filter pd-10 ml-10">
                         <div class="dropdown">
-                            <a class="btn btn-success dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
                                 <i class="icon-copy dw dw-filter"></i> Lọc
                             </a>
                             <div class="dropdown-menu dropdown-menu-left" style="">
@@ -72,7 +72,9 @@
                                             <th scope="col">Giá</th>
                                             <th scope="col">Ngày Cập Nhật</th>
                                             <th scope="col" class="center">Trạng Thái</th>
+                                            @hasrole(['admin','manager'])
                                             <th scope="col" class="center">#</th>
+                                            @endhasrole
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -92,12 +94,14 @@
                                                         <span class="badge badge-secondary">Cũ</span>
                                                     @endif
                                                 </td>
+                                                @hasrole(['admin','manager'])
                                                 <td class="center">
                                                     @if ($price->status == 1)
                                                         <button class="btn color-btn-them update_price_product" data-id = {{ $price->price_id }} data-toggle="modal"
                                                         data-target="#Modal_update_price_product">Cập Nhật</button>
                                                     @endif
                                                 </td>
+                                                @endhasrole
                                             </tr>
                                             @endforeach
                                         </tbody>

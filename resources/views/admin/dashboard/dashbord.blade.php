@@ -306,16 +306,56 @@
     </div>
     {{-- thống kê doanh thu --}}
     <!-- Simple Datatable start -->
-    <div class="card-box mb-30 content_filter_admin">
-        <div class="pd-20">
-            <h4 class="text-blue h4">Thống Kê Doanh Thu</h4>
-        </div>
-        <div class="pb-20">
-            <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer ">
-                <div class="row">
-
+    @if (count($statisticals_daily) > 0)
+    <div class="content_filter_daily_order">
+        <div class="card-box mb-30 content_filter_admin">
+            <div class="row">
+                <div class="col-sm-12 col-md-8">
+                    <div class="pd-20">
+                        <h4 class="text-blue h4">Thống Kê Doanh Thu</h4>
+                    </div>
                 </div>
-                <div class="content_find_admin">
+                <div class="col-sm-12 col-md-4 text-right">
+                    <div class="content_print_pdf_product pd-20">
+                        <form action="{{ URL::to('admin/print_pdf_dashbpard_revenue_daily') }}" method="post">
+                            @csrf
+                            {{-- type filter --}}
+                                <input type="hidden" name="date_start" value="">
+                                <input type="hidden" name="date_end" value="">
+                            {{--  --}}
+                            <button type="submit" class="btn btn-secondary">
+                                Xuất
+                                <img src="{{ asset('public/upload/pdf1.svg') }}" style="height: 25px" alt="">
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="pb-20">
+                <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer ">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-8 d-flex">
+                            <div class="content-filter-date pd-10 d-flex">
+                                <div class="row">
+                                    <div class="col-5">
+                                        <input type="date" class="form-control" id="date_start_order_daily">
+                                    </div>
+                                    <div class="col-1" style="display: flex; align-items: center">
+                                        <i class="icon-copy fa fa-long-arrow-right" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="col-5">
+                                        <input type="date" class="form-control" id="date_end_order_daily">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-12 col-md-4 text-right">
+                            <h6 class="pd-10 pr-30 pt-30">
+                                Tổng doanh thu: {{ number_format($revenue, 0, ',', '.') }}₫
+                            </h6>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-12 table-responsive">
                             <table
@@ -328,22 +368,41 @@
                                         <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
                                             rowspan="1" colspan="1">Ngày</th>
                                         <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
-                                            rowspan="1" colspan="1">Số Đơn Hàng</th>
+                                            rowspan="1" colspan="1">Số Lượng Đơn Hàng Đã Bán</th>
                                         <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
                                             rowspan="1" colspan="1">Tổng Tiền</th>
                                     </tr>
                                 </thead>
                                 <tbody class="content_find_admin">
+                                    @php
+                                        $stt = 0;
+                                    @endphp
+                                    @foreach ($statisticals_daily as $stati)
+                                    <tr>
+                                        <td>{{ ++$stt }}</td>
+                                        <td>
+                                            {{ date('d/m/Y', strtotime($stati['date'])) }}
+                                        </td>
+                                        <td>
+                                            {{ $stati['count_order'] }}
+                                        </td>
+                                        <td>
+                                            {{ number_format($stati['total_receive'], 0, ',', '.') }}₫
 
+                                        </td>
+                                    </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col-sm-12 col-md-5">
+                        </div>
                         <div class="col-sm-12 col-md-7">
                             <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
                                 <ul class="pagination">
-                                    {!! $data->links() !!}
+                                    {!! $statisticals_daily->links() !!}
                                 </ul>
                             </div>
                         </div>
@@ -352,34 +411,35 @@
             </div>
         </div>
     </div>
+    @endif
     {{-- SCRIPT --}}
     <script src="{{ asset('public/back_end/src/plugins/apexcharts/apexcharts.min.js') }}"></script>
     <script src="{{ asset('public/font_end/assets/js/jquery-3.4.1.min.js') }}"></script>
     <script>
         const arrSaled = [<?php if (isset($arrSaled)) {
-    echo '"' . implode('","', $arrSaled) . '"';
-} ?>];
+                                echo '"' . implode('","', $arrSaled) . '"';
+                            } ?>];
         const arrRevenue = [<?php if (isset($arrRevenue)) {
-    echo '"' . implode('","', $arrRevenue) . '"';
-} ?>];
+                                echo '"' . implode('","', $arrRevenue) . '"';
+                            } ?>];
         const arrOrder = [<?php if (isset($arrOrder)) {
-    echo '"' . implode('","', $arrOrder) . '"';
-} ?>];
+                                echo '"' . implode('","', $arrOrder) . '"';
+                            } ?>];
         const countAdmin = <?php if (isset($all_admin)) {
-    echo count($all_admin);
-} ?>;
+                                echo count($all_admin);
+                            } ?>;
         const countCate = <?php if (isset($all_category)) {
-    echo count($all_category);
-} ?>;
+                                echo count($all_category);
+                            } ?>;
         const countStorage = <?php if (isset($all_storage)) {
-    echo count($all_storage);
-} ?>;
+                                echo count($all_storage);
+                            } ?>;
         const countSlider = <?php if (isset($all_slider)) {
-    echo count($all_slider);
-} ?>;
+                                echo count($all_slider);
+                            } ?>;
         const countVoucher = <?php if (isset($all_voucher)) {
-    echo count($all_voucher);
-} ?>;
+                                echo count($all_voucher);
+                            } ?>;
 
         //call function
         radiaBar(countAdmin, countCate, countStorage, countSlider, countVoucher);

@@ -23,7 +23,7 @@
                     @php
                         $stt++;
                     @endphp
-                
+
                     <tr role="row" class="odd">
                         <td>{{ $stt }}</td>
                         <td>
@@ -40,8 +40,12 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
                                     <a class="dropdown-item" href="{{ URL::to('admin/all_storage_product/'.$storage->storage_id) }}"><i class="dw dw-eye"></i>Xem kho hàng</a>
+                                    @hasrole(['admin','manager'])
                                     <a class="dropdown-item" href="{{ URL::to('admin/update_storage/'.$storage->storage_id) }}"><i class="dw dw-edit2"></i>Chỉnh Sửa</a>
+                                    @endhasrole
+                                    @hasrole(['admin'])
                                     <a class="dropdown-item" href="{{ URL::to('admin/process_delete_storage/'.$storage->storage_id) }}"><i class="dw dw-delete-3"></i>Xóa</a>
+                                    @endhasrole
                                 </div>
                             </div>
                         </td>

@@ -103,6 +103,7 @@
     <script src="{{ asset('public/back_end/trace_side_profile/trace_side_profile.js') }}"></script>
     <script src="{{ asset('public/back_end/trace_side_discount/trace_side_discount.js') }}"></script>
     <script src="{{ asset('public/back_end/trace_side_voucher/trace_side_voucher.js') }}"></script>
+    <script src="{{ asset('public/back_end/src/scripts/ajax_filter_order_daily_dashboard.js') }}"></script>
 
     {{-- fancy box --}}
     <script src="{{ asset('public/back_end/src/plugins/fancybox/dist/jquery.fancybox.js') }}"></script>

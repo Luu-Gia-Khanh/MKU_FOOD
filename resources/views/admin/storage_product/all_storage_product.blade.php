@@ -186,20 +186,26 @@
                                                                 </a>
                                                                 <div
                                                                     class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                                                                    @hasrole(['admin','manager'])
                                                                     <a class="dropdown-item"
                                                                         href="{{ URL::to('admin/import_storage_product/' . $storage_product->storage_product_id) }}"><i
                                                                             class="icon-copy dw dw-add"></i>Nhập hàng</a>
+                                                                    @endhasrole
                                                                     <a class="dropdown-item"
                                                                         href="{{ URL::to('admin/history_storage_product/' . $storage_product->storage_product_id) }}"><i
                                                                             class="dw dw-eye"></i>Xem Lịch sử</a>
+                                                                    @hasrole(['admin','manager'])
                                                                     <a class="dropdown-item"
                                                                         href="{{ URL::to('admin/update_storage_product/' . $storage_product->storage_product_id) }}"><i
                                                                             class="dw dw-edit2"></i>Chỉnh Sửa</a>
+                                                                    @endhasrole
+                                                                    @hasrole(['admin'])
                                                                     <button
                                                                         class="dropdown-item soft_delete_storage_product_class"
                                                                         data-id="{{ $storage_product->storage_product_id }}"
                                                                         data-toggle="modal" data-target="#Modal_delete"><i
                                                                             class="dw dw-delete-3"></i>Xóa</button>
+                                                                    @endhasrole
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -217,9 +223,11 @@
                         @endif
                         <div class="row">
                             <div class="col-sm-12 col-md-5">
+                                @hasrole(['admin'])
                                 <a href="{{ URL::to('admin/view_recycle_storage_product/' . $storage_id) }}"
                                     class="btn color-btn-them ml-10" style="color: white"><i
                                         class="dw dw-delete-3"></i>Thùng Rác</a>
+                                @endhasrole
                             </div>
                             <div class="col-sm-12 col-md-7">
                                 <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">

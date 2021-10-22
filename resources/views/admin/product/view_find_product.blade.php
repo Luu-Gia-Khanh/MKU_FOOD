@@ -77,6 +77,7 @@
                                 <i class="icon-copy fa fa-close" aria-hidden="true" style="font-size: 25px; color: rgb(207, 51, 11)"></i>
                             @endif
                         </td>
+                        @hasrole(['admin','manager'])
                         <td class="center">
                             @if ($prod->is_featured == 1)
                                 <a href="{{ URL::to('admin/is_not_featured/'.$prod->product_id) }}"><i class="icon-copy fa fa-check" aria-hidden="true" style="font-size: 25px; color: rgb(5, 199, 30)"></i></a>
@@ -84,6 +85,16 @@
                                 <a href="{{ URL::to('admin/is_featured/'.$prod->product_id) }}"><i class="icon-copy fa fa-close" aria-hidden="true" style="font-size: 25px; color: rgb(207, 51, 11)"></i></a>
                             @endif
                         </td>
+                        @endhasrole
+                        @hasrole(['employee'])
+                        <td class="center">
+                            @if ($prod->is_featured == 1)
+                                <i class="icon-copy fa fa-check" aria-hidden="true" style="font-size: 25px; color: rgb(5, 199, 30)"></i>
+                            @else
+                                <i class="icon-copy fa fa-close" aria-hidden="true" style="font-size: 25px; color: rgb(207, 51, 11)"></i>
+                            @endif
+                        </td>
+                        @endhasrole
                         <td class="">
                             <div class="dropdown">
                                 <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"
@@ -91,8 +102,8 @@
                                     <i class="dw dw-more"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                    @hasrole(['admin','manager'])
                                     <a class="dropdown-item" href="{{ URL::to('admin/view_detail_product/'.$prod->product_id) }}"><i class="dw dw-eye"></i>Thông tin sản phẩm</a>
+                                    @hasrole(['admin','manager'])
                                     <a class="dropdown-item" href="{{ URL::to('admin/update_product/'.$prod->product_id) }}"><i class="dw dw-edit2"></i>Chỉnh Sửa</a>
                                     @endhasrole
                                     @hasrole(['admin'])

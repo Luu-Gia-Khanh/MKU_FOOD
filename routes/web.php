@@ -60,6 +60,8 @@ Route::prefix('admin')->group(function () {
     Route::post('auto_load_data_dashboard', 'DashboardController@auto_load_data_dashboard')->middleware('admin_manager_employee');
     Route::post('filer_year_order_dashboard', 'DashboardController@filer_year_order_dashboard')->middleware('admin_manager_employee');
     Route::post('filer_year_revenue_dashboard', 'DashboardController@filer_year_revenue_dashboard')->middleware('admin_manager_employee');
+    Route::post('print_pdf_dashbpard_revenue_daily', 'DashboardController@print_pdf_dashbpard_revenue_daily')->middleware('admin_manager_employee');
+    Route::post('filter_date_daily_order', 'DashboardController@filter_date_daily_order')->middleware('admin_manager_employee');
 
     // ADMIN
     // Route::group(['middleware'=>'admin_manager'], function(){

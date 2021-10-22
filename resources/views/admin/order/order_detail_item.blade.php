@@ -201,26 +201,28 @@
 
                         </table>
                     </div>
-                    @if (count($admin_action_order)>0)
-                        <div class="pd-10">
-                            <table class="table table-bordered">
-                                @foreach ($admin_action_order as $action)
-                                    <tr>
-                                        <td>
-                                            {{ date('d/m/Y H:i a', strtotime($action->action_time)) }}
-                                        </td>
-                                        <td>
-                                            {{ $action->action_message }}
-                                        </td>
-                                        <td>
-                                            {{ $action->admin_name }}
-                                        </td>
-                                    </tr>
-                                @endforeach
+                    @hasrole(['admin'])
+                        @if (count($admin_action_order)>0)
+                            <div class="pd-10">
+                                <table class="table table-bordered">
+                                    @foreach ($admin_action_order as $action)
+                                        <tr>
+                                            <td>
+                                                {{ date('d/m/Y H:i a', strtotime($action->action_time)) }}
+                                            </td>
+                                            <td>
+                                                {{ $action->action_message }}
+                                            </td>
+                                            <td>
+                                                {{ $action->admin_name }}
+                                            </td>
+                                        </tr>
+                                    @endforeach
 
-                            </table>
-                        </div>
-                    @endif
+                                </table>
+                            </div>
+                        @endif
+                    @endhasrole
                 </div>
 
             </div>
