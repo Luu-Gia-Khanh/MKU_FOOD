@@ -8,7 +8,7 @@
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ URL::to('admin/') }}">Trang chủ</a></li>
                             <li class="breadcrumb-item"><a href="{{ URL::to('admin/all_storage') }}">Danh sách kho hàng</a></li>
-                            <li class="breadcrumb-item"><a href="{{ URL::to('admin/all_storage_product/'.$storage_id) }}">Danh sách kho sản phẩm</a></li>
+                            <li class="breadcrumb-item"><a href="{{ URL::to('admin/all_storage_product/' . $storage_id) }}">Danh sách kho sản phẩm</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Sửa kho sản phẩm</li>
                         </ol>
                     </nav>
@@ -29,20 +29,18 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Tên Sản Phẩm</label>
-                                <input class="form-control upper_val" type="text"
-                                @foreach ($all_product as $product)
-                                    @if ($storage_product->product_id == $product->product_id)
-                                        value="{{ $product->product_name }}"
-                                    @endif
+                                <input class="form-control upper_val" type="text" @foreach ($all_product as $product)
+                                @if ($storage_product->product_id == $product->product_id)
+                                    value="{{ $product->product_name }}"
+                                @endif
                                 @endforeach
-                                 readonly>
+                                readonly>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Số lượng</label>
-                                <input class="form-control" type="number" name="total_quantity_product"
-                                value="{{ $storage_product->total_quantity_product }}">
+                                <input class="form-control" type="number" name="total_quantity_product" value="{{ $storage_product->total_quantity_product }}">
                             </div>
                             @if (session('error_check_storage_product_quantity'))
                                 <div class="alert alert-danger alert-dismissible mt-1" role="alert">
@@ -80,8 +78,8 @@
                 </form>
             </div>
         </div>
-         <!-- The Modal -->
-         <div class="modal fade" id="myModal">
+        <!-- The Modal -->
+        <div class="modal fade" id="myModal">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
 

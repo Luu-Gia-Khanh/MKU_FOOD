@@ -23,27 +23,23 @@
                 <h4 class="text-blue h4">Sửa Danh Mục Sản Phẩm</h4>
             </div>
             <div class="pd-20">
-                <form action="{{ URL::to('admin/process_update_category/' . $update_category->cate_id) }}" method="post"
-                    enctype="multipart/form-data">
+                <form action="{{ URL::to('admin/process_update_category/' . $update_category->cate_id) }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Tên Loại Sản Phẩm</label>
-                                <input class="form-control upper_val" type="text" name="cate_name"
-                                    value="{{ $update_category->cate_name }}" onblur="return upberFirstKey()"
+                                <input class="form-control upper_val" type="text" name="cate_name" value="{{ $update_category->cate_name }}" onblur="return upberFirstKey()"
                                     placeholder="Nhập Loại Sản Phẩm">
                                 @if ($errors->has('cate_name'))
                                     <div class="alert alert-danger alert-dismissible mt-1">
-                                        <a href="#" class="close" data-dismiss="alert"
-                                            aria-label="close">&times;</a>
+                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                                         {{ $errors->first('cate_name') }}
                                     </div>
                                 @endif
                                 @if (session('check_cate_name'))
                                     <div class="alert alert-danger alert-dismissible mt-1" role="alert">
-                                        <a href="#" class="close" data-dismiss="alert"
-                                            aria-label="close">&times;</a>
+                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                                         {{ session('check_cate_name') }}
                                     </div>
                                 @endif
@@ -52,8 +48,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Hình Ảnh</label>
-                                <input class="form-control" type="file" name="cate_image" id="file_upload"
-                                    onchange="return uploadhinh()" placeholder="">
+                                <input class="form-control" type="file" name="cate_image" id="file_upload" onchange="return uploadhinh()" placeholder="">
                             </div>
                         </div>
                     </div>
@@ -61,8 +56,7 @@
                         <div class="ml-3" id="">
                             <div class="da-card box-shadow" style="height: 350x; width: 475px">
                                 <div class="da-card-photo">
-                                    <img src="{{ asset('public/upload/' . $update_category->cate_image) }}"
-                                        class="" alt="hình ảnh" id="image_upload">
+                                    <img src="{{ asset('public/upload/' . $update_category->cate_image) }}" class="" alt="hình ảnh" id="image_upload">
                                 </div>
                             </div>
                         </div>
@@ -100,4 +94,5 @@
                 </div>
             </div>
         </div>
-    @endsection
+    </div>
+@endsection

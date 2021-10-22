@@ -21,16 +21,15 @@
                 <h4 class="text-blue h4">Thêm Phí Vận Chuyển</h4>
             </div>
             <div class="pd-20">
-                <form action="{{ URL::to('admin/process_add_shipping_cost') }}" method="post"
-                    enctype="multipart/form-data">
+                <form action="{{ URL::to('admin/process_add_shipping_cost') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="col-3"></div>
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Vị Trí Bắt Đầu</label>
-                                <select name="start_position" class="custom-select2 form-control select2-hidden-accessible"
-                                    style="width: 100%; height: 38px;" data-select2-id="1" tabindex="-1" aria-hidden="true">
+                                <select name="start_position" class="custom-select2 form-control select2-hidden-accessible" style="width: 100%; height: 38px;" data-select2-id="1" tabindex="-1"
+                                    aria-hidden="true">
                                     @foreach ($citys as $city)
                                         <option value="{{ $city->matp }}" @if ($city->matp == 86)
                                             selected
@@ -40,8 +39,7 @@
                                 </select>
                                 @if ($errors->has('start_position'))
                                     <div class="alert alert-danger alert-dismissible mt-1">
-                                        <a href="#" class="close" data-dismiss="alert"
-                                            aria-label="close">&times;</a>
+                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                                         {{ $errors->first('start_position') }}
                                     </div>
                                 @endif
@@ -53,8 +51,8 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Vị Trí Kết Thúc</label>
-                                <select name="end_position" class="custom-select2 form-control select2-hidden-accessible"
-                                    style="width: 100%; height: 38px;" data-select2-id="2" tabindex="-1" aria-hidden="true">
+                                <select name="end_position" class="custom-select2 form-control select2-hidden-accessible" style="width: 100%; height: 38px;" data-select2-id="2" tabindex="-1"
+                                    aria-hidden="true">
                                     <option value="">Chọn Điểm Giao Hàng</option>
                                     @foreach ($citys as $city)
                                         <option value="{{ $city->matp }}">{{ $city->name_tp }}</option>
@@ -62,15 +60,13 @@
                                 </select>
                                 @if ($errors->has('end_position'))
                                     <div class="alert alert-danger alert-dismissible mt-1">
-                                        <a href="#" class="close" data-dismiss="alert"
-                                            aria-label="close">&times;</a>
+                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                                         {{ $errors->first('end_position') }}
                                     </div>
                                 @endif
                                 @if (session('error_position'))
                                     <div class="alert alert-danger alert-dismissible mt-1">
-                                        <a href="#" class="close" data-dismiss="alert"
-                                            aria-label="close">&times;</a>
+                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                                         {{ session('error_position') }}
                                     </div>
                                 @endif
@@ -82,12 +78,10 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Phí Vận Chuyển</label>
-                                <input class="form-control" type="number" name="cost" value="{{ old('cost') }}"
-                                    placeholder="Nhập Phí Vận Chuyển">
+                                <input class="form-control" type="number" name="cost" value="{{ old('cost') }}" placeholder="Nhập Phí Vận Chuyển">
                                 @if (session('cost'))
                                     <div class="alert alert-danger alert-dismissible mt-1">
-                                        <a href="#" class="close" data-dismiss="alert"
-                                            aria-label="close">&times;</a>
+                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                                         {{ session('cost') }}
                                     </div>
                                 @endif
@@ -95,8 +89,8 @@
                         </div>
                     </div>
                     <div class="center mr-t">
-                        <button type="submit" class="btn color-btn-them" value="Chỉnh Sửa Quản Trị Viên"><i
-                                class="icon-copy fi-page-edit"></i>Thêm Phí Vận Chuyển</button>
+                        <button type="submit" class="btn color-btn-them"><i class="icon-copy fi-page-edit"></i>Thêm Phí Vận
+                            Chuyển</button>
                     </div>
                 </form>
             </div>

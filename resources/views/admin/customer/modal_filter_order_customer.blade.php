@@ -1,4 +1,4 @@
-{{-- modal filter order customer follow price  --}}
+{{-- modal filter order customer follow price --}}
 <div class="modal fade" id="Modal_filter_customer_follow_order_quantity">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -49,18 +49,17 @@
                         <div class="content-filter-price-cus-option pd-20 dis-none">
                             <div class="row">
                                 <div class="col-6">
-                                    <input class="form-control quantity_start_cus_option" type="number" name="quantity_start_cus_option"
-                                    value="" min='1' placeholder="Từ...">
+                                    <input class="form-control quantity_start_cus_option" type="number" name="quantity_start_cus_option" value="" min='1' placeholder="Từ...">
                                 </div>
                                 <div class="col-6">
-                                    <input class="form-control quantity_end_cus_option" type="number" name="quantity_end_cus_option"
-                                     value="" min='1' placeholder="Đến...">
+                                    <input class="form-control quantity_end_cus_option" type="number" name="quantity_end_cus_option" value="" min='1' placeholder="Đến...">
                                 </div>
                             </div>
                             <div class="pd-10 d-flex justify-content-center">
                                 <div class="btn btn-light btn_back_choose_price_filter">
                                     <i class="icon-copy fa fa-chevron-left" aria-hidden="true"></i>
-                                    Trở lại</div>
+                                    Trở lại
+                                </div>
                             </div>
 
                         </div>
@@ -75,7 +74,7 @@
     </div>
 </div>
 
-{{-- modal filter order customer follow price  --}}
+{{-- modal filter order customer follow price --}}
 <div class="modal fade" id="Modal_filter_order_customer_follow_price">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -126,18 +125,17 @@
                         <div class="content-filter-price-cus-option pd-20 dis-none">
                             <div class="row">
                                 <div class="col-6">
-                                    <input class="form-control total_start_price" type="number" name="price_start_cus_option"
-                                    value="" min='1' placeholder="Giá Từ ...₫">
+                                    <input class="form-control total_start_price" type="number" name="price_start_cus_option" value="" min='1' placeholder="Giá Từ ...₫">
                                 </div>
                                 <div class="col-6">
-                                    <input class="form-control total_end_price" type="number" name="price_end_cus_option"
-                                     value="" min='1' placeholder="Đến ...₫">
+                                    <input class="form-control total_end_price" type="number" name="price_end_cus_option" value="" min='1' placeholder="Đến ...₫">
                                 </div>
                             </div>
                             <div class="pd-10 d-flex justify-content-center">
                                 <div class="btn btn-light btn_back_choose_price_filter">
                                     <i class="icon-copy fa fa-chevron-left" aria-hidden="true"></i>
-                                    Trở lại</div>
+                                    Trở lại
+                                </div>
                             </div>
 
                         </div>
@@ -153,7 +151,7 @@
 </div>
 
 
-{{-- modal filter order customer follow date  --}}
+{{-- modal filter order customer follow date --}}
 <div class="modal fade" id="Modal_filter_order_customer_follow_date">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -210,7 +208,6 @@
                     <button type="button" class="btn btn-success" id="btn_filter_order_customer_fol_date_many">Lọc</button>
                 </div>
             </div>
-
         </div>
     </div>
 </div>

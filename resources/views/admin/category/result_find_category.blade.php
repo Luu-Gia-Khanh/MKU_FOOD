@@ -1,7 +1,6 @@
 @if (count($result_find) > 0)
     <div class="col-12 table-responsive">
-        <table class="data-table table table-hover multiple-select-row nowrap no-footer dtr-inline"
-            id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+        <table class="data-table table table-hover multiple-select-row nowrap no-footer dtr-inline" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
             <thead>
                 <tr role="row">
                     <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1">
@@ -31,8 +30,7 @@
                         <td class="table-plus sorting_1" tabindex="0">
                             <div class="da-card box-shadow" style="height: 80px; width: 80px">
                                 <div class="da-card-photo">
-                                    <img src="{{ asset('public/upload/' . $cate->cate_image) }}" alt="hình ảnh"
-                                        srcset="" width="80" height="80">
+                                    <img src="{{ asset('public/upload/' . $cate->cate_image) }}" alt="hình ảnh" srcset="" width="80" height="80">
                                 </div>
                             </div>
                         </td>
@@ -41,20 +39,15 @@
                         </td>
                         <td>
                             <div class="dropdown">
-                                <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#"
-                                    role="button" data-toggle="dropdown">
+                                <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
                                     <i class="dw dw-more"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                    @hasrole(['admin','manager'])
-                                    <a class="dropdown-item"
-                                        href="{{ URL::to('admin/update_category/' . $cate->cate_id) }}"><i
-                                            class="dw dw-edit2"></i>Chỉnh Sửa</a>
+                                    @hasrole(['admin', 'manager'])
+                                        <a class="dropdown-item" href="{{ URL::to('admin/update_category/' . $cate->cate_id) }}"><i class="dw dw-edit2"></i>Chỉnh Sửa</a>
                                     @endhasrole
                                     @hasrole(['admin'])
-                                    <a class="dropdown-item"
-                                        href="{{ URL::to('admin/process_delete_category/' . $cate->cate_id) }}"><i
-                                            class="dw dw-delete-3"></i>Xóa</a>
+                                        <a class="dropdown-item" href="{{ URL::to('admin/process_delete_category/' . $cate->cate_id) }}"><i class="dw dw-delete-3"></i>Xóa</a>
                                     @endhasrole
                                 </div>
                             </div>

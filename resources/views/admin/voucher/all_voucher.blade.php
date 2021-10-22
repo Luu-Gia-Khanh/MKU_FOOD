@@ -72,19 +72,15 @@
                                 <div class="col-sm-12 col-md-6 d-flex">
                                     <div class="content_filter pl-20">
                                         <div class="dropdown">
-                                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button"
-                                                data-toggle="dropdown" aria-expanded="false">
+                                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
                                                 <i class="icon-copy dw dw-filter"></i> Lọc
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-left" style="">
-                                                <a class="dropdown-item btn_filter_voucher_follow_status_apply"
-                                                    href="#">Đang áp dụng
+                                                <a class="dropdown-item btn_filter_voucher_follow_status_apply" href="#">Đang áp dụng
                                                 </a>
-                                                <a class="dropdown-item btn_filter_voucher_follow_status_unapply"
-                                                    href="#">Ngưng áp dụng
+                                                <a class="dropdown-item btn_filter_voucher_follow_status_unapply" href="#">Ngưng áp dụng
                                                 </a>
-                                                <a class="dropdown-item" href="#" data-toggle="modal"
-                                                    data-target="#Modal_filter_voucher_follow_date_create">
+                                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#Modal_filter_voucher_follow_date_create">
                                                     Ngày tạo voucher
                                                 </a>
                                             </div>
@@ -102,35 +98,32 @@
                                             {{--  --}}
                                             <button type="submit" class="btn btn-secondary">
                                                 Xuất
-                                                <img src="{{ asset('public/upload/pdf1.svg') }}" style="height: 25px"
-                                                    alt="">
+                                                <img src="{{ asset('public/upload/pdf1.svg') }}" style="height: 25px" alt="">
                                             </button>
                                         </form>
                                     </div>
-                                    <div class="trace_voucher pl-10">
-                                        <div class="dropdown">
-                                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button"
-                                                data-toggle="dropdown" aria-expanded="false">
-                                                <i class="icon-copy dw dw-search2"></i>
-                                                Truy vết theo
-                                            </a>
-                                            <div class="dropdown-menu dropdown-menu-left" style="">
-                                                <a class="dropdown-item" href="#" data-toggle="modal"
-                                                    data-target="#Modal_trace_voucher_side_voucher">
-                                                    Voucher
+                                    @hasrole('admin')
+                                        <div class="trace_voucher pl-10">
+                                            <div class="dropdown">
+                                                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                                                    <i class="icon-copy dw dw-search2"></i>
+                                                    Truy vết theo
                                                 </a>
+                                                <div class="dropdown-menu dropdown-menu-left" style="">
+                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#Modal_trace_voucher_side_voucher">
+                                                        Voucher
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    @endhasrole
                                 </div>
                                 <div class="col-sm-12 col-md-6">
                                     <div id="DataTables_Table_0_filter" class="dataTables_filter">
                                         <form action="">
                                             @csrf
                                             <input type="hidden" value="{{ $product_id }}" id="product_id">
-                                            <label>Tìm Kiếm:<input type="search" class="form-control form-control-sm"
-                                                    placeholder="Tìm Kiếm" aria-controls="DataTables_Table_0"
-                                                    id="find_voucher"></label>
+                                            <label>Tìm Kiếm:<input type="search" class="form-control form-control-sm" placeholder="Tìm Kiếm" aria-controls="DataTables_Table_0" id="find_voucher"></label>
                                         </form>
                                     </div>
                                 </div>
@@ -138,29 +131,19 @@
                             <div class="content_find_voucher content_trace_voucher">
                                 <div class="row">
                                     <div class="col-12 table-responsive">
-                                        <table
-                                            class="data-table table table-hover multiple-select-row nowrap no-footer dtr-inline sortable"
-                                            id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                                        <table class="data-table table table-hover multiple-select-row nowrap no-footer dtr-inline sortable" id="DataTables_Table_0" role="grid"
+                                            aria-describedby="DataTables_Table_0_info">
                                             <thead>
                                                 <tr role="row" class="text-center">
-                                                    <th class="sorting" tabindex="0"
-                                                        aria-controls="DataTables_Table_0" rowspan="1" colspan="1">STT</th>
-                                                    <th class="sorting" tabindex="0"
-                                                        aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-                                                        data-defaultsort="disabled">Mã Voucher</th>
-                                                    <th class="sorting" tabindex="0"
-                                                        aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-                                                        data-defaultsign="AZ">Tên Voucher</th>
-                                                    <th class="sorting" tabindex="0"
-                                                        aria-controls="DataTables_Table_0" rowspan="1" colspan="1">Ngày Bắt
+                                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1">STT</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" data-defaultsort="disabled">Mã Voucher</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" data-defaultsign="AZ">Tên Voucher</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1">Ngày Bắt
                                                         Đầu</th>
-                                                    <th class="sorting" tabindex="0"
-                                                        aria-controls="DataTables_Table_0" rowspan="1" colspan="1">Ngày Kết
+                                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1">Ngày Kết
                                                         Thúc</th>
-                                                    <th class="datatable-nosort sorting_disabled" rowspan="1" colspan="1"
-                                                        aria-label="Action" data-defaultsort="disabled">Tình Trạng</th>
-                                                    <th class="datatable-nosort sorting_disabled" rowspan="1" colspan="1"
-                                                        aria-label="Action" data-defaultsort="disabled">Thao Tác</th>
+                                                    <th class="datatable-nosort sorting_disabled" rowspan="1" colspan="1" aria-label="Action" data-defaultsort="disabled">Tình Trạng</th>
+                                                    <th class="datatable-nosort sorting_disabled" rowspan="1" colspan="1" aria-label="Action" data-defaultsort="disabled">Thao Tác</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -174,17 +157,12 @@
                                                     <tr role="row" class="odd text-center">
                                                         <td>{{ $stt }}</td>
                                                         <td style="cursor: pointer;">
-                                                            <a href="#" class=" btn_open_modal"
-                                                                data-id={{ $voucher->voucher_id }} data-toggle="modal"
-                                                                data-target="#modal_voucher">
+                                                            <a href="#" class=" btn_open_modal" data-id={{ $voucher->voucher_id }} data-toggle="modal" data-target="#modal_voucher">
                                                                 {{ $voucher->voucher_code }}
                                                             </a>
                                                         </td>
-                                                        <td class="text-left" id="voucher_name"
-                                                            style="cursor: pointer;">
-                                                            <a href="#" class=" btn_open_modal"
-                                                                data-id={{ $voucher->voucher_id }} data-toggle="modal"
-                                                                data-target="#modal_voucher">
+                                                        <td class="text-left" id="voucher_name" style="cursor: pointer;">
+                                                            <a href="#" class=" btn_open_modal" data-id={{ $voucher->voucher_id }} data-toggle="modal" data-target="#modal_voucher">
                                                                 {{ $voucher->voucher_name }}
                                                             </a>
                                                         </td>
@@ -214,27 +192,22 @@
                                                         </td>
                                                         <td>
                                                             <div class="dropdown">
-                                                                <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"
-                                                                    href="#" role="button" data-toggle="dropdown">
+                                                                <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
                                                                     <i class="dw dw-more"></i>
                                                                 </a>
 
-                                                                <div
-                                                                    class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                                                    <input type="hidden" name="_token"
-                                                                        value="{{ csrf_token() }}" />
-                                                                    <button class="dropdown-item btn_open_modal"
-                                                                        data-id={{ $voucher->voucher_id }}
-                                                                        data-toggle="modal" data-target="#modal_voucher"><i
+                                                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                                                                    <button class="dropdown-item btn_open_modal" data-id={{ $voucher->voucher_id }} data-toggle="modal" data-target="#modal_voucher"><i
                                                                             class="dw dw-eye"></i>Xem chi tiết</button>
-                                                                    <a class="dropdown-item"
-                                                                        href="{{ URL::to('admin/update_voucher/' . $voucher->voucher_id) }}"><i
-                                                                            class="dw dw-edit2"></i>Chỉnh Sửa</a>
-                                                                    <button class="dropdown-item soft_delete_voucher"
-                                                                        data-id="{{ $voucher->voucher_id }}"
-                                                                        data-toggle="modal"
-                                                                        data-target="#Modal_delete_voucher"><i
-                                                                            class="dw dw-delete-3"></i>Xóa</button>
+                                                                    @hasrole(['admin', 'manager'])
+                                                                        <a class="dropdown-item" href="{{ URL::to('admin/update_voucher/' . $voucher->voucher_id) }}"><i class="dw dw-edit2"></i>Chỉnh
+                                                                            Sửa</a>
+                                                                    @endhasrole
+                                                                    @hasrole('admin')
+                                                                        <button class="dropdown-item soft_delete_voucher" data-id="{{ $voucher->voucher_id }}" data-toggle="modal"
+                                                                            data-target="#Modal_delete_voucher"><i class="dw dw-delete-3"></i>Xóa</button>
+                                                                    @endhasrole
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -246,14 +219,11 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12 col-md-5">
-                                        <a href="{{ URL::to('admin/view_recycle_product_voucher/' . $product_id) }}"
-                                            class="btn color-btn-them ml-10" style="color: white"><i
-                                                class="dw dw-delete-3"></i>
+                                        <a href="{{ URL::to('admin/view_recycle_product_voucher/' . $product_id) }}" class="btn color-btn-them ml-10" style="color: white"><i class="dw dw-delete-3"></i>
                                             Thùng Rác</a>
                                     </div>
                                     <div class="col-sm-12 col-md-7">
-                                        <div class="dataTables_paginate paging_simple_numbers"
-                                            id="DataTables_Table_0_paginate">
+                                        <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
                                             <ul class="pagination">
                                                 {!! $all_voucher->links() !!}
                                             </ul>

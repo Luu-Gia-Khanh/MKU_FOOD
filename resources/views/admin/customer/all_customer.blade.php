@@ -47,13 +47,11 @@
                         <div class="col-sm-12 col-md-6 d-flex">
                             <div class="content_filter pl-20">
                                 <div class="dropdown">
-                                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button"
-                                        data-toggle="dropdown" aria-expanded="false">
+                                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
                                         <i class="icon-copy dw dw-filter"></i> Lọc
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-left" style="">
-                                        <a class="dropdown-item" href="#" data-toggle="modal"
-                                            data-target="#Modal_filter_customer_follow_order_quantity">Số lượng đơn đặt
+                                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#Modal_filter_customer_follow_order_quantity">Số lượng đơn đặt
                                             hàng</a>
                                     </div>
                                 </div>
@@ -78,9 +76,7 @@
                             <div id="DataTables_Table_0_filter" class="dataTables_filter">
                                 <form action="">
                                     @csrf
-                                    <label>Tìm Kiếm:<input type="search" class="form-control form-control-sm"
-                                            id="find_customer" placeholder="Tìm Kiếm"
-                                            aria-controls="DataTables_Table_0"></label>
+                                    <label>Tìm Kiếm:<input type="search" class="form-control form-control-sm" id="find_customer" placeholder="Tìm Kiếm" aria-controls="DataTables_Table_0"></label>
                                 </form>
                             </div>
                         </div>
@@ -92,24 +88,20 @@
                             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                             <div class="row">
                                 <div class="col-12 table-responsive">
-                                    <table
-                                        class="data-table table table-hover multiple-select-row nowrap no-footer dtr-inline sortable"
-                                        id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                                    <table class="data-table table table-hover multiple-select-row nowrap no-footer dtr-inline sortable" id="DataTables_Table_0" role="grid"
+                                        aria-describedby="DataTables_Table_0_info">
                                         <thead>
                                             <tr role="row">
-                                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
-                                                    rowspan="1" colspan="1">STT</th>
-                                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
-                                                    rowspan="1" colspan="1" data-defaultsign="AZ">Họ Và Tên</th>
-                                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
-                                                    rowspan="1" colspan="1">Số Điện Thoại</th>
-                                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
-                                                    rowspan="1" colspan="1" data-defaultsign="AZ">Email</th>
-                                                <th class="sorting text-center" tabindex="0"
-                                                    aria-controls="DataTables_Table_0" rowspan="1" colspan="1">Đơn Hàng Đã
+                                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1">STT
+                                                </th>
+                                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" data-defaultsign="AZ">Họ Và Tên</th>
+                                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1">Số Điện
+                                                    Thoại</th>
+                                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" data-defaultsign="AZ">Email</th>
+                                                <th class="sorting text-center" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1">
+                                                    Đơn Hàng Đã
                                                     Mua</th>
-                                                <th class="datatable-nosort sorting_disabled text-center" rowspan="1"
-                                                    colspan="1" aria-label="Action" data-defaultsort="disabled">Thao Tác
+                                                <th class="datatable-nosort sorting_disabled text-center" rowspan="1" colspan="1" aria-label="Action" data-defaultsort="disabled">Thao Tác
                                                 </th>
                                             </tr>
                                         </thead>
@@ -124,14 +116,12 @@
                                                 <tr role="row" class="odd">
                                                     <td>{{ $stt }}</td>
                                                     <td>
-                                                        <a
-                                                            href="{{ URL::to('admin/detail_customer/' . $customer->customer_id) }}">
+                                                        <a href="{{ URL::to('admin/detail_customer/' . $customer->customer_id) }}">
                                                             <div class="name-avatar d-flex align-items-center">
                                                                 <div class="avatar mr-2 flex-shrink-0">
 
-                                                                    <img src="{{ asset('public/upload/' . $customer->customer_avt) }}"
-                                                                        class="border-radius-100 shadow"
-                                                                        style="width: 50px; height: 50px" alt="avt admin">
+                                                                    <img src="{{ asset('public/upload/' . $customer->customer_avt) }}" class="border-radius-100 shadow" style="width: 50px; height: 50px"
+                                                                        alt="avt admin">
                                                                 </div>
                                                                 <div class="txt">
                                                                     <div class="weight-600">{{ $customer->username }}
@@ -160,9 +150,7 @@
                                                         {{ $count_order }}
                                                     </td>
                                                     <td class="text-center">
-                                                        <a
-                                                            href="{{ URL::to('admin/detail_customer/' . $customer->customer_id) }}"><i
-                                                                class="dw dw-eye"></i> Xem chi tiết</a>
+                                                        <a href="{{ URL::to('admin/detail_customer/' . $customer->customer_id) }}"><i class="dw dw-eye"></i> Xem chi tiết</a>
                                                     </td>
                                                 </tr>
                                             @endforeach

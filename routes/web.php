@@ -19,11 +19,11 @@ Route::post('/shipper/confirm_delivery_order_success', 'ShipperController@confir
 Route::get('/logout_shipper', 'ShipperController@logout_shipper');
 
 // LOGIN SOCIAL
-Route::get('/login_facebook','LoginSocialController@login_facebook');
-Route::get('/callback','LoginSocialController@callback_facebook');
+Route::get('/login_facebook', 'LoginSocialController@login_facebook');
+Route::get('/callback', 'LoginSocialController@callback_facebook');
 
-Route::get('login_google','LoginSocialController@login_google');
-Route::get('/google/callback','LoginSocialController@callback_google');
+Route::get('login_google', 'LoginSocialController@login_google');
+Route::get('/google/callback', 'LoginSocialController@callback_google');
 
 // LOGIN ADDMIN
 Route::get('login', 'AuthController@show_login');
@@ -63,24 +63,24 @@ Route::prefix('admin')->group(function () {
 
     // ADMIN
     // Route::group(['middleware'=>'admin_manager'], function(){
-        Route::get('all_admin', 'AdminController@show_admin')->middleware('admin_manager');
-        Route::get('add_admin', 'AdminController@add_admin')->middleware('admin');
-        Route::get('update_admin/{admin_id}', 'AdminController@update_admin')->middleware('admin');
-        Route::get('view_recycle', 'AdminController@view_recycle')->middleware('admin');
-        Route::get('re_delete/{admin_id}', 'AdminController@re_delete')->middleware('admin');
-        Route::get('delete_when_find/{admin_id}', 'AdminController@delete_when_find')->middleware('admin');
-        Route::get('view_profile/{admin_id}', 'AdminController@view_profile')->middleware('admin_manager_employee');
+    Route::get('all_admin', 'AdminController@show_admin')->middleware('admin_manager');
+    Route::get('add_admin', 'AdminController@add_admin')->middleware('admin');
+    Route::get('update_admin/{admin_id}', 'AdminController@update_admin')->middleware('admin');
+    Route::get('view_recycle', 'AdminController@view_recycle')->middleware('admin');
+    Route::get('re_delete/{admin_id}', 'AdminController@re_delete')->middleware('admin');
+    Route::get('delete_when_find/{admin_id}', 'AdminController@delete_when_find')->middleware('admin');
+    Route::get('view_profile/{admin_id}', 'AdminController@view_profile')->middleware('admin_manager_employee');
 
-        Route::post('find_admin', 'AdminController@find_admin')->middleware('admin_manager');
-        Route::post('delete_forever', 'AdminController@delete_forever')->middleware('admin');
-        Route::post('soft_delete', 'AdminController@soft_delete')->middleware('admin');
-        Route::post('process_add_admin', 'AdminController@process_add_admin')->middleware('admin');
-        Route::post('process_update_admin/{admin_id}', 'AdminController@process_update_admin')->middleware('admin');
-        Route::post('process_update_profile_admin/{admin_id}', 'AdminController@process_update_profile_admin')->middleware('admin_manager_employee');
-        Route::post('update_password_admin/{admin_id}', 'AdminController@update_password_admin')->middleware('admin_manager_employee');
+    Route::post('find_admin', 'AdminController@find_admin')->middleware('admin_manager');
+    Route::post('delete_forever', 'AdminController@delete_forever')->middleware('admin');
+    Route::post('soft_delete', 'AdminController@soft_delete')->middleware('admin');
+    Route::post('process_add_admin', 'AdminController@process_add_admin')->middleware('admin');
+    Route::post('process_update_admin/{admin_id}', 'AdminController@process_update_admin')->middleware('admin');
+    Route::post('process_update_profile_admin/{admin_id}', 'AdminController@process_update_profile_admin')->middleware('admin_manager_employee');
+    Route::post('update_password_admin/{admin_id}', 'AdminController@update_password_admin')->middleware('admin_manager_employee');
 
-        Route::post('filter_admin_role', 'AdminController@filter_admin_role')->middleware('admin_manager_employee');
-        Route::post('print_pdf_admin', 'AdminController@print_pdf_admin')->middleware('admin_manager_employee');
+    Route::post('filter_admin_role', 'AdminController@filter_admin_role')->middleware('admin_manager_employee');
+    Route::post('print_pdf_admin', 'AdminController@print_pdf_admin')->middleware('admin_manager_employee');
     // });
 
     //PERMISSION
@@ -190,6 +190,8 @@ Route::prefix('admin')->group(function () {
     Route::post('filter_storage_product_quantity_cus_option', 'StorageProductController@filter_storage_product_quantity_cus_option')->middleware('admin_manager_employee');
 
     Route::post('print_pdf_storage_product', 'StorageProductController@print_pdf_storage_product')->middleware('admin_manager_employee');
+    Route::post('print_pdf_history_storage_product', 'StorageProductController@print_pdf_history_storage_product')->middleware('admin_manager_employee');
+
 
 
     //ORDER
@@ -330,7 +332,6 @@ Route::prefix('admin')->group(function () {
     Route::post('process_update_shipping_cost/{shipping_cost_id}', 'ShippingCostController@process_update_shipping_cost')->middleware('admin_manager');
 
     Route::post('find_shipping_cost', 'ShippingCostController@find_shipping_cost')->middleware('admin_manager_employee');
-
 });
 
 // FONT END
@@ -360,20 +361,20 @@ Route::get('product_detail/{product_id}', 'HomeClientController@product_detail')
 Route::get('product_detail_slug/{slug}', 'HomeClientController@product_detail_slug');
 Route::get('buy_now/{product_id}', 'HomeClientController@buy_now');
 Route::post('load_detail_product', 'HomeClientController@load_detail_product');
-    //event card side detail
-    Route::post('product_detail/load_detail_product', 'HomeClientController@load_detail_product');
-    Route::post('product_detail/add_to_cart', 'CartController@add_cart');
-    Route::post('product_detail/add_wish_list_ajax', 'WishListController@add_wish_list_ajax');
-    Route::post('product_detail/load_quantity_cart', 'CartController@load_quantity_cart');
-    Route::post('product_detail/show_mini_cart_when_add', 'CartController@show_mini_cart_when_add');
-    Route::post('product_detail/update_qty_when_change', 'CartController@update_qty_when_change');
-    //event card side detail slug
-    Route::post('product_detail_slug/load_detail_product', 'HomeClientController@load_detail_product');
-    Route::post('product_detail_slug/add_to_cart', 'CartController@add_cart');
-    Route::post('product_detail_slug/add_wish_list_ajax', 'WishListController@add_wish_list_ajax');
-    Route::post('product_detail_slug/load_quantity_cart', 'CartController@load_quantity_cart');
-    Route::post('product_detail_slug/show_mini_cart_when_add', 'CartController@show_mini_cart_when_add');
-    Route::post('product_detail_slug/update_qty_when_change', 'CartController@update_qty_when_change');
+//event card side detail
+Route::post('product_detail/load_detail_product', 'HomeClientController@load_detail_product');
+Route::post('product_detail/add_to_cart', 'CartController@add_cart');
+Route::post('product_detail/add_wish_list_ajax', 'WishListController@add_wish_list_ajax');
+Route::post('product_detail/load_quantity_cart', 'CartController@load_quantity_cart');
+Route::post('product_detail/show_mini_cart_when_add', 'CartController@show_mini_cart_when_add');
+Route::post('product_detail/update_qty_when_change', 'CartController@update_qty_when_change');
+//event card side detail slug
+Route::post('product_detail_slug/load_detail_product', 'HomeClientController@load_detail_product');
+Route::post('product_detail_slug/add_to_cart', 'CartController@add_cart');
+Route::post('product_detail_slug/add_wish_list_ajax', 'WishListController@add_wish_list_ajax');
+Route::post('product_detail_slug/load_quantity_cart', 'CartController@load_quantity_cart');
+Route::post('product_detail_slug/show_mini_cart_when_add', 'CartController@show_mini_cart_when_add');
+Route::post('product_detail_slug/update_qty_when_change', 'CartController@update_qty_when_change');
 // search auto complete
 Route::post('ajax_search_auto_complete', 'HomeClientController@ajax_search_auto_complete');
 Route::post('search_product_form_search_auto_complete', 'HomeClientController@search_product_form_search_auto_complete');
@@ -458,8 +459,10 @@ Route::post('check_voucher_code_to_apply', 'CheckOutController@check_voucher_cod
 
 Route::post('check_qty_to_checkout', 'CheckOutController@check_qty_to_checkout');
 Route::post('process_checkout', 'CheckOutController@process_checkout');
-Route::get('view_checkout_paypal_success/{payment_method}/{summary_total_order}/{status}/{order_code}',
-        'CheckOutController@view_checkout_paypal_success');
+Route::get(
+    'view_checkout_paypal_success/{payment_method}/{summary_total_order}/{status}/{order_code}',
+    'CheckOutController@view_checkout_paypal_success'
+);
 Route::get('view_checkout_paypal_fail/{order_id}', 'CheckOutController@view_checkout_paypal_fail');
 
 Route::get('check_out_success', 'CheckOutController@check_out_success');

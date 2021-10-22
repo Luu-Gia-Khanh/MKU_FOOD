@@ -1,24 +1,16 @@
 @if (count($all_voucher) > 0)
     <div class="row">
         <div class="col-12 table-responsive">
-            <table class="data-table table table-hover multiple-select-row nowrap no-footer dtr-inline sortable"
-                id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+            <table class="data-table table table-hover multiple-select-row nowrap no-footer dtr-inline sortable" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
                 <thead>
                     <tr role="row" class="text-center">
-                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                            colspan="1">STT</th>
-                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                            colspan="1" data-defaultsort="disabled">Mã Voucher</th>
-                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                            colspan="1" data-defaultsign="AZ">Tên Voucher</th>
-                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                            colspan="1">Ngày Bắt Đầu</th>
-                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                            colspan="1">Ngày Kết Thúc</th>
-                        <th class="datatable-nosort sorting_disabled" rowspan="1" colspan="1" aria-label="Action"
-                            data-defaultsort="disabled">Tình Trạng</th>
-                        <th class="datatable-nosort sorting_disabled" rowspan="1" colspan="1" aria-label="Action"
-                            data-defaultsort="disabled">Thao Tác</th>
+                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1">STT</th>
+                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" data-defaultsort="disabled">Mã Voucher</th>
+                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" data-defaultsign="AZ">Tên Voucher</th>
+                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1">Ngày Bắt Đầu</th>
+                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1">Ngày Kết Thúc</th>
+                        <th class="datatable-nosort sorting_disabled" rowspan="1" colspan="1" aria-label="Action" data-defaultsort="disabled">Tình Trạng</th>
+                        <th class="datatable-nosort sorting_disabled" rowspan="1" colspan="1" aria-label="Action" data-defaultsort="disabled">Thao Tác</th>
                     </tr>
                 </thead>
                 <tbody class="content_find_voucher">
@@ -32,14 +24,12 @@
                         <tr role="row" class="odd text-center">
                             <td>{{ $stt }}</td>
                             <td style="cursor: pointer;">
-                                <a href="#" class=" btn_open_modal" data-id={{ $voucher->voucher_id }}
-                                    data-toggle="modal" data-target="#modal_voucher">
+                                <a href="#" class=" btn_open_modal" data-id={{ $voucher->voucher_id }} data-toggle="modal" data-target="#modal_voucher">
                                     {{ $voucher->voucher_code }}
                                 </a>
                             </td>
                             <td class="text-left" id="voucher_name" style="cursor: pointer;">
-                                <a href="#" class=" btn_open_modal" data-id={{ $voucher->voucher_id }}
-                                    data-toggle="modal" data-target="#modal_voucher">
+                                <a href="#" class=" btn_open_modal" data-id={{ $voucher->voucher_id }} data-toggle="modal" data-target="#modal_voucher">
                                     {{ $voucher->voucher_name }}
                                 </a>
                             </td>
@@ -62,24 +52,23 @@
                             </td>
                             <td>
                                 <div class="dropdown">
-                                    <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#"
-                                        role="button" data-toggle="dropdown">
+                                    <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
                                         <i class="dw dw-more"></i>
                                     </a>
 
                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-                                        <button class="dropdown-item btn_open_modal" id="the-span"
-                                            data-id={{ $voucher->voucher_id }} data-toggle="modal"
-                                            data-target="#modal_voucher"><i class="dw dw-eye"></i>Xem chi
+                                        <button class="dropdown-item btn_open_modal" id="the-span" data-id={{ $voucher->voucher_id }} data-toggle="modal" data-target="#modal_voucher"><i
+                                                class="dw dw-eye"></i>Xem chi
                                             tiết</button>
-                                        <a class="dropdown-item"
-                                            href="{{ URL::to('admin/update_voucher/' . $voucher->voucher_id) }}"><i
-                                                class="dw dw-edit2"></i>Chỉnh Sửa</a>
-                                        <button class="dropdown-item soft_delete_voucher" id="haha"
-                                            data-id="{{ $voucher->voucher_id }}" data-toggle="modal"
-                                            data-target="#Modal_delete_voucher"><i
-                                                class="dw dw-delete-3"></i>Xóa</button>                                    </div>
+                                        @hasrole(['admin', 'manager'])
+                                            <a class="dropdown-item" href="{{ URL::to('admin/update_voucher/' . $voucher->voucher_id) }}"><i class="dw dw-edit2"></i>Chỉnh Sửa</a>
+                                        @endhasrole
+                                        @hasrole('admin')
+                                            <button class="dropdown-item soft_delete_voucher" id="haha" data-id="{{ $voucher->voucher_id }}" data-toggle="modal" data-target="#Modal_delete_voucher"><i
+                                                    class="dw dw-delete-3"></i>Xóa</button>
+                                        @endhasrole
+                                    </div>
                                 </div>
                             </td>
                         </tr>

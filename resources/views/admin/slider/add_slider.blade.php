@@ -26,12 +26,10 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Hình Ảnh</label>
-                                <input class="form-control" type="file" name="slider_image" id="file_upload"
-                                    onchange="return uploadhinh()" value="no_image">
+                                <input class="form-control" type="file" name="slider_image" id="file_upload" onchange="return uploadhinh()" value="no_image">
                                 @if ($errors->has('slider_image'))
                                     <div class="alert alert-danger alert-dismissible mt-1">
-                                        <a href="#" class="close" data-dismiss="alert"
-                                            aria-label="close">&times;</a>
+                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                                         {{ $errors->first('slider_image') }}
                                     </div>
                                 @endif
@@ -61,12 +59,11 @@
                     <div class="row">
                         <div class="ml-3" id="content_image_upload op-0">
                             <img src="" class="op-0 c" alt="hình ảnh" id="image_upload" style="width: 774px; height: 300px; border-radius: 2px;
-                                        border: 1px solid #ecf0f4;">
+                                            border: 1px solid #ecf0f4;">
                         </div>
                     </div>
                     <div class="center mr-t">
-                        <button type="submit" class="btn color-btn-them" value="Chỉnh Sửa Quản Trị Viên"><i
-                                class="icon-copy fi-page-edit"></i>Thêm Silder</button>
+                        <button type="submit" class="btn color-btn-them" value="Chỉnh Sửa Quản Trị Viên"><i class="icon-copy fi-page-edit"></i>Thêm Silder</button>
                     </div>
                 </form>
             </div>

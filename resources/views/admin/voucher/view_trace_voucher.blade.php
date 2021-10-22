@@ -34,8 +34,7 @@
                 </ul>
             </div>
         @else
-        <div class="center">Không tìm thấy kết quả nào</div>
-    @endif
+            <div class="center">Không tìm thấy kết quả nào</div>
+        @endif
     </div>
 </div>
-

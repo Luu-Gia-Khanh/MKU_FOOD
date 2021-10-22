@@ -43,8 +43,8 @@
                         $cate_id_recycle = session('cate_id');
                     @endphp
                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    {{ session('error_check_cate_name') }} <a href="delete_recovery_forever/{{ $cate_id_recycle }}"
-                        class="btn btn-danger">Xóa Khỏi Thùng Rác</a>
+                    {{ session('error_check_cate_name') }} <a href="delete_recovery_forever/{{ $cate_id_recycle }}" class="btn btn-danger">Xóa Khỏi
+                        Thùng Rác</a>
                 </div>
             @endif
         </div>
@@ -64,9 +64,7 @@
                                 <div id="DataTables_Table_0_filter" class="dataTables_filter">
                                     <form action="">
                                         @csrf
-                                        <label>Tìm Kiếm:<input type="search" class="form-control form-control-sm"
-                                                id="val_find_recycle" placeholder="Tìm Kiếm"
-                                                aria-controls="DataTables_Table_0"></label>
+                                        <label>Tìm Kiếm:<input type="search" class="form-control form-control-sm" id="val_find_recycle" placeholder="Tìm Kiếm" aria-controls="DataTables_Table_0"></label>
                                     </form>
                                 </div>
                             </div>
@@ -92,19 +90,16 @@
                                                 <td>
                                                     <div class="da-card box-shadow" style="height: 80px; width: 80px">
                                                         <div class="da-card-photo">
-                                                            <img src="{{ asset('public/upload/' . $recy->cate_image) }}"
-                                                                alt="" srcset=""
-                                                                style="height: 80px !important; width: 80px !important;">
+                                                            <img src="{{ asset('public/upload/' . $recy->cate_image) }}" alt="" srcset="" style="height: 80px !important; width: 80px !important;">
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td>{{ $recy->cate_name }}</td>
                                                 <td class="col-4">
-                                                    <a href="{{ URL::to('admin/re_delete_cate/' . $recy->cate_id) }}"
-                                                        class="btn color-btn-them"> Khôi Phục</a>
-                                                    <button class="btn btn-danger btn_delete_forever"
-                                                        data-id="{{ $recy->cate_id }}" data-toggle="modal"
-                                                        data-target="#delete_forever"> Xóa Vĩnh Viễn</button>
+                                                    <a href="{{ URL::to('admin/re_delete_cate/' . $recy->cate_id) }}" class="btn color-btn-them"> Khôi
+                                                        Phục</a>
+                                                    <button class="btn btn-danger btn_delete_forever" data-id="{{ $recy->cate_id }}" data-toggle="modal" data-target="#delete_forever"> Xóa Vĩnh
+                                                        Viễn</button>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -137,11 +132,9 @@
                     <!-- Modal body -->
                     <div class="modal-body">
                         Bạn có chắc chắn muốn xóa vĩnh viễn dữ liệu này ?
-                        <form action="{{ URL::to('admin/delete_forever_cate') }}" method="post"
-                            name="form_delete_forever">
+                        <form action="{{ URL::to('admin/delete_forever_cate') }}" method="post" name="form_delete_forever">
                             @csrf
-                            <input type="hidden" value="" name="category_id_delete_forever"
-                                class="category_id_delete_forever">
+                            <input type="hidden" value="" name="category_id_delete_forever" class="category_id_delete_forever">
                         </form>
                     </div>
 
@@ -154,4 +147,5 @@
                 </div>
             </div>
         </div>
-    @endsection
+    </div>
+@endsection

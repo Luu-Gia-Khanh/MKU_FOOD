@@ -9,8 +9,7 @@
                             <li class="breadcrumb-item"><a href="{{ URL::to('admin/') }}">Trang chủ</a></li>
                             <li class="breadcrumb-item"><a href="{{ URL::to('admin/all_storage') }}">Danh sách kho hàng</a>
                             </li>
-                            <li class="breadcrumb-item"><a
-                                    href="{{ URL::to('admin/all_storage_product/' . $storage_id) }}">Danh sách kho sản
+                            <li class="breadcrumb-item"><a href="{{ URL::to('admin/all_storage_product/' . $storage_id) }}">Danh sách kho sản
                                     phẩm</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Nhập kho sản phẩm</li>
                         </ol>
@@ -26,22 +25,19 @@
                 <h4 class="text-blue h4">Nhập Kho Sản Phẩm</h4>
             </div>
             <div class="pd-20">
-                <form action="{{ URL::to('admin/process_import_storage_product/' . $storage_product->storage_product_id) }}"
-                    method="post" enctype="multipart/form-data">
+                <form action="{{ URL::to('admin/process_import_storage_product/' . $storage_product->storage_product_id) }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Tên Sản Phẩm</label>
-                                <input class="form-control upper_val" type="text" value="{{ $product->product_name }}"
-                                    readonly>
+                                <input class="form-control upper_val" type="text" value="{{ $product->product_name }}" readonly>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Số Lượng Nhập Kho</label>
-                                <input class="form-control" type="number" name="total_quantity_product" value=""
-                                    autofocus="focus">
+                                <input class="form-control" type="number" name="total_quantity_product" value="" autofocus="focus">
                             </div>
                             @if (session('error_check_storage_product_quantity'))
                                 <div class="alert alert-danger alert-dismissible mt-1" role="alert">
@@ -55,15 +51,13 @@
                         <div class="ml-3" id="">
                             <div class="da-card box-shadow" style="height: 350x; width: 475px">
                                 <div class="da-card-photo">
-                                    <img src="{{ asset('public/upload/' . $product->product_image) }}"
-                                        class="" alt="hình ảnh" id="image_upload">
+                                    <img src="{{ asset('public/upload/' . $product->product_image) }}" class="" alt="hình ảnh" id="image_upload">
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="center mr-t mt-5">
-                        <button type="submit" class="btn color-btn-them" value="Nhập Sản Phẩm"><i
-                                class="icon-copy fi-page-edit"></i>Nhập Hàng Vào Kho</button>
+                        <button type="submit" class="btn color-btn-them" value="Nhập Sản Phẩm"><i class="icon-copy fi-page-edit"></i>Nhập Hàng Vào Kho</button>
                     </div>
                 </form>
             </div>

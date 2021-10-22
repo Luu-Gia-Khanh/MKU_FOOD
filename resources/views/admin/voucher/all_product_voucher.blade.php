@@ -43,9 +43,7 @@
                             <div id="DataTables_Table_0_filter" class="dataTables_filter">
                                 <form action="">
                                     @csrf
-                                    <label>Tìm Kiếm:<input type="search" class="form-control form-control-sm"
-                                            id="find_product_voucher" placeholder="Tìm Kiếm"
-                                            aria-controls="DataTables_Table_0"></label>
+                                    <label>Tìm Kiếm:<input type="search" class="form-control form-control-sm" id="find_product_voucher" placeholder="Tìm Kiếm" aria-controls="DataTables_Table_0"></label>
                                 </form>
                             </div>
                         </div>
@@ -53,21 +51,15 @@
                     <div class="content_find_product_voucher">
                         <div class="row">
                             <div class="col-12 table-responsive">
-                                <table
-                                    class="data-table table table-hover multiple-select-row nowrap no-footer dtr-inline sortable"
-                                    id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                                <table class="data-table table table-hover multiple-select-row nowrap no-footer dtr-inline sortable" id="DataTables_Table_0" role="grid"
+                                    aria-describedby="DataTables_Table_0_info">
                                     <thead>
                                         <tr role="row" class="text-center">
-                                            <th class="sorting" tabindex="0"
-                                                aria-controls="DataTables_Table_0" rowspan="1" colspan="1">STT</th>
-                                            <th class="sorting" tabindex="0"
-                                                aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-                                                data-defaultsign="AZ">Sản Phẩm</th>
-                                            <th class="sorting" tabindex="0"
-                                                aria-controls="DataTables_Table_0" rowspan="1" colspan="1">Số Lượng Voucher
+                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1">STT</th>
+                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" data-defaultsign="AZ">Sản Phẩm</th>
+                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1">Số Lượng Voucher
                                             </th>
-                                            <th class="datatable-nosort sorting_disabled" rowspan="1"
-                                                colspan="1" aria-label="Action" data-defaultsort="disabled">Thao Tác</th>
+                                            <th class="datatable-nosort sorting_disabled" rowspan="1" colspan="1" aria-label="Action" data-defaultsort="disabled">Thao Tác</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -85,8 +77,7 @@
                                                 <tr role="row" class="odd text-center">
                                                     <td>{{ $stt }}</td>
                                                     <td>
-                                                        <a
-                                                            href="{{ URL::to('admin/all_voucher/' . $product->product_id) }}">
+                                                        <a href="{{ URL::to('admin/all_voucher/' . $product->product_id) }}">
                                                             {{ $product->product_name }}
                                                         </a>
                                                     </td>
@@ -105,19 +96,17 @@
                                                     </td>
                                                     <td>
                                                         <div class="dropdown">
-                                                            <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"
-                                                                href="#" role="button" data-toggle="dropdown">
+                                                            <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
                                                                 <i class="dw dw-more"></i>
                                                             </a>
 
-                                                            <div
-                                                                class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                                                <a class="dropdown-item"
-                                                                    href="{{ URL::to('admin/all_voucher/' . $product->product_id) }}"><i
-                                                                        class="dw dw-eye"></i>Xem danh sách voucher</a>
-                                                                <a class="dropdown-item"
-                                                                    href="{{ URL::to('admin/add_product_voucher/' . $product->product_id) }}"><i
-                                                                        class="icon-copy dw dw-add"></i>Thêm voucher</a>
+                                                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                                                                <a class="dropdown-item" href="{{ URL::to('admin/all_voucher/' . $product->product_id) }}"><i class="dw dw-eye"></i>Xem danh sách
+                                                                    voucher</a>
+                                                                @hasrole(['admin', 'manager'])
+                                                                    <a class="dropdown-item" href="{{ URL::to('admin/add_product_voucher/' . $product->product_id) }}"><i
+                                                                            class="icon-copy dw dw-add"></i>Thêm voucher</a>
+                                                                @endhasrole
                                                             </div>
                                                         </div>
                                                     </td>
@@ -143,6 +132,7 @@
                 </div>
             </div>
         </div>
-        <script src="{{ asset('public/font_end/assets/js/jquery-3.4.1.min.js') }}"></script>
-        <script src="{{ asset('public/back_end/custom_voucher/search_product_voucher.js') }}"></script>
-    @endsection
+    </div>
+    <script src="{{ asset('public/font_end/assets/js/jquery-3.4.1.min.js') }}"></script>
+    <script src="{{ asset('public/back_end/custom_voucher/search_product_voucher.js') }}"></script>
+@endsection

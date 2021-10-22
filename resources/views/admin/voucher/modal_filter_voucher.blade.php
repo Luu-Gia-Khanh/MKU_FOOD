@@ -1,5 +1,5 @@
 <input type="hidden" class="product_id" name="product_id" value="{{ $product_id }}">
-{{-- modal filter order customer follow date  --}}
+{{-- modal filter order customer follow date --}}
 <div class="modal fade" id="Modal_filter_voucher_follow_date_create">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">

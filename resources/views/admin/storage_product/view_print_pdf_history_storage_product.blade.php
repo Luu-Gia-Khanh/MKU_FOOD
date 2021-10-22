@@ -31,55 +31,40 @@
 <body>
     <h2 class="title">{{ $string_title }}</h2>
     <table class="table table-bordered mt-20" style="font-size: 15px">
-        <tr>
+        <tr role="row">
             <th>STT</th>
-            <th>Mã Voucher</th>
-            <th>Tên Voucher</th>
-            <th>Ngày Bắt Đầu</th>
-            <th>Ngày Kết Thúc</th>
-            <th>Số Lượng</th>
-            <th>Mệnh Giá</th>
-            <th>Tình Trạng</th>
+            <th>Nhân Viên Nhập</th>
+            <th>Số Lượng Tồn Kho</th>
+            <th>Số Lượng Nhập Mới</th>
+            <th>Ngày Nhập Hàng</th>
         </tr>
         @php
             $stt = 0;
         @endphp
-        @foreach ($all_voucher as $voucher)
+        @foreach ($history_storage_product as $history_item)
             @php
                 $stt++;
             @endphp
-            <tr role="row" class="odd text-center">
+            <tr role="row" class="odd">
                 <td>{{ $stt }}</td>
                 <td>
-                    {{ $voucher->voucher_code }}
+                    @foreach ($all_admin as $admin)
+                        @if ($history_item->admin_id == $admin->admin_id)
+                            {{ $admin->admin_name }}
+                        @endif
+                    @endforeach
                 </td>
-                <td class="text-left">
-                    {{ $voucher->voucher_name }}
-                </td>
-                <td>
-                    {{ date('d-m-y H:i a', strtotime($voucher->start_date)) }}
-                </td>
-                <td>
-                    {{ date('d-m-y H:i a', strtotime($voucher->end_date)) }} </td>
-                <td>{{ $voucher->voucher_quantity }}</td>
-                <td>{{ number_format($voucher->voucher_amount, 0, ',', '.') }}₫</td>
-                <td>
-                    @php
-                        $now = Carbon\Carbon::now();
-                    @endphp
-                    @if ($voucher->start_date <= $now && $now <= $voucher->end_date && $voucher->voucher_quantity > 0)
-                        <span>Đang áp
-                            dụng</span>
-                    @elseif ($voucher->start_date > $now)
-                        <span>Chưa áp
-                            dụng</span>
-                    @else
-                        <span>Ngưng áp
-                            dụng</span>
-                    @endif
+                <td>{{ $history_item->quantity_current }}</td>
+                <td>{{ $history_item->quantity_import }}</td>
+                <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $history_item->created_at)->format('d-m-Y H:i') }}
                 </td>
             </tr>
         @endforeach
+        <tr>
+            <td colspan="3"></td>
+            <td colspan="1" style="font-size: 18px">Số lượng hiện tại:</td>
+            <td colspan="1" style="font-size: 18px">{{ $quantity_total }}</td>
+        </tr>
     </table>
     <div class="row">
         <div class="" style=" float: right">Ngày xuất file: {{ date('d/m/Y') }}</div>

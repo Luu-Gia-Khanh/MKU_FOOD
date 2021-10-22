@@ -50,9 +50,7 @@
                             <div id="DataTables_Table_0_filter" class="dataTables_filter">
                                 <form action="">
                                     @csrf
-                                    <label>Tìm Kiếm:<input type="search" class="form-control form-control-sm"
-                                            id="find_shipping_cost" placeholder="Tìm Kiếm"
-                                            aria-controls="DataTables_Table_0"></label>
+                                    <label>Tìm Kiếm:<input type="search" class="form-control form-control-sm" id="find_shipping_cost" placeholder="Tìm Kiếm" aria-controls="DataTables_Table_0"></label>
                                 </form>
                             </div>
                         </div>
@@ -61,21 +59,17 @@
                         @if (count($all_shipping_cost) > 0)
                             <div class="row">
                                 <div class="col-12 table-responsive">
-                                    <table
-                                        class="data-table table table-hover multiple-select-row nowrap no-footer dtr-inline sortable"
-                                        id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                                    <table class="data-table table table-hover multiple-select-row nowrap no-footer dtr-inline sortable" id="DataTables_Table_0" role="grid"
+                                        aria-describedby="DataTables_Table_0_info">
                                         <thead>
                                             <tr role="row">
-                                                <th class="sorting center" tabindex="0" aria-controls="DataTables_Table_0"
-                                                    rowspan="1" colspan="1">STT</th>
-                                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
-                                                    rowspan="1" colspan="1" data-defaultsign="AZ">Vị Trí Bắt Đầu</th>
-                                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
-                                                    rowspan="1" colspan="1" data-defaultsign="AZ">Vị Trí Kết Thúc</th>
-                                                <th class="sorting center" tabindex="0" aria-controls="DataTables_Table_0"
-                                                    rowspan="1" colspan="1">Giá Vận Chuyển</th>
-                                                <th class="datatable-nosort sorting_disabled" rowspan="1" colspan="1"
-                                                    aria-label="Action" data-defaultsort="disabled">Thao Tác</th>
+                                                <th class="sorting center" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1">STT</th>
+                                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" data-defaultsign="AZ">Vị Trí Bắt Đầu</th>
+                                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" data-defaultsign="AZ">Vị Trí Kết Thúc</th>
+                                                <th class="sorting center" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1">Giá Vận Chuyển</th>
+                                                @hasrole(['admin', 'manager'])
+                                                    <th class="datatable-nosort sorting_disabled" rowspan="1" colspan="1" aria-label="Action" data-defaultsort="disabled">Thao Tác</th>
+                                                @endhasrole
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -90,25 +84,25 @@
                                                     <td class="center">{{ $stt }}</td>
                                                     <td>{{ $cost->start_position }}</td>
                                                     <td>{{ $cost->end_position }}</td>
-                                                    <td class="center">{{ number_format($cost->cost, 0, ',', '.') }}₫</td>
-                                                    <td>
-                                                        <div class="dropdown">
-                                                            <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"
-                                                                href="#" role="button" data-toggle="dropdown">
-                                                                <i class="dw dw-more"></i>
-                                                            </a>
-                                                            <div
-                                                                class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                                                <a class="dropdown-item"
-                                                                    href="{{ URL::to('admin/update_shipping_cost/' . $cost->id) }}"><i
-                                                                        class="dw dw-edit2"></i>Chỉnh Sửa</a>
-                                                                <button class="dropdown-item delete_shipping_cost"
-                                                                    data-id="{{ $cost->id }}" data-toggle="modal"
-                                                                    data-target="#Modal_delete"><i
-                                                                        class="dw dw-delete-3"></i>Xóa</button>
-                                                            </div>
-                                                        </div>
+                                                    <td class="center">
+                                                        {{ number_format($cost->cost, 0, ',', '.') }}₫
                                                     </td>
+                                                    @hasrole(['admin', 'manager'])
+                                                        <td>
+                                                            <div class="dropdown">
+                                                                <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                                                                    <i class="dw dw-more"></i>
+                                                                </a>
+                                                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                                                                    <a class="dropdown-item" href="{{ URL::to('admin/update_shipping_cost/' . $cost->id) }}"><i class="dw dw-edit2"></i>Chỉnh Sửa</a>
+                                                                    @hasrole('admin')
+                                                                        <button class="dropdown-item delete_shipping_cost" data-id="{{ $cost->id }}" data-toggle="modal" data-target="#Modal_delete"><i
+                                                                                class="dw dw-delete-3"></i>Xóa</button>
+                                                                    @endhasrole
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    @endhasrole
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -149,8 +143,7 @@
                     <!-- Modal body -->
                     <div class="modal-body">
                         Bạn có muốn xóa dữ liệu này ?
-                        <form action="{{ URL::to('admin/delete_shipping_cost') }}" method="post"
-                            name="form_delete_shipping_cost">
+                        <form action="{{ URL::to('admin/delete_shipping_cost') }}" method="post" name="form_delete_shipping_cost">
                             @csrf
                             <input type="hidden" class="shipping_cost_id" name="shipping_cost_id" value="">
                         </form>
