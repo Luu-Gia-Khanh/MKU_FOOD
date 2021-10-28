@@ -18,9 +18,7 @@
         .btn.active.focus {
             outline: none;
         }
-        /* body{
-            font-family: 'Inter', sans-serif;
-        } */
+
     </style>
     @if (count($all_product_discount) > 0)
         <div class="product-tab z-index-20 bg">
@@ -53,12 +51,11 @@
                                                 <input type="hidden" value="{{ $product->product_name }}" id="recently_viewed_product_name_{{ $product->product_id }}">
                                                 <input type="hidden" value="{{ number_format($price_discount->price_now, 0, ',', '.') }}₫" id="recently_viewed_product_price_{{ $product->product_id }}">
                                             </form>
-                                            <a href="{{ URL::to('product_detail_slug/' . $product->slug) }}" class="link-to-product btn_recently_viewed" data-id="{{ $product->product_id }}" id="recently_viewed_product_detail_{{ $product->product_id }}">
-                                                <img src="{{ asset('public/upload/'.$product->product_image) }}" alt="dd" style="width: 270px; height: 270px" class="product-thumnail" id="recently_viewed_product_img_{{ $product->product_id }}">
+                                            <a href="{{ URL::to('product_detail_slug/' . $product->slug) }}" class="link-to-product btn_recently_viewed" data-id="{{ $product->product_id }}"
+                                                id="recently_viewed_product_detail_{{ $product->product_id }}">
+                                                <img src="{{ asset('public/upload/' . $product->product_image) }}" alt="dd" style="width: 270px; height: 270px" class="product-thumnail" id="recently_viewed_product_img_{{ $product->product_id }}">
                                             </a>
-                                            <span href="#" class="lookup get_val_quickview btn_call_quickview_detail btn_open_modal"
-                                                data-id="{{ $product->product_id }}"><i
-                                                    class="biolife-icon icon-search"></i></span>
+                                            <span href="#" class="lookup get_val_quickview btn_call_quickview_detail btn_open_modal" data-id="{{ $product->product_id }}"><i class="biolife-icon icon-search"></i></span>
                                         </div>
                                         <div class="info">
                                             <h4 class="product-title">
@@ -75,7 +72,7 @@
                                             <div class="content_qty_rating">
                                                 <div class="rating" style="display: flex;">
                                                     <p class="star-rating" style="align-self: flex-start">
-                                                        <span class="width-80percent" style="width:{{ $info_rating_saled->avg_rating *20 }}%"></span>
+                                                        <span class="width-80percent" style="width:{{ $info_rating_saled->avg_rating * 20 }}%"></span>
                                                     </p>
                                                 </div>
                                                 <div class="availeble_product" style="font-size: 14px">Đã bán: {{ $info_rating_saled->count_product_saled }}</div>
@@ -84,8 +81,7 @@
                                                 <div class="buttons">
                                                     {{-- wish list --}}
                                                     @if (Session::get('customer_id'))
-                                                        <a class="btn wishlist-btn btn_add_wish_lish" style="cursor: pointer;"
-                                                            data-id="{{ $product->product_id }}">
+                                                        <a class="btn wishlist-btn btn_add_wish_lish" style="cursor: pointer;" data-id="{{ $product->product_id }}">
                                                             @if ($check_already_wish->check_already == 1)
                                                                 <i class="fa fa-heart" aria-hidden="true" style="color: #7faf51"></i>
                                                             @else
@@ -93,7 +89,7 @@
                                                             @endif
                                                         </a>
                                                     @else
-                                                        <a href="{{ URL::to('login_client') }}"class="btn wishlist-btn" >
+                                                        <a href="{{ URL::to('login_client') }}" class="btn wishlist-btn">
                                                             @if ($check_already_wish->check_already == 1)
                                                                 <i class="fa fa-heart" aria-hidden="true" style="color: #7faf51"></i>
                                                             @else
@@ -103,22 +99,18 @@
                                                     @endif
                                                     {{-- end wish list --}}
                                                     @if (Session::get('customer_id'))
-                                                        <button href="#"
-                                                            class="btn add-to-cart-btn btn-block btn-sm add_cart_one"
-                                                            data-id="{{ $product->product_id }}" style="width: 175px;">
+                                                        <button href="#" class="btn add-to-cart-btn btn-block btn-sm add_cart_one" data-id="{{ $product->product_id }}" style="width: 175px;">
                                                             <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
-                                                                thêm vào giỏ hàng
-                                                            </button>
+                                                            thêm vào giỏ hàng
+                                                        </button>
                                                     @else
-                                                        <a href="{{ URL::to('login_client') }}"
-                                                            class="btn add-to-cart-btn btn-block btn-sm" style="width: 175px;">
+                                                        <a href="{{ URL::to('login_client') }}" class="btn add-to-cart-btn btn-block btn-sm" style="width: 175px;">
                                                             <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
-                                                                thêm vào giỏ hàng
+                                                            thêm vào giỏ hàng
                                                         </a>
                                                     @endif
                                                     {{-- add cart --}}
-                                                    <input type="hidden" class="val_qty_{{ $product->product_id }}"
-                                                        value="1">
+                                                    <input type="hidden" class="val_qty_{{ $product->product_id }}" value="1">
                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                                                     {{-- end add cart --}}
                                                     <a href="#" class="btn compare-btn"><i class="fa fa-random" aria-hidden="true"></i></a>
@@ -239,12 +231,11 @@
                                                 <input type="hidden" value="{{ $product->product_name }}" id="recently_viewed_product_name_{{ $product->product_id }}">
                                                 <input type="hidden" value="{{ number_format($price_discount->price_now, 0, ',', '.') }}₫" id="recently_viewed_product_price_{{ $product->product_id }}">
                                             </form>
-                                            <a href="{{ URL::to('product_detail_slug/' . $product->slug) }}" class="link-to-product btn_recently_viewed" data-id="{{ $product->product_id }}" id="recently_viewed_product_detail_{{ $product->product_id }}">
-                                                <img src="{{ asset('public/upload/'.$product->product_image) }}" alt="dd" style="width: 270px; height: 270px" class="product-thumnail" id="recently_viewed_product_img_{{ $product->product_id }}">
+                                            <a href="{{ URL::to('product_detail_slug/' . $product->slug) }}" class="link-to-product btn_recently_viewed" data-id="{{ $product->product_id }}"
+                                                id="recently_viewed_product_detail_{{ $product->product_id }}">
+                                                <img src="{{ asset('public/upload/' . $product->product_image) }}" alt="dd" style="width: 270px; height: 270px" class="product-thumnail" id="recently_viewed_product_img_{{ $product->product_id }}">
                                             </a>
-                                            <span href="#" class="lookup get_val_quickview btn_call_quickview_detail btn_open_modal"
-                                                data-id="{{ $product->product_id }}"><i
-                                                    class="biolife-icon icon-search"></i></span>
+                                            <span href="#" class="lookup get_val_quickview btn_call_quickview_detail btn_open_modal" data-id="{{ $product->product_id }}"><i class="biolife-icon icon-search"></i></span>
                                         </div>
                                         <div class="info">
                                             <h4 class="product-title">
@@ -261,7 +252,7 @@
                                             <div class="content_qty_rating">
                                                 <div class="rating" style="display: flex;">
                                                     <p class="star-rating" style="align-self: flex-start">
-                                                        <span class="width-80percent" style="width:{{ $info_rating_saled->avg_rating *20 }}%"></span>
+                                                        <span class="width-80percent" style="width:{{ $info_rating_saled->avg_rating * 20 }}%"></span>
                                                     </p>
                                                 </div>
                                                 <div class="availeble_product" style="font-size: 14px">Đã bán: {{ $info_rating_saled->count_product_saled }}</div>
@@ -270,8 +261,7 @@
                                                 <div class="buttons">
                                                     {{-- wish list --}}
                                                     @if (Session::get('customer_id'))
-                                                        <a class="btn wishlist-btn btn_add_wish_lish" style="cursor: pointer;"
-                                                            data-id="{{ $product->product_id }}">
+                                                        <a class="btn wishlist-btn btn_add_wish_lish" style="cursor: pointer;" data-id="{{ $product->product_id }}">
                                                             @if ($check_already_wish->check_already == 1)
                                                                 <i class="fa fa-heart" aria-hidden="true" style="color: #7faf51"></i>
                                                             @else
@@ -279,7 +269,7 @@
                                                             @endif
                                                         </a>
                                                     @else
-                                                        <a href="{{ URL::to('login_client') }}"class="btn wishlist-btn" >
+                                                        <a href="{{ URL::to('login_client') }}" class="btn wishlist-btn">
                                                             @if ($check_already_wish->check_already == 1)
                                                                 <i class="fa fa-heart" aria-hidden="true" style="color: #7faf51"></i>
                                                             @else
@@ -289,22 +279,18 @@
                                                     @endif
                                                     {{-- end wishlist --}}
                                                     @if (Session::get('customer_id'))
-                                                        <button href="#"
-                                                            class="btn add-to-cart-btn btn-block btn-sm add_cart_one"
-                                                            data-id="{{ $product->product_id }}" style="width: 175px;">
+                                                        <button href="#" class="btn add-to-cart-btn btn-block btn-sm add_cart_one" data-id="{{ $product->product_id }}" style="width: 175px;">
                                                             <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
-                                                                thêm vào giỏ hàng
-                                                            </button>
+                                                            thêm vào giỏ hàng
+                                                        </button>
                                                     @else
-                                                        <a href="{{ URL::to('login_client') }}"
-                                                            class="btn add-to-cart-btn btn-block btn-sm" style="width: 175px;">
+                                                        <a href="{{ URL::to('login_client') }}" class="btn add-to-cart-btn btn-block btn-sm" style="width: 175px;">
                                                             <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
-                                                                thêm vào giỏ hàng
-                                                            </a>
+                                                            thêm vào giỏ hàng
+                                                        </a>
                                                     @endif
                                                     {{-- add cart --}}
-                                                    <input type="hidden" class="val_qty_{{ $product->product_id }}"
-                                                        value="1">
+                                                    <input type="hidden" class="val_qty_{{ $product->product_id }}" value="1">
                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                                                     {{-- end add cart --}}
                                                     <a href="#" class="btn compare-btn"><i class="fa fa-random" aria-hidden="true"></i></a>
@@ -332,33 +318,33 @@
     @endif
     {{--  --}}
     {{-- <div class="container" style="background-color: #fff; border-bottom: 1px solid rgba(0, 0, 0, 0.09); padding: 15px"> --}}
-        <div class="biolife-service type01 biolife-service__type01 sm-margin-top-0 xs-margin-top-45px">
-            <b class="txt-show-01" >100%</b>
-            <i class="txt-show-02" style="font-family: cursive">MKU FOOD</i>
-            <ul class="services-list">
-                <li>
-                    <div class="service-inner color-reverse">
-                        <span class="number">1</span>
-                        <span class="biolife-icon icon-beer"></span>
-                        <a class="srv-name" href="#">sản phẩm chất lượng</a>
-                    </div>
-                </li>
-                <li>
-                    <div class="service-inner color-reverse">
-                        <span class="number">2</span>
-                        <span class="biolife-icon icon-schedule"></span>
-                        <a class="srv-name" href="#">làm việc 24/7</a>
-                    </div>
-                </li>
-                <li>
-                    <div class="service-inner color-reverse">
-                        <span class="number">3</span>
-                        <span class="biolife-icon icon-car"></span>
-                        <a class="srv-name" href="#">Giao Hàng Nhanh</a>
-                    </div>
-                </li>
-            </ul>
-        </div>
+    <div class="biolife-service type01 biolife-service__type01 sm-margin-top-0 xs-margin-top-45px">
+        <b class="txt-show-01">100%</b>
+        <i class="txt-show-02" style="font-family: cursive">MKU FOOD</i>
+        <ul class="services-list">
+            <li>
+                <div class="service-inner color-reverse">
+                    <span class="number">1</span>
+                    <span class="biolife-icon icon-beer"></span>
+                    <a class="srv-name" href="#">sản phẩm chất lượng</a>
+                </div>
+            </li>
+            <li>
+                <div class="service-inner color-reverse">
+                    <span class="number">2</span>
+                    <span class="biolife-icon icon-schedule"></span>
+                    <a class="srv-name" href="#">làm việc 24/7</a>
+                </div>
+            </li>
+            <li>
+                <div class="service-inner color-reverse">
+                    <span class="number">3</span>
+                    <span class="biolife-icon icon-car"></span>
+                    <a class="srv-name" href="#">Giao Hàng Nhanh</a>
+                </div>
+            </li>
+        </ul>
+    </div>
     {{-- </div> --}}
 
 
@@ -382,7 +368,8 @@
             <!-- Main content -->
             <div id="main-content" class="main-content col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="block-item recently-products-cat md-margin-bottom-39 custom-container-product">
-                    <ul class="products-list biolife-carousel nav-center-02 nav-none-on-mobile" data-slick='{"rows":1,"arrows":true,"dots":false,"infinite":false,"speed":400,"slidesMargin":0,"slidesToShow":5, "responsive":[{"breakpoint":1200, "settings":{ "slidesToShow": 3}},{"breakpoint":992, "settings":{ "slidesToShow": 3, "slidesMargin":30}},{"breakpoint":768, "settings":{ "slidesToShow": 2, "slidesMargin":10}}]}' >
+                    <ul class="products-list biolife-carousel nav-center-02 nav-none-on-mobile"
+                        data-slick='{"rows":1,"arrows":true,"dots":false,"infinite":false,"speed":400,"slidesMargin":0,"slidesToShow":5, "responsive":[{"breakpoint":1200, "settings":{ "slidesToShow": 3}},{"breakpoint":992, "settings":{ "slidesToShow": 3, "slidesMargin":30}},{"breakpoint":768, "settings":{ "slidesToShow": 2, "slidesMargin":10}}]}'>
                         @foreach ($all_product_join as $product)
                             @php
                                 $price_discount = App\Http\Controllers\HomeClientController::check_price_discount($product->product_id);
@@ -397,12 +384,11 @@
                                             <input type="hidden" value="{{ $product->product_name }}" id="recently_viewed_product_name_{{ $product->product_id }}">
                                             <input type="hidden" value="{{ number_format($price_discount->price_now, 0, ',', '.') }}₫" id="recently_viewed_product_price_{{ $product->product_id }}">
                                         </form>
-                                        <a href="{{ URL::to('product_detail_slug/' . $product->slug) }}" class="link-to-product btn_recently_viewed" data-id="{{ $product->product_id }}" id="recently_viewed_product_detail_{{ $product->product_id }}">
-                                            <img src="{{ asset('public/upload/'.$product->product_image) }}" alt="dd" style="width: 220px; height: 220px" class="product-thumnail" id="recently_viewed_product_img_{{ $product->product_id }}">
+                                        <a href="{{ URL::to('product_detail_slug/' . $product->slug) }}" class="link-to-product btn_recently_viewed" data-id="{{ $product->product_id }}"
+                                            id="recently_viewed_product_detail_{{ $product->product_id }}">
+                                            <img src="{{ asset('public/upload/' . $product->product_image) }}" alt="dd" style="width: 220px; height: 220px" class="product-thumnail" id="recently_viewed_product_img_{{ $product->product_id }}">
                                         </a>
-                                        <span href="#" class="lookup get_val_quickview btn_call_quickview_detail btn_open_modal"
-                                            data-id="{{ $product->product_id }}"><i
-                                                class="biolife-icon icon-search"></i></span>
+                                        <span href="#" class="lookup get_val_quickview btn_call_quickview_detail btn_open_modal" data-id="{{ $product->product_id }}"><i class="biolife-icon icon-search"></i></span>
                                     </div>
                                     <div class="info">
                                         <h4 class="product-title">
@@ -413,11 +399,11 @@
                                         <div class="price">
                                             @if ($price_discount->percent_discount == 0)
                                                 <ins><span class="price-amount cus_price_card_sm" style="font-size: 16px;">
-                                                    <span class="currencySymbol">{{ number_format($price_discount->price_now, 0, ',', '.') }}₫</span>
+                                                        <span class="currencySymbol">{{ number_format($price_discount->price_now, 0, ',', '.') }}₫</span>
                                                 </ins>
                                             @else
                                                 <ins><span class="price-amount cus_price_card_sm" style="font-size: 16px;">
-                                                    <span class="currencySymbol">{{ number_format($price_discount->price_now, 0, ',', '.') }}₫</span>
+                                                        <span class="currencySymbol">{{ number_format($price_discount->price_now, 0, ',', '.') }}₫</span>
                                                 </ins>
                                                 <del><span class="price-amount"><span class="currencySymbol">{{ number_format($price_discount->price_old, 0, ',', '.') }}₫</span></del>
                                             @endif
@@ -427,7 +413,7 @@
                                             <p class="for-today">Pree Pickup Today</p> --}}
                                             <div class="rating" style="display: flex;">
                                                 <p class="star-rating" style="align-self: flex-start">
-                                                    <span class="width-80percent" style="width:{{ $info_rating_saled->avg_rating *20 }}%"></span>
+                                                    <span class="width-80percent" style="width:{{ $info_rating_saled->avg_rating * 20 }}%"></span>
                                                 </p>
                                             </div>
                                             <div class="availeble_product">Đã bán: {{ $info_rating_saled->count_product_saled }}</div>
@@ -436,8 +422,7 @@
                                             <div class="buttons" style="padding: 0px;">
                                                 {{-- wish list --}}
                                                 @if (Session::get('customer_id'))
-                                                    <a class="btn wishlist-btn btn_add_wish_lish" style="cursor: pointer;"
-                                                        data-id="{{ $product->product_id }}">
+                                                    <a class="btn wishlist-btn btn_add_wish_lish" style="cursor: pointer;" data-id="{{ $product->product_id }}">
                                                         @if ($check_already_wish->check_already == 1)
                                                             <i class="fa fa-heart" aria-hidden="true" style="color: #7faf51"></i>
                                                         @else
@@ -445,7 +430,7 @@
                                                         @endif
                                                     </a>
                                                 @else
-                                                    <a href="{{ URL::to('login_client') }}"class="btn wishlist-btn" >
+                                                    <a href="{{ URL::to('login_client') }}" class="btn wishlist-btn">
                                                         @if ($check_already_wish->check_already == 1)
                                                             <i class="fa fa-heart" aria-hidden="true" style="color: #7faf51"></i>
                                                         @else
@@ -455,22 +440,16 @@
                                                 @endif
                                                 {{-- end wish list --}}
                                                 @if (Session::get('customer_id'))
-                                                    <button href="#"
-                                                        class="btn add-to-cart-btn btn-block btn-sm add_cart_one"
-                                                        data-id="{{ $product->product_id }}" style="font-size: 12px;"><i
-                                                            class="fa fa-cart-arrow-down" aria-hidden="true" ></i>
-                                                            thêm vào giỏ hàng
-                                                        </button>
+                                                    <button href="#" class="btn add-to-cart-btn btn-block btn-sm add_cart_one" data-id="{{ $product->product_id }}" style="font-size: 12px;"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
+                                                        thêm vào giỏ hàng
+                                                    </button>
                                                 @else
-                                                    <a href="{{ URL::to('login_client') }}"
-                                                        class="btn add-to-cart-btn btn-block btn-sm" style="font-size: 12px;"><i
-                                                            class="fa fa-cart-arrow-down" aria-hidden="true"></i>
-                                                            thêm vào giỏ hàng
-                                                        </a>
+                                                    <a href="{{ URL::to('login_client') }}" class="btn add-to-cart-btn btn-block btn-sm" style="font-size: 12px;"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
+                                                        thêm vào giỏ hàng
+                                                    </a>
                                                 @endif
                                                 {{-- add cart --}}
-                                                <input type="hidden" class="val_qty_{{ $product->product_id }}"
-                                                    value="1">
+                                                <input type="hidden" class="val_qty_{{ $product->product_id }}" value="1">
                                                 <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                                                 {{-- end add cart --}}
                                                 <a href="#" class="btn compare-btn"><i class="fa fa-random" aria-hidden="true"></i></a>

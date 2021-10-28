@@ -42,8 +42,7 @@
                         <nav class="user">
                             <div class="user-heading">
                                 @if (Session::get('customer_id'))
-                                    <img src="{{ asset('public/upload/' . $customer_info->customer_avt) }}" alt=""
-                                        class="user-img">
+                                    <img src="{{ asset('public/upload/' . $customer_info->customer_avt) }}" alt="" class="user-img">
                                 @else
                                     <img src="{{ asset('public/upload/no_image.png') }}" alt="" class="user-img">
                                 @endif
@@ -96,11 +95,9 @@
                                                             @foreach ($status_order as $status)
                                                                 @if ($status->status_id == $status_order_detail->status_id && $status_order_detail->status == 1)
                                                                     @if ($status_order_detail->status_id == 5)
-                                                                        <span
-                                                                            class="heading-item-status-cancel">{{ $status->status_name }}</span>
+                                                                        <span class="heading-item-status-cancel">{{ $status->status_name }}</span>
                                                                     @else
-                                                                        <span
-                                                                            class="heading-item-status">{{ $status->status_name }}</span>
+                                                                        <span class="heading-item-status">{{ $status->status_name }}</span>
                                                                     @endif
                                                                 @endif
                                                             @endforeach
@@ -117,18 +114,14 @@
                                                                 <li class="content-item">
                                                                     @foreach ($all_product as $product)
                                                                         @if ($product->product_id == $order_item->product_id)
-                                                                            <a
-                                                                                href="{{ URL::to('product_detail/' . $product->product_id) }}"><img
-                                                                                    src="{{ asset('public/upload/' . $product->product_image) }}"
-                                                                                    alt="" class="content-item-img"></a>
+                                                                            <a href="{{ URL::to('product_detail_slug/' . $product->slug) }}"><img src="{{ asset('public/upload/' . $product->product_image) }}" alt="" class="content-item-img"></a>
                                                                         @endif
                                                                     @endforeach
                                                                     <div class="content-item-info">
                                                                         <div class="content-item-head">
                                                                             @foreach ($all_product as $product)
                                                                                 @if ($order_item->product_id == $product->product_id)
-                                                                                    <a
-                                                                                        href="{{ URL::to('product_detail/' . $product->product_id) }}">
+                                                                                    <a href="{{ URL::to('product_detail_slug/' . $product->slug) }}">
                                                                                         <h5 class="content-item-name">
                                                                                             {{ $product->product_name }}
                                                                                         </h5>
@@ -137,8 +130,7 @@
                                                                             @endforeach
 
                                                                             <div class="content-item-price-wrap">
-                                                                                <span
-                                                                                    class="content-item-price">{{ number_format($order_item->quantity_product * $order_item->price_product, 0, '', '.') }}₫</span>
+                                                                                <span class="content-item-price">{{ number_format($order_item->quantity_product * $order_item->price_product, 0, '', '.') }}₫</span>
                                                                             </div>
                                                                         </div>
                                                                         <div class="content-item-body">
@@ -161,19 +153,15 @@
                                                     @foreach ($all_order_detail_status as $status_order_detail)
                                                         @if ($status_order_detail->order_id == $order->order_id)
                                                             @if (($status_order_detail->status_id == 1 && $status_order_detail->status == 1) || ($status_order_detail->status_id == 2 && $status_order_detail->status == 1))
-                                                                <a href="{{ URL::to('user/order/' . $order->order_id) }}"
-                                                                    class="item-btn-footer-primary">Xem chi tiết đơn
+                                                                <a href="{{ URL::to('user/order/' . $order->order_id) }}" class="item-btn-footer-primary">Xem chi tiết đơn
                                                                     hàng</a>
-                                                                <button
-                                                                    class="item-btn-footer delete_order get_order_id btn_open_order_cancel"
-                                                                    data-id={{ $order->order_id }}>Hủy đơn hàng</button>
+                                                                <button class="item-btn-footer delete_order get_order_id btn_open_order_cancel" data-id={{ $order->order_id }}>Hủy đơn hàng</button>
                                                             @elseif($status_order_detail->status_id == 5 &&
                                                                 $status_order_detail->status == 1)
                                                                 <button class="item-btn-footer-primary--disable">Xem chi
                                                                     tiết đơn hàng</button>
                                                             @elseif($status_order_detail->status == 1)
-                                                                <a href="{{ URL::to('user/order/' . $order->order_id) }}"
-                                                                    class="item-btn-footer-primary">Xem chi tiết đơn
+                                                                <a href="{{ URL::to('user/order/' . $order->order_id) }}" class="item-btn-footer-primary">Xem chi tiết đơn
                                                                     hàng</a>
                                                             @endif
                                                         @endif
@@ -187,8 +175,7 @@
 
                                         <div class="tab__content-item">
                                             <div class="content-item-empty">
-                                                <img src="{{ asset('public/upload/empty.png') }}" width="200"
-                                                    height="200" alt="">
+                                                <img src="{{ asset('public/upload/empty.png') }}" width="200" height="200" alt="">
                                                 <span class="content-item-empty-text">Hiện không có đơn hàng nào đang chờ
                                                     xác nhận</span>
                                             </div>
@@ -210,8 +197,7 @@
                                                         <div class="heading-item">
                                                             @foreach ($status_order as $status)
                                                                 @if ($status->status_id == 1)
-                                                                    <span
-                                                                        class="heading-item-status">{{ $status->status_name }}</span>
+                                                                    <span class="heading-item-status">{{ $status->status_name }}</span>
                                                                 @endif
                                                             @endforeach
                                                         </div>
@@ -225,10 +211,8 @@
                                                                         <li class="content-item">
                                                                             @foreach ($all_product as $product)
                                                                                 @if ($product->product_id == $order_item->product_id)
-                                                                                    <a
-                                                                                        href="{{ URL::to('product_detail/' . $product->product_id) }}">
-                                                                                        <img src="{{ asset('public/upload/' . $product->product_image) }}"
-                                                                                            alt="" class="content-item-img">
+                                                                                    <a href="{{ URL::to('product_detail_slug/' . $product->slug) }}">
+                                                                                        <img src="{{ asset('public/upload/' . $product->product_image) }}" alt="" class="content-item-img">
                                                                                     </a>
                                                                                 @endif
                                                                             @endforeach
@@ -236,10 +220,8 @@
                                                                                 <div class="content-item-head">
                                                                                     @foreach ($all_product as $product)
                                                                                         @if ($order_item->product_id == $product->product_id)
-                                                                                            <a
-                                                                                                href="{{ URL::to('product_detail/' . $product->product_id) }}">
-                                                                                                <h5
-                                                                                                    class="content-item-name">
+                                                                                            <a href="{{ URL::to('product_detail_slug/' . $product->slug) }}">
+                                                                                                <h5 class="content-item-name">
                                                                                                     {{ $product->product_name }}
                                                                                                 </h5>
                                                                                             </a>
@@ -247,8 +229,7 @@
                                                                                     @endforeach
 
                                                                                     <div class="content-item-price-wrap">
-                                                                                        <span
-                                                                                            class="content-item-price">{{ number_format($order_item->quantity_product * $order_item->price_product, 0, '', ',') }}đ</span>
+                                                                                        <span class="content-item-price">{{ number_format($order_item->quantity_product * $order_item->price_product, 0, '', ',') }}đ</span>
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="content-item-body">
@@ -269,11 +250,8 @@
                                                                 {{ number_format($order->total_price, 0, '.', ',') }}₫</span>
                                                         </footer>
                                                         <footer class="content-btn-footer">
-                                                            <a href="{{ URL::to('user/order/' . $order->order_id) }}"
-                                                                class="item-btn-footer-primary">Xem chi tiết đơn hàng</a>
-                                                            <button
-                                                                class="item-btn-footer delete_order get_order_id btn_open_order_cancel"
-                                                                data-id={{ $order->order_id }}>Hủy đơn hàng</button>
+                                                            <a href="{{ URL::to('user/order/' . $order->order_id) }}" class="item-btn-footer-primary">Xem chi tiết đơn hàng</a>
+                                                            <button class="item-btn-footer delete_order get_order_id btn_open_order_cancel" data-id={{ $order->order_id }}>Hủy đơn hàng</button>
                                                         </footer>
                                                     </div>
                                                 @endif
@@ -283,8 +261,7 @@
                                     @else
                                         <div class="tab__content-item">
                                             <div class="content-item-empty">
-                                                <img src="{{ asset('public/upload/empty.png') }}" width="200"
-                                                    height="200" alt="">
+                                                <img src="{{ asset('public/upload/empty.png') }}" width="200" height="200" alt="">
                                                 <span class="content-item-empty-text">Hiện không có đơn hàng nào đang chờ
                                                     xác nhận</span>
                                             </div>
@@ -305,8 +282,7 @@
                                                         <div class="heading-item">
                                                             @foreach ($status_order as $status)
                                                                 @if ($status->status_id == 2)
-                                                                    <span
-                                                                        class="heading-item-status">{{ $status->status_name }}</span>
+                                                                    <span class="heading-item-status">{{ $status->status_name }}</span>
                                                                 @endif
                                                             @endforeach
                                                         </div>
@@ -320,10 +296,8 @@
                                                                         <li class="content-item">
                                                                             @foreach ($all_product as $product)
                                                                                 @if ($product->product_id == $order_item->product_id)
-                                                                                    <a
-                                                                                        href="{{ URL::to('product_detail/' . $product->product_id) }}">
-                                                                                        <img src="{{ asset('public/upload/' . $product->product_image) }}"
-                                                                                            alt="" class="content-item-img">
+                                                                                    <a href="{{ URL::to('product_detail_slug/' . $product->slug) }}">
+                                                                                        <img src="{{ asset('public/upload/' . $product->product_image) }}" alt="" class="content-item-img">
                                                                                     </a>
                                                                                 @endif
                                                                             @endforeach
@@ -331,10 +305,8 @@
                                                                                 <div class="content-item-head">
                                                                                     @foreach ($all_product as $product)
                                                                                         @if ($order_item->product_id == $product->product_id)
-                                                                                            <a
-                                                                                                href="{{ URL::to('product_detail/' . $product->product_id) }}">
-                                                                                                <h5
-                                                                                                    class="content-item-name">
+                                                                                            <a href="{{ URL::to('product_detail_slug/' . $product->slug) }}">
+                                                                                                <h5 class="content-item-name">
                                                                                                     {{ $product->product_name }}
                                                                                                 </h5>
                                                                                             </a>
@@ -342,13 +314,11 @@
                                                                                     @endforeach
 
                                                                                     <div class="content-item-price-wrap">
-                                                                                        <span
-                                                                                            class="content-item-price">{{ number_format($order_item->quantity_product * $order_item->price_product, 0, '', ',') }}đ</span>
+                                                                                        <span class="content-item-price">{{ number_format($order_item->quantity_product * $order_item->price_product, 0, '', ',') }}đ</span>
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="content-item-body">
-                                                                                    <span
-                                                                                        class="content-item-quantity get_quantity_">Số
+                                                                                    <span class="content-item-quantity get_quantity_">Số
                                                                                         lượng x
                                                                                         {{ $order_item->quantity_product }}</span>
                                                                                 </div>
@@ -365,11 +335,8 @@
                                                                 {{ number_format($order->total_price, 0, '.', ',') }}₫</span>
                                                         </footer>
                                                         <footer class="content-btn-footer">
-                                                            <a href="{{ URL::to('user/order/' . $order->order_id) }}"
-                                                                class="item-btn-footer-primary">Xem chi tiết đơn hàng</a>
-                                                            <button
-                                                                class="item-btn-footer delete_order get_order_id btn_open_order_cancel"
-                                                                data-id={{ $order->order_id }}>Hủy đơn hàng</button>
+                                                            <a href="{{ URL::to('user/order/' . $order->order_id) }}" class="item-btn-footer-primary">Xem chi tiết đơn hàng</a>
+                                                            <button class="item-btn-footer delete_order get_order_id btn_open_order_cancel" data-id={{ $order->order_id }}>Hủy đơn hàng</button>
                                                         </footer>
                                                     </div>
                                                 @endif
@@ -379,8 +346,7 @@
                                     @else
                                         <div class="tab__content-item">
                                             <div class="content-item-empty">
-                                                <img src="{{ asset('public/upload/empty.png') }}" width="200"
-                                                    height="200" alt="">
+                                                <img src="{{ asset('public/upload/empty.png') }}" width="200" height="200" alt="">
                                                 <span class="content-item-empty-text">Hiện không có đơn hàng nào đang chờ
                                                     xác nhận</span>
                                             </div>
@@ -402,8 +368,7 @@
                                                         <div class="heading-item">
                                                             @foreach ($status_order as $status)
                                                                 @if ($status->status_id == 3)
-                                                                    <span
-                                                                        class="heading-item-status">{{ $status->status_name }}</span>
+                                                                    <span class="heading-item-status">{{ $status->status_name }}</span>
                                                                 @endif
                                                             @endforeach
                                                         </div>
@@ -417,11 +382,8 @@
                                                                         <li class="content-item">
                                                                             @foreach ($all_product as $product)
                                                                                 @if ($product->product_id == $order_item->product_id)
-                                                                                    <a
-                                                                                        href="{{ URL::to('product_detail/' . $product->product_id) }}">
-                                                                                        <img src="{{ asset('public/upload/' . $product->product_image) }}"
-                                                                                            alt=""
-                                                                                            class="content-item-img">
+                                                                                    <a href="{{ URL::to('product_detail_slug/' . $product->slug) }}">
+                                                                                        <img src="{{ asset('public/upload/' . $product->product_image) }}" alt="" class="content-item-img">
                                                                                     </a>
                                                                                 @endif
                                                                             @endforeach
@@ -429,10 +391,8 @@
                                                                                 <div class="content-item-head">
                                                                                     @foreach ($all_product as $product)
                                                                                         @if ($order_item->product_id == $product->product_id)
-                                                                                            <a
-                                                                                                href="{{ URL::to('product_detail/' . $product->product_id) }}">
-                                                                                                <h5
-                                                                                                    class="content-item-name">
+                                                                                            <a href="{{ URL::to('product_detail_slug/' . $product->slug) }}">
+                                                                                                <h5 class="content-item-name">
                                                                                                     {{ $product->product_name }}
                                                                                                 </h5>
                                                                                             </a>
@@ -440,8 +400,7 @@
                                                                                     @endforeach
 
                                                                                     <div class="content-item-price-wrap">
-                                                                                        <span
-                                                                                            class="content-item-price">{{ number_format($order_item->quantity_product * $order_item->price_product, 0, '', ',') }}đ</span>
+                                                                                        <span class="content-item-price">{{ number_format($order_item->quantity_product * $order_item->price_product, 0, '', ',') }}đ</span>
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="content-item-body">
@@ -462,8 +421,7 @@
                                                                 {{ number_format($order->total_price, 0, '.', ',') }}₫</span>
                                                         </footer>
                                                         <footer class="content-btn-footer">
-                                                            <a href="{{ URL::to('user/order/' . $order->order_id) }}"
-                                                                class="item-btn-footer-primary">Xem chi tiết đơn hàng</a>
+                                                            <a href="{{ URL::to('user/order/' . $order->order_id) }}" class="item-btn-footer-primary">Xem chi tiết đơn hàng</a>
                                                         </footer>
                                                     </div>
                                                 @endif
@@ -473,8 +431,7 @@
                                     @else
                                         <div class="tab__content-item">
                                             <div class="content-item-empty">
-                                                <img src="{{ asset('public/upload/empty.png') }}" width="200"
-                                                    height="200" alt="">
+                                                <img src="{{ asset('public/upload/empty.png') }}" width="200" height="200" alt="">
                                                 <span class="content-item-empty-text">Hiện không có đơn hàng nào đang chờ
                                                     xác nhận</span>
                                             </div>
@@ -496,8 +453,7 @@
                                                         <div class="heading-item">
                                                             @foreach ($status_order as $status)
                                                                 @if ($status->status_id == 4)
-                                                                    <span
-                                                                        class="heading-item-status">{{ $status->status_name }}</span>
+                                                                    <span class="heading-item-status">{{ $status->status_name }}</span>
                                                                 @endif
                                                             @endforeach
                                                         </div>
@@ -511,11 +467,8 @@
                                                                         <li class="content-item">
                                                                             @foreach ($all_product as $product)
                                                                                 @if ($product->product_id == $order_item->product_id)
-                                                                                    <a
-                                                                                        href="{{ URL::to('product_detail/' . $product->product_id) }}">
-                                                                                        <img src="{{ asset('public/upload/' . $product->product_image) }}"
-                                                                                            alt=""
-                                                                                            class="content-item-img">
+                                                                                    <a href="{{ URL::to('product_detail_slug/' . $product->slug) }}">
+                                                                                        <img src="{{ asset('public/upload/' . $product->product_image) }}" alt="" class="content-item-img">
                                                                                     </a>
                                                                                 @endif
                                                                             @endforeach
@@ -523,10 +476,8 @@
                                                                                 <div class="content-item-head">
                                                                                     @foreach ($all_product as $product)
                                                                                         @if ($order_item->product_id == $product->product_id)
-                                                                                            <a
-                                                                                                href="{{ URL::to('product_detail/' . $product->product_id) }}">
-                                                                                                <h5
-                                                                                                    class="content-item-name">
+                                                                                            <a href="{{ URL::to('product_detail_slug/' . $product->slug) }}">
+                                                                                                <h5 class="content-item-name">
                                                                                                     {{ $product->product_name }}
                                                                                                 </h5>
                                                                                             </a>
@@ -534,8 +485,7 @@
                                                                                     @endforeach
 
                                                                                     <div class="content-item-price-wrap">
-                                                                                        <span
-                                                                                            class="content-item-price">{{ number_format($order_item->quantity_product * $order_item->price_product, 0, '', ',') }}đ</span>
+                                                                                        <span class="content-item-price">{{ number_format($order_item->quantity_product * $order_item->price_product, 0, '', ',') }}đ</span>
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="content-item-body">
@@ -556,8 +506,7 @@
                                                                 {{ number_format($order->total_price, 0, '.', ',') }}₫</span>
                                                         </footer>
                                                         <footer class="content-btn-footer">
-                                                            <a href="{{ URL::to('user/order/' . $order->order_id) }}"
-                                                                class="item-btn-footer-primary">Xem chi tiết đơn hàng</a>
+                                                            <a href="{{ URL::to('user/order/' . $order->order_id) }}" class="item-btn-footer-primary">Xem chi tiết đơn hàng</a>
                                                         </footer>
                                                     </div>
                                                 @endif
@@ -567,8 +516,7 @@
                                     @else
                                         <div class="tab__content-item">
                                             <div class="content-item-empty">
-                                                <img src="{{ asset('public/upload/empty.png') }}" width="200"
-                                                    height="200" alt="">
+                                                <img src="{{ asset('public/upload/empty.png') }}" width="200" height="200" alt="">
                                                 <span class="content-item-empty-text">Hiện không có đơn hàng nào đang chờ
                                                     xác nhận</span>
                                             </div>
@@ -590,8 +538,7 @@
                                                         <div class="heading-item">
                                                             @foreach ($status_order as $status)
                                                                 @if ($status->status_id == 5)
-                                                                    <span
-                                                                        class="heading-item-status-cancel">{{ $status->status_name }}</span>
+                                                                    <span class="heading-item-status-cancel">{{ $status->status_name }}</span>
                                                                 @endif
                                                             @endforeach
                                                         </div>
@@ -605,11 +552,8 @@
                                                                         <li class="content-item">
                                                                             @foreach ($all_product as $product)
                                                                                 @if ($product->product_id == $order_item->product_id)
-                                                                                    <a
-                                                                                        href="{{ URL::to('product_detail/' . $product->product_id) }}">
-                                                                                        <img src="{{ asset('public/upload/' . $product->product_image) }}"
-                                                                                            alt=""
-                                                                                            class="content-item-img">
+                                                                                    <a href="{{ URL::to('product_detail_slug/' . $product->slug) }}">
+                                                                                        <img src="{{ asset('public/upload/' . $product->product_image) }}" alt="" class="content-item-img">
                                                                                     </a>
                                                                                 @endif
                                                                             @endforeach
@@ -617,10 +561,8 @@
                                                                                 <div class="content-item-head">
                                                                                     @foreach ($all_product as $product)
                                                                                         @if ($order_item->product_id == $product->product_id)
-                                                                                            <a
-                                                                                                href="{{ URL::to('product_detail/' . $product->product_id) }}">
-                                                                                                <h5
-                                                                                                    class="content-item-name">
+                                                                                            <a href="{{ URL::to('product_detail_slug/' . $product->slug) }}">
+                                                                                                <h5 class="content-item-name">
                                                                                                     {{ $product->product_name }}
                                                                                                 </h5>
                                                                                             </a>
@@ -628,8 +570,7 @@
                                                                                     @endforeach
 
                                                                                     <div class="content-item-price-wrap">
-                                                                                        <span
-                                                                                            class="content-item-price">{{ number_format($order_item->quantity_product * $order_item->price_product, 0, '', ',') }}đ</span>
+                                                                                        <span class="content-item-price">{{ number_format($order_item->quantity_product * $order_item->price_product, 0, '', ',') }}đ</span>
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="content-item-body">
@@ -661,8 +602,7 @@
                                     @else
                                         <div class="tab__content-item">
                                             <div class="content-item-empty">
-                                                <img src="{{ asset('public/upload/empty.png') }}" width="200"
-                                                    height="200" alt="">
+                                                <img src="{{ asset('public/upload/empty.png') }}" width="200" height="200" alt="">
                                                 <span class="content-item-empty-text">Hiện không có đơn hàng nào đang chờ
                                                     xác nhận</span>
                                             </div>
