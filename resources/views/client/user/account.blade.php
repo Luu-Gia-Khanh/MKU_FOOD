@@ -34,8 +34,7 @@
                             <div class="user-heading">
 
                                 @if (Session::get('customer_id'))
-                                    <img src="{{ asset('public/upload/' . $customer_info->customer_avt) }}" alt=""
-                                        class="user-img">
+                                    <img src="{{ asset('public/upload/' . $customer_info->customer_avt) }}" alt="" class="user-img">
                                 @else
                                     <img src="{{ asset('public/upload/no_image.png') }}" alt="" class="user-img">
                                 @endif
@@ -85,44 +84,35 @@
                                         </div>
                                         <div class="user-profile-fullname">
                                             <span>Họ và Tên</span>
-                                            <input
-                                                class="custom-input-user upper_val customer_fullname check_format_name_input"
-                                                type="text" name="customer_fullname"
-                                                value="{{ $customer_info->customer_fullname }}"
-                                                onblur="return upberFirstKey()" style="padding: 7px 8px;">
+                                            <input class="custom-input-user upper_val customer_fullname check_format_name_input" type="text" name="customer_fullname" value="{{ $customer_info->customer_fullname }}" onblur="return upberFirstKey()"
+                                                style="padding: 7px 8px;">
                                         </div>
                                         <div class="user-profile-email">
                                             <span>Email</span>
-                                            <input class="custom-input-user" type="text" name="email"
-                                                value="{{ $customer->email }}" readonly style="padding: 7px 8px;">
+                                            <input class="custom-input-user" type="text" name="email" value="{{ $customer->email }}" readonly style="padding: 7px 8px;">
                                         </div>
                                         <div class="user-profile-phone">
                                             <span>Số điện thoại</span>
-                                            <input class="custom-input-user customer_phone" type="text"
-                                                name="customer_phone" value="{{ $customer_info->customer_phone }}"
-                                                style="padding: 7px 8px;">
+                                            <input class="custom-input-user customer_phone" type="text" name="customer_phone" value="{{ $customer_info->customer_phone }}" style="padding: 7px 8px;">
                                         </div>
                                         <div class="user-profile-gender">
                                             <span>Giới tính</span>
                                             <div class="radio-gender">
-                                                <input class="gender_checked customer_gender" type="radio"
-                                                    name="customer_gender" @if ($customer_info->customer_gender == 'Nam')
+                                                <input class="gender_checked customer_gender" type="radio" name="customer_gender" @if ($customer_info->customer_gender == 'Nam')
                                                 checked="checked"
                                                 @endif
                                                 value="Nam">
                                                 <label>Nam</label><br>
                                             </div>
                                             <div class="radio-gender">
-                                                <input type="radio" class="customer_gender" name="customer_gender"
-                                                    @if ($customer_info->customer_gender == 'Nu')
+                                                <input type="radio" class="customer_gender" name="customer_gender" @if ($customer_info->customer_gender == 'Nu')
                                                 checked="checked"
                                                 @endif
                                                 value="Nu">
                                                 <label>Nữ</label><br>
                                             </div>
                                             <div class="radio-gender">
-                                                <input type="radio" class="customer_gender" name="customer_gender"
-                                                    @if ($customer_info->customer_gender == 'Khac')
+                                                <input type="radio" class="customer_gender" name="customer_gender" @if ($customer_info->customer_gender == 'Khac')
                                                 checked="checked"
                                                 @endif
                                                 value="Khac">
@@ -131,25 +121,18 @@
                                         </div>
                                         <div class="user-profile-phone">
                                             <span>Ngày sinh</span>
-                                            <input class="custom-input-user customer_birthday" type="date"
-                                                name="customer_birthday" value="{{ $customer_info->customer_birthday }}"
-                                                style="padding: 7px 8px;">
+                                            <input class="custom-input-user customer_birthday" type="date" name="customer_birthday" value="{{ $customer_info->customer_birthday }}" style="padding: 7px 8px;">
                                         </div>
                                         <button type="button" class="btn-update-user btn_update_info_account">Lưu</button>
                                     </div>
                                     <div class="user-upload-img">
                                         <div id="content_image_upload">
-                                            <img src="{{ asset('public/upload/' . $customer_info->customer_avt) }}"
-                                                class="img-upload" alt="hình ảnh" id="image_upload">
+                                            <img src="{{ asset('public/upload/' . $customer_info->customer_avt) }}" class="img-upload" alt="hình ảnh" id="image_upload">
                                         </div>
                                         <div class="input-upload-img" style="text-align: center;">
                                             {{-- <img src="{{ asset('public/upload/upimage.png') }}" height="50px" width="50px" alt="" style="cursor: pointer;"> --}}
-                                            <label for="file_upload" class="btn"
-                                                style="    color: #fff; background-color: #7faf51;">Chọn Ảnh</label>
-                                            <input type="file" name="customer_avt" id="file_upload"
-                                                onchange="return uploadhinh()"
-                                                class="custom-file-input customer_avt file_upload"
-                                                style="width: 220px; opacity: 0;">
+                                            <label for="file_upload" class="btn" style="    color: #fff; background-color: #7faf51;">Chọn Ảnh</label>
+                                            <input type="file" name="customer_avt" id="file_upload" onchange="return uploadhinh()" class="custom-file-input customer_avt file_upload" style="width: 220px; opacity: 0;">
                                         </div>
                                     </div>
                                 </div>

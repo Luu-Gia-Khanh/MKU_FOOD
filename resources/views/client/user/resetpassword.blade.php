@@ -1,17 +1,18 @@
 <link rel="stylesheet" href="{{ asset('public/font_end/bootstrap/css/bootstrap.min.css') }}">
 @extends('client.layout_account_client')
 @section('content_body')
-<link rel="stylesheet" href="{{ asset('public/font_end/custom_account/user_sidebar_content.css') }}">
-<style>
-    .btn:focus,
-    .btn:active:focus,
-    .btn.active:focus,
-    .btn.focus,
-    .btn:active.focus,
-    .btn.active.focus {
-        outline: none;
-    }
-</style>
+    <link rel="stylesheet" href="{{ asset('public/font_end/custom_account/user_sidebar_content.css') }}">
+    <style>
+        .btn:focus,
+        .btn:active:focus,
+        .btn.active:focus,
+        .btn.focus,
+        .btn:active.focus,
+        .btn.active.focus {
+            outline: none;
+        }
+
+    </style>
     <div class="container">
         <nav class="biolife-nav cus_breadcrumb">
             <ul>
@@ -32,13 +33,13 @@
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
                         <nav class="user">
                             <div class="user-heading">
-                                @if(Session::get('customer_id'))
-                                    <img src="{{ asset('public/upload/'.$customer_info->customer_avt) }}" alt="" class="user-img">
+                                @if (Session::get('customer_id'))
+                                    <img src="{{ asset('public/upload/' . $customer_info->customer_avt) }}" alt="" class="user-img">
                                 @else
                                     <img src="{{ asset('public/upload/no_image.png') }}" alt="" class="user-img">
                                 @endif
 
-                                @if(Session::get('customer_id'))
+                                @if (Session::get('customer_id'))
                                     <span class="user-name">{{ $customer->username }}</span>
                                 @else
                                     <span class="user-name">Unknown</span>

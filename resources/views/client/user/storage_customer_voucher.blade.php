@@ -1,26 +1,29 @@
 @extends('client.layout_account_client')
 @section('content_body')
-<link rel="stylesheet" href="{{ asset('public/font_end/custom_account/user_sidebar_content.css') }}">
-<link rel="stylesheet" href="{{ asset('public/font_end/custom_account/storage_voucher.css') }}">
-<style>
-    .btn:focus,
-    .btn:active:focus,
-    .btn.active:focus,
-    .btn.focus,
-    .btn:active.focus,
-    .btn.active.focus {
-        outline: none;
-    }
-    .text {
-        overflow: hidden;
-        height: 35px;
-        line-height: 18px;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 2; /* number of lines to show */
-        -webkit-box-orient: vertical;
-    }
-</style>
+    <link rel="stylesheet" href="{{ asset('public/font_end/custom_account/user_sidebar_content.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/font_end/custom_account/storage_voucher.css') }}">
+    <style>
+        .btn:focus,
+        .btn:active:focus,
+        .btn.active:focus,
+        .btn.focus,
+        .btn:active.focus,
+        .btn.active.focus {
+            outline: none;
+        }
+
+        .text {
+            overflow: hidden;
+            height: 35px;
+            line-height: 18px;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            /* number of lines to show */
+            -webkit-box-orient: vertical;
+        }
+
+    </style>
     <div class="container">
         <nav class="biolife-nav cus_breadcrumb">
             <ul>
@@ -41,13 +44,13 @@
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
                         <nav class="user">
                             <div class="user-heading">
-                                @if(Session::get('customer_id'))
-                                    <img src="{{ asset('public/upload/'.$customer_info->customer_avt) }}" alt="" class="user-img">
+                                @if (Session::get('customer_id'))
+                                    <img src="{{ asset('public/upload/' . $customer_info->customer_avt) }}" alt="" class="user-img">
                                 @else
                                     <img src="{{ asset('public/upload/no_image.png') }}" alt="" class="user-img">
                                 @endif
 
-                                @if(Session::get('customer_id'))
+                                @if (Session::get('customer_id'))
                                     <span class="user-name">{{ $customer->username }}</span>
                                 @else
                                     <span class="user-name">Unknown</span>
@@ -80,7 +83,7 @@
                                 <span class="voucher-heading-title">Voucher của bạn</span>
                             </div>
                             <div class="container__voucher-list">
-                                @if(count($storage_customer_voucher) > 0)
+                                @if (count($storage_customer_voucher) > 0)
                                     @foreach ($storage_customer_voucher as $voucher)
                                         <div class="container__voucher-item">
                                             <div class="container__voucher-item--left">
@@ -98,24 +101,24 @@
                                                         {{ $voucher->voucher_name }}
                                                     </div>
                                                     <div class="voucher-item--right-info-end-date">
-                                                        HSD: {{ date("d/m/Y", strtotime($voucher->end_date)) }}
+                                                        HSD: {{ date('d/m/Y', strtotime($voucher->end_date)) }}
                                                     </div>
                                                 </div>
                                                 <div class="voucher-item--right-btn">
-                                                    <a href="{{ URL::to('product_detail/'.$voucher->product_id) }}">Dùng ngay</a>
+                                                    <a href="{{ URL::to('product_detail/' . $voucher->product_id) }}">Dùng ngay</a>
                                                 </div>
                                             </div>
                                         </div>
                                     @endforeach
                                 @else
 
-                                    <div class="div_no_voucher">                                        
+                                    <div class="div_no_voucher">
                                         <span>
                                             Bạn chưa có voucher nào!
                                         </span>
                                     </div>
                                 @endif
-                            </div>                                
+                            </div>
                         </div>
                     </div>
                 </div>

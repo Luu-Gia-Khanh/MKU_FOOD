@@ -1,10 +1,15 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>MKU FOOD</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family==Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('public/upload/logo_mku_shortcut_icon.svg') }}" />
     <link rel="stylesheet" href="{{ asset('public/font_end/assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('public/font_end/assets/css/animate.min.css') }}">
@@ -22,16 +27,23 @@
     <link rel="stylesheet" href="{{ asset('public/font_end/custom_ui/css/custom_breadcrumb.css') }}">
 </head>
 <style>
-    @media (min-width: 1200px){
+    @media (min-width: 1200px) {
         .container {
             width: 1200px;
         }
 
     }
-    .main-content{
-            background-color: rgb(245, 245, 245);
-        }
+
+    .main-content {
+        background-color: rgb(245, 245, 245);
+    }
+
+    body {
+        font-family: 'Roboto', sans-serif;
+    }
+
 </style>
+
 <body class="biolife-body">
     <!-- Preloader -->
     {{-- @include('client.layout.header_middle.preload') --}}
@@ -88,7 +100,7 @@
             @yield('banner_view_client')
 
             <!--Block 03: Product Tabs-->
-           @yield('product_tap_view_client')
+            @yield('product_tap_view_client')
 
             <!--Block 04: Banner Promotion 01-->
             @yield('promotion_view_client')
@@ -128,24 +140,25 @@
     </div>
 
     <script>
-      var chatbox = document.getElementById('fb-customer-chat');
-      chatbox.setAttribute("page_id", "101784998888187");
-      chatbox.setAttribute("attribution", "biz_inbox");
+        var chatbox = document.getElementById('fb-customer-chat');
+        chatbox.setAttribute("page_id", "101784998888187");
+        chatbox.setAttribute("attribution", "biz_inbox");
 
-      window.fbAsyncInit = function() {
-        FB.init({
-          xfbml            : true,
-          version          : 'v11.0'
-        });
-      };
+        window.fbAsyncInit = function() {
+            FB.init({
+                xfbml: true,
+                version: 'v11.0'
+            });
+        };
 
-      (function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
-        fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'facebook-jssdk'));
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
     </script>
     {{--  --}}
     <script src="{{ asset('public/font_end/assets/js/jquery-3.4.1.min.js') }}"></script>

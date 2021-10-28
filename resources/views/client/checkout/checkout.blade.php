@@ -44,15 +44,12 @@
                                         {{ $static_trans->trans_address }}
                                     </label>
                                     <i class="static static_change">Mặc Định</i>
-                                    <button type="button" class="btn-green btn_change_address_trans" data-toggle="collapse"
-                                        data-target="#change_address_trans">THAY ĐỔI</button>
+                                    <button type="button" class="btn-green btn_change_address_trans" data-toggle="collapse" data-target="#change_address_trans">THAY ĐỔI</button>
                                 </div>
                             @else
                                 <div class="static-address hidden_address" style="display:flex; justify-content: center">
                                     <label style="opacity: .6;">Bạn chưa có địa chỉ nhận hàng nào</label>
-                                    <button type="button" id="btn_add_address_trans"
-                                        style="margin-left: 10px; margin-top: -8px;"
-                                        class="btn-add-new-add-trans btn-address-trans btn_add_address_trans btn_open_modal_adress">
+                                    <button type="button" id="btn_add_address_trans" style="margin-left: 10px; margin-top: -8px;" class="btn-add-new-add-trans btn-address-trans btn_add_address_trans btn_open_modal_adress">
                                         <span class="icon-copy ti-plus"></span> Thêm Địa Chỉ Mới</button>
                                 </div>
                             @endif
@@ -73,7 +70,7 @@
                                                 </label>
                                                 <input type="hidden" class="detail_address_trans_{{ $trans->trans_id }}" value="{{ $trans->trans_address }}">
                                                 <input type="hidden" class="name_phone_{{ $trans->trans_id }}" value="{{ $trans->trans_fullname }} {{ $trans->trans_phone }}">
-                                                @if($trans->trans_status == 1)
+                                                @if ($trans->trans_status == 1)
                                                     <i class="static static_choose_{{ $trans->trans_id }}">Mặc Định</i>
                                                 @else
                                                     <i class="static static_choose_{{ $trans->trans_id }}"></i>
@@ -84,10 +81,8 @@
                                     @endforeach
 
                                     <div class="content-btn">
-                                        <button type="button" class="btn-green btn_change_address_radio_button" data-toggle="collapse"
-                                        data-target="#change_address_trans">Hoàn Thành</button>
-                                        <button type="button" class="btn-back btn_show_hidden" data-toggle="collapse"
-                                            data-target="#change_address_trans">Trở Lại</button>
+                                        <button type="button" class="btn-green btn_change_address_radio_button" data-toggle="collapse" data-target="#change_address_trans">Hoàn Thành</button>
+                                        <button type="button" class="btn-back btn_show_hidden" data-toggle="collapse" data-target="#change_address_trans">Trở Lại</button>
                                     </div>
                                 </div>
                             @endif
@@ -127,12 +122,9 @@
 
                                                             <td class="info-product">
                                                                 <div class="content-info-product" style="display: flex;">
-                                                                    <img src="{{ asset('public/upload/' . $product->product_image) }}"
-                                                                        alt="" style="width:45px; height:45px">
-                                                                    <label
-                                                                        class="name-product">{{ $product->product_name }}</label>
-                                                                    <input type="checkbox" name="cart_id[]" value="{{ $cart->cart_id }}"
-                                                                        style="opacity: 0" checked>
+                                                                    <img src="{{ asset('public/upload/' . $product->product_image) }}" alt="" style="width:45px; height:45px">
+                                                                    <label class="name-product">{{ $product->product_name }}</label>
+                                                                    <input type="checkbox" name="cart_id[]" value="{{ $cart->cart_id }}" style="opacity: 0" checked>
                                                                 </div>
                                                             </td>
                                                             <td>
@@ -178,19 +170,16 @@
                             <h4 class="titel-voucher">MKU_FOOD Voucher</h4>
                             <div class="discount_voucher"></div>
                             <input type="hidden" value="" class="val_hidden_discount_voucher">
-                            <button type="button" id="btn-open-model-voucher" class="choose-voucher btn-green"
-                                data-toggle="modal" data-target="#modal-choose-voucher">Chọn Voucher</button>
+                            <button type="button" id="btn-open-model-voucher" class="choose-voucher btn-green" data-toggle="modal" data-target="#modal-choose-voucher">Chọn Voucher</button>
                             {{-- <button id="myBtn" type="button">Open Modal</button> --}}
                         </div>
                     </div>
                     <div class="view-payment">
                         <div class="content-payment-method row">
                             <h4 class="title-payment-method">Phương Thức Thanh Toán</h4>
-                            <div class="btn-group btn-group-toggle group-checkbox-btn group-checkbox_btn op-0"
-                                data-toggle="buttons">
+                            <div class="btn-group btn-group-toggle group-checkbox-btn group-checkbox_btn op-0" data-toggle="buttons">
                                 <label class="btn btn-outline-secondary active btn-outline-payment btn_cash">
-                                    <input type="radio" name="payment_method" value="0" id="cash_pay" autocomplete="off"
-                                        checked=""> Thanh toán khi nhận hàng
+                                    <input type="radio" name="payment_method" value="0" id="cash_pay" autocomplete="off" checked=""> Thanh toán khi nhận hàng
                                     <img src="{{ asset('public/upload/payment-method.svg') }}" style="height: 30px; padding-left: 5px" alt="">
                                 </label>
                                 <label for=""></label>
@@ -235,9 +224,7 @@
                         </div>
                         <div class="view-btn-buy">
                             <div class="title-rule">Nhấn "Đặt hàng" đồng nghĩa với việc bạn đồng ý tuân theo
-                                <a
-                                    href="https://shopee.vn/legaldoc/policies/" target="_blank"
-                                    rel="noopener noreferrer">Điều khoản MKU_FOOD
+                                <a href="https://shopee.vn/legaldoc/policies/" target="_blank" rel="noopener noreferrer">Điều khoản MKU_FOOD
                                 </a>
                             </div>
                             <button type="button" class="btn-dathang btn_dathang">Đặt Hàng</button>
@@ -269,7 +256,7 @@
                         @foreach ($all_cart as $cart)
                             @if ($cart_id == $cart->cart_id)
                                 @foreach ($storage_customer_voucher as $product_voucher)
-                                    @if ($product_voucher->product_id == $cart->product_id )
+                                    @if ($product_voucher->product_id == $cart->product_id)
                                         <div class="container__voucher-item" style="background-color: #f8f8f8; height: 88px;">
                                             <div class="container__voucher-item--left">
                                                 <div class="voucher-item--left-img">
@@ -286,7 +273,7 @@
                                                         {{ $product_voucher->voucher_name }}
                                                     </div>
                                                     <div class="voucher-item--right-info-end-date">
-                                                        HSD: {{ date("d/m/Y", strtotime($product_voucher->end_date)) }}
+                                                        HSD: {{ date('d/m/Y', strtotime($product_voucher->end_date)) }}
                                                     </div>
                                                 </div>
                                                 <div class="voucher-item--right-btn">
@@ -317,15 +304,15 @@
                     <form name="form_add_address">
                         @csrf
                         <div class="line">
-                                <input type="text" name="fullname" class="form-control input trans_fullname upper_val check_format_name_input" placeholder="Họ và tên" onblur="return upberFirstKey()">
-                                <div class="" style="width: 50px"></div>
-                                <input type="text" name="phone" class="form-control input trans_phone" placeholder="Số điện thoại">
+                            <input type="text" name="fullname" class="form-control input trans_fullname upper_val check_format_name_input" placeholder="Họ và tên" onblur="return upberFirstKey()">
+                            <div class="" style="width: 50px"></div>
+                            <input type="text" name="phone" class="form-control input trans_phone" placeholder="Số điện thoại">
                         </div>
                         <div class="line">
                             <select name="city" id="city_add_trans" class="select form-control">
                                 <option value="">Chọn Tỉnh/TP</option>
                                 @foreach ($citys as $city)
-                                    <option value="{{ $city->matp }}" max = "5">{{ $city->name_tp }}</option>
+                                    <option value="{{ $city->matp }}" max="5">{{ $city->name_tp }}</option>
                                 @endforeach
 
                             </select>

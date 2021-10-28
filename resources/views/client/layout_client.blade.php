@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>MKU FOOD</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('public/upload/logo_mku_shortcut_icon.svg') }}" />
     <link rel="stylesheet" href="{{ asset('public/font_end/assets/css/bootstrap.min.css') }}">
@@ -38,9 +38,11 @@
             background-color: rgb(245, 245, 245);
         }
     }
-    /* body{
-        font-family: 'Inter', sans-serif;
-    } */
+
+    body {
+        font-family: 'Roboto', sans-serif;
+    }
+
 </style>
 
 <body class="biolife-body">
@@ -56,9 +58,7 @@
                 <div class="row">
                     {{-- LOGO --}}
                     <div class="col-lg-2 col-md-2 col-md-6 col-xs-6">
-                        <a href="{{ URL::to('/') }}" class="biolife-logo"><img
-                                src="{{ asset('public/upload/logo_mku_8.svg') }}" alt="biolife logo"
-                                style="height: 46px;"></a>
+                        <a href="{{ URL::to('/') }}" class="biolife-logo"><img src="{{ asset('public/upload/logo_mku_8.svg') }}" alt="biolife logo" style="height: 46px;"></a>
                     </div>
                     {{-- NAV PAGES --}}
                     {{-- @include('client.layout.header_middle.nav_pages') --}}

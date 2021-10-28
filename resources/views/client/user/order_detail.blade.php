@@ -36,8 +36,7 @@
                         <nav class="user">
                             <div class="user-heading">
                                 @if (Session::get('customer_id'))
-                                    <img src="{{ asset('public/upload/' . $customer_info->customer_avt) }}" alt=""
-                                        class="user-img">
+                                    <img src="{{ asset('public/upload/' . $customer_info->customer_avt) }}" alt="" class="user-img">
                                 @else
                                     <img src="{{ asset('public/upload/no_image.png') }}" alt="" class="user-img">
                                 @endif
@@ -87,8 +86,7 @@
                                         @if ($status_order_detail->order_id == $order->order_id)
                                             @foreach ($status_order as $status)
                                                 @if ($status->status_id == $status_order_detail->status_id && $status_order_detail->status == 1)
-                                                    <span
-                                                        class="head-order-detail-right--text-status">{{ $status->status_name }}</span>
+                                                    <span class="head-order-detail-right--text-status">{{ $status->status_name }}</span>
                                                 @endif
                                             @endforeach
                                         @endif
@@ -100,8 +98,7 @@
                                 <ul class="progressbar">
                                     <li class="active">
                                         <span>Đơn Hàng Đã Đặt</span><br>
-                                        <span
-                                            class="progressbar-time">{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $order->create_at)->format('H:i d-m-Y') }}</span>
+                                        <span class="progressbar-time">{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $order->create_at)->format('H:i d-m-Y') }}</span>
                                     </li>
                                     <li @foreach ($all_order_detail_status as $order_detail_status)
                                         @if ($order_detail_status->order_id == $order->order_id && $order_detail_status->status_id == 2)
@@ -160,12 +157,9 @@
                                     <div class="content-order-detail-address--left">
                                         @foreach ($trans_address as $address)
                                             @if ($order->trans_id == $address->trans_id)
-                                                <span
-                                                    class="content-order-detail-address--left-name">{{ $address->trans_fullname }}</span>
-                                                <span
-                                                    class="content-order-detail-address--left-phone">{{ $address->trans_phone }}</span>
-                                                <span
-                                                    class="content-order-detail-address--left-address">{{ $address->trans_address }}</span>
+                                                <span class="content-order-detail-address--left-name">{{ $address->trans_fullname }}</span>
+                                                <span class="content-order-detail-address--left-phone">{{ $address->trans_phone }}</span>
+                                                <span class="content-order-detail-address--left-address">{{ $address->trans_address }}</span>
                                             @endif
                                         @endforeach
                                     </div>
@@ -177,8 +171,7 @@
                                                         class="timeline-active"
                                                 @endif
                                                 >
-                                                <span
-                                                    class="timeline--datetime">{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $order_detail_status->time_status)->format('H:i d-m-Y') }}</span>
+                                                <span class="timeline--datetime">{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $order_detail_status->time_status)->format('H:i d-m-Y') }}</span>
                                                 <span class="timeline--status" @if ($order_detail_status->status == 1)
                                                     id="timeline--status-active"
                                             @endif
@@ -208,17 +201,15 @@
                                                 @foreach ($all_product as $product)
                                                     @if ($product->product_id == $order_item->product_id)
                                                         <a href="#" class="content-item-link">
-                                                            <li class="content-item" style="border-top: 1px solid #d4d3d3;
-                                                                margin-bottom: 2px;">
-                                                                <img src="{{ asset('public/upload/' . $product->product_image) }}"
-                                                                    alt="" class="content-item-img">
+                                                            <li class="content-item" style="border-top: 1px solid #d4d3d3; margin-bottom: 2px;">
+                                                                <a href="{{ URL::to('product_detail_slug/' . $product->slug) }}"><img src="{{ asset('public/upload/' . $product->product_image) }}" alt="" class="content-item-img"></a>
                                                                 <div class="content-item-info">
                                                                     <div class="content-item-head">
                                                                         <h5 class="content-item-name">
-                                                                            {{ $product->product_name }}</h5>
+                                                                            <a href="{{ URL::to('product_detail_slug/' . $product->slug) }}">{{ $product->product_name }}</a>
+                                                                        </h5>
                                                                         <div class="content-item-price-wrap">
-                                                                            <span
-                                                                                class="content-item-price">{{ number_format($order_item->quantity_product * $order_item->price_product, 0, '', '.') }}₫</span>
+                                                                            <span class="content-item-price">{{ number_format($order_item->quantity_product * $order_item->price_product, 0, '', '.') }}₫</span>
                                                                         </div>
                                                                     </div>
                                                                     <div class="content-item-body">
@@ -270,8 +261,7 @@
                                 <div class="separation"></div>
                                 <div class="item-order-detail-bill">
                                     <div class="item-order-detail-bill--left">
-                                        <img src="{{ asset('public/upload/payment_method.svg') }}" alt="" width="30"
-                                            height="10">
+                                        <img src="{{ asset('public/upload/payment_method.svg') }}" alt="" width="30" height="10">
                                         <span>Phương thức thanh toán</span>
                                     </div>
                                     <div class="item-order-detail-bill--right">

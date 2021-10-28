@@ -27,3 +27,17 @@ function titleCase(str) {
         $('.check_format_name_input').focus();
     }
  });
+ $('.check_format_name_input_update').blur(function(){
+    var name = $('.check_format_name_input_update').val();
+    $('.check_format_name_input_update').val(titleCase(name));
+    if (/\d/.test(name)) {
+        Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: 'Tên không hợp lệ',
+            showConfirmButton: false,
+            timer: 1500
+        });
+        $('.check_format_name_input_update').focus();
+    }
+ });
