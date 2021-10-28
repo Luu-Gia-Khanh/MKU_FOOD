@@ -286,6 +286,7 @@ class ProductController extends Controller
         return view('admin.product.all_recycle_product',['recycle_item'=>$recycle_item]);
     }
     public function re_delete_product($prod_id, Request $request){
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         $restore_product = Product::withTrashed()->where('product_id', $prod_id)->restore();
         $restore_storage_product = Storage_Product::withTrashed()->where('product_id', $prod_id)->restore();
         if($restore_product && $restore_storage_product){

@@ -453,7 +453,7 @@ class ShopController extends Controller
                 ->join('category', 'category.cate_id', '=', 'product.category_id')
                 ->where('product_price.status', 1)
                 ->where('product.deleted_at', null)
-                ->where('cate_id', $cate_id)
+                ->where('category.cate_id', $cate_id)
                 ->get();
         }
         else{
@@ -474,7 +474,7 @@ class ShopController extends Controller
                 }
             }
             $result_sort = collect($arrayProduct)->sortByDesc('avg_rating')->reverse()->toArray();
-            if($price_start_filter != '' && $price_end_filter != ''){
+            if($price_start_filter != 0 && $price_end_filter != 0){
                 foreach($result_sort as $product){
                     $check_price = $callFunction->check_price_discount($product->product_id);
                     $price_now = number_format($check_price->price_now,0,',','');

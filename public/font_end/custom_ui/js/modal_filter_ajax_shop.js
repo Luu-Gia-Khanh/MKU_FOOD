@@ -27,10 +27,8 @@ $(document).ready(function(){
         var price_end_filter = Number($('.price_end_filter').val());
 
         var checkPrice = 1;
-        if((price_start_filter >= price_end_filter || price_start_filter < 0) && cate_id == '' && rating == 0){
+        if(price_start_filter == 0 && price_end_filter == 0 && cate_id == '' && rating == 0){
             checkPrice = 0;
-            price_start_filter = '';
-            price_end_filter = '';
             Swal.fire({
                 position: 'top-end',
                 icon: 'error',
@@ -39,7 +37,7 @@ $(document).ready(function(){
                 timer: 2000
             });
         }
-        else if(price_start_filter != '' && price_end_filter != ''){
+        else if(price_start_filter != 0 && price_end_filter != 0){
             if(price_start_filter >= price_end_filter || price_start_filter < 0){
                 checkPrice = 0;
                 Swal.fire({
@@ -51,22 +49,22 @@ $(document).ready(function(){
                 });
             }
         }
-        else if(price_start_filter != '' && price_end_filter == ''){
+        else if(price_start_filter != 0 && price_end_filter == 0){
             checkPrice = 0;
             Swal.fire({
                 position: 'top-end',
                 icon: 'error',
-                title: 'Vui lòng điền đủ giá cần lọc',
+                title: 'Vui lòng điền khoảng giá phù hợp',
                 showConfirmButton: false,
                 timer: 2000
             });
         }
-        else if(price_start_filter == '' && price_end_filter != ''){
+        else if(price_start_filter == 0 && price_end_filter != 0){
             checkPrice = 0;
             Swal.fire({
                 position: 'top-end',
                 icon: 'error',
-                title: 'Vui lòng điền đủ giá cần lọc',
+                title: 'Vui lòng điền khoảng giá phù hợp',
                 showConfirmButton: false,
                 timer: 2000
             });

@@ -254,6 +254,7 @@ class DiscountController extends Controller
 
     }
     public function process_add_discount(Request $request){
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         $time_start_1 = $request->time_start_1;
         $time_end_1 = $request->time_end_1;
         $condition_discount_1 = $request->condition_discount_1;
@@ -335,6 +336,7 @@ class DiscountController extends Controller
         ]);
     }
     public function process_update_discount(Request $request, $discount_id){
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         $time_start_1 = $request->time_start_1;
         $time_end_1 = $request->time_end_1;
         $condition_discount_1 = $request->condition_discount_1;
@@ -463,6 +465,7 @@ class DiscountController extends Controller
         ]);
     }
     public function delete_discount(Request $request){
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         $discount_id = $request->discount_id;
 
         $all_product = Product::where('discount_id',$discount_id)->get();

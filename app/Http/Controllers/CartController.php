@@ -51,8 +51,6 @@ class CartController extends Controller
         else{
             echo 0;
         }
-
-
     }
     public function load_quantity_cart(){
         $customer_id = Session::get('customer_id');

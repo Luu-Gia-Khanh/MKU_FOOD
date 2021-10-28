@@ -19,43 +19,45 @@
                         </div>
                     </div>
                 </div>
-                <div class="content_print_pdf_product ml-10">
-                    <form action="{{ URL::to('admin/print_pdf_admin') }}" method="post">
-                        @csrf
-                        @if (isset($type_filter))
-                            <input type="hidden" class="type_filter" name="type_filter" value="{{ $type_filter }}">
-                            <input type="hidden" class="level_filter" name="level_filter" value="{{ $level_filter }}">
-                            @if (isset($level_array))
-                                @foreach ($level_array as $level)
-                                    <input type="hidden" name="level_array[]" value="{{ $level }}">
-                                @endforeach
+                @if (count($all_admin) > 0)
+                    <div class="content_print_pdf_product ml-10">
+                        <form action="{{ URL::to('admin/print_pdf_admin') }}" method="post">
+                            @csrf
+                            @if (isset($type_filter))
+                                <input type="hidden" class="type_filter" name="type_filter" value="{{ $type_filter }}">
+                                <input type="hidden" class="level_filter" name="level_filter" value="{{ $level_filter }}">
+                                @if (isset($level_array))
+                                    @foreach ($level_array as $level)
+                                        <input type="hidden" name="level_array[]" value="{{ $level }}">
+                                    @endforeach
+                                @else
+                                    <input type="hidden" name="level_array[]" value="">
+                                @endif
+                                @if (isset($price_filter_start) && isset($price_filter_end))
+                                    <input type="hidden" name="price_filter_start" value="{{ $price_filter_start }}">
+                                    <input type="hidden" name="price_filter_end" value="{{ $price_filter_end }}">
+                                @else
+                                    <input type="hidden" name="price_filter_start" value="">
+                                    <input type="hidden" name="price_filter_end" value="">
+                                @endif
+                                @if (isset($start_date) && isset($end_date))
+                                    <input type="hidden" name="start_date" value="{{ $start_date }}">
+                                    <input type="hidden" name="end_date" value="{{ $end_date }}">
+                                @else
+                                    <input type="hidden" name="start_date" value="">
+                                    <input type="hidden" name="end_date" value="">
+                                @endif
                             @else
-                                <input type="hidden" name="level_array[]" value="">
+                                <input type="hidden" class="type_filter" name="type_filter" value="">
+                                <input type="hidden" class="level_filter" name="level_filter" value="">
                             @endif
-                            @if (isset($price_filter_start) && isset($price_filter_end))
-                                <input type="hidden" name="price_filter_start" value="{{ $price_filter_start }}">
-                                <input type="hidden" name="price_filter_end" value="{{ $price_filter_end }}">
-                            @else
-                                <input type="hidden" name="price_filter_start" value="">
-                                <input type="hidden" name="price_filter_end" value="">
-                            @endif
-                            @if (isset($start_date) && isset($end_date))
-                                <input type="hidden" name="start_date" value="{{ $start_date }}">
-                                <input type="hidden" name="end_date" value="{{ $end_date }}">
-                            @else
-                                <input type="hidden" name="start_date" value="">
-                                <input type="hidden" name="end_date" value="">
-                            @endif
-                        @else
-                            <input type="hidden" class="type_filter" name="type_filter" value="">
-                            <input type="hidden" class="level_filter" name="level_filter" value="">
-                        @endif
-                        <button type="submit" class="btn btn-secondary">
-                            Xuất
-                            <img src="{{ asset('public/upload/pdf1.svg') }}" style="height: 25px" alt="">
-                        </button>
-                    </form>
-                </div>
+                            <button type="submit" class="btn btn-secondary">
+                                Xuất
+                                <img src="{{ asset('public/upload/pdf1.svg') }}" style="height: 25px" alt="">
+                            </button>
+                        </form>
+                    </div>
+                @endif
             </div>
             <div class="col-sm-12 col-md-6">
 

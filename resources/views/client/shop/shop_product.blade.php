@@ -586,8 +586,8 @@
                     <div class="row pd-10">
                         <div class="content_filter_cate ">
                             <span class="title_choose_cate title_to_filter">Khoảng giá</span>
-                            <input type="text" class="price_start_filter" placeholder="Từ đ">
-                            <input type="text" class="price_end_filter" placeholder="Đến đ">
+                            <input type="number" class="price_start_filter" placeholder="Từ đ" style="border: none; padding: 10px; width: 200px; margin-right: 5px">
+                            <input type="number" class="price_end_filter" placeholder="Đến đ" style="border: none; padding: 10px; width: 200px">
                         </div>
                     </div>
                 </div>

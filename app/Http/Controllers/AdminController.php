@@ -133,6 +133,7 @@ class AdminController extends Controller
         return view('admin.admin.update_admin',['update_admin'=>$update_admin,'citys'=>$citys, 'districts'=>$districts, 'wards'=>$wards]);
     }
     public function process_update_admin(Request $request, $admin_id){
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         date_default_timezone_set('Asia/Ho_Chi_Minh');
         $this->Validation_Admin($request);
         $city = $request->city;
@@ -221,6 +222,7 @@ class AdminController extends Controller
         }
     }
     public function process_update_profile_admin(Request $request, $admin_id){
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         date_default_timezone_set('Asia/Ho_Chi_Minh');
         $this->Validation_Admin($request);
         $city = $request->city;
@@ -338,6 +340,7 @@ class AdminController extends Controller
         return view('admin.admin.all_recycle_item',['recycle_item'=>$recycle_item]);
     }
     public function re_delete(Request $request,$admin_id){
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         $restore = Admin::withTrashed()->where('admin_id', $admin_id)->restore();
         if($restore){
             $action_admin = new Admin_Action_Admin();
@@ -368,6 +371,7 @@ class AdminController extends Controller
         return redirect()->back();
     }
     public function soft_delete(Request $request){
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         $admin_id = $request->admin_id;
         $soft_delete = Admin::where('admin_id', $admin_id)->delete();
         if($soft_delete){
@@ -478,6 +482,7 @@ class AdminController extends Controller
     }
 
     public function delete_when_find(Request $request,$admin_id){
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         $soft_delete = Admin::where('admin_id', $admin_id)->delete();
         if($soft_delete){
             $action_admin = new Admin_Action_Admin();
@@ -497,6 +502,7 @@ class AdminController extends Controller
         return view('admin.admin.list_permission',['admin'=>$admin]);
     }
     public function assign_roles(Request $request){
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         $data = $request->all();
         $user = Admin::where('admin_email',$data['admin_email'])->first();
         $user->roles()->detach();

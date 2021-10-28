@@ -3,6 +3,9 @@
 @section('slider_view_client')
     @include('client.layout.body.slider')
 @endsection
+{{-- load --}}
+{{-- @include('client.layout.header_middle.preload') --}}
+
 {{-- TAB SHOW PRODUCT --}}
 @section('product_tap_view_client')
     <link rel="stylesheet" href="{{ asset('public/font_end/custom/mini_detail_product.css') }}">
@@ -18,9 +21,6 @@
         .btn.active.focus {
             outline: none;
         }
-        /* body{
-            font-family: 'Inter', sans-serif;
-        } */
     </style>
     @if (count($all_product_discount) > 0)
         <div class="product-tab z-index-20 bg">

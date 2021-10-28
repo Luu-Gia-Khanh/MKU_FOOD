@@ -680,7 +680,7 @@
     </div>
     <div class="modal_delete_order modal" id="modal_delete_order">
         <!-- Modal content -->
-        <div class="modal-content container">
+        <div class="modal-content container" style="height: auto">
             <div class="modal-header-cus">
                 <span class="close close_cancel_order">&times;</span>
                 <h4>Thông báo</h4>
