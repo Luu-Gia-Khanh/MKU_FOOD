@@ -176,8 +176,7 @@
                                         <div class="tab__content-item">
                                             <div class="content-item-empty">
                                                 <img src="{{ asset('public/upload/empty.png') }}" width="200" height="200" alt="">
-                                                <span class="content-item-empty-text">Hiện không có đơn hàng nào đang chờ
-                                                    xác nhận</span>
+                                                <span class="content-item-empty-text">Hiện không có đơn hàng nào</span>
                                             </div>
                                         </div>
 
@@ -347,8 +346,7 @@
                                         <div class="tab__content-item">
                                             <div class="content-item-empty">
                                                 <img src="{{ asset('public/upload/empty.png') }}" width="200" height="200" alt="">
-                                                <span class="content-item-empty-text">Hiện không có đơn hàng nào đang chờ
-                                                    xác nhận</span>
+                                                <span class="content-item-empty-text">Hiện không có đơn hàng nào đã xác nhận</span>
                                             </div>
                                         </div>
                                     @endif
@@ -432,8 +430,7 @@
                                         <div class="tab__content-item">
                                             <div class="content-item-empty">
                                                 <img src="{{ asset('public/upload/empty.png') }}" width="200" height="200" alt="">
-                                                <span class="content-item-empty-text">Hiện không có đơn hàng nào đang chờ
-                                                    xác nhận</span>
+                                                <span class="content-item-empty-text">Hiện không có đơn hàng nào đang giao</span>
                                             </div>
                                         </div>
                                     @endif
@@ -517,8 +514,7 @@
                                         <div class="tab__content-item">
                                             <div class="content-item-empty">
                                                 <img src="{{ asset('public/upload/empty.png') }}" width="200" height="200" alt="">
-                                                <span class="content-item-empty-text">Hiện không có đơn hàng nào đang chờ
-                                                    xác nhận</span>
+                                                <span class="content-item-empty-text">Hiện không có đơn hàng nào đang đã giao</span>
                                             </div>
                                         </div>
                                     @endif
@@ -603,8 +599,7 @@
                                         <div class="tab__content-item">
                                             <div class="content-item-empty">
                                                 <img src="{{ asset('public/upload/empty.png') }}" width="200" height="200" alt="">
-                                                <span class="content-item-empty-text">Hiện không có đơn hàng nào đang chờ
-                                                    xác nhận</span>
+                                                <span class="content-item-empty-text">Hiện không có đơn hàng nào đã hủy</span>
                                             </div>
                                         </div>
                                     @endif
